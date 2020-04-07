@@ -1,4 +1,4 @@
-const functionalHelpers = require('../src/helpers.js')
+const functionalHelpers = require('../main.js')
 
 test('curry returns callable with unmet parameters', () => {
   const arg1 = 'first'

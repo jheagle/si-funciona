@@ -2,7 +2,7 @@
   "name": "functional-helpers",
   "description": "State management with JSON.",
   "version": "0.0.0",
-  "main": "src/helpers.js",
+  "main": "dist/main.js",
   "author": "Joshua Heagle",
   "license": "MIT",
   "scripts": {

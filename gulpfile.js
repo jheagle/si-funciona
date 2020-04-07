@@ -7,7 +7,7 @@ const uglify = require('gulp-uglify-es').default
 // -----------------
 
 // Optimizing JavaScript
-gulp.task('distribute', () => gulp.src('src/**/*')
+gulp.task('distribute', () => gulp.src('main.js')
   .pipe(babel({
     presets: ['@babel/preset-env']
   }))
