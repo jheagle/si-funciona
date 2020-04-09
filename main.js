@@ -19,7 +19,7 @@
    * All methods exported from this module are encapsulated within functionalHelpers.
    * @author Joshua Heagle <joshuaheagle@gmail.com>
    * @typedef {Object} functionalHelpers
-   * @module core/core
+   * @module functionalHelpers
    */
   const functionalHelpers = {}
   root.functionalHelpers = functionalHelpers
@@ -94,7 +94,7 @@
 
   /**
    * Function that produces a property of the new Object, taking three arguments
-   * @callback module:core/core~mapCallback
+   * @callback module:functionalHelpers~mapCallback
    * @param {*} currentProperty - The current property being processed in the object.
    * @param {string} [currentIndex] - The property name of the current property being processed in the object.
    * @param {Object|Array} [object] - The object map was called upon.
@@ -107,7 +107,7 @@
    * always use the standard map() function when it is known that the object is actually an array.
    * @function mapObject
    * @param {Object|Array} obj - The Object (or Array) to be mapped
-   * @param {module:core/core~mapCallback|function} fn - The function to be processed for each mapped property
+   * @param {module:functionalHelpers~mapCallback|function} fn - The function to be processed for each mapped property
    * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
    * @returns {Object|Array}
    */
@@ -126,7 +126,7 @@
    * Perform map on an array property of an object, then return the object
    * @function mapArrayProperty
    * @param {string} property - The string key for the array property to be mapped
-   * @param {module:core/core~mapCallback|function} mapFunction - A function suitable to be passed to map
+   * @param {module:functionalHelpers~mapCallback|function} mapFunction - A function suitable to be passed to map
    * @param {Object|Array} obj - An object having an array property
    * @returns {object}
    */
@@ -138,7 +138,7 @@
   /**
    * Function is a predicate, to test each property value of the object. Return true to keep the element, false
    * otherwise, taking three arguments
-   * @callback module:core/core~filterCallback
+   * @callback module:functionalHelpers~filterCallback
    * @param {*} currentProperty - The current property being processed in the object.
    * @param {string} [currentIndex] - The property name of the current property being processed in the object.
    * @param {Object|Array} [object] - The object filter was called upon.
@@ -151,7 +151,7 @@
    * always use the standard filter() function when it is known that the object is actually an array.
    * @function filterObject
    * @param {Object|Array} obj - The Object (or Array) to be filtered
-   * @param {module:core/core~filterCallback|function} fn - The function to be processed for each filtered property
+   * @param {module:functionalHelpers~filterCallback|function} fn - The function to be processed for each filtered property
    * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
    * @returns {Object|Array}
    */
@@ -168,7 +168,7 @@
 
   /**
    * Function to execute on each property in the object, taking four arguments
-   * @callback module:core/core~reduceCallback
+   * @callback module:functionalHelpers~reduceCallback
    * @param {*} [accumulator={}] - The accumulator accumulates the callback's return values; it is the accumulated
    * value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
    * @param {*} [currentProperty={}] - The current property being processed in the object.
@@ -184,7 +184,7 @@
    * always use the standard reduce() function when it is known that the object is actually an array.
    * @function reduceObject
    * @param {Object|Array} obj - The Object (or Array) to be filtered
-   * @param {module:core/core~reduceCallback|function} fn - The function to be processed for each filtered property
+   * @param {module:functionalHelpers~reduceCallback|function} fn - The function to be processed for each filtered property
    * @param {Object|Array} [initialValue] - Optional. Value to use as the first argument to the first call of the
    * callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty
    * array without an initial value is an error.
@@ -241,7 +241,7 @@
    * The passed function should accept a minimum of two objects to be merged.
    * If the desire is to mutate the input objects, then the function name should
    * have the word 'mutable' in the name (case-insensitive).
-   * @param {module:core/core.mergeObjects|module:core/core.mergeObjectsMutable|Function} fn - Pass one of
+   * @param {module:functionalHelpers.mergeObjects|module:functionalHelpers.mergeObjectsMutable|Function} fn - Pass one of
    * the mergeObjects functions to be used
    * @param {Object} obj1 - The receiving object; this is the object which will have it's properties overridden
    * @param {Object} obj2 - The contributing object; this is the object which will contribute new properties and
