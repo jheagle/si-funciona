@@ -360,12 +360,10 @@ functionalHelpers.compareArrays(
 <a name="module_functionalHelpers..trace"></a>
 
 ### functionalHelpers~trace(label) ⇒ <code>function</code>
-This was adapted from a blog post on Composing Software written by Eric Elliott. Trace provides a way to traces
-steps through code via the console, while maintaining the functional-style return value.
+Trace provides a way to traces steps through code via the console, while maintaining the functional-style return value.
 Returns a function which can then receive a value to output, the value will then be returned.
 
 **Kind**: inner method of [<code>functionalHelpers</code>](#module_functionalHelpers)  
-**Author**: Eric Elliott  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -89,8 +89,23 @@ test('filterObject applies function to exclude some values', () => {
     .toEqual({ second: 2, fourth: 4 })
 })
 
-// reduceObject
-// notEmptyObjectOrArray
+test('reduceObject applies function to create something new from the object', () => {
+  const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+  const testFunction = (summation, value) => summation + value
+  expect(functionalHelpers.reduceObject(testObject, testFunction, 0)).toEqual(15)
+})
+
+test('notEmptyObjectOrArray returns correct boolean for object and array check', () => {
+  const testObjectEmpty = {}
+  expect(functionalHelpers.notEmptyObjectOrArray(testObjectEmpty)).toBe(false)
+  const testObjectFull = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+  expect(functionalHelpers.notEmptyObjectOrArray(testObjectFull)).toBe(true)
+  const testArrayEmpty = []
+  expect(functionalHelpers.notEmptyObjectOrArray(testArrayEmpty)).toBe(false)
+  const testArrayFull = ['first', 'second', 'third', 'fourth', 'fifth']
+  expect(functionalHelpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
+})
+
 // cloneObject
 // mergeObjects
 // mergeObjectsMutable

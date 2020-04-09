@@ -433,10 +433,8 @@
       )
 
   /**
-   * This was adapted from a blog post on Composing Software written by Eric Elliott. Trace provides a way to traces
-   * steps through code via the console, while maintaining the functional-style return value.
+   * Trace provides a way to traces steps through code via the console, while maintaining the functional-style return value.
    * Returns a function which can then receive a value to output, the value will then be returned.
-   * @author Eric Elliott
    * @function trace
    * @param {string} label - Pass an identifying label of the value being output.
    * @returns {function(*=)}
