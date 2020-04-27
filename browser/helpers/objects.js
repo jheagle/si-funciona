@@ -262,5 +262,5 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   };
 
   objectHelpers.mergeObjectsMutable = mergeObjectsMutable;
-  this.Objects = objectHelpers;
+  this.objectHelpers = objectHelpers;
 }).call(void 0);

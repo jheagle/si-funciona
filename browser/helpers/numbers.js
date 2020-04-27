@@ -93,5 +93,5 @@
   };
 
   numberHelpers.compare = compare;
-  this.Numbers = numberHelpers;
+  this.numberHelpers = numberHelpers;
 }).call(void 0);

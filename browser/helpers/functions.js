@@ -152,5 +152,5 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   };
 
   functionHelpers.queueTimeout = queueTimeout;
-  this.Functions = functionHelpers;
+  this.functionHelpers = functionHelpers;
 }).call(void 0);

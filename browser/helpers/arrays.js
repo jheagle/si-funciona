@@ -176,5 +176,5 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   };
 
   arrayHelpers.compareArrays = compareArrays;
-  this.Arrays = arrayHelpers;
+  this.arrayHelpers = arrayHelpers;
 }).call(void 0);

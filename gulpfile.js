@@ -67,23 +67,28 @@ const umdOptions = {
   web: {
     arrays: {
       templateName: 'web',
-      exports: () => 'arrayHelpers'
+      exports: () => 'arrayHelpers',
+      namespace: () => 'arrayHelpers'
     },
     functions: {
       templateName: 'web',
-      exports: () => 'functionHelpers'
+      exports: () => 'functionHelpers',
+      namespace: () => 'functionHelpers'
     },
     numbers: {
       templateName: 'web',
-      exports: () => 'numberHelpers'
+      exports: () => 'numberHelpers',
+      namespace: () => 'numberHelpers'
     },
     objects: {
       templateName: 'web',
-      exports: () => 'objectHelpers'
+      exports: () => 'objectHelpers',
+      namespace: () => 'objectHelpers'
     },
     main: {
       templateName: 'web',
-      exports: () => 'functionalHelpers'
+      exports: () => 'functionalHelpers',
+      namespace: () => 'functionalHelpers'
     }
   }
 }

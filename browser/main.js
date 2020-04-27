@@ -706,5 +706,5 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   };
 
   Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers);
-  this.Main = functionalHelpers;
+  this.functionalHelpers = functionalHelpers;
 }).call(void 0);
