@@ -44,4 +44,4 @@
   )
 
   module.exports = functionalHelpers
-})(require('./main/arrays'), require('./main/functions'), require('./main/numbers'), require('./main/objects'))
+})(require('./helpers/arrays'), require('./helpers/functions'), require('./helpers/numbers'), require('./helpers/objects'))

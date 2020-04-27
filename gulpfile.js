@@ -46,19 +46,19 @@ const umdOptions = {
       exports: () => 'functionalHelpers',
       dependencies: () => [
         {
-          cjs: './main/arrays',
+          cjs: './helpers/arrays',
           param: 'arrayHelpers'
         },
         {
-          cjs: './main/functions',
+          cjs: './helpers/functions',
           param: 'functionHelpers'
         },
         {
-          cjs: './main/numbers',
+          cjs: './helpers/numbers',
           param: 'numberHelpers'
         },
         {
-          cjs: './main/objects',
+          cjs: './helpers/objects',
           param: 'objectHelpers'
         }
       ]
@@ -142,6 +142,6 @@ gulp.task('clean:browser', () => del('browser'))
 
 gulp.task('clean', gulp.parallel('clean:dist', 'clean:browser'))
 
-gulp.task('default', gulp.series('distribute'))
+gulp.task('default', gulp.series('distribute', 'browser'))
 
 gulp.task('build', gulp.series('clean', 'distribute', 'browser'))
