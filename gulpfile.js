@@ -110,9 +110,7 @@ gulp.task('browser:helpers', () => gulp.src('src/helpers/*.js')
   .pipe(gulpIf('functions.js', umd(umdOptions.web.functions)))
   .pipe(gulpIf('numbers.js', umd(umdOptions.web.numbers)))
   .pipe(gulpIf('objects.js', umd(umdOptions.web.objects)))
-  .pipe(babel({
-    presets: ['@babel/preset-env']
-  }))
+  .pipe(babel())
   // .pipe(uglify())
   .pipe(gulp.dest('browser/helpers'))
 )
@@ -126,9 +124,7 @@ gulp.task('browser:main', () => gulp.src([
 ])
   .pipe(concat('main.js'))
   .pipe(umd(umdOptions.web.main))
-  .pipe(babel({
-    presets: ['@babel/preset-env']
-  }))
+  .pipe(babel())
   // .pipe(uglify())
   .pipe(gulp.dest('browser'))
 )

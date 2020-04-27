@@ -1,5 +1,3 @@
-"use strict";
-
 ;
 (function () {
   /**
@@ -94,4 +92,4 @@
 
   numberHelpers.compare = compare;
   this.numberHelpers = numberHelpers;
-}).call(void 0);
+}).call(this);
