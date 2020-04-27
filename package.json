@@ -1,12 +1,13 @@
 {
   "name": "functional-helpers",
-  "description": "State management with JSON.",
+  "description": "General usage utility functions.",
   "version": "0.0.0",
   "main": "dist/main.js",
   "author": "Joshua Heagle",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "readme": "echo \"# functional-helpers\nGeneral usage utility functions.\n\" > README.md && jsdoc2md src/**/*.js >> README.md"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -23,8 +24,12 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^6.0.0",
+    "gulp-if": "^3.0.0",
     "gulp-uglify-es": "^2.0.0",
-    "jest": "^25.2.7",
+    "gulp-umd": "github:jheagle/gulp-umd#update-package-dependencies",
+    "jest": "^25.4.0",
     "jsdoc-to-markdown": "^5.0.3",
     "standard": "^14.3.3"
   },
