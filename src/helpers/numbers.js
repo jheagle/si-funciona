@@ -1,14 +1,13 @@
 /**
- * @file All of the numberHelpers system functions for stringing together functions and simplifying logic.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  */
 
 /**
- * All methods exported from this module are encapsulated within numberHelpers.
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @typedef {Object} numberHelpers
+ * Some number comparators and random number generators.
  * @module numberHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
 const numberHelpers = {}
 

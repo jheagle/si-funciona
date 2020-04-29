@@ -1,15 +1,14 @@
 (function () {
 /**
- * @file All of the functionHelpers system functions for stringing together functions and simplifying logic.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  */
 
   /**
- * All methods exported from this module are encapsulated within functionHelpers.
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @typedef {Object} functionHelpers
+ * Manage how functions are called with these utilities.
  * @module functionHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
   const functionHelpers = {}
 

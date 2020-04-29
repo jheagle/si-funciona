@@ -1,15 +1,14 @@
 (function ({ curry, callWithParams }) {
 /**
- * @file All of the objectHelpers system functions for stringing together functions and simplifying logic.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  */
 
   /**
- * All methods exported from this module are encapsulated within objectHelpers.
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @typedef {Object} objectHelpers
+ * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
  * @module objectHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
   const objectHelpers = {}
 

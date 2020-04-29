@@ -4,6 +4,7 @@ const del = require('del')
 const eslint = require('gulp-eslint')
 const gulp = require('gulp')
 const gulpIf = require('gulp-if')
+const rename = require('gulp-rename')
 const uglify = require('gulp-uglify-es').default
 const umd = require('gulp-umd')
 
@@ -105,15 +106,60 @@ gulp.task('distribute', () => gulp.src('src/**/*.js')
   .pipe(gulp.dest('dist'))
 )
 
-gulp.task('browser:helpers', () => gulp.src('src/helpers/*.js')
-  .pipe(gulpIf('arrays.js', umd(umdOptions.web.arrays)))
-  .pipe(gulpIf('functions.js', umd(umdOptions.web.functions)))
-  .pipe(gulpIf('numbers.js', umd(umdOptions.web.numbers)))
-  .pipe(gulpIf('objects.js', umd(umdOptions.web.objects)))
+gulp.task('browser:functions', () => gulp.src('src/helpers/functions.js')
   .pipe(babel())
-  // .pipe(uglify())
+  .pipe(umd(umdOptions.web.functions))
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('browser/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
   .pipe(gulp.dest('browser/helpers'))
 )
+
+gulp.task('browser:objects', () => gulp.src([
+  'src/helpers/functions.js',
+  'src/helpers/objects.js'
+])
+  .pipe(concat('objects.js'))
+  .pipe(babel())
+  .pipe(umd(umdOptions.web.objects))
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('browser/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('browser/helpers'))
+)
+
+gulp.task('browser:arrays', () => gulp.src([
+  'src/helpers/functions.js',
+  'src/helpers/objects.js',
+  'src/helpers/arrays.js'
+])
+  .pipe(concat('arrays.js'))
+  .pipe(babel())
+  .pipe(umd(umdOptions.web.arrays))
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('browser/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('browser/helpers'))
+)
+
+gulp.task('browser:numbers', () => gulp.src('src/helpers/numbers.js')
+  .pipe(babel())
+  .pipe(umd(umdOptions.web.numbers))
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('browser/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('browser/helpers'))
+)
+
+gulp.task('browser:helpers', gulp.parallel('browser:functions', 'browser:objects', 'browser:arrays', 'browser:numbers'))
 
 gulp.task('browser:main', () => gulp.src([
   'src/helpers/functions.js',
@@ -122,10 +168,14 @@ gulp.task('browser:main', () => gulp.src([
   'src/helpers/objects.js',
   'src/main.js'
 ])
-  .pipe(concat('main.js'))
-  .pipe(umd(umdOptions.web.main))
+  .pipe(concat('functional-helpers.js'))
   .pipe(babel())
-  // .pipe(uglify())
+  .pipe(umd(umdOptions.web.main))
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('browser'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
   .pipe(gulp.dest('browser'))
 )
 

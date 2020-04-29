@@ -1,14 +1,13 @@
 /**
- * @file All of the arrayHelpers system functions for stringing together functions and simplifying logic.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  */
 
 /**
- * All methods exported from this module are encapsulated within arrayHelpers.
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @typedef {Object} arrayHelpers
+ * Some simple utility functions for generating arrays or performing work on arrays.
  * @module arrayHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
 const arrayHelpers = {}
 

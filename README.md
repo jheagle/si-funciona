@@ -4,28 +4,28 @@ General usage utility functions.
 ## Modules
 
 <dl>
-<dt><a href="#module_arrayHelpers">arrayHelpers</a> : <code>Object</code></dt>
-<dd><p>All methods exported from this module are encapsulated within arrayHelpers.</p>
+<dt><a href="#module_arrayHelpers">arrayHelpers</a></dt>
+<dd><p>Some simple utility functions for generating arrays or performing work on arrays.</p>
 </dd>
-<dt><a href="#module_functionHelpers">functionHelpers</a> : <code>Object</code></dt>
-<dd><p>All methods exported from this module are encapsulated within functionHelpers.</p>
+<dt><a href="#module_functionHelpers">functionHelpers</a></dt>
+<dd><p>Manage how functions are called with these utilities.</p>
 </dd>
-<dt><a href="#module_numberHelpers">numberHelpers</a> : <code>Object</code></dt>
-<dd><p>All methods exported from this module are encapsulated within numberHelpers.</p>
+<dt><a href="#module_numberHelpers">numberHelpers</a></dt>
+<dd><p>Some number comparators and random number generators.</p>
 </dd>
-<dt><a href="#module_objectHelpers">objectHelpers</a> : <code>Object</code></dt>
-<dd><p>All methods exported from this module are encapsulated within objectHelpers.</p>
+<dt><a href="#module_objectHelpers">objectHelpers</a></dt>
+<dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
 </dd>
 </dl>
 
 <a name="module_arrayHelpers"></a>
 
-## arrayHelpers : <code>Object</code>
-All methods exported from this module are encapsulated within arrayHelpers.
+## arrayHelpers
+Some simple utility functions for generating arrays or performing work on arrays.
 
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
-* [arrayHelpers](#module_arrayHelpers) : <code>Object</code>
+* [arrayHelpers](#module_arrayHelpers)
     * [~buildArrayBase(useReference, item, length, [arr])](#module_arrayHelpers..buildArrayBase) ⇒ <code>Array.&lt;\*&gt;</code>
     * [~buildArray(item, length, [arr])](#module_arrayHelpers..buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
     * [~buildArrayOfReferences(item, length, [arr])](#module_arrayHelpers..buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
@@ -159,12 +159,12 @@ arrayHelpers.compareArrays(
 ```
 <a name="module_functionHelpers"></a>
 
-## functionHelpers : <code>Object</code>
-All methods exported from this module are encapsulated within functionHelpers.
+## functionHelpers
+Manage how functions are called with these utilities.
 
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
-* [functionHelpers](#module_functionHelpers) : <code>Object</code>
+* [functionHelpers](#module_functionHelpers)
     * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code>
     * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>function</code>
     * [~callWithParams(fn, params, [minimum])](#module_functionHelpers..callWithParams) ⇒ <code>\*</code>
@@ -226,12 +226,12 @@ WARNING: This is a recursive function.
 
 <a name="module_numberHelpers"></a>
 
-## numberHelpers : <code>Object</code>
-All methods exported from this module are encapsulated within numberHelpers.
+## numberHelpers
+Some number comparators and random number generators.
 
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
-* [numberHelpers](#module_numberHelpers) : <code>Object</code>
+* [numberHelpers](#module_numberHelpers)
     * [~getAbsoluteMax(num1, num2)](#module_numberHelpers..getAbsoluteMax) ⇒ <code>number</code>
     * [~getAbsoluteMin(num1, num2)](#module_numberHelpers..getAbsoluteMin) ⇒ <code>number</code>
     * [~randomNumber(range, [offset], [interval])](#module_numberHelpers..randomNumber) ⇒ <code>number</code>
@@ -307,12 +307,12 @@ Compare two numbers and return:
 
 <a name="module_objectHelpers"></a>
 
-## objectHelpers : <code>Object</code>
-All methods exported from this module are encapsulated within objectHelpers.
+## objectHelpers
+Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
 
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
-* [objectHelpers](#module_objectHelpers) : <code>Object</code>
+* [objectHelpers](#module_objectHelpers)
     * [~setValue(key, value, item)](#module_objectHelpers..setValue) ⇒ <code>Object</code> \| <code>Array</code>
     * [~setAndReturnValue(item, key, value)](#module_objectHelpers..setAndReturnValue) ⇒ <code>\*</code>
     * [~mapObject(obj, fn, [thisArg])](#module_objectHelpers..mapObject) ⇒ <code>Object</code> \| <code>Array</code>

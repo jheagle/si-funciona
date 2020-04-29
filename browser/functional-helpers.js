@@ -156,6 +156,258 @@
  */
 
   /**
+ * Some number comparators and random number generators.
+ * @module numberHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
+ */
+
+  var numberHelpers = {}
+  /**
+ * Helper for returning the absolute max value
+ * @function getAbsoluteMax
+ * @param {number} num1 - A number to compare
+ * @param {number} num2 - Another number to be compared against
+ * @returns {number}
+ */
+
+  var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
+    return Math.abs(num1) > Math.abs(num2) ? num1 : num2
+  }
+
+  numberHelpers.getAbsoluteMax = getAbsoluteMax
+  /**
+ * Helper for returning the absolute min value
+ * @function getAbsoluteMin
+ * @param {number} num1 - A number to compare
+ * @param {number} num2 - Another number to be compared against
+ * @returns {number}
+ */
+
+  var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
+    return Math.abs(num1) < Math.abs(num2) ? num1 : num2
+  }
+
+  numberHelpers.getAbsoluteMin = getAbsoluteMin
+  /**
+ * Create a single random number within provided range. And with optional offset,
+ * The distance between the result numbers can be adjusted with interval.
+ * @function randomNumber
+ * @param {number} range - Choose the breadth of the random number (0-100 would be 100 for range)
+ * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 9 for range)
+ * @param {number} [interval=1] - Choose the distance between numbers (~5, ~10, ~15 would be 5 for interval, 1 for
+ * offset, 2 for range)
+ * @returns {number}
+ */
+
+  var randomNumber = function randomNumber (range) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    return (Math.random() * range + offset) * interval
+  }
+
+  numberHelpers.randomNumber = randomNumber
+  /**
+ * Create a single random integer within provide range. And with optional offset,
+ * The distance between the result numbers can be adjusted with interval.
+ * @function randomInteger
+ * @param {number} range - Choose the breadth of the random number (0-100 would be 100 for range)
+ * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 9 for range)
+ * @param {number} [interval=1] - Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for
+ * offset, 2 for range)
+ * @returns {number}
+ */
+
+  var randomInteger = function randomInteger (range) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    return (Math.floor(Math.random() * range) + offset) * interval
+  }
+
+  numberHelpers.randomInteger = randomInteger
+  /**
+ * Compare two numbers and return:
+ * -1 to indicate val1 is less than val2
+ * 0 to indicate both values are the equal
+ * 1 to indicate val1 is greater than val2
+ * @function compare
+ * @param {number} val1 - The first number to compare
+ * @param {number} val2 - The second number to compare
+ * @returns {number}
+ */
+
+  var compare = function compare (val1, val2) {
+    return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
+  }
+
+  numberHelpers.compare = compare
+  /**
+ * @file
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
+ * @version 1.0.0
+ */
+
+  /**
+ * Some simple utility functions for generating arrays or performing work on arrays.
+ * @module arrayHelpers
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
+ */
+
+  var arrayHelpers = {}
+  /**
+ * Generate an array filled with a copy of the provided item or references to the provided item.
+ * The length defines how long the array should be.
+ * WARNING: This is a recursive function.
+ * @param {boolean} useReference - Choose to multiply by clone or reference, true is by reference
+ * @param {*} item - The item to be used for each array element
+ * @param {number} length - The desired length of the array
+ * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
+ * @returns {Array.<*>}
+ */
+
+  var buildArrayBase = function buildArrayBase (useReference, item, length) {
+    var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
+    item = useReference ? item : cloneObject(item)
+    return --length > 0 ? buildArrayBase(useReference, item, length, arr.concat([item])) : arr.concat([item])
+  }
+  /**
+ * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
+ * The length defines how long the array should be.
+ * @function buildArray
+ * @param {*} item - The item to be used for each array element
+ * @param {number} length - The desired length of the array
+ * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
+ * @returns {Array.<*>}
+ */
+
+  var buildArray = curry(buildArrayBase)(false)
+  arrayHelpers.buildArray = buildArray
+  /**
+ * Leverage buildArrayBase to generate an array filled with references to the provided item.
+ * The length defines how long the array should be.
+ * @function buildArrayOfReferences
+ * @param {*} item - The item to be used for each array element
+ * @param {number} length - The desired length of the array
+ * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
+ * @returns {Array.<*>}
+ */
+
+  var buildArrayOfReferences = curry(buildArrayBase)(true)
+  arrayHelpers.buildArrayOfReferences = buildArrayOfReferences
+  /**
+ * Remove duplicate values from an array.
+ * @function uniqueArray
+ * @param {Array} array - The array to make unique
+ * @returns {Array}
+ */
+
+  var uniqueArray = function uniqueArray (array) {
+    return array.filter(function (item, index) {
+      return array.indexOf(item) === index
+    })
+  }
+
+  arrayHelpers.uniqueArray = uniqueArray
+  /**
+ * Take multiple arrays and then filter all these into one unique array.
+ * @function uniqueArray
+ * @param {...Array} arrays - Provide mulitple arrays to create one unique array
+ * @returns {Array}
+ */
+
+  var mergeArrays = function mergeArrays () {
+    for (var _len5 = arguments.length, arrays = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      arrays[_key5] = arguments[_key5]
+    }
+
+    return arrays.map(arrayHelpers.uniqueArray).reduce(function (merged, arr) {
+      return [].concat(_toConsumableArray(merged), _toConsumableArray(arr.filter(function (attr) {
+        return !merged.includes(attr)
+      })))
+    }, [])
+  }
+
+  arrayHelpers.mergeArrays = mergeArrays
+  /**
+ * Compare two Arrays and return the Object where the value for each property is as follows:
+ * -1 to indicate val1 is less than val2
+ * 0 to indicate both values are the equal
+ * 1 to indicate val1 is greater than val2
+ * The returned Object uses the element values as the property names
+ * This functions works by first creating a concatenated array of all unique values. Then for each unique values,
+ * convert to a string and use it as a new property name. Array filter each array checking if it has the unique value.
+ * Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
+ * the first length will be one or more and the second will be zero, if the both have the value then both will be one
+ * or more.
+ * @example
+ * // example of input and resulting output
+ * arrayHelpers.compareArrays(
+ *   ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],
+ *   ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
+ * )
+ * // unique array
+ * ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1', 'secondMismatch1']
+ * // result object
+ * [
+ *   {
+ *     value: 'match1',
+ *     result: [0, 0]
+ *   },
+ *   {
+ *     value: 'firstMismatch1',
+ *     result: [1, -1]
+ *   },
+ *   {
+ *     value: 'match2',
+ *     result: [0, 0]
+ *   },
+ *   {
+ *     value: 'firstMismatch2',
+ *     result: [1, -1]
+ *   },
+ *   {
+ *     value: 'badMatch1',
+ *     result: [0, 0]
+ *   },
+ *   {
+ *     value: 'secondMismatch1',
+ *     result: [-1, 1]
+ *   }
+ * ]
+ *
+ * @function compareArrays
+ * @param {Array} arr1 - The first array to compare
+ * @param {Array} arr2 - The second array to compare
+ * @returns {Object.<string, number>}
+ */
+
+  var compareArrays = function compareArrays () {
+    for (var _len6 = arguments.length, arrays = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+      arrays[_key6] = arguments[_key6]
+    }
+
+    return arrayHelpers.mergeArrays.apply(arrayHelpers, arrays).reduce(function (results, attr) {
+      var arrayResults = arrays.map(function (array) {
+        return array.includes(attr) ? 1 : -1
+      })
+      return [].concat(_toConsumableArray(results), [{
+        value: attr,
+        result: arrayResults.every(function (result) {
+          return result === 1
+        }) ? arrayResults.map(function (result) {
+            return 0
+          }) : arrayResults
+      }])
+    }, [])
+  }
+
+  arrayHelpers.compareArrays = compareArrays
+  /**
+ * @file
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
+ * @version 1.0.0
+ */
+
+  /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
  * @module objectHelpers
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -376,8 +628,8 @@
  */
 
   var mergeObjects = function mergeObjects () {
-    for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-      args[_key5] = arguments[_key5]
+    for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+      args[_key7] = arguments[_key7]
     }
 
     return args.length === 2 ? mergeObjectsBase(mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce(curry(mergeObjectsBase)(mergeObjects), {})
@@ -397,13 +649,51 @@
  */
 
   var mergeObjectsMutable = function mergeObjectsMutable () {
-    for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-      args[_key6] = arguments[_key6]
+    for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+      args[_key8] = arguments[_key8]
     }
 
     return args.length === 2 ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true) : args.length === 1 ? args[0] : args.reduce(curry(mergeObjectsBase)(mergeObjectsMutable), {})
   }
 
   objectHelpers.mergeObjectsMutable = mergeObjectsMutable
-  this.objectHelpers = objectHelpers
+  /**
+ * @file All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * @author Joshua Heagle <joshuaheagle@gmail.com>
+ * @version 1.0.0
+ */
+
+  /**
+   * Store a reference to this scope which will be Window if rendered via browser
+   */
+
+  var root = this || {}
+  /**
+   * Store reference to any pre-existing module of the same name
+   * @type {module|*}
+   */
+
+  var previousFunctionalHelpers = root.functionalHelpers || {}
+  /**
+   * All methods exported from this module are encapsulated within functionalHelpers.
+   * @author Joshua Heagle <joshuaheagle@gmail.com>
+   * @typedef {Object} functionalHelpers
+   * @module functionalHelpers
+   */
+
+  var functionalHelpers = {}
+  root.functionalHelpers = functionalHelpers
+  /**
+   * Return a reference to this library while preserving the original same-named library
+   * @function noConflict
+   * @returns {functionalHelpers}
+   */
+
+  functionalHelpers.noConflict = function () {
+    root.functionalHelpers = previousFunctionalHelpers
+    return functionalHelpers
+  }
+
+  Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
+  this.functionalHelpers = functionalHelpers
 }).call(this)
