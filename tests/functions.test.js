@@ -47,4 +47,53 @@ test('callWithParams will use the correct number of parameters for a function', 
     .toBe('arg1: first, arg2: second, arg3: third')
 })
 
-// queueTimeout
+test('delay will timeout then provide a proimse', () => {
+  const testFn = jest.fn()
+  const functionTest = value => testFn() || value
+  expect.assertions(2)
+  return helpers.delay(10)
+    .then(() => functionTest('complete'))
+    .then(result => {
+      expect(testFn).toHaveBeenCalled()
+      expect(result).toEqual('complete')
+      return result
+    })
+})
+
+test('queueManager takes multiple functions and processes sequencially', done => {
+  const testArray = []
+  const test1 = jest.fn()
+  const test2 = jest.fn()
+  const test3 = jest.fn()
+  const test4 = jest.fn()
+  const function1 = value => testArray.push(value) && (test1() || value)
+  const function2 = value => testArray.push(value) && (test2() || value)
+  const function3 = value => testArray.push(value) && (test3() || value)
+  const function4 = value => testArray.push(value) && (test4() || value)
+  expect.assertions(5)
+  Promise.all([
+    helpers.queueManager(function1, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
+    helpers.queueManager(function2, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
+    helpers.queueManager(function3, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
+    helpers.queueManager(function4, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
+  ]).then(result => expect(testArray).toEqual(result) || done())
+})
+
+test('queueTimeout takes multiple functions and processes sequencially them after provided timeouts', () => {
+  const testArray = []
+  const test1 = jest.fn()
+  const test2 = jest.fn()
+  const test3 = jest.fn()
+  const test4 = jest.fn()
+  const function1 = value => testArray.push(value) && (test1() || value)
+  const function2 = value => testArray.push(value) && (test2() || value)
+  const function3 = value => testArray.push(value) && (test3() || value)
+  const function4 = value => testArray.push(value) && (test4() || value)
+  expect.assertions(5)
+  return Promise.all([
+    helpers.queueTimeout(function1, 500, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
+    helpers.queueTimeout(function2, 0, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
+    helpers.queueTimeout(function3, 100, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
+    helpers.queueTimeout(function4, 50, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
+  ]).then(result => expect(testArray).toEqual(result) || result)
+})

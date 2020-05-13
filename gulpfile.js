@@ -26,7 +26,13 @@ const umdOptions = {
     },
     functions: {
       templateName: 'node',
-      exports: () => 'functionHelpers'
+      exports: () => 'functionHelpers',
+      dependencies: () => [
+        {
+          cjs: 'regenerator-runtime',
+          param: 'regeneratorRuntime'
+        }
+      ]
     },
     numbers: {
       templateName: 'node',
@@ -61,6 +67,10 @@ const umdOptions = {
         {
           cjs: './helpers/objects',
           param: 'objectHelpers'
+        },
+        {
+          cjs: 'regenerator-runtime',
+          param: 'regeneratorRuntime'
         }
       ]
     }

@@ -1,7 +1,7 @@
 test('Generated main browser file exports intended functions', () => {
   const mockWindow = require('../browser/functional-helpers.min.js')
   expect(mockWindow).toHaveProperty('functionalHelpers')
-  expect(Object.keys(mockWindow.functionalHelpers).length).toEqual(25)
+  expect(Object.keys(mockWindow.functionalHelpers).length).toEqual(27)
   expect(typeof mockWindow.functionalHelpers.noConflict).toBe('function')
   expect(typeof mockWindow.functionalHelpers.buildArray).toBe('function')
   expect(typeof mockWindow.functionalHelpers.buildArrayOfReferences).toBe('function')
@@ -43,10 +43,12 @@ test('Generated arrays browser file exports intended functions', () => {
 test('Generated functions browser file exports intended functions', () => {
   const mockWindow = require('../browser/helpers/functions.min.js')
   expect(mockWindow).toHaveProperty('functionHelpers')
-  expect(Object.keys(mockWindow.functionHelpers).length).toEqual(4)
+  expect(Object.keys(mockWindow.functionHelpers).length).toEqual(6)
   expect(typeof mockWindow.functionHelpers.curry).toBe('function')
   expect(typeof mockWindow.functionHelpers.pipe).toBe('function')
   expect(typeof mockWindow.functionHelpers.callWithParams).toBe('function')
+  expect(typeof mockWindow.functionHelpers.delay).toBe('function')
+  expect(typeof mockWindow.functionHelpers.queueManager).toBe('function')
   expect(typeof mockWindow.functionHelpers.queueTimeout).toBe('function')
 })
 

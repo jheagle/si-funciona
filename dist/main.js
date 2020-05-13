@@ -1,4 +1,4 @@
-(function (arrayHelpers, functionHelpers, numberHelpers, objectHelpers) {
+(function (arrayHelpers, functionHelpers, numberHelpers, objectHelpers, regeneratorRuntime) {
 /**
  * @file All of the functionalHelpers system functions for stringing together functions and simplifying logic.
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -44,4 +44,4 @@
   )
 
   module.exports = functionalHelpers
-})(require('./helpers/arrays'), require('./helpers/functions'), require('./helpers/numbers'), require('./helpers/objects'))
+})(require('./helpers/arrays'), require('./helpers/functions'), require('./helpers/numbers'), require('./helpers/objects'), require('regenerator-runtime'))

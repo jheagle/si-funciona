@@ -165,14 +165,16 @@ Manage how functions are called with these utilities.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [functionHelpers](#module_functionHelpers)
-    * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code>
-    * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>function</code>
+    * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code> \| <code>\*</code>
+    * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>\*</code>
     * [~callWithParams(fn, params, [minimum])](#module_functionHelpers..callWithParams) ⇒ <code>\*</code>
-    * [~queueTimeout(fn, time, ...args)](#module_functionHelpers..queueTimeout) ⇒ <code>Object</code>
+    * [~delay(time)](#module_functionHelpers..delay) ⇒ <code>Promise</code>
+    * [~queueManager(fn, ...args)](#module_functionHelpers..queueManager) ⇒ <code>Promise</code>
+    * [~queueTimeout(fn, time, ...args)](#module_functionHelpers..queueTimeout) ⇒ <code>Promise</code>
 
 <a name="module_functionHelpers..curry"></a>
 
-### functionHelpers~curry(fn) ⇒ <code>function</code>
+### functionHelpers~curry(fn) ⇒ <code>function</code> \| <code>\*</code>
 Return a curried version of the passed function.
 The returned function expects the same number of arguments minus the ones provided.
 fn is the name of the function being curried.
@@ -185,7 +187,7 @@ fn is the name of the function being curried.
 
 <a name="module_functionHelpers..pipe"></a>
 
-### functionHelpers~pipe(...fns) ⇒ <code>function</code>
+### functionHelpers~pipe(...fns) ⇒ <code>\*</code>
 Take one or more function with a single parameter and return value.
 Pass a paramter and the value will be transformed by each function then returned.
 
@@ -202,25 +204,45 @@ Given a function, call with the correct number of paramters from an array of pos
 
 **Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type |
-| --- | --- |
-| fn | <code>function</code> | 
-| params | <code>Array</code> | 
-| [minimum] | <code>number</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| fn | <code>function</code> |  | The function to be called |
+| params | <code>Array</code> |  | Array of possible function parameters |
+| [minimum] | <code>number</code> | <code>2</code> | Minimumn number of parameters to use in the function |
 
-<a name="module_functionHelpers..queueTimeout"></a>
+<a name="module_functionHelpers..delay"></a>
 
-### functionHelpers~queueTimeout(fn, time, ...args) ⇒ <code>Object</code>
-Run Timeout functions one after the other in queue. This function needs some work to comply with the standards
-applied to the rest of this file where this is not a Pure function, and it does not reliably return a result. This
-implementation should likely be used with Promise instead.
-WARNING: This is a recursive function.
+### functionHelpers~delay(time) ⇒ <code>Promise</code>
+Provide a timeout which returns a promise.
+
+**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| time | <code>number</code> | <code>0</code> | Delay in milliseconds |
+
+<a name="module_functionHelpers..queueManager"></a>
+
+### functionHelpers~queueManager(fn, ...args) ⇒ <code>Promise</code>
+Manage functions to run sequentially. Each time queue manager is called the passed function is added to the queue to be called when ready.
 
 **Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| fn | <code>function</code> \| <code>object</code> \| <code>boolean</code> | A callback function to be performed at some time in the future. |
+| fn | <code>\*</code> | A function to enqueue |
+| ...args | <code>any</code> | Arguments to be passed to the function once it is ready |
+
+<a name="module_functionHelpers..queueTimeout"></a>
+
+### functionHelpers~queueTimeout(fn, time, ...args) ⇒ <code>Promise</code>
+Run Timeout functions one after the other in queue.
+
+**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | A callback function to be performed at some time in the future. |
 | time | <code>number</code> | The time in milliseconds to delay. |
 | ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
 

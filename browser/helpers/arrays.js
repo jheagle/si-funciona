@@ -5,7 +5,7 @@
 
   function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-  function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(n); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+  function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
   function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
 
@@ -31,7 +31,7 @@
  * fn is the name of the function being curried.
  * @function curry
  * @param {function} fn - Receives a function to be curried
- * @returns {function(...[*]): function(...[*])}
+ * @returns {function|*}
  */
 
   var curry = function curry (fn) {
@@ -56,7 +56,7 @@
  * Pass a paramter and the value will be transformed by each function then returned.
  * @function pipe
  * @param {...function} fns - Takes a series of functions having the same parameter
- * @returns {function(*=): (*|any)}
+ * @returns {*}
  */
 
   var pipe = function pipe () {
@@ -75,9 +75,9 @@
   /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
  * @function callWithParams
- * @param {function} fn
- * @param {Array} params
- * @param {number} [minimum]
+ * @param {function} fn - The function to be called
+ * @param {Array} params - Array of possible function parameters
+ * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
  * @returns {*}
  */
 
@@ -89,63 +89,104 @@
 
   functionHelpers.callWithParams = callWithParams
   /**
- * Run Timeout functions one after the other in queue. This function needs some work to comply with the standards
- * applied to the rest of this file where this is not a Pure function, and it does not reliably return a result. This
- * implementation should likely be used with Promise instead.
- * WARNING: This is a recursive function.
- * @function queueTimeout
- * @param {function|object|boolean} fn - A callback function to be performed at some time in the future.
- * @param {number} time - The time in milliseconds to delay.
- * @param {...*} args - Arguments to be passed to the callback once it is implemented.
- * @returns {{id: number, func: function, timeout: number, args: {Array}, result: *}}
+ * Provide a timeout which returns a promise.
+ * @param {number} time - Delay in milliseconds
+ * @returns {Promise}
  */
 
-  var queueTimeout = function queueTimeout () {
-    var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  var delay = function delay () {
+    var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+    return new Promise(function (resolve, reject) {
+      return isNaN(time) ? reject(time) : setTimeout(resolve, time)
+    })
+  }
+
+  functionHelpers.delay = delay
+  /**
+ * Manage functions to run sequentially. Each time queue manager is called the passed function is added to the queue to be called when ready.
+ * @function queueManager
+ * @param {*} fn - A function to enqueue
+ * @param  {...any} args - Arguments to be passed to the function once it is ready
+ * @returns {Promise}
+ */
+
+  var queueManager = function queueManager (fn) {
+    for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+      args[_key4 - 1] = arguments[_key4]
+    }
+
+    queueManager.queue = queueManager.queue || []
+    queueManager.isRunning = queueManager.isRunning || false
+
+    var runNextItem = function runNextItem () {
+      if (queueManager.queue.length && !queueManager.isRunning) {
+        queueManager.isRunning = true
+        var toRun = queueManager.queue.shift()
+        toRun.generator.next(toRun.item)
+      }
+
+      return queueManager.queue
+    }
+
+    return new Promise(function (resolve, reject) {
+      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+        var item
+        return regeneratorRuntime.wrap(function _callee$ (_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2
+                return
+
+              case 2:
+                item = _context.sent
+                return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
+
+              case 4:
+              case 'end':
+                return _context.stop()
+            }
+          }
+        }, _callee)
+      })()
+      generator.next()
+      queueManager.queue.push({
+        item: {
+          fn: fn,
+          args: args
+        },
+        generator: generator
+      })
+      runNextItem()
+    }).then(function (resolvedResult) {
+      queueManager.isRunning = false
+      runNextItem()
+      return resolvedResult
+    })
+  }
+
+  functionHelpers.queueManager = queueManager
+  /**
+ * Run Timeout functions one after the other in queue.
+ * @function queueTimeout
+ * @param {function} fn - A callback function to be performed at some time in the future.
+ * @param {number} time - The time in milliseconds to delay.
+ * @param {...*} args - Arguments to be passed to the callback once it is implemented.
+ * @returns {Promise}
+ */
+
+  var queueTimeout = function queueTimeout (fn) {
     var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-    // Track the queue to be processed in FIFO
-    queueTimeout.queue = queueTimeout.queue || [] // Do not run more than one queued item at a time
 
-    queueTimeout.isRunning = queueTimeout.isRunning || false // Construct an object which will store the queued function data
-
-    for (var _len4 = arguments.length, args = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
-      args[_key4 - 2] = arguments[_key4]
+    for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
+      args[_key5 - 2] = arguments[_key5]
     }
 
-    var queueItem = {
-      id: 0,
-      func: fn,
-      timeout: time,
-      args: args,
-      result: 0
-    }
-
-    if (fn) {
-    // When the function is valid, append it to the end of the queue
-      queueTimeout.queue.push(queueItem)
-    }
-
-    if (queueTimeout.queue.length && !queueTimeout.isRunning) {
-    // Check that the queue is not empty, and it is not running a queued item
-    // Set isRunning flag to begin processing the next queued item
-      queueTimeout.isRunning = true // Pick an item off the front of the queue, and thereby reduce the queue size
-
-      var toRun = queueTimeout.queue.shift() // Get the timeout ID when it has begun
-
-      toRun.id = setTimeout(function () {
-      // Run the function after the provided timeout
-        toRun.result = toRun.func.apply(toRun, _toConsumableArray(toRun.args)) // Reset isRunning flag
-
-        queueTimeout.isRunning = false // Re-run the queue which will get the next queued item if there is one
-
-        return queueTimeout(false)
-      }, toRun.timeout) // Return whatever object we have for the current queued item being processed, likely incomplete because the
-      // function will complete in the future
-
-      return toRun
-    } // Return newly created queuedItem
-
-    return queueItem
+    return queueManager(function () {
+      return delay(time).then(function () {
+        return fn.apply(void 0, args)
+      })
+    })
   }
 
   functionHelpers.queueTimeout = queueTimeout
@@ -376,8 +417,8 @@
  */
 
   var mergeObjects = function mergeObjects () {
-    for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-      args[_key5] = arguments[_key5]
+    for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+      args[_key6] = arguments[_key6]
     }
 
     return args.length === 2 ? mergeObjectsBase(mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce(curry(mergeObjectsBase)(mergeObjects), {})
@@ -397,8 +438,8 @@
  */
 
   var mergeObjectsMutable = function mergeObjectsMutable () {
-    for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-      args[_key6] = arguments[_key6]
+    for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+      args[_key7] = arguments[_key7]
     }
 
     return args.length === 2 ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true) : args.length === 1 ? args[0] : args.reduce(curry(mergeObjectsBase)(mergeObjectsMutable), {})
@@ -480,8 +521,8 @@
  */
 
   var mergeArrays = function mergeArrays () {
-    for (var _len7 = arguments.length, arrays = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
-      arrays[_key7] = arguments[_key7]
+    for (var _len8 = arguments.length, arrays = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+      arrays[_key8] = arguments[_key8]
     }
 
     return arrays.map(arrayHelpers.uniqueArray).reduce(function (merged, arr) {
@@ -546,8 +587,8 @@
  */
 
   var compareArrays = function compareArrays () {
-    for (var _len8 = arguments.length, arrays = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
-      arrays[_key8] = arguments[_key8]
+    for (var _len9 = arguments.length, arrays = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
+      arrays[_key9] = arguments[_key9]
     }
 
     return arrayHelpers.mergeArrays.apply(arrayHelpers, arrays).reduce(function (results, attr) {
