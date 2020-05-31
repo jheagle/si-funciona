@@ -1,5 +1,5 @@
-(function (arrayHelpers, functionHelpers, numberHelpers, objectHelpers, regeneratorRuntime) {
-/**
+;(function (arrayHelpers, functionHelpers, numberHelpers, objectHelpers, regeneratorRuntime) {
+  /**
  * @file All of the functionalHelpers system functions for stringing together functions and simplifying logic.
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0

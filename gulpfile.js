@@ -7,102 +7,7 @@ const gulpIf = require('gulp-if')
 const rename = require('gulp-rename')
 const uglify = require('gulp-uglify-es').default
 const umd = require('gulp-umd')
-
-const umdOptions = {
-  node: {
-    arrays: {
-      templateName: 'node',
-      exports: () => 'arrayHelpers',
-      dependencies: () => [
-        {
-          cjs: './functions',
-          param: '{ curry }'
-        },
-        {
-          cjs: './objects',
-          param: '{ cloneObject }'
-        }
-      ]
-    },
-    functions: {
-      templateName: 'node',
-      exports: () => 'functionHelpers',
-      dependencies: () => [
-        {
-          cjs: 'regenerator-runtime',
-          param: 'regeneratorRuntime'
-        }
-      ]
-    },
-    numbers: {
-      templateName: 'node',
-      exports: () => 'numberHelpers'
-    },
-    objects: {
-      templateName: 'node',
-      exports: () => 'objectHelpers',
-      dependencies: () => [
-        {
-          cjs: './functions',
-          param: '{ curry, callWithParams }'
-        }
-      ]
-    },
-    main: {
-      templateName: 'node',
-      exports: () => 'functionalHelpers',
-      dependencies: () => [
-        {
-          cjs: './helpers/arrays',
-          param: 'arrayHelpers'
-        },
-        {
-          cjs: './helpers/functions',
-          param: 'functionHelpers'
-        },
-        {
-          cjs: './helpers/numbers',
-          param: 'numberHelpers'
-        },
-        {
-          cjs: './helpers/objects',
-          param: 'objectHelpers'
-        },
-        {
-          cjs: 'regenerator-runtime',
-          param: 'regeneratorRuntime'
-        }
-      ]
-    }
-  },
-  web: {
-    arrays: {
-      templateName: 'web',
-      exports: () => 'arrayHelpers',
-      namespace: () => 'arrayHelpers'
-    },
-    functions: {
-      templateName: 'web',
-      exports: () => 'functionHelpers',
-      namespace: () => 'functionHelpers'
-    },
-    numbers: {
-      templateName: 'web',
-      exports: () => 'numberHelpers',
-      namespace: () => 'numberHelpers'
-    },
-    objects: {
-      templateName: 'web',
-      exports: () => 'objectHelpers',
-      namespace: () => 'objectHelpers'
-    },
-    main: {
-      templateName: 'web',
-      exports: () => 'functionalHelpers',
-      namespace: () => 'functionalHelpers'
-    }
-  }
-}
+const umdOptions = require('./umd-config')
 
 gulp.task('distribute', () => gulp.src('src/**/*.js')
   .pipe(gulpIf('helpers/arrays.js', umd(umdOptions.node.arrays)))
@@ -191,13 +96,74 @@ gulp.task('browser:main', () => gulp.src([
 
 gulp.task('browser', gulp.parallel('browser:helpers', 'browser:main'))
 
+gulp.task('modules:functions', () => gulp.src('src/helpers/functions.js')
+  .pipe(umd(umdOptions.modules.functions))
+  .pipe(babel())
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('modules/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('modules/helpers'))
+)
+
+gulp.task('modules:objects', () => gulp.src('src/helpers/objects.js')
+  .pipe(umd(umdOptions.modules.objects))
+  .pipe(babel())
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('modules/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('modules/helpers'))
+)
+
+gulp.task('modules:arrays', () => gulp.src('src/helpers/arrays.js')
+  .pipe(umd(umdOptions.modules.arrays))
+  .pipe(babel())
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('modules/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('modules/helpers'))
+)
+
+gulp.task('modules:numbers', () => gulp.src('src/helpers/numbers.js')
+  .pipe(umd(umdOptions.modules.numbers))
+  .pipe(babel())
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('modules/helpers'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('modules/helpers'))
+)
+
+gulp.task('modules:helpers', gulp.parallel('modules:functions', 'modules:objects', 'modules:arrays', 'modules:numbers'))
+
+gulp.task('modules:main', () => gulp.src('src/main.js')
+  .pipe(umd(umdOptions.modules.main))
+  .pipe(babel())
+  .pipe(eslint({ fix: true }))
+  .pipe(eslint.format())
+  .pipe(gulp.dest('modules'))
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(gulp.dest('modules'))
+)
+
+gulp.task('modules', gulp.parallel('modules:helpers', 'modules:main'))
+
 // Cleaning
 gulp.task('clean:dist', () => del('dist'))
 
 gulp.task('clean:browser', () => del('browser'))
 
-gulp.task('clean', gulp.parallel('clean:dist', 'clean:browser'))
+gulp.task('clean:modules', () => del('modules'))
 
-gulp.task('default', gulp.series('distribute', 'browser'))
+gulp.task('clean', gulp.parallel('clean:dist', 'clean:browser', 'clean:modules'))
 
-gulp.task('build', gulp.series('clean', 'distribute', 'browser'))
+gulp.task('default', gulp.series('distribute', 'browser', 'modules'))
+
+gulp.task('build', gulp.series('clean', 'distribute', 'browser', 'modules'))

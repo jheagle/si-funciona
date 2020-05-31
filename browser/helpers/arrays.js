@@ -1,17 +1,13 @@
 ;(function () {
-  function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+  'use strict'
 
-  function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+  var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault')
 
-  function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+  var _typeof2 = _interopRequireDefault(require('@babel/runtime/helpers/typeof'))
 
-  function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+  var _regenerator = _interopRequireDefault(require('@babel/runtime/regenerator'))
 
-  function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
-
-  function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-
-  function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
+  var _toConsumableArray2 = _interopRequireDefault(require('@babel/runtime/helpers/toConsumableArray'))
 
   /**
  * @file
@@ -84,21 +80,45 @@
   var callWithParams = function callWithParams (fn) {
     var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
     var minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
-    return fn.apply(void 0, _toConsumableArray(params.slice(0, fn.length || minimum)))
+    return fn.apply(void 0, (0, _toConsumableArray2.default)(params.slice(0, fn.length || minimum)))
   }
 
   functionHelpers.callWithParams = callWithParams
   /**
+ * Provide a way to cancel a request or attach a resolve event.
+ * @typedef {Object} delayHandler
+ * @property {Promise} resolver
+ * @property {Function} cancel
+ */
+
+  /**
  * Provide a timeout which returns a promise.
  * @param {number} time - Delay in milliseconds
- * @returns {Promise}
+ * @returns {delayHandler}
  */
 
   var delay = function delay () {
     var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
-    return new Promise(function (resolve, reject) {
-      return isNaN(time) ? reject(time) : setTimeout(resolve, time)
-    })
+
+    var cancel = function cancel () {
+      return undefined
+    }
+
+    return {
+      resolver: new Promise(function (resolve, reject) {
+        if (isNaN(time)) {
+          reject(new Error('Invalid delay: '.concat(time)))
+        } else {
+          var timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+
+          cancel = function cancel () {
+            clearTimeout(timeoutId)
+            reject(new Error('Cancelled delay: '.concat(time)))
+          }
+        }
+      }),
+      cancel: cancel
+    }
   }
 
   functionHelpers.delay = delay
@@ -129,9 +149,9 @@
     }
 
     return new Promise(function (resolve, reject) {
-      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+      var generator = /* #__PURE__ */_regenerator.default.mark(function _callee () {
         var item
-        return regeneratorRuntime.wrap(function _callee$ (_context) {
+        return _regenerator.default.wrap(function _callee$ (_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -140,7 +160,7 @@
 
               case 2:
                 item = _context.sent
-                return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
+                return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, (0, _toConsumableArray2.default)(item.args))) : reject(item))
 
               case 4:
               case 'end':
@@ -149,6 +169,7 @@
           }
         }, _callee)
       })()
+
       generator.next()
       queueManager.queue.push({
         item: {
@@ -183,7 +204,7 @@
     }
 
     return queueManager(function () {
-      return delay(time).then(function () {
+      return delay(time).resolver.then(function () {
         return fn.apply(void 0, args)
       })
     })
@@ -352,7 +373,7 @@
  */
 
   var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
-    return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
+    return !!((0, _typeof2.default)(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
   }
 
   objectHelpers.notEmptyObjectOrArray = notEmptyObjectOrArray
@@ -473,7 +494,7 @@
   var buildArrayBase = function buildArrayBase (useReference, item, length) {
     var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
     item = useReference ? item : cloneObject(item)
-    return --length > 0 ? buildArrayBase(useReference, item, length, arr.concat([item])) : arr.concat([item])
+    return --length > 0 ? buildArrayBase(useReference, item, length, [].concat((0, _toConsumableArray2.default)(arr), [item])) : [].concat((0, _toConsumableArray2.default)(arr), [item])
   }
   /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
@@ -526,7 +547,7 @@
     }
 
     return arrays.map(arrayHelpers.uniqueArray).reduce(function (merged, arr) {
-      return [].concat(_toConsumableArray(merged), _toConsumableArray(arr.filter(function (attr) {
+      return [].concat((0, _toConsumableArray2.default)(merged), (0, _toConsumableArray2.default)(arr.filter(function (attr) {
         return !merged.includes(attr)
       })))
     }, [])
@@ -595,7 +616,7 @@
       var arrayResults = arrays.map(function (array) {
         return array.includes(attr) ? 1 : -1
       })
-      return [].concat(_toConsumableArray(results), [{
+      return [].concat((0, _toConsumableArray2.default)(results), [{
         value: attr,
         result: arrayResults.every(function (result) {
           return result === 1
@@ -608,4 +629,4 @@
 
   arrayHelpers.compareArrays = compareArrays
   this.arrayHelpers = arrayHelpers
-}).call(this)
+}).call(this || window || {})

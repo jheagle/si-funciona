@@ -1,5 +1,5 @@
-(function () {
-/**
+;(function () {
+  /**
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0

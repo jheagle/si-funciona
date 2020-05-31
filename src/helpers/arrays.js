@@ -24,8 +24,8 @@ const arrayHelpers = {}
 const buildArrayBase = (useReference, item, length, arr = []) => {
   item = useReference ? item : cloneObject(item)
   return --length > 0
-    ? buildArrayBase(useReference, item, length, arr.concat([item]))
-    : arr.concat([item])
+    ? buildArrayBase(useReference, item, length, [...arr, item])
+    : [...arr, item]
 }
 
 /**

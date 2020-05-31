@@ -47,17 +47,23 @@ test('callWithParams will use the correct number of parameters for a function', 
     .toBe('arg1: first, arg2: second, arg3: third')
 })
 
-test('delay will timeout then provide a proimse', () => {
-  const testFn = jest.fn()
-  const functionTest = value => testFn() || value
-  expect.assertions(2)
-  return helpers.delay(10)
-    .then(() => functionTest('complete'))
-    .then(result => {
-      expect(testFn).toHaveBeenCalled()
-      expect(result).toEqual('complete')
-      return result
-    })
+describe('delay', () => {
+  test('will reject on non numeric time input', () => {
+    expect.assertions(1)
+    return expect(helpers.delay('not a number').resolver).rejects.toEqual(new Error('Invalid delay: not a number'))
+  })
+
+  test('will timeout then provide a proimse', () => {
+    expect.assertions(1)
+    return expect(helpers.delay(10).resolver).resolves.toBe('Delayed for: 10')
+  })
+
+  test('can be cancelled', () => {
+    expect.assertions(1)
+    const delayHandler = helpers.delay(10)
+    delayHandler.cancel()
+    return expect(delayHandler.resolver).rejects.toEqual(new Error('Cancelled delay: 10'))
+  })
 })
 
 test('queueManager takes multiple functions and processes sequencially', done => {
