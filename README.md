@@ -168,9 +168,10 @@ Manage how functions are called with these utilities.
     * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code> \| <code>\*</code>
     * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>\*</code>
     * [~callWithParams(fn, params, [minimum])](#module_functionHelpers..callWithParams) ⇒ <code>\*</code>
-    * [~delay(time)](#module_functionHelpers..delay) ⇒ <code>Promise</code>
+    * [~delay(time)](#module_functionHelpers..delay) ⇒ <code>delayHandler</code>
     * [~queueManager(fn, ...args)](#module_functionHelpers..queueManager) ⇒ <code>Promise</code>
     * [~queueTimeout(fn, time, ...args)](#module_functionHelpers..queueTimeout) ⇒ <code>Promise</code>
+    * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
 
 <a name="module_functionHelpers..curry"></a>
 
@@ -212,7 +213,7 @@ Given a function, call with the correct number of paramters from an array of pos
 
 <a name="module_functionHelpers..delay"></a>
 
-### functionHelpers~delay(time) ⇒ <code>Promise</code>
+### functionHelpers~delay(time) ⇒ <code>delayHandler</code>
 Provide a timeout which returns a promise.
 
 **Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -245,6 +246,19 @@ Run Timeout functions one after the other in queue.
 | fn | <code>function</code> | A callback function to be performed at some time in the future. |
 | time | <code>number</code> | The time in milliseconds to delay. |
 | ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
+
+<a name="module_functionHelpers..delayHandler"></a>
+
+### functionHelpers~delayHandler : <code>Object</code>
+Provide a way to cancel a request or attach a resolve event.
+
+**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| resolver | <code>Promise</code> | 
+| cancel | <code>function</code> | 
 
 <a name="module_numberHelpers"></a>
 
