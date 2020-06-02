@@ -80,49 +80,65 @@ const delay = (time = 0) => {
 functionHelpers.delay = delay
 
 /**
- * Manage functions to run sequentially. Each time queue manager is called the passed function is added to the queue to be called when ready.
+ * Manage functions to run sequentially.
  * @function queueManager
- * @param {*} fn - A function to enqueue
- * @param  {...any} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
+ * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {queueManager~handle}
  */
-const queueManager = (fn, ...args) => {
-  queueManager.queue = queueManager.queue || []
-  queueManager.isRunning = queueManager.isRunning || false
-  const runNextItem = () => {
-    if (queueManager.queue.length && !queueManager.isRunning) {
-      queueManager.isRunning = true
-      const toRun = queueManager.queue.shift()
-      toRun.generator.next(toRun.item)
+const queueManager = (queue = []) => {
+  let isRunning = false
+  /**
+   * Each time queue handle is called the passed function is added to the queue to be called when ready.
+   * @function handle
+   * @param {Function} fn - A function to enqueue
+   * @param  {...any} args - Arguments to be passed to the function once it is ready
+   * @returns {Promise}
+   */
+  return (fn, ...args) => {
+    const runNextItem = () => {
+      if (queue.length && !isRunning) {
+        isRunning = true
+        const toRun = queue.shift()
+        toRun.generator.next(toRun.item)
+      }
+      return queue
     }
-    return queueManager.queue
-  }
-  return new Promise((resolve, reject) => {
-    const generator = (function * () {
-      const item = yield
-      return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
-    })()
-    generator.next()
-    queueManager.queue.push({
-      item: { fn: fn, args: args },
-      generator: generator
+    return new Promise((resolve, reject) => {
+      const generator = (function * () {
+        const item = yield
+        return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
+      })()
+      generator.next()
+      queue.push({
+        item: { fn: fn, args: args },
+        generator: generator
+      })
+      runNextItem()
+    }).then(resolvedResult => {
+      isRunning = false
+      runNextItem()
+      return resolvedResult
     })
-    runNextItem()
-  }).then(resolvedResult => {
-    queueManager.isRunning = false
-    runNextItem()
-    return resolvedResult
-  })
+  }
 }
 functionHelpers.queueManager = queueManager
 
 /**
- * Run Timeout functions one after the other in queue.
+ * Manage functions to run sequentially with delays.
  * @function queueTimeout
- * @param {function} fn - A callback function to be performed at some time in the future.
- * @param {number} time - The time in milliseconds to delay.
- * @param {...*} args - Arguments to be passed to the callback once it is implemented.
- * @returns {Promise}
+ * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {queueTimeout~handle}
  */
-const queueTimeout = (fn, time = 0, ...args) => queueManager(() => delay(time).resolver.then(() => fn(...args)))
+const queueTimeout = (queue = []) => {
+  const manager = queueManager(queue)
+  /**
+   * Run Timeout functions one after the other in queue.
+   * @function handle
+   * @param {function} fn - A callback function to be performed at some time in the future.
+   * @param {number} time - The time in milliseconds to delay.
+   * @param {...*} args - Arguments to be passed to the callback once it is implemented.
+   * @returns {Promise}
+   */
+  return (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
+}
 functionHelpers.queueTimeout = queueTimeout

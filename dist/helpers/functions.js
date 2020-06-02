@@ -168,91 +168,110 @@
   exports.delay = delay
   functionHelpers.delay = delay
   /**
- * Manage functions to run sequentially. Each time queue manager is called the passed function is added to the queue to be called when ready.
- * @function queueManager
- * @param {*} fn - A function to enqueue
+ * Each time queue handle is called the passed function is added to the queue to be called when ready.
+ * @callback queueHandle
+ * @param {Function} fn - A function to enqueue
  * @param  {...any} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
  */
 
-  var queueManager = function queueManager (fn) {
-    for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-      args[_key4 - 1] = arguments[_key4]
-    }
+  /**
+ * Manage functions to run sequentially.
+ * @function queueManager
+ * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {queueHandle}
+ */
 
-    queueManager.queue = queueManager.queue || []
-    queueManager.isRunning = queueManager.isRunning || false
-
-    var runNextItem = function runNextItem () {
-      if (queueManager.queue.length && !queueManager.isRunning) {
-        queueManager.isRunning = true
-        var toRun = queueManager.queue.shift()
-        toRun.generator.next(toRun.item)
+  var queueManager = function queueManager () {
+    var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+    var isRunning = false
+    return function (fn) {
+      for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        args[_key4 - 1] = arguments[_key4]
       }
 
-      return queueManager.queue
-    }
+      var runNextItem = function runNextItem () {
+        if (queue.length && !isRunning) {
+          isRunning = true
+          var toRun = queue.shift()
+          toRun.generator.next(toRun.item)
+        }
 
-    return new Promise(function (resolve, reject) {
-      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
-        var item
-        return regeneratorRuntime.wrap(function _callee$ (_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2
-                return
+        return queue
+      }
 
-              case 2:
-                item = _context.sent
-                return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
+      return new Promise(function (resolve, reject) {
+        var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+          var item
+          return regeneratorRuntime.wrap(function _callee$ (_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2
+                  return
 
-              case 4:
-              case 'end':
-                return _context.stop()
+                case 2:
+                  item = _context.sent
+                  return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
+
+                case 4:
+                case 'end':
+                  return _context.stop()
+              }
             }
-          }
-        }, _callee)
-      })()
-      generator.next()
-      queueManager.queue.push({
-        item: {
-          fn: fn,
-          args: args
-        },
-        generator: generator
+          }, _callee)
+        })()
+        generator.next()
+        queue.push({
+          item: {
+            fn: fn,
+            args: args
+          },
+          generator: generator
+        })
+        runNextItem()
+      }).then(function (resolvedResult) {
+        isRunning = false
+        runNextItem()
+        return resolvedResult
       })
-      runNextItem()
-    }).then(function (resolvedResult) {
-      queueManager.isRunning = false
-      runNextItem()
-      return resolvedResult
-    })
+    }
   }
 
   exports.queueManager = queueManager
   functionHelpers.queueManager = queueManager
   /**
  * Run Timeout functions one after the other in queue.
- * @function queueTimeout
+ * @callback queueTimeoutHandle
  * @param {function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
  * @returns {Promise}
  */
 
-  var queueTimeout = function queueTimeout (fn) {
-    var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  /**
+ * Manage functions to run sequentially with delays.
+ * @function queueTimeout
+ * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {queueTimeoutHandle}
+ */
 
-    for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
-      args[_key5 - 2] = arguments[_key5]
-    }
+  var queueTimeout = function queueTimeout () {
+    var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+    var manager = queueManager(queue)
+    return function (fn) {
+      var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 
-    return queueManager(function () {
-      return delay(time).resolver.then(function () {
-        return fn.apply(void 0, args)
+      for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
+        args[_key5 - 2] = arguments[_key5]
+      }
+
+      return manager(function () {
+        return delay(time).resolver.then(function () {
+          return fn.apply(void 0, args)
+        })
       })
-    })
+    }
   }
 
   exports.queueTimeout = queueTimeout

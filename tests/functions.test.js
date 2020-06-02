@@ -77,11 +77,12 @@ test('queueManager takes multiple functions and processes sequencially', done =>
   const function3 = value => testArray.push(value) && (test3() || value)
   const function4 = value => testArray.push(value) && (test4() || value)
   expect.assertions(5)
+  const manager = helpers.queueManager([])
   Promise.all([
-    helpers.queueManager(function1, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
-    helpers.queueManager(function2, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
-    helpers.queueManager(function3, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
-    helpers.queueManager(function4, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
+    manager(function1, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
+    manager(function2, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
+    manager(function3, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
+    manager(function4, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
   ]).then(result => expect(testArray).toEqual(result) || done())
 })
 
@@ -96,10 +97,11 @@ test('queueTimeout takes multiple functions and processes sequencially them afte
   const function3 = value => testArray.push(value) && (test3() || value)
   const function4 = value => testArray.push(value) && (test4() || value)
   expect.assertions(5)
+  const timeoutManager = helpers.queueTimeout([])
   return Promise.all([
-    helpers.queueTimeout(function1, 500, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
-    helpers.queueTimeout(function2, 0, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
-    helpers.queueTimeout(function3, 100, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
-    helpers.queueTimeout(function4, 50, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
+    timeoutManager(function1, 500, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
+    timeoutManager(function2, 0, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
+    timeoutManager(function3, 100, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
+    timeoutManager(function4, 50, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
   ]).then(result => expect(testArray).toEqual(result) || result)
 })
