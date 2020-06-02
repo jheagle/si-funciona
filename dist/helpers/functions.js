@@ -1,4 +1,55 @@
-;(function (regeneratorRuntime) {
+;(function () {
+  'use strict'
+
+  require('core-js/modules/es.symbol')
+
+  require('core-js/modules/es.symbol.description')
+
+  require('core-js/modules/es.symbol.iterator')
+
+  require('core-js/modules/es.array.concat')
+
+  require('core-js/modules/es.array.from')
+
+  require('core-js/modules/es.array.iterator')
+
+  require('core-js/modules/es.array.reduce')
+
+  require('core-js/modules/es.array.slice')
+
+  require('core-js/modules/es.function.name')
+
+  require('core-js/modules/es.object.to-string')
+
+  require('core-js/modules/es.promise')
+
+  require('core-js/modules/es.regexp.to-string')
+
+  require('core-js/modules/es.string.iterator')
+
+  require('core-js/modules/web.dom-collections.iterator')
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  })
+  exports.default = exports.queueTimeout = exports.queueManager = exports.delay = exports.callWithParams = exports.pipe = exports.curry = void 0
+
+  require('regenerator-runtime/runtime')
+
+  require('core-js/stable')
+
+  function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+
+  function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+
+  function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+
+  function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
+
+  function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
+
+  function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
+
   /**
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -10,8 +61,7 @@
  * @module functionHelpers
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-  const functionHelpers = {}
-
+  var functionHelpers = {}
   /**
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
@@ -20,11 +70,25 @@
  * @param {function} fn - Receives a function to be curried
  * @returns {function|*}
  */
-  const curry = fn => (...args) => args.length >= fn.length
-    ? fn(...args)
-    : (...a) => curry(fn)(...[...args, ...a])
-  functionHelpers.curry = curry
 
+  var curry = function curry (fn) {
+    return function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key]
+      }
+
+      return args.length >= fn.length ? fn.apply(void 0, args) : function () {
+        for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          a[_key2] = arguments[_key2]
+        }
+
+        return curry(fn).apply(void 0, [].concat(args, a))
+      }
+    }
+  }
+
+  exports.curry = curry
+  functionHelpers.curry = curry
   /**
  * Take one or more function with a single parameter and return value.
  * Pass a paramter and the value will be transformed by each function then returned.
@@ -32,9 +96,21 @@
  * @param {...function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
-  const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
-  functionHelpers.pipe = pipe
 
+  var pipe = function pipe () {
+    for (var _len3 = arguments.length, fns = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      fns[_key3] = arguments[_key3]
+    }
+
+    return function (x) {
+      return fns.reduce(function (y, f) {
+        return f(y)
+      }, x)
+    }
+  }
+
+  exports.pipe = pipe
+  functionHelpers.pipe = pipe
   /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
  * @function callWithParams
@@ -43,10 +119,15 @@
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
  * @returns {*}
  */
-  const callWithParams = (fn, params = [], minimum = 2) =>
-    fn(...params.slice(0, fn.length || minimum))
-  functionHelpers.callWithParams = callWithParams
 
+  var callWithParams = function callWithParams (fn) {
+    var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+    var minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
+    return fn.apply(void 0, _toConsumableArray(params.slice(0, fn.length || minimum)))
+  }
+
+  exports.callWithParams = callWithParams
+  functionHelpers.callWithParams = callWithParams
   /**
  * Provide a way to cancel a request or attach a resolve event.
  * @typedef {Object} delayHandler
@@ -59,27 +140,33 @@
  * @param {number} time - Delay in milliseconds
  * @returns {delayHandler}
  */
-  const delay = (time = 0) => {
-    let cancel = () => undefined
+
+  var delay = function delay () {
+    var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+
+    var cancel = function cancel () {
+      return undefined
+    }
+
     return {
-      resolver: new Promise(
-        (resolve, reject) => {
-          if (isNaN(time)) {
-            reject(new Error(`Invalid delay: ${time}`))
-          } else {
-            const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`)
-            cancel = () => {
-              clearTimeout(timeoutId)
-              reject(new Error(`Cancelled delay: ${time}`))
-            }
+      resolver: new Promise(function (resolve, reject) {
+        if (isNaN(time)) {
+          reject(new Error('Invalid delay: '.concat(time)))
+        } else {
+          var timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+
+          cancel = function cancel () {
+            clearTimeout(timeoutId)
+            reject(new Error('Cancelled delay: '.concat(time)))
           }
         }
-      ),
+      }),
       cancel: cancel
     }
   }
-  functionHelpers.delay = delay
 
+  exports.delay = delay
+  functionHelpers.delay = delay
   /**
  * Manage functions to run sequentially. Each time queue manager is called the passed function is added to the queue to be called when ready.
  * @function queueManager
@@ -87,36 +174,64 @@
  * @param  {...any} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
  */
-  const queueManager = (fn, ...args) => {
+
+  var queueManager = function queueManager (fn) {
+    for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+      args[_key4 - 1] = arguments[_key4]
+    }
+
     queueManager.queue = queueManager.queue || []
     queueManager.isRunning = queueManager.isRunning || false
-    const runNextItem = () => {
+
+    var runNextItem = function runNextItem () {
       if (queueManager.queue.length && !queueManager.isRunning) {
         queueManager.isRunning = true
-        const toRun = queueManager.queue.shift()
+        var toRun = queueManager.queue.shift()
         toRun.generator.next(toRun.item)
       }
+
       return queueManager.queue
     }
-    return new Promise((resolve, reject) => {
-      const generator = (function * () {
-        const item = yield
-        return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
+
+    return new Promise(function (resolve, reject) {
+      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+        var item
+        return regeneratorRuntime.wrap(function _callee$ (_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2
+                return
+
+              case 2:
+                item = _context.sent
+                return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
+
+              case 4:
+              case 'end':
+                return _context.stop()
+            }
+          }
+        }, _callee)
       })()
       generator.next()
       queueManager.queue.push({
-        item: { fn: fn, args: args },
+        item: {
+          fn: fn,
+          args: args
+        },
         generator: generator
       })
       runNextItem()
-    }).then(resolvedResult => {
+    }).then(function (resolvedResult) {
       queueManager.isRunning = false
       runNextItem()
       return resolvedResult
     })
   }
-  functionHelpers.queueManager = queueManager
 
+  exports.queueManager = queueManager
+  functionHelpers.queueManager = queueManager
   /**
  * Run Timeout functions one after the other in queue.
  * @function queueTimeout
@@ -125,8 +240,24 @@
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
  * @returns {Promise}
  */
-  const queueTimeout = (fn, time = 0, ...args) => queueManager(() => delay(time).resolver.then(() => fn(...args)))
-  functionHelpers.queueTimeout = queueTimeout
 
-  module.exports = functionHelpers
-})(require('regenerator-runtime'))
+  var queueTimeout = function queueTimeout (fn) {
+    var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+
+    for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
+      args[_key5 - 2] = arguments[_key5]
+    }
+
+    return queueManager(function () {
+      return delay(time).resolver.then(function () {
+        return fn.apply(void 0, args)
+      })
+    })
+  }
+
+  exports.queueTimeout = queueTimeout
+  functionHelpers.queueTimeout = queueTimeout
+  var _default = functionHelpers
+  exports.default = _default
+  this.functionHelpers = functionHelpers
+}).call(this || window || {})

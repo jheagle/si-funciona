@@ -1,4 +1,67 @@
-;(function ({ curry }, { cloneObject }) {
+;(function () {
+  'use strict'
+
+  require('core-js/modules/es.symbol')
+
+  require('core-js/modules/es.symbol.description')
+
+  require('core-js/modules/es.symbol.iterator')
+
+  require('core-js/modules/es.array.concat')
+
+  require('core-js/modules/es.array.every')
+
+  require('core-js/modules/es.array.filter')
+
+  require('core-js/modules/es.array.from')
+
+  require('core-js/modules/es.array.includes')
+
+  require('core-js/modules/es.array.index-of')
+
+  require('core-js/modules/es.array.iterator')
+
+  require('core-js/modules/es.array.map')
+
+  require('core-js/modules/es.array.reduce')
+
+  require('core-js/modules/es.array.slice')
+
+  require('core-js/modules/es.function.name')
+
+  require('core-js/modules/es.object.to-string')
+
+  require('core-js/modules/es.regexp.to-string')
+
+  require('core-js/modules/es.string.includes')
+
+  require('core-js/modules/es.string.iterator')
+
+  require('core-js/modules/web.dom-collections.iterator')
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  })
+  exports.default = exports.compareArrays = exports.mergeArrays = exports.uniqueArray = exports.buildArrayOfReferences = exports.buildArray = void 0
+
+  require('core-js/stable')
+
+  var _functions = require('./functions')
+
+  var _objects = require('./objects')
+
+  function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+
+  function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+
+  function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+
+  function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
+
+  function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
+
+  function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
+
   /**
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -10,8 +73,7 @@
  * @module arrayHelpers
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-  const arrayHelpers = {}
-
+  var arrayHelpers = {}
   /**
  * Generate an array filled with a copy of the provided item or references to the provided item.
  * The length defines how long the array should be.
@@ -22,13 +84,12 @@
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-  const buildArrayBase = (useReference, item, length, arr = []) => {
-    item = useReference ? item : cloneObject(item)
-    return --length > 0
-      ? buildArrayBase(useReference, item, length, [...arr, item])
-      : [...arr, item]
-  }
 
+  var buildArrayBase = function buildArrayBase (useReference, item, length) {
+    var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
+    item = useReference ? item : (0, _objects.cloneObject)(item)
+    return --length > 0 ? buildArrayBase(useReference, item, length, [].concat(_toConsumableArray(arr), [item])) : [].concat(_toConsumableArray(arr), [item])
+  }
   /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
@@ -38,9 +99,10 @@
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-  const buildArray = curry(buildArrayBase)(false)
-  arrayHelpers.buildArray = buildArray
 
+  var buildArray = (0, _functions.curry)(buildArrayBase)(false)
+  exports.buildArray = buildArray
+  arrayHelpers.buildArray = buildArray
   /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
@@ -50,30 +112,46 @@
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-  const buildArrayOfReferences = curry(buildArrayBase)(true)
-  arrayHelpers.buildArrayOfReferences = buildArrayOfReferences
 
+  var buildArrayOfReferences = (0, _functions.curry)(buildArrayBase)(true)
+  exports.buildArrayOfReferences = buildArrayOfReferences
+  arrayHelpers.buildArrayOfReferences = buildArrayOfReferences
   /**
  * Remove duplicate values from an array.
  * @function uniqueArray
  * @param {Array} array - The array to make unique
  * @returns {Array}
  */
-  const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
-  arrayHelpers.uniqueArray = uniqueArray
 
+  var uniqueArray = function uniqueArray (array) {
+    return array.filter(function (item, index) {
+      return array.indexOf(item) === index
+    })
+  }
+
+  exports.uniqueArray = uniqueArray
+  arrayHelpers.uniqueArray = uniqueArray
   /**
  * Take multiple arrays and then filter all these into one unique array.
  * @function uniqueArray
  * @param {...Array} arrays - Provide mulitple arrays to create one unique array
  * @returns {Array}
  */
-  const mergeArrays = (...arrays) => arrays.map(arrayHelpers.uniqueArray).reduce(
-    (merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))],
-    []
-  )
-  arrayHelpers.mergeArrays = mergeArrays
 
+  var mergeArrays = function mergeArrays () {
+    for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
+      arrays[_key] = arguments[_key]
+    }
+
+    return arrays.map(arrayHelpers.uniqueArray).reduce(function (merged, arr) {
+      return [].concat(_toConsumableArray(merged), _toConsumableArray(arr.filter(function (attr) {
+        return !merged.includes(attr)
+      })))
+    }, [])
+  }
+
+  exports.mergeArrays = mergeArrays
+  arrayHelpers.mergeArrays = mergeArrays
   /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2
@@ -126,18 +204,30 @@
  * @param {Array} arr2 - The second array to compare
  * @returns {Object.<string, number>}
  */
-  const compareArrays = (...arrays) => arrayHelpers.mergeArrays(...arrays)
-    .reduce(
-      (results, attr) => {
-        const arrayResults = arrays.map(array => array.includes(attr) ? 1 : -1)
-        return [...results, {
-          value: attr,
-          result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
-        }]
-      },
-      []
-    )
-  arrayHelpers.compareArrays = compareArrays
 
-  module.exports = arrayHelpers
-})(require('./functions'), require('./objects'))
+  var compareArrays = function compareArrays () {
+    for (var _len2 = arguments.length, arrays = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      arrays[_key2] = arguments[_key2]
+    }
+
+    return arrayHelpers.mergeArrays.apply(arrayHelpers, arrays).reduce(function (results, attr) {
+      var arrayResults = arrays.map(function (array) {
+        return array.includes(attr) ? 1 : -1
+      })
+      return [].concat(_toConsumableArray(results), [{
+        value: attr,
+        result: arrayResults.every(function (result) {
+          return result === 1
+        }) ? arrayResults.map(function (result) {
+            return 0
+          }) : arrayResults
+      }])
+    }, [])
+  }
+
+  exports.compareArrays = compareArrays
+  arrayHelpers.compareArrays = compareArrays
+  var _default = arrayHelpers
+  exports.default = _default
+  this.arrayHelpers = arrayHelpers
+}).call(this || window || {})

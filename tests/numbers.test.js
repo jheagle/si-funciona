@@ -1,4 +1,4 @@
-const helpers = require('../dist/helpers/numbers.js')
+import helpers from '../dist/helpers/numbers.js'
 
 test('getAbsoluteMax returns the correct number', () => {
   expect(helpers.getAbsoluteMax(-200, 50)).toBe(-200)

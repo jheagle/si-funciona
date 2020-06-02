@@ -1,4 +1,13 @@
 ;(function () {
+  'use strict'
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  })
+  exports.default = exports.compare = exports.randomInteger = exports.randomNumber = exports.getAbsoluteMin = exports.getAbsoluteMax = void 0
+
+  require('core-js/stable')
+
   /**
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -10,8 +19,7 @@
  * @module numberHelpers
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-  const numberHelpers = {}
-
+  var numberHelpers = {}
   /**
  * Helper for returning the absolute max value
  * @function getAbsoluteMax
@@ -19,9 +27,13 @@
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-  const getAbsoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
-  numberHelpers.getAbsoluteMax = getAbsoluteMax
 
+  var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
+    return Math.abs(num1) > Math.abs(num2) ? num1 : num2
+  }
+
+  exports.getAbsoluteMax = getAbsoluteMax
+  numberHelpers.getAbsoluteMax = getAbsoluteMax
   /**
  * Helper for returning the absolute min value
  * @function getAbsoluteMin
@@ -29,9 +41,13 @@
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-  const getAbsoluteMin = (num1, num2) => Math.abs(num1) < Math.abs(num2) ? num1 : num2
-  numberHelpers.getAbsoluteMin = getAbsoluteMin
 
+  var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
+    return Math.abs(num1) < Math.abs(num2) ? num1 : num2
+  }
+
+  exports.getAbsoluteMin = getAbsoluteMin
+  numberHelpers.getAbsoluteMin = getAbsoluteMin
   /**
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
@@ -42,9 +58,15 @@
  * offset, 2 for range)
  * @returns {number}
  */
-  const randomNumber = (range, offset = 0, interval = 1) => (Math.random() * range + offset) * interval
-  numberHelpers.randomNumber = randomNumber
 
+  var randomNumber = function randomNumber (range) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    return (Math.random() * range + offset) * interval
+  }
+
+  exports.randomNumber = randomNumber
+  numberHelpers.randomNumber = randomNumber
   /**
  * Create a single random integer within provide range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
@@ -55,9 +77,15 @@
  * offset, 2 for range)
  * @returns {number}
  */
-  const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
-  numberHelpers.randomInteger = randomInteger
 
+  var randomInteger = function randomInteger (range) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    return (Math.floor(Math.random() * range) + offset) * interval
+  }
+
+  exports.randomInteger = randomInteger
+  numberHelpers.randomInteger = randomInteger
   /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
@@ -68,8 +96,14 @@
  * @param {number} val2 - The second number to compare
  * @returns {number}
  */
-  const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-  numberHelpers.compare = compare
 
-  module.exports = numberHelpers
-})()
+  var compare = function compare (val1, val2) {
+    return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
+  }
+
+  exports.compare = compare
+  numberHelpers.compare = compare
+  var _default = numberHelpers
+  exports.default = _default
+  this.numberHelpers = numberHelpers
+}).call(this || window || {})

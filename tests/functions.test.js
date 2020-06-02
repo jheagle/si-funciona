@@ -1,4 +1,4 @@
-const helpers = require('../dist/helpers/functions.js')
+import helpers from '../dist/helpers/functions.js'
 
 test('curry returns callable with unmet parameters', () => {
   const arg1 = 'first'

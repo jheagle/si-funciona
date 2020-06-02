@@ -34,6 +34,9 @@ const moduleSettings = createUmdConfig(
       exportDefault: 'arrayHelpers',
       imports: [
         {
+          from: 'core-js/stable'
+        },
+        {
           from: './functions',
           what: '{ curry }'
         },
@@ -59,7 +62,12 @@ const moduleSettings = createUmdConfig(
     {
       name: 'numbers',
       exports: '{ getAbsoluteMax, getAbsoluteMin, randomNumber, randomInteger, compare }',
-      exportDefault: 'numberHelpers'
+      exportDefault: 'numberHelpers',
+      imports: [
+        {
+          from: 'core-js/stable'
+        }
+      ]
     },
     {
       name: 'objects',
@@ -104,76 +112,6 @@ const moduleSettings = createUmdConfig(
   ]
 )
 
-const nodeSettings = createUmdConfig(
-  path.join(__dirname, 'umd-templates', 'node.js'),
-  [
-    {
-      name: 'arrays',
-      exports: 'arrayHelpers',
-      dependencies: [
-        {
-          cjs: './functions',
-          param: '{ curry }'
-        },
-        {
-          cjs: './objects',
-          param: '{ cloneObject }'
-        }
-      ]
-    },
-    {
-      name: 'functions',
-      exports: 'functionHelpers',
-      dependencies: [
-        {
-          cjs: 'regenerator-runtime',
-          param: 'regeneratorRuntime'
-        }
-      ]
-    },
-    {
-      name: 'numbers',
-      exports: 'numberHelpers'
-    },
-    {
-      name: 'objects',
-      exports: 'objectHelpers',
-      dependencies: [
-        {
-          cjs: './functions',
-          param: '{ curry, callWithParams }'
-        }
-      ]
-    },
-    {
-      name: 'main',
-      exports: 'functionalHelpers',
-      dependencies: [
-        {
-          cjs: './helpers/arrays',
-          param: 'arrayHelpers'
-        },
-        {
-          cjs: './helpers/functions',
-          param: 'functionHelpers'
-        },
-        {
-          cjs: './helpers/numbers',
-          param: 'numberHelpers'
-        },
-        {
-          cjs: './helpers/objects',
-          param: 'objectHelpers'
-        },
-        {
-          cjs: 'regenerator-runtime',
-          param: 'regeneratorRuntime'
-        }
-      ]
-    }
-  ]
-)
-
 const webSettings = createUmdConfig(
   path.join(__dirname, 'umd-templates', 'web.js'),
   [
@@ -207,6 +145,5 @@ const webSettings = createUmdConfig(
 
 module.exports = {
   modules: moduleSettings,
-  node: nodeSettings,
   web: webSettings
 }

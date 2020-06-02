@@ -1,4 +1,39 @@
-;(function ({ curry, callWithParams }) {
+;(function () {
+  'use strict'
+
+  require('core-js/modules/es.symbol')
+
+  require('core-js/modules/es.symbol.description')
+
+  require('core-js/modules/es.symbol.iterator')
+
+  require('core-js/modules/es.array.filter')
+
+  require('core-js/modules/es.array.iterator')
+
+  require('core-js/modules/es.array.map')
+
+  require('core-js/modules/es.array.reduce')
+
+  require('core-js/modules/es.object.keys')
+
+  require('core-js/modules/es.object.to-string')
+
+  require('core-js/modules/es.string.iterator')
+
+  require('core-js/modules/web.dom-collections.iterator')
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  })
+  exports.default = exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
+
+  require('core-js/stable')
+
+  var _functions = require('./functions')
+
+  function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+
   /**
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -10,8 +45,7 @@
  * @module objectHelpers
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-  const objectHelpers = {}
-
+  var objectHelpers = {}
   /**
  * Set a value on an item, then return the item
  * @function setValue
@@ -20,12 +54,14 @@
  * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-  const setValue = (key, value, item) => {
+
+  var setValue = function setValue (key, value, item) {
     item[key] = value
     return item
   }
-  objectHelpers.setValue = setValue
 
+  exports.setValue = setValue
+  objectHelpers.setValue = setValue
   /**
  * Set a value on an item, then return the value
  * @function setAndReturnValue
@@ -34,12 +70,14 @@
  * @param {*} value - Any value to be applied to the key
  * @returns {*}
  */
-  const setAndReturnValue = (item, key, value) => {
+
+  var setAndReturnValue = function setAndReturnValue (item, key, value) {
     item[key] = value
     return value
   }
-  objectHelpers.setAndReturnValue = setAndReturnValue
 
+  exports.setAndReturnValue = setAndReturnValue
+  objectHelpers.setAndReturnValue = setAndReturnValue
   /**
  * Function that produces a property of the new Object, taking three arguments
  * @callback module:objectHelpers~mapCallback
@@ -59,18 +97,16 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-  const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
-    ? obj.map(fn, thisArg)
-    : Object.keys(obj).reduce(
-      (newObj, curr) => setValue(
-        curr,
-        callWithParams(fn, [obj[curr], curr, obj], 2),
-        newObj
-      ),
-      thisArg || {}
-    )
-  objectHelpers.mapObject = mapObject
 
+  var mapObject = function mapObject (obj, fn) {
+    var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+    return Array.isArray(obj) ? obj.map(fn, thisArg) : Object.keys(obj).reduce(function (newObj, curr) {
+      return setValue(curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2), newObj)
+    }, thisArg || {})
+  }
+
+  exports.mapObject = mapObject
+  objectHelpers.mapObject = mapObject
   /**
  * Perform map on an array property of an object, then return the object
  * @function mapArrayProperty
@@ -79,12 +115,14 @@
  * @param {Object|Array} obj - An object having an array property
  * @returns {object}
  */
-  const mapProperty = (property, mapFunction, obj) => {
+
+  var mapProperty = function mapProperty (property, mapFunction, obj) {
     obj[property] = mapObject(obj[property] || [], mapFunction)
     return obj
   }
-  objectHelpers.mapProperty = mapProperty
 
+  exports.mapProperty = mapProperty
+  objectHelpers.mapProperty = mapProperty
   /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
  * otherwise, taking three arguments
@@ -105,18 +143,22 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-  const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
-    ? obj.filter(fn, thisArg)
-    : Object.keys(obj).reduce((newObj, curr) => {
-      if (callWithParams(fn, [obj[curr], curr, obj], 2)) {
+
+  var filterObject = function filterObject (obj, fn) {
+    var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+    return Array.isArray(obj) ? obj.filter(fn, thisArg) : Object.keys(obj).reduce(function (newObj, curr) {
+      if ((0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2)) {
         newObj[curr] = obj[curr]
       } else {
         delete newObj[curr]
       }
+
       return newObj
     }, thisArg || {})
-  objectHelpers.filterObject = filterObject
+  }
 
+  exports.filterObject = filterObject
+  objectHelpers.filterObject = filterObject
   /**
  * Function to execute on each property in the object, taking four arguments
  * @callback module:objectHelpers~reduceCallback
@@ -141,25 +183,29 @@
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-  const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] || obj[0]) => Array.isArray(obj)
-    ? obj.reduce(fn, initialValue)
-    : Object.keys(obj).reduce(
-      (newObj, curr) => callWithParams(fn, [newObj, obj[curr], curr, obj], 2),
-      initialValue
-    )
-  objectHelpers.reduceObject = reduceObject
 
+  var reduceObject = function reduceObject (obj, fn) {
+    var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[Object.keys(obj)[0]] || obj[0]
+    return Array.isArray(obj) ? obj.reduce(fn, initialValue) : Object.keys(obj).reduce(function (newObj, curr) {
+      return (0, _functions.callWithParams)(fn, [newObj, obj[curr], curr, obj], 2)
+    }, initialValue)
+  }
+
+  exports.reduceObject = reduceObject
+  objectHelpers.reduceObject = reduceObject
   /**
  * Helper function for testing if the item is an Object or Array that contains properties or elements
  * @function notEmptyObjectOrArray
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-  const notEmptyObjectOrArray = item => !!(
-    (typeof item === 'object' && Object.keys(item).length) || (Array.isArray(item) && item.length)
-  )
-  objectHelpers.notEmptyObjectOrArray = notEmptyObjectOrArray
 
+  var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
+    return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
+  }
+
+  exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+  objectHelpers.notEmptyObjectOrArray = notEmptyObjectOrArray
   /**
  * Re-add the Object Properties which cannot be cloned and must be directly copied to the new cloned object
  * WARNING: This is a recursive function.
@@ -167,29 +213,28 @@
  * @param {Object} object - The original object that is being cloned
  * @returns {Object|Array}
  */
-  const cloneCopy = (object, cloned) =>
-    notEmptyObjectOrArray(object)
-      ? reduceObject(object, (start, prop, key) => {
-        start[key] = (cloned[key] && !/^(parentItem|listenerArgs|element)$/.test(key))
-          ? cloneCopy(prop, cloned[key])
-          : prop
-        return start
-      }, cloned)
-      : cloned
 
+  var cloneCopy = function cloneCopy (object, cloned) {
+    return notEmptyObjectOrArray(object) ? reduceObject(object, function (start, prop, key) {
+      start[key] = cloned[key] && !/^(parentItem|listenerArgs|element)$/.test(key) ? cloneCopy(prop, cloned[key]) : prop
+      return start
+    }, cloned) : cloned
+  }
   /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function cloneObject
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
-  const cloneObject = object => cloneCopy(object, JSON.parse(
-    JSON.stringify(object, (key, val) => !/^(parentItem|listenerArgs|element)$/.test(key)
-      ? val
-      : undefined)
-  ))
-  objectHelpers.cloneObject = cloneObject
 
+  var cloneObject = function cloneObject (object) {
+    return cloneCopy(object, JSON.parse(JSON.stringify(object, function (key, val) {
+      return !/^(parentItem|listenerArgs|element)$/.test(key) ? val : undefined
+    })))
+  }
+
+  exports.cloneObject = cloneObject
+  objectHelpers.cloneObject = cloneObject
   /**
  * Merge two objects and provide clone or original on the provided function.
  * The passed function should accept a minimum of two objects to be merged.
@@ -204,16 +249,13 @@
  * modify them
  * @returns {Object}
  */
-  const mergeObjectsBase = (fn, obj1, obj2, isMutable = false) => notEmptyObjectOrArray(obj2)
-    ? mapObject(
-      obj2,
-      (prop, key) => (obj1[key] && !/^(parentItem|listenerArgs|element)$/.test(key))
-        ? fn(obj1[key], prop)
-        : prop,
-      isMutable ? obj1 : cloneObject(obj1)
-    )
-    : obj2
 
+  var mergeObjectsBase = function mergeObjectsBase (fn, obj1, obj2) {
+    var isMutable = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
+    return notEmptyObjectOrArray(obj2) ? mapObject(obj2, function (prop, key) {
+      return obj1[key] && !/^(parentItem|listenerArgs|element)$/.test(key) ? fn(obj1[key], prop) : prop
+    }, isMutable ? obj1 : cloneObject(obj1)) : obj2
+  }
   /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
  * objects having the same attributes will overwrite starting from the end of the argument
@@ -224,13 +266,17 @@
  * object
  * @returns {Object}
  */
-  const mergeObjects = (...args) => args.length === 2
-    ? mergeObjectsBase(mergeObjects, args[0], args[1])
-    : args.length === 1
-      ? cloneObject(args[0])
-      : args.reduce(curry(mergeObjectsBase)(mergeObjects), {})
-  objectHelpers.mergeObjects = mergeObjects
 
+  var mergeObjects = function mergeObjects () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key]
+    }
+
+    return args.length === 2 ? mergeObjectsBase(mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce((0, _functions.curry)(mergeObjectsBase)(mergeObjects), {})
+  }
+
+  exports.mergeObjects = mergeObjects
+  objectHelpers.mergeObjects = mergeObjects
   /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
  * objects having the same attributes will overwrite starting from the end of the argument
@@ -242,12 +288,18 @@
  * object
  * @returns {Object}
  */
-  const mergeObjectsMutable = (...args) => args.length === 2
-    ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true)
-    : args.length === 1
-      ? args[0]
-      : args.reduce(curry(mergeObjectsBase)(mergeObjectsMutable), {})
-  objectHelpers.mergeObjectsMutable = mergeObjectsMutable
 
-  module.exports = objectHelpers
-})(require('./functions'))
+  var mergeObjectsMutable = function mergeObjectsMutable () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2]
+    }
+
+    return args.length === 2 ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true) : args.length === 1 ? args[0] : args.reduce((0, _functions.curry)(mergeObjectsBase)(mergeObjectsMutable), {})
+  }
+
+  exports.mergeObjectsMutable = mergeObjectsMutable
+  objectHelpers.mergeObjectsMutable = mergeObjectsMutable
+  var _default = objectHelpers
+  exports.default = _default
+  this.objectHelpers = objectHelpers
+}).call(this || window || {})

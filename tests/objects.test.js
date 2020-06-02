@@ -1,4 +1,4 @@
-const helpers = require('../dist/helpers/objects')
+import helpers from '../dist/helpers/objects'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
