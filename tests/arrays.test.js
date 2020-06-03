@@ -1,4 +1,4 @@
-import helpers from '../dist/helpers/arrays'
+import * as helpers from '../dist/helpers/arrays'
 
 test('buildArray generates an array filled with given item clones of the specified length', () => {
   const someItem = { name: 'something' }

@@ -23,6 +23,7 @@ General usage utility functions.
 ## arrayHelpers
 Some simple utility functions for generating arrays or performing work on arrays.
 
+**Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [arrayHelpers](#module_arrayHelpers)
@@ -162,18 +163,32 @@ arrayHelpers.compareArrays(
 ## functionHelpers
 Manage how functions are called with these utilities.
 
+**Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [functionHelpers](#module_functionHelpers)
-    * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code> \| <code>\*</code>
-    * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>\*</code>
-    * [~callWithParams(fn, params, [minimum])](#module_functionHelpers..callWithParams) ⇒ <code>\*</code>
-    * [~delay(time)](#module_functionHelpers..delay) ⇒ <code>delayHandler</code>
-    * [~queueManager([queue])](#module_functionHelpers..queueManager) ⇒ <code>queueManager~handle</code>
-    * [~handle(fn, ...args)](#module_functionHelpers..handle) ⇒ <code>Promise</code>
-    * [~queueTimeout([queue])](#module_functionHelpers..queueTimeout) ⇒ <code>queueTimeout~handle</code>
-    * [~handle(fn, time, ...args)](#module_functionHelpers..handle) ⇒ <code>Promise</code>
-    * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
+    * _static_
+        * [.delay](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
+    * _inner_
+        * [~curry(fn)](#module_functionHelpers..curry) ⇒ <code>function</code> \| <code>\*</code>
+        * [~pipe(...fns)](#module_functionHelpers..pipe) ⇒ <code>\*</code>
+        * [~callWithParams(fn, params, [minimum])](#module_functionHelpers..callWithParams) ⇒ <code>\*</code>
+        * [~queueManager([queue])](#module_functionHelpers..queueManager) ⇒ <code>queueManager~handle</code>
+        * [~handle(fn, ...args)](#module_functionHelpers..handle) ⇒ <code>Promise</code>
+        * [~queueTimeout([queue])](#module_functionHelpers..queueTimeout) ⇒ <code>queueTimeout~handle</code>
+        * [~handle(fn, time, ...args)](#module_functionHelpers..handle) ⇒ <code>Promise</code>
+        * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
+
+<a name="module_functionHelpers.delay"></a>
+
+### functionHelpers.delay ⇒ <code>delayHandler</code>
+Provide a timeout which returns a promise.
+
+**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| time | <code>number</code> | Delay in milliseconds |
 
 <a name="module_functionHelpers..curry"></a>
 
@@ -212,17 +227,6 @@ Given a function, call with the correct number of paramters from an array of pos
 | fn | <code>function</code> |  | The function to be called |
 | params | <code>Array</code> |  | Array of possible function parameters |
 | [minimum] | <code>number</code> | <code>2</code> | Minimumn number of parameters to use in the function |
-
-<a name="module_functionHelpers..delay"></a>
-
-### functionHelpers~delay(time) ⇒ <code>delayHandler</code>
-Provide a timeout which returns a promise.
-
-**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| time | <code>number</code> | <code>0</code> | Delay in milliseconds |
 
 <a name="module_functionHelpers..queueManager"></a>
 
@@ -289,6 +293,7 @@ Provide a way to cancel a request or attach a resolve event.
 ## numberHelpers
 Some number comparators and random number generators.
 
+**Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [numberHelpers](#module_numberHelpers)
@@ -370,6 +375,7 @@ Compare two numbers and return:
 ## objectHelpers
 Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
 
+**Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [objectHelpers](#module_objectHelpers)

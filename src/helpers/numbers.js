@@ -1,15 +1,11 @@
 /**
+ * Some number comparators and random number generators.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- */
-
-/**
- * Some number comparators and random number generators.
  * @module numberHelpers
- * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-const numberHelpers = {}
+import 'core-js/stable'
 
 /**
  * Helper for returning the absolute max value
@@ -18,8 +14,7 @@ const numberHelpers = {}
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-const getAbsoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
-numberHelpers.getAbsoluteMax = getAbsoluteMax
+export const getAbsoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
 
 /**
  * Helper for returning the absolute min value
@@ -28,8 +23,7 @@ numberHelpers.getAbsoluteMax = getAbsoluteMax
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-const getAbsoluteMin = (num1, num2) => Math.abs(num1) < Math.abs(num2) ? num1 : num2
-numberHelpers.getAbsoluteMin = getAbsoluteMin
+export const getAbsoluteMin = (num1, num2) => Math.abs(num1) < Math.abs(num2) ? num1 : num2
 
 /**
  * Create a single random number within provided range. And with optional offset,
@@ -41,8 +35,7 @@ numberHelpers.getAbsoluteMin = getAbsoluteMin
  * offset, 2 for range)
  * @returns {number}
  */
-const randomNumber = (range, offset = 0, interval = 1) => (Math.random() * range + offset) * interval
-numberHelpers.randomNumber = randomNumber
+export const randomNumber = (range, offset = 0, interval = 1) => (Math.random() * range + offset) * interval
 
 /**
  * Create a single random integer within provide range. And with optional offset,
@@ -54,9 +47,7 @@ numberHelpers.randomNumber = randomNumber
  * offset, 2 for range)
  * @returns {number}
  */
-const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
-numberHelpers.randomInteger = randomInteger
-
+export const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
 /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
@@ -67,5 +58,4 @@ numberHelpers.randomInteger = randomInteger
  * @param {number} val2 - The second number to compare
  * @returns {number}
  */
-const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-numberHelpers.compare = compare
+export const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1

@@ -1,3 +1,0 @@
-<%= namespace %>
-<%= contents %>
-export <%= exports %>

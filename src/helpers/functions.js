@@ -1,15 +1,12 @@
 /**
+ * Manage how functions are called with these utilities.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- */
-
-/**
- * Manage how functions are called with these utilities.
  * @module functionHelpers
- * @author Joshua Heagle <joshuaheagle@gmail.com>
  */
-const functionHelpers = {}
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 /**
  * Return a curried version of the passed function.
@@ -19,10 +16,9 @@ const functionHelpers = {}
  * @param {function} fn - Receives a function to be curried
  * @returns {function|*}
  */
-const curry = fn => (...args) => args.length >= fn.length
+export const curry = fn => (...args) => args.length >= fn.length
   ? fn(...args)
   : (...a) => curry(fn)(...[...args, ...a])
-functionHelpers.curry = curry
 
 /**
  * Take one or more function with a single parameter and return value.
@@ -31,8 +27,7 @@ functionHelpers.curry = curry
  * @param {...function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
-const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
-functionHelpers.pipe = pipe
+export const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
 
 /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
@@ -42,9 +37,8 @@ functionHelpers.pipe = pipe
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
  * @returns {*}
  */
-const callWithParams = (fn, params = [], minimum = 2) =>
+export const callWithParams = (fn, params = [], minimum = 2) =>
   fn(...params.slice(0, fn.length || minimum))
-functionHelpers.callWithParams = callWithParams
 
 /**
  * Provide a way to cancel a request or attach a resolve event.
@@ -58,7 +52,7 @@ functionHelpers.callWithParams = callWithParams
  * @param {number} time - Delay in milliseconds
  * @returns {delayHandler}
  */
-const delay = (time = 0) => {
+export const delay = (time = 0) => {
   let cancel = () => undefined
   return {
     resolver: new Promise(
@@ -77,7 +71,6 @@ const delay = (time = 0) => {
     cancel: cancel
   }
 }
-functionHelpers.delay = delay
 
 /**
  * Manage functions to run sequentially.
@@ -85,7 +78,7 @@ functionHelpers.delay = delay
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueManager~handle}
  */
-const queueManager = (queue = []) => {
+export const queueManager = (queue = []) => {
   let isRunning = false
   /**
    * Each time queue handle is called the passed function is added to the queue to be called when ready.
@@ -121,7 +114,6 @@ const queueManager = (queue = []) => {
     })
   }
 }
-functionHelpers.queueManager = queueManager
 
 /**
  * Manage functions to run sequentially with delays.
@@ -129,7 +121,7 @@ functionHelpers.queueManager = queueManager
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueTimeout~handle}
  */
-const queueTimeout = (queue = []) => {
+export const queueTimeout = (queue = []) => {
   const manager = queueManager(queue)
   /**
    * Run Timeout functions one after the other in queue.
@@ -141,4 +133,3 @@ const queueTimeout = (queue = []) => {
    */
   return (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
 }
-functionHelpers.queueTimeout = queueTimeout

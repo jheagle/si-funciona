@@ -1,8 +1,16 @@
 /**
- * @file All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
+ * @module functionalHelpers
  */
+
+import 'core-js/stable'
+import * as arrayHelpers from './helpers/arrays'
+import * as functionHelpers from './helpers/functions'
+import * as numberHelpers from './helpers/numbers'
+import * as objectHelpers from './helpers/objects'
 
 /**
    * Store a reference to this scope which will be Window if rendered via browser
@@ -34,7 +42,7 @@ functionalHelpers.noConflict = () => {
   return functionalHelpers
 }
 
-Object.assign(
+export default Object.assign(
   functionalHelpers,
   arrayHelpers,
   functionHelpers,

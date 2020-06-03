@@ -1,4 +1,4 @@
-import helpers from '../dist/helpers/objects'
+import * as helpers from '../dist/helpers/objects'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {

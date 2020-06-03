@@ -1,15 +1,13 @@
 /**
+ * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
+ * @module objectHelpers
  */
 
-/**
- * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
- * @module objectHelpers
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- */
-const objectHelpers = {}
+import 'core-js/stable'
+import { curry, callWithParams } from './functions'
 
 /**
  * Set a value on an item, then return the item
@@ -19,11 +17,10 @@ const objectHelpers = {}
  * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-const setValue = (key, value, item) => {
+export const setValue = (key, value, item) => {
   item[key] = value
   return item
 }
-objectHelpers.setValue = setValue
 
 /**
  * Set a value on an item, then return the value
@@ -33,11 +30,10 @@ objectHelpers.setValue = setValue
  * @param {*} value - Any value to be applied to the key
  * @returns {*}
  */
-const setAndReturnValue = (item, key, value) => {
+export const setAndReturnValue = (item, key, value) => {
   item[key] = value
   return value
 }
-objectHelpers.setAndReturnValue = setAndReturnValue
 
 /**
  * Function that produces a property of the new Object, taking three arguments
@@ -58,7 +54,7 @@ objectHelpers.setAndReturnValue = setAndReturnValue
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
+export const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.map(fn, thisArg)
   : Object.keys(obj).reduce(
     (newObj, curr) => setValue(
@@ -68,7 +64,6 @@ const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
     ),
     thisArg || {}
   )
-objectHelpers.mapObject = mapObject
 
 /**
  * Perform map on an array property of an object, then return the object
@@ -78,11 +73,10 @@ objectHelpers.mapObject = mapObject
  * @param {Object|Array} obj - An object having an array property
  * @returns {object}
  */
-const mapProperty = (property, mapFunction, obj) => {
+export const mapProperty = (property, mapFunction, obj) => {
   obj[property] = mapObject(obj[property] || [], mapFunction)
   return obj
 }
-objectHelpers.mapProperty = mapProperty
 
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
@@ -104,7 +98,7 @@ objectHelpers.mapProperty = mapProperty
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
+export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.filter(fn, thisArg)
   : Object.keys(obj).reduce((newObj, curr) => {
     if (callWithParams(fn, [obj[curr], curr, obj], 2)) {
@@ -114,7 +108,6 @@ const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
     }
     return newObj
   }, thisArg || {})
-objectHelpers.filterObject = filterObject
 
 /**
  * Function to execute on each property in the object, taking four arguments
@@ -140,13 +133,12 @@ objectHelpers.filterObject = filterObject
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] || obj[0]) => Array.isArray(obj)
+export const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] || obj[0]) => Array.isArray(obj)
   ? obj.reduce(fn, initialValue)
   : Object.keys(obj).reduce(
     (newObj, curr) => callWithParams(fn, [newObj, obj[curr], curr, obj], 2),
     initialValue
   )
-objectHelpers.reduceObject = reduceObject
 
 /**
  * Helper function for testing if the item is an Object or Array that contains properties or elements
@@ -154,10 +146,9 @@ objectHelpers.reduceObject = reduceObject
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-const notEmptyObjectOrArray = item => !!(
+export const notEmptyObjectOrArray = item => !!(
   (typeof item === 'object' && Object.keys(item).length) || (Array.isArray(item) && item.length)
 )
-objectHelpers.notEmptyObjectOrArray = notEmptyObjectOrArray
 
 /**
  * Re-add the Object Properties which cannot be cloned and must be directly copied to the new cloned object
@@ -182,12 +173,11 @@ const cloneCopy = (object, cloned) =>
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
-const cloneObject = object => cloneCopy(object, JSON.parse(
+export const cloneObject = object => cloneCopy(object, JSON.parse(
   JSON.stringify(object, (key, val) => !/^(parentItem|listenerArgs|element)$/.test(key)
     ? val
     : undefined)
 ))
-objectHelpers.cloneObject = cloneObject
 
 /**
  * Merge two objects and provide clone or original on the provided function.
@@ -223,12 +213,11 @@ const mergeObjectsBase = (fn, obj1, obj2, isMutable = false) => notEmptyObjectOr
  * object
  * @returns {Object}
  */
-const mergeObjects = (...args) => args.length === 2
+export const mergeObjects = (...args) => args.length === 2
   ? mergeObjectsBase(mergeObjects, args[0], args[1])
   : args.length === 1
     ? cloneObject(args[0])
     : args.reduce(curry(mergeObjectsBase)(mergeObjects), {})
-objectHelpers.mergeObjects = mergeObjects
 
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
@@ -241,9 +230,8 @@ objectHelpers.mergeObjects = mergeObjects
  * object
  * @returns {Object}
  */
-const mergeObjectsMutable = (...args) => args.length === 2
+export const mergeObjectsMutable = (...args) => args.length === 2
   ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true)
   : args.length === 1
     ? args[0]
     : args.reduce(curry(mergeObjectsBase)(mergeObjectsMutable), {})
-objectHelpers.mergeObjectsMutable = mergeObjectsMutable

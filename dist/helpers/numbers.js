@@ -1,40 +1,31 @@
-;(function () {
-  'use strict'
+'use strict'
 
-  Object.defineProperty(exports, '__esModule', {
-    value: true
-  })
-  exports.default = exports.compare = exports.randomInteger = exports.randomNumber = exports.getAbsoluteMin = exports.getAbsoluteMax = void 0
+Object.defineProperty(exports, '__esModule', {
+  value: true
+})
+exports.compare = exports.randomInteger = exports.randomNumber = exports.getAbsoluteMin = exports.getAbsoluteMax = void 0
 
-  require('core-js/stable')
+require('core-js/stable')
 
-  /**
+/**
+ * Some number comparators and random number generators.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
+ * @module numberHelpers
  */
 
-  /**
- * Some number comparators and random number generators.
- * @module numberHelpers
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- */
-  var numberHelpers = {}
-  /**
+/**
  * Helper for returning the absolute max value
  * @function getAbsoluteMax
  * @param {number} num1 - A number to compare
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-
-  var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
-    return Math.abs(num1) > Math.abs(num2) ? num1 : num2
-  }
-
-  exports.getAbsoluteMax = getAbsoluteMax
-  numberHelpers.getAbsoluteMax = getAbsoluteMax
-  /**
+var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
+  return Math.abs(num1) > Math.abs(num2) ? num1 : num2
+}
+/**
  * Helper for returning the absolute min value
  * @function getAbsoluteMin
  * @param {number} num1 - A number to compare
@@ -42,13 +33,12 @@
  * @returns {number}
  */
 
-  var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
-    return Math.abs(num1) < Math.abs(num2) ? num1 : num2
-  }
+exports.getAbsoluteMax = getAbsoluteMax
 
-  exports.getAbsoluteMin = getAbsoluteMin
-  numberHelpers.getAbsoluteMin = getAbsoluteMin
-  /**
+var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
+  return Math.abs(num1) < Math.abs(num2) ? num1 : num2
+}
+/**
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
  * @function randomNumber
@@ -59,15 +49,14 @@
  * @returns {number}
  */
 
-  var randomNumber = function randomNumber (range) {
-    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
-    return (Math.random() * range + offset) * interval
-  }
+exports.getAbsoluteMin = getAbsoluteMin
 
-  exports.randomNumber = randomNumber
-  numberHelpers.randomNumber = randomNumber
-  /**
+var randomNumber = function randomNumber (range) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+  return (Math.random() * range + offset) * interval
+}
+/**
  * Create a single random integer within provide range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
  * @function randomInteger
@@ -78,15 +67,14 @@
  * @returns {number}
  */
 
-  var randomInteger = function randomInteger (range) {
-    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-    var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
-    return (Math.floor(Math.random() * range) + offset) * interval
-  }
+exports.randomNumber = randomNumber
 
-  exports.randomInteger = randomInteger
-  numberHelpers.randomInteger = randomInteger
-  /**
+var randomInteger = function randomInteger (range) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+  return (Math.floor(Math.random() * range) + offset) * interval
+}
+/**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
  * 0 to indicate both values are the equal
@@ -97,13 +85,10 @@
  * @returns {number}
  */
 
-  var compare = function compare (val1, val2) {
-    return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-  }
+exports.randomInteger = randomInteger
 
-  exports.compare = compare
-  numberHelpers.compare = compare
-  var _default = numberHelpers
-  exports.default = _default
-  this.numberHelpers = numberHelpers
-}).call(this || window || {})
+var compare = function compare (val1, val2) {
+  return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
+}
+
+exports.compare = compare

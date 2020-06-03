@@ -1,4 +1,4 @@
-import helpers from '../dist/helpers/functions.js'
+import * as helpers from '../dist/helpers/functions.js'
 
 test('curry returns callable with unmet parameters', () => {
   const arg1 = 'first'

@@ -1,15 +1,14 @@
 /**
+ * Some simple utility functions for generating arrays or performing work on arrays.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
+ * @module arrayHelpers
  */
 
-/**
- * Some simple utility functions for generating arrays or performing work on arrays.
- * @module arrayHelpers
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- */
-const arrayHelpers = {}
+import 'core-js/stable'
+import { curry } from './functions'
+import { cloneObject } from './objects'
 
 /**
  * Generate an array filled with a copy of the provided item or references to the provided item.
@@ -37,8 +36,7 @@ const buildArrayBase = (useReference, item, length, arr = []) => {
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-const buildArray = curry(buildArrayBase)(false)
-arrayHelpers.buildArray = buildArray
+export const buildArray = curry(buildArrayBase)(false)
 
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
@@ -49,8 +47,7 @@ arrayHelpers.buildArray = buildArray
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-const buildArrayOfReferences = curry(buildArrayBase)(true)
-arrayHelpers.buildArrayOfReferences = buildArrayOfReferences
+export const buildArrayOfReferences = curry(buildArrayBase)(true)
 
 /**
  * Remove duplicate values from an array.
@@ -58,8 +55,7 @@ arrayHelpers.buildArrayOfReferences = buildArrayOfReferences
  * @param {Array} array - The array to make unique
  * @returns {Array}
  */
-const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
-arrayHelpers.uniqueArray = uniqueArray
+export const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
 
 /**
  * Take multiple arrays and then filter all these into one unique array.
@@ -67,11 +63,10 @@ arrayHelpers.uniqueArray = uniqueArray
  * @param {...Array} arrays - Provide mulitple arrays to create one unique array
  * @returns {Array}
  */
-const mergeArrays = (...arrays) => arrays.map(arrayHelpers.uniqueArray).reduce(
+export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
   (merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))],
   []
 )
-arrayHelpers.mergeArrays = mergeArrays
 
 /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
@@ -125,7 +120,7 @@ arrayHelpers.mergeArrays = mergeArrays
  * @param {Array} arr2 - The second array to compare
  * @returns {Object.<string, number>}
  */
-const compareArrays = (...arrays) => arrayHelpers.mergeArrays(...arrays)
+export const compareArrays = (...arrays) => mergeArrays(...arrays)
   .reduce(
     (results, attr) => {
       const arrayResults = arrays.map(array => array.includes(attr) ? 1 : -1)
@@ -136,4 +131,3 @@ const compareArrays = (...arrays) => arrayHelpers.mergeArrays(...arrays)
     },
     []
   )
-arrayHelpers.compareArrays = compareArrays
