@@ -161,7 +161,7 @@ var queueManager = function queueManager () {
   var isRunning = false
   /**
    * Each time queue handle is called the passed function is added to the queue to be called when ready.
-   * @function handle
+   * @function queueManager~handle
    * @param {Function} fn - A function to enqueue
    * @param  {...any} args - Arguments to be passed to the function once it is ready
    * @returns {Promise}
@@ -233,7 +233,7 @@ var queueTimeout = function queueTimeout () {
   var manager = queueManager(queue)
   /**
    * Run Timeout functions one after the other in queue.
-   * @function handle
+   * @function queueTimeout~handle
    * @param {function} fn - A callback function to be performed at some time in the future.
    * @param {number} time - The time in milliseconds to delay.
    * @param {...*} args - Arguments to be passed to the callback once it is implemented.
