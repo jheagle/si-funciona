@@ -30,7 +30,6 @@ const buildArrayBase = (useReference, item, length, arr = []) => {
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
- * @function buildArray
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
@@ -41,7 +40,6 @@ export const buildArray = curry(buildArrayBase)(false)
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
- * @function buildArrayOfReferences
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
@@ -59,7 +57,6 @@ export const uniqueArray = array => array.filter((item, index) => array.indexOf(
 
 /**
  * Take multiple arrays and then filter all these into one unique array.
- * @function uniqueArray
  * @param {...Array} arrays - Provide mulitple arrays to create one unique array
  * @returns {Array}
  */
@@ -81,7 +78,7 @@ export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
  * or more.
  * @example
  * // example of input and resulting output
- * arrayHelpers.compareArrays(
+ * compareArrays(
  *   ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],
  *   ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
  * )
@@ -115,7 +112,6 @@ export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
  *   }
  * ]
  *
- * @function compareArrays
  * @param {Array} arr1 - The first array to compare
  * @param {Array} arr2 - The second array to compare
  * @returns {Object.<string, number>}

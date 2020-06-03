@@ -35,7 +35,6 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
 
 /**
  * Set a value on an item, then return the item
- * @function setValue
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
  * @param {Object|Array} item - An object or array to be updated
@@ -47,7 +46,6 @@ var setValue = function setValue (key, value, item) {
 }
 /**
  * Set a value on an item, then return the value
- * @function setAndReturnValue
  * @param {Object|Array} item - An object or array to be updated
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
@@ -62,7 +60,7 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
 }
 /**
  * Function that produces a property of the new Object, taking three arguments
- * @callback module:objectHelpers~mapCallback
+ * @callback mapCallback
  * @param {*} currentProperty - The current property being processed in the object.
  * @param {string} [currentIndex] - The property name of the current property being processed in the object.
  * @param {Object|Array} [object] - The object map was called upon.
@@ -73,9 +71,8 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
  * If an array is passed in instead then it will perform standard map(). It is recommended to
  * always use the standard map() function when it is known that the object is actually an array.
- * @function mapObject
  * @param {Object|Array} obj - The Object (or Array) to be mapped
- * @param {module:objectHelpers~mapCallback|function} fn - The function to be processed for each mapped property
+ * @param {mapCallback|function} fn - The function to be processed for each mapped property
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
@@ -90,9 +87,8 @@ var mapObject = function mapObject (obj, fn) {
 }
 /**
  * Perform map on an array property of an object, then return the object
- * @function mapArrayProperty
  * @param {string} property - The string key for the array property to be mapped
- * @param {module:objectHelpers~mapCallback|function} mapFunction - A function suitable to be passed to map
+ * @param {mapCallback|function} mapFunction - A function suitable to be passed to map
  * @param {Object|Array} obj - An object having an array property
  * @returns {object}
  */
@@ -106,7 +102,7 @@ var mapProperty = function mapProperty (property, mapFunction, obj) {
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
  * otherwise, taking three arguments
- * @callback module:objectHelpers~filterCallback
+ * @callback filterCallback
  * @param {*} currentProperty - The current property being processed in the object.
  * @param {string} [currentIndex] - The property name of the current property being processed in the object.
  * @param {Object|Array} [object] - The object filter was called upon.
@@ -117,9 +113,8 @@ var mapProperty = function mapProperty (property, mapFunction, obj) {
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
  * always use the standard filter() function when it is known that the object is actually an array.
- * @function filterObject
  * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~filterCallback|function} fn - The function to be processed for each filtered property
+ * @param {filterCallback|function} fn - The function to be processed for each filtered property
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
@@ -140,7 +135,7 @@ var filterObject = function filterObject (obj, fn) {
 }
 /**
  * Function to execute on each property in the object, taking four arguments
- * @callback module:objectHelpers~reduceCallback
+ * @callback reduceCallback
  * @param {*} [accumulator={}] - The accumulator accumulates the callback's return values; it is the accumulated
  * value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
  * @param {*} [currentProperty={}] - The current property being processed in the object.
@@ -154,9 +149,8 @@ var filterObject = function filterObject (obj, fn) {
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
  * always use the standard reduce() function when it is known that the object is actually an array.
- * @function reduceObject
  * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~reduceCallback|function} fn - The function to be processed for each filtered property
+ * @param {reduceCallback|function} fn - The function to be processed for each filtered property
  * @param {Object|Array} [initialValue] - Optional. Value to use as the first argument to the first call of the
  * callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty
  * array without an initial value is an error.
@@ -173,7 +167,6 @@ var reduceObject = function reduceObject (obj, fn) {
 }
 /**
  * Helper function for testing if the item is an Object or Array that contains properties or elements
- * @function notEmptyObjectOrArray
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
@@ -201,7 +194,6 @@ var cloneCopy = function cloneCopy (object, cloned) {
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
- * @function cloneObject
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
@@ -216,7 +208,7 @@ var cloneObject = function cloneObject (object) {
  * The passed function should accept a minimum of two objects to be merged.
  * If the desire is to mutate the input objects, then the function name should
  * have the word 'mutable' in the name (case-insensitive).
- * @param {module:objectHelpers.mergeObjects|module:objectHelpers.mergeObjectsMutable|Function} fn - Pass one of
+ * @param {mergeObjects|mergeObjectsMutable|Function} fn - Pass one of
  * the mergeObjects functions to be used
  * @param {Object} obj1 - The receiving object; this is the object which will have it's properties overridden
  * @param {Object} obj2 - The contributing object; this is the object which will contribute new properties and
@@ -239,7 +231,6 @@ var mergeObjectsBase = function mergeObjectsBase (fn, obj1, obj2) {
  * objects having the same attributes will overwrite starting from the end of the argument
  * list and bubbling up to return a merged version of the first object.
  * WARNING: This is a recursive function.
- * @function mergeObjects
  * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
  * object
  * @returns {Object}
@@ -258,7 +249,6 @@ var mergeObjects = function mergeObjects () {
  * list and bubbling up to return the overwritten first object.
  * WARNING: This is a recursive function.
  * WARNING: This will mutate the first object passed in as input
- * @function mergeObjectsMutable
  * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
  * object
  * @returns {Object}

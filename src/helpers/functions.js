@@ -12,7 +12,6 @@ import 'regenerator-runtime/runtime'
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
- * @function curry
  * @param {function} fn - Receives a function to be curried
  * @returns {function|*}
  */
@@ -23,7 +22,6 @@ export const curry = fn => (...args) => args.length >= fn.length
 /**
  * Take one or more function with a single parameter and return value.
  * Pass a paramter and the value will be transformed by each function then returned.
- * @function pipe
  * @param {...function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
@@ -31,7 +29,6 @@ export const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
 
 /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
- * @function callWithParams
  * @param {function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
@@ -74,7 +71,6 @@ export const delay = (time = 0) => {
 
 /**
  * Manage functions to run sequentially.
- * @function queueManager
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueManager~handle}
  */
@@ -82,12 +78,11 @@ export const queueManager = (queue = []) => {
   let isRunning = false
   /**
    * Each time queue handle is called the passed function is added to the queue to be called when ready.
-   * @function queueManager~handle
    * @param {Function} fn - A function to enqueue
    * @param  {...any} args - Arguments to be passed to the function once it is ready
    * @returns {Promise}
    */
-  return (fn, ...args) => {
+  const handle = (fn, ...args) => {
     const runNextItem = () => {
       if (queue.length && !isRunning) {
         isRunning = true
@@ -113,11 +108,11 @@ export const queueManager = (queue = []) => {
       return resolvedResult
     })
   }
+  return handle
 }
 
 /**
  * Manage functions to run sequentially with delays.
- * @function queueTimeout
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueTimeout~handle}
  */
@@ -125,11 +120,11 @@ export const queueTimeout = (queue = []) => {
   const manager = queueManager(queue)
   /**
    * Run Timeout functions one after the other in queue.
-   * @function queueTimeout~handle
    * @param {function} fn - A callback function to be performed at some time in the future.
    * @param {number} time - The time in milliseconds to delay.
    * @param {...*} args - Arguments to be passed to the callback once it is implemented.
    * @returns {Promise}
    */
-  return (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
+  const handle = (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
+  return handle
 }

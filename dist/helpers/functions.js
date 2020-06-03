@@ -53,7 +53,6 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
- * @function curry
  * @param {function} fn - Receives a function to be curried
  * @returns {function|*}
  */
@@ -75,7 +74,6 @@ var curry = function curry (fn) {
 /**
  * Take one or more function with a single parameter and return value.
  * Pass a paramter and the value will be transformed by each function then returned.
- * @function pipe
  * @param {...function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
@@ -95,7 +93,6 @@ var pipe = function pipe () {
 }
 /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
- * @function callWithParams
  * @param {function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
@@ -149,7 +146,6 @@ var delay = function delay () {
 }
 /**
  * Manage functions to run sequentially.
- * @function queueManager
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueManager~handle}
  */
@@ -161,13 +157,12 @@ var queueManager = function queueManager () {
   var isRunning = false
   /**
    * Each time queue handle is called the passed function is added to the queue to be called when ready.
-   * @function queueManager~handle
    * @param {Function} fn - A function to enqueue
    * @param  {...any} args - Arguments to be passed to the function once it is ready
    * @returns {Promise}
    */
 
-  return function (fn) {
+  var handle = function handle (fn) {
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4]
     }
@@ -218,10 +213,11 @@ var queueManager = function queueManager () {
       return resolvedResult
     })
   }
+
+  return handle
 }
 /**
  * Manage functions to run sequentially with delays.
- * @function queueTimeout
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {queueTimeout~handle}
  */
@@ -233,14 +229,13 @@ var queueTimeout = function queueTimeout () {
   var manager = queueManager(queue)
   /**
    * Run Timeout functions one after the other in queue.
-   * @function queueTimeout~handle
    * @param {function} fn - A callback function to be performed at some time in the future.
    * @param {number} time - The time in milliseconds to delay.
    * @param {...*} args - Arguments to be passed to the callback once it is implemented.
    * @returns {Promise}
    */
 
-  return function (fn) {
+  var handle = function handle (fn) {
     var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 
     for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
@@ -253,6 +248,8 @@ var queueTimeout = function queueTimeout () {
       })
     })
   }
+
+  return handle
 }
 
 exports.queueTimeout = queueTimeout
