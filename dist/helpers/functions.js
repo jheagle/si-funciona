@@ -145,9 +145,17 @@ var delay = function delay () {
   }
 }
 /**
+ * Each time queue handle is called the passed function is added to the queue to be called when ready.
+ * @function queueManagerHandle
+ * @param {Function} fn - A function to enqueue
+ * @param  {...any} args - Arguments to be passed to the function once it is ready
+ * @returns {Promise}
+ */
+
+/**
  * Manage functions to run sequentially.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManager~handle}
+ * @returns {queueManagerHandle}
  */
 
 exports.delay = delay
@@ -155,14 +163,7 @@ exports.delay = delay
 var queueManager = function queueManager () {
   var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
   var isRunning = false
-  /**
-   * Each time queue handle is called the passed function is added to the queue to be called when ready.
-   * @param {Function} fn - A function to enqueue
-   * @param  {...any} args - Arguments to be passed to the function once it is ready
-   * @returns {Promise}
-   */
-
-  var handle = function handle (fn) {
+  return function (fn) {
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4]
     }
@@ -213,13 +214,20 @@ var queueManager = function queueManager () {
       return resolvedResult
     })
   }
-
-  return handle
 }
+/**
+ * Run Timeout functions one after the other in queue.
+ * @function queueTimeoutHandle
+ * @param {function} fn - A callback function to be performed at some time in the future.
+ * @param {number} time - The time in milliseconds to delay.
+ * @param {...*} args - Arguments to be passed to the callback once it is implemented.
+ * @returns {Promise}
+ */
+
 /**
  * Manage functions to run sequentially with delays.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueTimeout~handle}
+ * @returns {queueTimeoutHandle}
  */
 
 exports.queueManager = queueManager
@@ -227,15 +235,7 @@ exports.queueManager = queueManager
 var queueTimeout = function queueTimeout () {
   var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
   var manager = queueManager(queue)
-  /**
-   * Run Timeout functions one after the other in queue.
-   * @param {function} fn - A callback function to be performed at some time in the future.
-   * @param {number} time - The time in milliseconds to delay.
-   * @param {...*} args - Arguments to be passed to the callback once it is implemented.
-   * @returns {Promise}
-   */
-
-  var handle = function handle (fn) {
+  return function (fn) {
     var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 
     for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
@@ -248,8 +248,6 @@ var queueTimeout = function queueTimeout () {
       })
     })
   }
-
-  return handle
 }
 
 exports.queueTimeout = queueTimeout

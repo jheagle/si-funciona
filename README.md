@@ -174,9 +174,11 @@ Manage how functions are called with these utilities.
         * [.pipe](#module_functionHelpers.pipe) ⇒ <code>\*</code>
         * [.callWithParams](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
         * [.delay](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
-        * [.queueManager](#module_functionHelpers.queueManager) ⇒ <code>queueManager~handle</code>
-        * [.queueTimeout](#module_functionHelpers.queueTimeout) ⇒ <code>queueTimeout~handle</code>
+        * [.queueManager](#module_functionHelpers.queueManager) ⇒ <code>queueManagerHandle</code>
+        * [.queueTimeout](#module_functionHelpers.queueTimeout) ⇒ <code>queueTimeoutHandle</code>
     * _inner_
+        * [~queueManagerHandle(fn, ...args)](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
+        * [~queueTimeoutHandle(fn, time, ...args)](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
         * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
 
 <a name="module_functionHelpers.curry"></a>
@@ -230,7 +232,7 @@ Provide a timeout which returns a promise.
 
 <a name="module_functionHelpers.queueManager"></a>
 
-### functionHelpers.queueManager ⇒ <code>queueManager~handle</code>
+### functionHelpers.queueManager ⇒ <code>queueManagerHandle</code>
 Manage functions to run sequentially.
 
 **Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -241,7 +243,7 @@ Manage functions to run sequentially.
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
-### functionHelpers.queueTimeout ⇒ <code>queueTimeout~handle</code>
+### functionHelpers.queueTimeout ⇒ <code>queueTimeoutHandle</code>
 Manage functions to run sequentially with delays.
 
 **Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -249,6 +251,31 @@ Manage functions to run sequentially with delays.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [queue] | <code>Iterable</code> | <code>[]</code> | The iterable that can be used to store queued functions |
+
+<a name="module_functionHelpers..queueManagerHandle"></a>
+
+### functionHelpers~queueManagerHandle(fn, ...args) ⇒ <code>Promise</code>
+Each time queue handle is called the passed function is added to the queue to be called when ready.
+
+**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | A function to enqueue |
+| ...args | <code>any</code> | Arguments to be passed to the function once it is ready |
+
+<a name="module_functionHelpers..queueTimeoutHandle"></a>
+
+### functionHelpers~queueTimeoutHandle(fn, time, ...args) ⇒ <code>Promise</code>
+Run Timeout functions one after the other in queue.
+
+**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | A callback function to be performed at some time in the future. |
+| time | <code>number</code> | The time in milliseconds to delay. |
+| ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
 
 <a name="module_functionHelpers..delayHandler"></a>
 

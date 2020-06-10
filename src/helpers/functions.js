@@ -70,19 +70,21 @@ export const delay = (time = 0) => {
 }
 
 /**
+ * Each time queue handle is called the passed function is added to the queue to be called when ready.
+ * @function queueManagerHandle
+ * @param {Function} fn - A function to enqueue
+ * @param  {...any} args - Arguments to be passed to the function once it is ready
+ * @returns {Promise}
+ */
+
+/**
  * Manage functions to run sequentially.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManager~handle}
+ * @returns {queueManagerHandle}
  */
 export const queueManager = (queue = []) => {
   let isRunning = false
-  /**
-   * Each time queue handle is called the passed function is added to the queue to be called when ready.
-   * @param {Function} fn - A function to enqueue
-   * @param  {...any} args - Arguments to be passed to the function once it is ready
-   * @returns {Promise}
-   */
-  const handle = (fn, ...args) => {
+  return (fn, ...args) => {
     const runNextItem = () => {
       if (queue.length && !isRunning) {
         isRunning = true
@@ -108,23 +110,23 @@ export const queueManager = (queue = []) => {
       return resolvedResult
     })
   }
-  return handle
 }
+
+/**
+ * Run Timeout functions one after the other in queue.
+ * @function queueTimeoutHandle
+ * @param {function} fn - A callback function to be performed at some time in the future.
+ * @param {number} time - The time in milliseconds to delay.
+ * @param {...*} args - Arguments to be passed to the callback once it is implemented.
+ * @returns {Promise}
+ */
 
 /**
  * Manage functions to run sequentially with delays.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueTimeout~handle}
+ * @returns {queueTimeoutHandle}
  */
 export const queueTimeout = (queue = []) => {
   const manager = queueManager(queue)
-  /**
-   * Run Timeout functions one after the other in queue.
-   * @param {function} fn - A callback function to be performed at some time in the future.
-   * @param {number} time - The time in milliseconds to delay.
-   * @param {...*} args - Arguments to be passed to the callback once it is implemented.
-   * @returns {Promise}
-   */
-  const handle = (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
-  return handle
+  return (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
 }
