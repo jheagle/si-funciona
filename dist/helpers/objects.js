@@ -177,53 +177,36 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
   return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
 }
 /**
- * Re-add the Object Properties which cannot be cloned and must be directly copied to the new cloned object
- * WARNING: This is a recursive function.
- * @param {Object} cloned - A value-only copy of the original object
- * @param {Object} object - The original object that is being cloned
- * @returns {Object|Array}
- */
-
-exports.notEmptyObjectOrArray = notEmptyObjectOrArray
-
-var cloneCopy = function cloneCopy (object, cloned) {
-  return notEmptyObjectOrArray(object) ? reduceObject(object, function (start, prop, key) {
-    start[key] = cloned[key] && !/^(parentItem|listenerArgs|element)$/.test(key) ? cloneCopy(prop, cloned[key]) : prop
-    return start
-  }, cloned) : cloned
-}
-/**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
 
+exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+
 var cloneObject = function cloneObject (object) {
-  return cloneCopy(object, JSON.parse(JSON.stringify(object, function (key, val) {
-    return !/^(parentItem|listenerArgs|element)$/.test(key) ? val : undefined
-  })))
+  return JSON.parse(JSON.stringify(object))
 }
 /**
  * Merge two objects and provide clone or original on the provided function.
  * The passed function should accept a minimum of two objects to be merged.
  * If the desire is to mutate the input objects, then the function name should
  * have the word 'mutable' in the name (case-insensitive).
+ * @param {boolean} isMutable - An optional flag which indicates whether we will clone objects or directly
  * @param {mergeObjects|mergeObjectsMutable|Function} fn - Pass one of
  * the mergeObjects functions to be used
  * @param {Object} obj1 - The receiving object; this is the object which will have it's properties overridden
  * @param {Object} obj2 - The contributing object; this is the object which will contribute new properties and
  * override existing ones
- * @param {boolean} [isMutable=false] - An optional flag which indicates whether we will clone objects or directly
  * modify them
  * @returns {Object}
  */
 
 exports.cloneObject = cloneObject
 
-var mergeObjectsBase = function mergeObjectsBase (fn, obj1, obj2) {
-  var isMutable = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
+var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
   return notEmptyObjectOrArray(obj2) ? mapObject(obj2, function (prop, key) {
-    return obj1[key] && !/^(parentItem|listenerArgs|element)$/.test(key) ? fn(obj1[key], prop) : prop
+    return obj1[key] ? fn(obj1[key], prop) : prop
   }, isMutable ? obj1 : cloneObject(obj1)) : obj2
 }
 /**
@@ -241,7 +224,7 @@ var mergeObjects = function mergeObjects () {
     args[_key] = arguments[_key]
   }
 
-  return args.length === 2 ? mergeObjectsBase(mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce((0, _functions.curry)(mergeObjectsBase)(mergeObjects), {})
+  return args.length === 2 ? mergeObjectsBase(false, mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce((0, _functions.curry)(mergeObjectsBase)(false, mergeObjects), {})
 }
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
@@ -261,7 +244,7 @@ var mergeObjectsMutable = function mergeObjectsMutable () {
     args[_key2] = arguments[_key2]
   }
 
-  return args.length === 2 ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true) : args.length === 1 ? args[0] : args.reduce((0, _functions.curry)(mergeObjectsBase)(mergeObjectsMutable), {})
+  return args.length === 2 ? mergeObjectsBase(true, mergeObjectsMutable, args[0], args[1]) : args.length === 1 ? args[0] : args.reduce((0, _functions.curry)(mergeObjectsBase)(true, mergeObjectsMutable), {})
 }
 
 exports.mergeObjectsMutable = mergeObjectsMutable

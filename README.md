@@ -393,8 +393,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
-        * [~cloneCopy(cloned, object)](#module_objectHelpers..cloneCopy) ⇒ <code>Object</code> \| <code>Array</code>
-        * [~mergeObjectsBase(fn, obj1, obj2, [isMutable])](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
+        * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
@@ -534,22 +533,9 @@ WARNING: This will mutate the first object passed in as input
 | --- | --- | --- |
 | ...args | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first object |
 
-<a name="module_objectHelpers..cloneCopy"></a>
-
-### objectHelpers~cloneCopy(cloned, object) ⇒ <code>Object</code> \| <code>Array</code>
-Re-add the Object Properties which cannot be cloned and must be directly copied to the new cloned object
-WARNING: This is a recursive function.
-
-**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| cloned | <code>Object</code> | A value-only copy of the original object |
-| object | <code>Object</code> | The original object that is being cloned |
-
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
-### objectHelpers~mergeObjectsBase(fn, obj1, obj2, [isMutable]) ⇒ <code>Object</code>
+### objectHelpers~mergeObjectsBase(isMutable, fn, obj1, obj2) ⇒ <code>Object</code>
 Merge two objects and provide clone or original on the provided function.
 The passed function should accept a minimum of two objects to be merged.
 If the desire is to mutate the input objects, then the function name should
@@ -557,12 +543,12 @@ have the word 'mutable' in the name (case-insensitive).
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| fn | <code>mergeObjects</code> \| <code>mergeObjectsMutable</code> \| <code>function</code> |  | Pass one of the mergeObjects functions to be used |
-| obj1 | <code>Object</code> |  | The receiving object; this is the object which will have it's properties overridden |
-| obj2 | <code>Object</code> |  | The contributing object; this is the object which will contribute new properties and override existing ones |
-| [isMutable] | <code>boolean</code> | <code>false</code> | An optional flag which indicates whether we will clone objects or directly modify them |
+| Param | Type | Description |
+| --- | --- | --- |
+| isMutable | <code>boolean</code> | An optional flag which indicates whether we will clone objects or directly |
+| fn | <code>mergeObjects</code> \| <code>mergeObjectsMutable</code> \| <code>function</code> | Pass one of the mergeObjects functions to be used |
+| obj1 | <code>Object</code> | The receiving object; this is the object which will have it's properties overridden |
+| obj2 | <code>Object</code> | The contributing object; this is the object which will contribute new properties and override existing ones modify them |
 
 <a name="module_objectHelpers..mapCallback"></a>
 

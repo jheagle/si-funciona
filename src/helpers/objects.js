@@ -144,51 +144,30 @@ export const notEmptyObjectOrArray = item => !!(
 )
 
 /**
- * Re-add the Object Properties which cannot be cloned and must be directly copied to the new cloned object
- * WARNING: This is a recursive function.
- * @param {Object} cloned - A value-only copy of the original object
- * @param {Object} object - The original object that is being cloned
- * @returns {Object|Array}
- */
-const cloneCopy = (object, cloned) =>
-  notEmptyObjectOrArray(object)
-    ? reduceObject(object, (start, prop, key) => {
-      start[key] = (cloned[key] && !/^(parentItem|listenerArgs|element)$/.test(key))
-        ? cloneCopy(prop, cloned[key])
-        : prop
-      return start
-    }, cloned)
-    : cloned
-
-/**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
-export const cloneObject = object => cloneCopy(object, JSON.parse(
-  JSON.stringify(object, (key, val) => !/^(parentItem|listenerArgs|element)$/.test(key)
-    ? val
-    : undefined)
-))
+export const cloneObject = object => JSON.parse(JSON.stringify(object))
 
 /**
  * Merge two objects and provide clone or original on the provided function.
  * The passed function should accept a minimum of two objects to be merged.
  * If the desire is to mutate the input objects, then the function name should
  * have the word 'mutable' in the name (case-insensitive).
+ * @param {boolean} isMutable - An optional flag which indicates whether we will clone objects or directly
  * @param {mergeObjects|mergeObjectsMutable|Function} fn - Pass one of
  * the mergeObjects functions to be used
  * @param {Object} obj1 - The receiving object; this is the object which will have it's properties overridden
  * @param {Object} obj2 - The contributing object; this is the object which will contribute new properties and
  * override existing ones
- * @param {boolean} [isMutable=false] - An optional flag which indicates whether we will clone objects or directly
  * modify them
  * @returns {Object}
  */
-const mergeObjectsBase = (fn, obj1, obj2, isMutable = false) => notEmptyObjectOrArray(obj2)
+const mergeObjectsBase = (isMutable, fn, obj1, obj2) => notEmptyObjectOrArray(obj2)
   ? mapObject(
     obj2,
-    (prop, key) => (obj1[key] && !/^(parentItem|listenerArgs|element)$/.test(key))
+    (prop, key) => (obj1[key])
       ? fn(obj1[key], prop)
       : prop,
     isMutable ? obj1 : cloneObject(obj1)
@@ -205,10 +184,10 @@ const mergeObjectsBase = (fn, obj1, obj2, isMutable = false) => notEmptyObjectOr
  * @returns {Object}
  */
 export const mergeObjects = (...args) => args.length === 2
-  ? mergeObjectsBase(mergeObjects, args[0], args[1])
+  ? mergeObjectsBase(false, mergeObjects, args[0], args[1])
   : args.length === 1
     ? cloneObject(args[0])
-    : args.reduce(curry(mergeObjectsBase)(mergeObjects), {})
+    : args.reduce(curry(mergeObjectsBase)(false, mergeObjects), {})
 
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
@@ -221,7 +200,7 @@ export const mergeObjects = (...args) => args.length === 2
  * @returns {Object}
  */
 export const mergeObjectsMutable = (...args) => args.length === 2
-  ? mergeObjectsBase(mergeObjectsMutable, args[0], args[1], true)
+  ? mergeObjectsBase(true, mergeObjectsMutable, args[0], args[1])
   : args.length === 1
     ? args[0]
-    : args.reduce(curry(mergeObjectsBase)(mergeObjectsMutable), {})
+    : args.reduce(curry(mergeObjectsBase)(true, mergeObjectsMutable), {})
