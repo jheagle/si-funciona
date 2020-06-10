@@ -80,7 +80,7 @@ export const delay = (time = 0) => {
 /**
  * Manage functions to run sequentially.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManagerHandle}
+ * @returns {functionHelpers~queueManagerHandle}
  */
 export const queueManager = (queue = []) => {
   let isRunning = false
@@ -113,7 +113,7 @@ export const queueManager = (queue = []) => {
 }
 
 /**
- * Run Timeout functions one after the other in queue.
+ * Run Timeout functions one after the otherin queue.
  * @function queueTimeoutHandle
  * @param {function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
@@ -124,7 +124,7 @@ export const queueManager = (queue = []) => {
 /**
  * Manage functions to run sequentially with delays.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueTimeoutHandle}
+ * @returns {functionHelpers~queueTimeoutHandle}
  */
 export const queueTimeout = (queue = []) => {
   const manager = queueManager(queue)

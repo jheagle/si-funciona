@@ -174,8 +174,8 @@ Manage how functions are called with these utilities.
         * [.pipe](#module_functionHelpers.pipe) ⇒ <code>\*</code>
         * [.callWithParams](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
         * [.delay](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
-        * [.queueManager](#module_functionHelpers.queueManager) ⇒ <code>queueManagerHandle</code>
-        * [.queueTimeout](#module_functionHelpers.queueTimeout) ⇒ <code>queueTimeoutHandle</code>
+        * [.queueManager](#module_functionHelpers.queueManager) ⇒ <code>functionHelpers~queueManagerHandle</code>
+        * [.queueTimeout](#module_functionHelpers.queueTimeout) ⇒ <code>functionHelpers~queueTimeoutHandle</code>
     * _inner_
         * [~queueManagerHandle(fn, ...args)](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
         * [~queueTimeoutHandle(fn, time, ...args)](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
@@ -232,7 +232,7 @@ Provide a timeout which returns a promise.
 
 <a name="module_functionHelpers.queueManager"></a>
 
-### functionHelpers.queueManager ⇒ <code>queueManagerHandle</code>
+### functionHelpers.queueManager ⇒ <code>functionHelpers~queueManagerHandle</code>
 Manage functions to run sequentially.
 
 **Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -243,7 +243,7 @@ Manage functions to run sequentially.
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
-### functionHelpers.queueTimeout ⇒ <code>queueTimeoutHandle</code>
+### functionHelpers.queueTimeout ⇒ <code>functionHelpers~queueTimeoutHandle</code>
 Manage functions to run sequentially with delays.
 
 **Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -267,7 +267,7 @@ Each time queue handle is called the passed function is added to the queue to be
 <a name="module_functionHelpers..queueTimeoutHandle"></a>
 
 ### functionHelpers~queueTimeoutHandle(fn, time, ...args) ⇒ <code>Promise</code>
-Run Timeout functions one after the other in queue.
+Run Timeout functions one after the otherin queue.
 
 **Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
 

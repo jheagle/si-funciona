@@ -155,7 +155,7 @@ var delay = function delay () {
 /**
  * Manage functions to run sequentially.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManagerHandle}
+ * @returns {functionHelpers~queueManagerHandle}
  */
 
 exports.delay = delay
@@ -216,7 +216,7 @@ var queueManager = function queueManager () {
   }
 }
 /**
- * Run Timeout functions one after the other in queue.
+ * Run Timeout functions one after the otherin queue.
  * @function queueTimeoutHandle
  * @param {function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
@@ -227,7 +227,7 @@ var queueManager = function queueManager () {
 /**
  * Manage functions to run sequentially with delays.
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueTimeoutHandle}
+ * @returns {functionHelpers~queueTimeoutHandle}
  */
 
 exports.queueManager = queueManager
