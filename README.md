@@ -389,6 +389,8 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.filterObject](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.reduceObject](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.notEmptyObjectOrArray](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
+        * [.traceObjectDetail](#module_objectHelpers.traceObjectDetail) ⇒ <code>objectMapDetail</code>
+        * [.traceObject](#module_objectHelpers.traceObject) ⇒ <code>objectMap</code>
         * [.cloneObject](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
@@ -492,6 +494,30 @@ Helper function for testing if the item is an Object or Array that contains prop
 | Param | Type | Description |
 | --- | --- | --- |
 | item | <code>Object</code> \| <code>Array</code> | Object or Array to test |
+
+<a name="module_objectHelpers.traceObjectDetail"></a>
+
+### objectHelpers.traceObjectDetail ⇒ <code>objectMapDetail</code>
+Trace an object's attribute and provide details about it.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| value | <code>\*</code> | 
+| key | <code>string</code> \| <code>number</code> | 
+| index | <code>number</code> | 
+
+<a name="module_objectHelpers.traceObject"></a>
+
+### objectHelpers.traceObject ⇒ <code>objectMap</code>
+Trace an object and return the trace which defines the object's structure and attributes.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> | 
 
 <a name="module_objectHelpers.cloneObject"></a>
 

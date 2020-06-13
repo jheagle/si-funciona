@@ -59,6 +59,58 @@ test('notEmptyObjectOrArray returns correct boolean for object and array check',
   expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
 })
 
+describe('traceObject', () => {
+  test('produces a simple map of an object', () => {
+    const someItem = { aString: 'someString', aNumber: 34, aBoolean: true, aNull: null, anUndefined: undefined }
+    const trace = helpers.traceObject(someItem)
+    expect(trace.details[0]).toMatchObject({
+      index: 0,
+      key: 'aString',
+      type: ['string'],
+      value: ['someString'],
+      isReference: false,
+      reference: null
+    })
+    expect(trace.details[1]).toMatchObject({
+      index: 1,
+      key: 'aNumber',
+      type: ['number'],
+      value: [34],
+      isReference: false,
+      reference: null
+    })
+    expect(trace.details[2]).toMatchObject({
+      index: 2,
+      key: 'aBoolean',
+      type: ['boolean'],
+      value: [true],
+      isReference: false,
+      reference: null
+    })
+    expect(trace.details[3]).toMatchObject({
+      index: 3,
+      key: 'aNull',
+      type: ['object'],
+      value: [null],
+      isReference: true,
+      reference: null
+    })
+    expect(trace.details[4]).toMatchObject({
+      index: 4,
+      key: 'anUndefined',
+      type: ['undefined'],
+      value: [undefined],
+      isReference: false,
+      reference: null
+    })
+    expect(trace.length).toBe(5)
+    expect(trace.keys).toStrictEqual(['aString', 'aNumber', 'aBoolean', 'aNull', 'anUndefined'])
+    expect(trace.types).toStrictEqual([['string'], ['number'], ['boolean'], ['object'], ['undefined']])
+    expect(trace.references).toStrictEqual([3])
+    expect(trace.complete).toBe(false)
+  })
+})
+
 describe('cloneObject', () => {
   test('produces a new copy of an object, changes to one object will not affect the original', () => {
     const someItem = { name: 'something' }

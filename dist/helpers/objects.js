@@ -6,7 +6,11 @@ require('core-js/modules/es.symbol.description')
 
 require('core-js/modules/es.symbol.iterator')
 
+require('core-js/modules/es.array.concat')
+
 require('core-js/modules/es.array.filter')
+
+require('core-js/modules/es.array.from')
 
 require('core-js/modules/es.array.iterator')
 
@@ -14,22 +18,76 @@ require('core-js/modules/es.array.map')
 
 require('core-js/modules/es.array.reduce')
 
+require('core-js/modules/es.array.slice')
+
+require('core-js/modules/es.function.name')
+
 require('core-js/modules/es.object.keys')
 
 require('core-js/modules/es.object.to-string')
 
+require('core-js/modules/es.regexp.to-string')
+
+require('core-js/modules/es.set')
+
 require('core-js/modules/es.string.iterator')
+
+require('core-js/modules/esnext.set.add-all')
+
+require('core-js/modules/esnext.set.delete-all')
+
+require('core-js/modules/esnext.set.difference')
+
+require('core-js/modules/esnext.set.every')
+
+require('core-js/modules/esnext.set.filter')
+
+require('core-js/modules/esnext.set.find')
+
+require('core-js/modules/esnext.set.intersection')
+
+require('core-js/modules/esnext.set.is-disjoint-from')
+
+require('core-js/modules/esnext.set.is-subset-of')
+
+require('core-js/modules/esnext.set.is-superset-of')
+
+require('core-js/modules/esnext.set.join')
+
+require('core-js/modules/esnext.set.map')
+
+require('core-js/modules/esnext.set.reduce')
+
+require('core-js/modules/esnext.set.some')
+
+require('core-js/modules/esnext.set.symmetric-difference')
+
+require('core-js/modules/esnext.set.union')
 
 require('core-js/modules/web.dom-collections.iterator')
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.traceObject = exports.traceObjectDetail = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
 var _functions = require('./functions')
+
+var _traceObject = require('./objects/traceObject')
+
+function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+
+function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+
+function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
+
+function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
+
+function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -177,12 +235,68 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
   return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
 }
 /**
+ * Trace an object's attribute and provide details about it.
+ * @param {*} value
+ * @param {string|number} key
+ * @param {number} index
+ * @returns {objectMapDetail}
+ */
+
+exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+
+var traceObjectDetail = function traceObjectDetail (value, key, index) {
+  var type = _typeof(value)
+
+  return {
+    index: index,
+    key: key,
+    type: [type],
+    value: [value],
+    isReference: /^(array|function|object)$/.test(type),
+    reference: null
+  }
+}
+/**
+ * Trace an object and return the trace which defines the object's structure and attributes.
+ * @param {Object} object
+ * @returns {objectMap}
+ */
+
+exports.traceObjectDetail = traceObjectDetail
+
+var traceObject = function traceObject (object) {
+  var objectMap = reduceObject(object, function (objectMap, value, key) {
+    objectMap.details = [].concat(_toConsumableArray(objectMap.details), [traceObjectDetail(value, key, objectMap.length++)])
+    return objectMap
+  }, {
+    details: [],
+    length: 0,
+    keys: [],
+    types: [],
+    references: [],
+    complete: false
+  })
+  objectMap.keys = _toConsumableArray(new Set(objectMap.details.map(function (detail) {
+    return detail.key
+  })))
+  objectMap.types = _toConsumableArray(new Set(objectMap.details.map(function (detail) {
+    return detail.type
+  })))
+  objectMap.references = _toConsumableArray(new Set(objectMap.details.filter(function (detail) {
+    return detail.isReference
+  }).map(function (detail) {
+    return detail.index
+  })))
+  objectMap.complete = !objectMap.references.length
+  return objectMap
+}
+/**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @param {Object} object - The original object that is being cloned
  * @returns {Object}
  */
 
-exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+exports.traceObject = traceObject
 
 var cloneObject = function cloneObject (object) {
   return JSON.parse(JSON.stringify(object))

@@ -8,6 +8,7 @@
 
 import 'core-js/stable'
 import { curry, callWithParams } from './functions'
+import { mapDetailSample, objectMapSample, traceMapSample } from './objects/traceObject'
 
 /**
  * Set a value on an item, then return the item
@@ -142,6 +143,53 @@ export const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] ||
 export const notEmptyObjectOrArray = item => !!(
   (typeof item === 'object' && Object.keys(item).length) || (Array.isArray(item) && item.length)
 )
+
+/**
+ * Trace an object's attribute and provide details about it.
+ * @param {*} value
+ * @param {string|number} key
+ * @param {number} index
+ * @returns {objectMapDetail}
+ */
+export const traceObjectDetail = (value, key, index) => {
+  const type = (typeof value)
+  return {
+    index: index,
+    key: key,
+    type: [type],
+    value: [value],
+    isReference: /^(array|function|object)$/.test(type),
+    reference: null
+  }
+}
+
+/**
+ * Trace an object and return the trace which defines the object's structure and attributes.
+ * @param {Object} object
+ * @returns {objectMap}
+ */
+export const traceObject = object => {
+  const objectMap = reduceObject(
+    object,
+    (objectMap, value, key) => {
+      objectMap.details = [...objectMap.details, traceObjectDetail(value, key, objectMap.length++)]
+      return objectMap
+    },
+    {
+      details: [],
+      length: 0,
+      keys: [],
+      types: [],
+      references: [],
+      complete: false
+    }
+  )
+  objectMap.keys = [...(new Set(objectMap.details.map(detail => detail.key)))]
+  objectMap.types = [...(new Set(objectMap.details.map(detail => detail.type)))]
+  objectMap.references = [...(new Set(objectMap.details.filter(detail => detail.isReference).map(detail => detail.index)))]
+  objectMap.complete = !objectMap.references.length
+  return objectMap
+}
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
