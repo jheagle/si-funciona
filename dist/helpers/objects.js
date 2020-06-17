@@ -8,6 +8,8 @@ require('core-js/modules/es.symbol.iterator')
 
 require('core-js/modules/es.array.concat')
 
+require('core-js/modules/es.array.every')
+
 require('core-js/modules/es.array.filter')
 
 require('core-js/modules/es.array.from')
@@ -28,41 +30,7 @@ require('core-js/modules/es.object.to-string')
 
 require('core-js/modules/es.regexp.to-string')
 
-require('core-js/modules/es.set')
-
 require('core-js/modules/es.string.iterator')
-
-require('core-js/modules/esnext.set.add-all')
-
-require('core-js/modules/esnext.set.delete-all')
-
-require('core-js/modules/esnext.set.difference')
-
-require('core-js/modules/esnext.set.every')
-
-require('core-js/modules/esnext.set.filter')
-
-require('core-js/modules/esnext.set.find')
-
-require('core-js/modules/esnext.set.intersection')
-
-require('core-js/modules/esnext.set.is-disjoint-from')
-
-require('core-js/modules/esnext.set.is-subset-of')
-
-require('core-js/modules/esnext.set.is-superset-of')
-
-require('core-js/modules/esnext.set.join')
-
-require('core-js/modules/esnext.set.map')
-
-require('core-js/modules/esnext.set.reduce')
-
-require('core-js/modules/esnext.set.some')
-
-require('core-js/modules/esnext.set.symmetric-difference')
-
-require('core-js/modules/esnext.set.union')
 
 require('core-js/modules/web.dom-collections.iterator')
 
@@ -75,7 +43,7 @@ require('core-js/stable')
 
 var _functions = require('./functions')
 
-var _traceObject = require('./objects/traceObject')
+var _arrays = require('./arrays')
 
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
@@ -237,22 +205,27 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
 /**
  * Trace an object's attribute and provide details about it.
  * @param {*} value
- * @param {string|number} key
- * @param {number} index
+ * @param {string|number} [key=0]
+ * @param {number} [index=0]
  * @returns {objectMapDetail}
  */
 
 exports.notEmptyObjectOrArray = notEmptyObjectOrArray
 
-var traceObjectDetail = function traceObjectDetail (value, key, index) {
+var traceObjectDetail = function traceObjectDetail (value) {
+  var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+
   var type = _typeof(value)
 
+  var isReference = type === 'object' && value !== null
   return {
     index: index,
     key: key,
-    type: [type],
+    type: value === null ? [] : [type],
     value: [value],
-    isReference: /^(array|function|object)$/.test(type),
+    nullable: value === null,
+    isReference: isReference,
     reference: null
   }
 }
@@ -266,6 +239,22 @@ exports.traceObjectDetail = traceObjectDetail
 
 var traceObject = function traceObject (object) {
   var objectMap = reduceObject(object, function (objectMap, value, key) {
+    if (typeof key === 'number' && objectMap.details.length) {
+      var type = _typeof(value)
+
+      var isReference = type === 'object' && value !== null
+
+      if (value !== null) {
+        objectMap.details[0].type = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(objectMap.details[0].type), [type]))
+      }
+
+      objectMap.details[0].value = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(objectMap.details[0].value), [value]))
+      objectMap.details[0].nullable = objectMap.details[0].nullable || value === null
+      objectMap.details[0].isReference = objectMap.details[0].isReference || isReference
+      ++objectMap.length
+      return objectMap
+    }
+
     objectMap.details = [].concat(_toConsumableArray(objectMap.details), [traceObjectDetail(value, key, objectMap.length++)])
     return objectMap
   }, {
@@ -274,20 +263,24 @@ var traceObject = function traceObject (object) {
     keys: [],
     types: [],
     references: [],
+    isArray: false,
     complete: false
   })
-  objectMap.keys = _toConsumableArray(new Set(objectMap.details.map(function (detail) {
+  objectMap.keys = (0, _arrays.uniqueArray)(objectMap.details.map(function (detail) {
     return detail.key
-  })))
-  objectMap.types = _toConsumableArray(new Set(objectMap.details.map(function (detail) {
+  }))
+  objectMap.types = (0, _arrays.uniqueArray)(objectMap.details.map(function (detail) {
     return detail.type
-  })))
-  objectMap.references = _toConsumableArray(new Set(objectMap.details.filter(function (detail) {
+  }))
+  objectMap.references = (0, _arrays.uniqueArray)(objectMap.details.filter(function (detail) {
     return detail.isReference
   }).map(function (detail) {
     return detail.index
-  })))
+  }))
   objectMap.complete = !objectMap.references.length
+  objectMap.isArray = objectMap.keys.every(function (key) {
+    return typeof key === 'number'
+  })
   return objectMap
 }
 /**

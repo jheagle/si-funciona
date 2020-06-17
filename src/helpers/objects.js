@@ -8,7 +8,7 @@
 
 import 'core-js/stable'
 import { curry, callWithParams } from './functions'
-import { mapDetailSample, objectMapSample, traceMapSample } from './objects/traceObject'
+import { uniqueArray } from './arrays'
 
 /**
  * Set a value on an item, then return the item
@@ -147,18 +147,20 @@ export const notEmptyObjectOrArray = item => !!(
 /**
  * Trace an object's attribute and provide details about it.
  * @param {*} value
- * @param {string|number} key
- * @param {number} index
+ * @param {string|number} [key=0]
+ * @param {number} [index=0]
  * @returns {objectMapDetail}
  */
-export const traceObjectDetail = (value, key, index) => {
+export const traceObjectDetail = (value, key = 0, index = 0) => {
   const type = (typeof value)
+  const isReference = (type === 'object' && value !== null)
   return {
     index: index,
     key: key,
-    type: [type],
+    type: value === null ? [] : [type],
     value: [value],
-    isReference: /^(array|function|object)$/.test(type),
+    nullable: value === null,
+    isReference: isReference,
     reference: null
   }
 }
@@ -172,6 +174,18 @@ export const traceObject = object => {
   const objectMap = reduceObject(
     object,
     (objectMap, value, key) => {
+      if (typeof key === 'number' && objectMap.details.length) {
+        const type = (typeof value)
+        const isReference = (type === 'object' && value !== null)
+        if (value !== null) {
+          objectMap.details[0].type = uniqueArray([...objectMap.details[0].type, type])
+        }
+        objectMap.details[0].value = uniqueArray([...objectMap.details[0].value, value])
+        objectMap.details[0].nullable = objectMap.details[0].nullable || value === null
+        objectMap.details[0].isReference = objectMap.details[0].isReference || isReference
+        ++objectMap.length
+        return objectMap
+      }
       objectMap.details = [...objectMap.details, traceObjectDetail(value, key, objectMap.length++)]
       return objectMap
     },
@@ -181,13 +195,15 @@ export const traceObject = object => {
       keys: [],
       types: [],
       references: [],
+      isArray: false,
       complete: false
     }
   )
-  objectMap.keys = [...(new Set(objectMap.details.map(detail => detail.key)))]
-  objectMap.types = [...(new Set(objectMap.details.map(detail => detail.type)))]
-  objectMap.references = [...(new Set(objectMap.details.filter(detail => detail.isReference).map(detail => detail.index)))]
+  objectMap.keys = uniqueArray(objectMap.details.map(detail => detail.key))
+  objectMap.types = uniqueArray(objectMap.details.map(detail => detail.type))
+  objectMap.references = uniqueArray(objectMap.details.filter(detail => detail.isReference).map(detail => detail.index))
   objectMap.complete = !objectMap.references.length
+  objectMap.isArray = objectMap.keys.every(key => (typeof key === 'number'))
   return objectMap
 }
 

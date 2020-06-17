@@ -502,11 +502,11 @@ Trace an object's attribute and provide details about it.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type |
-| --- | --- |
-| value | <code>\*</code> | 
-| key | <code>string</code> \| <code>number</code> | 
-| index | <code>number</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| value | <code>\*</code> |  | 
+| [key] | <code>string</code> \| <code>number</code> | <code>0</code> | 
+| [index] | <code>number</code> | <code>0</code> | 
 
 <a name="module_objectHelpers.traceObject"></a>
 
