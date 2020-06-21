@@ -1,51 +1,9 @@
 'use strict'
 
-require('core-js/modules/es.array.iterator')
-
-require('core-js/modules/es.object.to-string')
-
-require('core-js/modules/es.set')
-
-require('core-js/modules/es.string.iterator')
-
-require('core-js/modules/esnext.set.add-all')
-
-require('core-js/modules/esnext.set.delete-all')
-
-require('core-js/modules/esnext.set.difference')
-
-require('core-js/modules/esnext.set.every')
-
-require('core-js/modules/esnext.set.filter')
-
-require('core-js/modules/esnext.set.find')
-
-require('core-js/modules/esnext.set.intersection')
-
-require('core-js/modules/esnext.set.is-disjoint-from')
-
-require('core-js/modules/esnext.set.is-subset-of')
-
-require('core-js/modules/esnext.set.is-superset-of')
-
-require('core-js/modules/esnext.set.join')
-
-require('core-js/modules/esnext.set.map')
-
-require('core-js/modules/esnext.set.reduce')
-
-require('core-js/modules/esnext.set.some')
-
-require('core-js/modules/esnext.set.symmetric-difference')
-
-require('core-js/modules/esnext.set.union')
-
-require('core-js/modules/web.dom-collections.iterator')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.traceMapSample = exports.objectMapSample = exports.mapDetailSample = void 0
+exports.mappedTraceMap = exports.traceObjectMapSample = exports.objectMapSample = exports.mapDetailSample = void 0
 
 /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
@@ -53,7 +11,7 @@ exports.traceMapSample = exports.objectMapSample = exports.mapDetailSample = voi
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module traceObject
- */
+*/
 
 /**
  * @typedef {Object} objectMapDetail
@@ -61,6 +19,9 @@ exports.traceMapSample = exports.objectMapSample = exports.mapDetailSample = voi
  * @property {string|number} key
  * @property {Array.<string>} type
  * @property {Array} value
+ * @property {boolean} nullable
+ * @property {boolean} optional
+ * @property {boolean} circular
  * @property {boolean} isReference
  * @property {null|number} reference
  */
@@ -71,8 +32,11 @@ exports.traceMapSample = exports.objectMapSample = exports.mapDetailSample = voi
 var mapDetailSample = {
   index: 0,
   key: 'keyName',
-  type: ['array', 'boolean', 'function', 'number', 'object', 'string', 'undefined'],
+  type: ['string'],
   value: [''],
+  nullable: false,
+  optional: false,
+  circular: false,
   isReference: false,
   reference: null
 }
@@ -81,8 +45,8 @@ var mapDetailSample = {
  * @property {Array.<objectMapDetail>} details
  * @property {number} length
  * @property {Array.<string|number>} keys
- * @property {Array.<Array.<string>>} types
  * @property {Array.<number>} references
+ * @property {boolean} isArray
  * @property {boolean} complete
  */
 
@@ -95,8 +59,8 @@ var objectMapSample = {
   details: [mapDetailSample],
   length: 1,
   keys: [mapDetailSample.key],
-  types: [mapDetailSample.type],
   references: [],
+  isArray: false,
   complete: true
 }
 /**
@@ -108,110 +72,149 @@ var objectMapSample = {
  */
 
 exports.objectMapSample = objectMapSample
-var traceMapSample = [{
+var traceObjectMapSample = [{
+  details: [{
+    index: 0,
+    key: 'keyName',
+    type: ['string'],
+    value: [''],
+    nullable: false,
+    optional: false,
+    circular: false,
+    isReference: false,
+    reference: null
+  }],
+  length: 1,
+  keys: ['keyName'],
+  references: [],
+  isArray: false,
+  complete: true
+}]
+/**
+ * @type {objectTraceMap}
+ */
+
+exports.traceObjectMapSample = traceObjectMapSample
+var mappedTraceMap = [{
   details: [{
     index: 0,
     key: 'details',
-    type: ['array'],
-    value: [objectMapSample.details],
+    type: ['object'],
+    value: [[{
+      index: 0,
+      key: 'keyName',
+      type: ['string'],
+      value: [''],
+      nullable: false,
+      optional: false,
+      circular: false,
+      isReference: false,
+      reference: null
+    }]],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: true,
     reference: 1
   }, {
     index: 1,
     key: 'length',
     type: ['number'],
-    value: [objectMapSample.length],
+    value: [1],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }, {
     index: 2,
     key: 'keys',
-    type: ['array'],
-    value: [objectMapSample.keys],
+    type: ['object'],
+    value: [['keyName']],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: true,
     reference: 2
   }, {
     index: 3,
-    key: 'types',
-    type: ['array'],
-    value: [objectMapSample.types],
+    key: 'references',
+    type: ['object'],
+    value: [[]],
+    nullable: false,
+    optional: false,
+    circular: true,
     isReference: true,
-    reference: 3
+    reference: 0
   }, {
     index: 4,
-    key: 'references',
-    type: ['array'],
-    value: [objectMapSample.references],
-    isReference: true,
-    reference: 4
+    key: 'isArray',
+    type: ['boolean'],
+    value: [false],
+    nullable: false,
+    optional: false,
+    circular: false,
+    isReference: false,
+    reference: null
   }, {
     index: 5,
     key: 'complete',
     type: ['boolean'],
-    value: [objectMapSample.complete],
+    value: [true],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }],
   length: 6,
-  keys: new Set(['details', 'length', 'keys', 'types', 'references', 'complete']),
-  types: new Set([['array'], ['number'], ['boolean']]),
-  references: new Set([0, 2, 3, 4]),
-  complete: true
+  keys: ['details', 'length', 'keys', 'references', 'isArray', 'complete'],
+  references: [0, 2, 3],
+  isArray: false,
+  complete: false
 }, {
   details: [{
     index: 0,
     key: 0,
     type: ['object'],
-    value: [mapDetailSample],
+    value: [{
+      index: 0,
+      key: 'keyName',
+      type: ['string'],
+      value: [''],
+      nullable: false,
+      optional: false,
+      circular: false,
+      isReference: false,
+      reference: null
+    }],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: true,
-    reference: 5
+    reference: 3
   }],
   length: 1,
-  keys: new Set([0]),
-  types: new Set([['object']]),
-  references: new Set([0]),
-  complete: true
+  keys: [0],
+  references: [0],
+  isArray: true,
+  complete: false
 }, {
   details: [{
     index: 0,
     key: 0,
-    type: ['number', 'string'],
-    value: [mapDetailSample.key],
+    type: ['string'],
+    value: ['keyName'],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }],
   length: 1,
-  keys: new Set([0]),
-  types: new Set([['number', 'string']]),
-  references: new Set(),
-  complete: true
-}, {
-  details: [{
-    index: 0,
-    key: 0,
-    type: ['array'],
-    value: [mapDetailSample.type],
-    isReference: true,
-    reference: 6
-  }],
-  length: 1,
-  keys: new Set([0]),
-  types: new Set([['array']]),
-  references: new Set([0]),
-  complete: true
-}, {
-  details: [{
-    index: 0,
-    key: 0,
-    type: ['number'],
-    value: [],
-    isReference: false,
-    reference: null
-  }],
-  length: 1,
-  keys: new Set([0]),
-  types: new Set([['number']]),
-  references: new Set(),
+  keys: [0],
+  references: [],
+  isArray: true,
   complete: true
 }, {
   details: [{
@@ -219,104 +222,113 @@ var traceMapSample = [{
     key: 'index',
     type: ['number'],
     value: [0],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }, {
     index: 1,
     key: 'key',
-    type: ['string', 'number'],
-    value: [0],
+    type: ['string'],
+    value: ['keyName'],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }, {
     index: 2,
     key: 'type',
-    type: ['array'],
-    value: [mapDetailSample.type],
+    type: ['object'],
+    value: [['string']],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: true,
-    reference: 6
+    reference: 4
   }, {
     index: 3,
     key: 'value',
-    type: ['array'],
-    value: [mapDetailSample.value],
+    type: ['object'],
+    value: [['']],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: true,
-    reference: 7
+    reference: 5
   }, {
     index: 4,
-    key: 'isReference',
+    key: 'nullable',
     type: ['boolean'],
     value: [false],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }, {
     index: 5,
+    key: 'optional',
+    type: ['boolean'],
+    value: [false],
+    nullable: false,
+    optional: false,
+    circular: false,
+    isReference: false,
+    reference: null
+  }, {
+    index: 6,
+    key: 'circular',
+    type: ['boolean'],
+    value: [false],
+    nullable: false,
+    optional: false,
+    circular: false,
+    isReference: false,
+    reference: null
+  }, {
+    index: 7,
+    key: 'isReference',
+    type: ['boolean'],
+    value: [false],
+    nullable: false,
+    optional: false,
+    circular: false,
+    isReference: false,
+    reference: null
+  }, {
+    index: 8,
     key: 'reference',
-    type: ['null', 'number'],
+    type: [],
     value: [null],
+    nullable: true,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }],
-  length: 6,
-  keys: new Set(['index', 'key', 'type', 'value', 'isReference', 'reference']),
-  types: new Set([['number'], ['string', 'number'], ['array'], ['array'], ['boolean'], ['null', 'number']]),
-  references: new Set([2, 3]),
-  complete: true
+  length: 9,
+  keys: ['index', 'key', 'type', 'value', 'nullable', 'optional', 'circular', 'isReference', 'reference'],
+  references: [2, 3],
+  isArray: false,
+  complete: false
 }, {
   details: [{
     index: 0,
     key: 0,
     type: ['string'],
-    value: ['array'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 1,
-    key: 1,
-    type: ['string'],
-    value: ['boolean'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 2,
-    key: 2,
-    type: ['string'],
-    value: ['function'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 3,
-    key: 3,
-    type: ['string'],
-    value: ['number'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 4,
-    key: 4,
-    type: ['string'],
-    value: ['object'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 5,
-    key: 5,
-    type: ['string'],
     value: ['string'],
-    isReference: false,
-    reference: null
-  }, {
-    index: 6,
-    key: 6,
-    type: ['string'],
-    value: ['undefined'],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }],
-  length: 7,
-  keys: new Set([0, 1, 2, 3, 4, 5, 6]),
-  types: new Set([['string']]),
-  references: new Set([]),
+  length: 1,
+  keys: [0],
+  references: [],
+  isArray: true,
   complete: true
 }, {
   details: [{
@@ -324,13 +336,16 @@ var traceMapSample = [{
     key: 0,
     type: ['string'],
     value: [''],
+    nullable: false,
+    optional: false,
+    circular: false,
     isReference: false,
     reference: null
   }],
   length: 1,
-  keys: new Set([0]),
-  types: new Set([['string']]),
-  references: new Set(),
+  keys: [0],
+  references: [],
+  isArray: true,
   complete: true
 }]
-exports.traceMapSample = traceMapSample
+exports.mappedTraceMap = mappedTraceMap

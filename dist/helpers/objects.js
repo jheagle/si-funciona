@@ -12,7 +12,15 @@ require('core-js/modules/es.array.every')
 
 require('core-js/modules/es.array.filter')
 
+require('core-js/modules/es.array.find')
+
+require('core-js/modules/es.array.find-index')
+
+require('core-js/modules/es.array.for-each')
+
 require('core-js/modules/es.array.from')
+
+require('core-js/modules/es.array.includes')
 
 require('core-js/modules/es.array.iterator')
 
@@ -22,7 +30,11 @@ require('core-js/modules/es.array.reduce')
 
 require('core-js/modules/es.array.slice')
 
+require('core-js/modules/es.array.some')
+
 require('core-js/modules/es.function.name')
+
+require('core-js/modules/es.object.assign')
 
 require('core-js/modules/es.object.keys')
 
@@ -30,14 +42,18 @@ require('core-js/modules/es.object.to-string')
 
 require('core-js/modules/es.regexp.to-string')
 
+require('core-js/modules/es.string.includes')
+
 require('core-js/modules/es.string.iterator')
+
+require('core-js/modules/web.dom-collections.for-each')
 
 require('core-js/modules/web.dom-collections.iterator')
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.traceObject = exports.traceObjectDetail = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.traceObjectMap = exports.compareTrace = exports.traceObject = exports.assignTraceObject = exports.traceObjectDetail = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
@@ -225,9 +241,127 @@ var traceObjectDetail = function traceObjectDetail (value) {
     type: value === null ? [] : [type],
     value: [value],
     nullable: value === null,
+    optional: false,
+    circular: false,
     isReference: isReference,
     reference: null
   }
+}
+/**
+ * Build an array of all keys from the details of this trace.
+ * @param {objectMap} trace
+ * @returns {Array.<string>}
+ */
+
+exports.traceObjectDetail = traceObjectDetail
+
+var traceObjectKeys = function traceObjectKeys (trace) {
+  return (0, _arrays.uniqueArray)(trace.details.map(function (detail) {
+    return detail.key
+  }))
+}
+/**
+ * Create an array of the indexes in the details that contain references.
+ * @param {objectMap} trace
+ * @returns {Array.<number>}
+ */
+
+var traceObjectReferences = function traceObjectReferences (trace) {
+  return (0, _arrays.uniqueArray)(trace.details.filter(function (detail) {
+    return detail.isReference
+  }).map(function (detail) {
+    return detail.index
+  }))
+}
+/**
+ * Check based on the detail keys if this trace represents an array.
+ * @param {objectMap} trace
+ * @returns {boolean}
+ */
+
+var traceObjectIsArray = function traceObjectIsArray (trace) {
+  return trace.details.every(function (detail) {
+    return typeof detail.key === 'number'
+  })
+}
+/**
+ * Make a copy of an object trace so that the original will not be mutated.
+ * @param {objectMap} originalMap
+ * @returns {objectMap}
+ */
+
+var cloneTraceObject = function cloneTraceObject (originalMap) {
+  var copyMap = {}
+  copyMap.details = originalMap.details.map(function (detail) {
+    var copyDetail = {}
+    Object.keys(detail).forEach(function (key) {
+      copyDetail[key] = Array.isArray(detail[key]) ? detail[key].map(function (value) {
+        return value
+      }) : detail[key]
+    })
+    return copyDetail
+  })
+  copyMap.length = originalMap.length
+  copyMap.keys = originalMap.keys.map(function (key) {
+    return key
+  })
+  copyMap.references = originalMap.references.map(function (reference) {
+    return reference
+  })
+  copyMap.isArray = originalMap.isArray
+  copyMap.complete = originalMap.complete
+  return copyMap
+}
+/**
+ * Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
+ * @param {objectMap} originalMap
+ * @param  {...objectMap} objectMaps
+ * @returns {objectMap}
+ */
+
+var assignTraceObject = function assignTraceObject (originalMap) {
+  for (var _len = arguments.length, objectMaps = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    objectMaps[_key - 1] = arguments[_key]
+  }
+
+  return objectMaps.reduce(function (objectMap, trace) {
+    var detailsDiff = (0, _arrays.compareArrays)(objectMap.keys, trace.keys)
+    detailsDiff.forEach(function (diff) {
+      var existingDetail = objectMap.details.find(function (detail) {
+        return detail.key === diff.value
+      })
+      var newDetail = trace.details.find(function (detail) {
+        return detail.key === diff.value
+      })
+
+      if (diff.result.every(function (result) {
+        return result === 0
+      })) {
+        objectMap.details[existingDetail.index] = Object.assign({}, existingDetail, {
+          type: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.type), _toConsumableArray(newDetail.type))),
+          value: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.value), _toConsumableArray(newDetail.value))),
+          nullable: existingDetail.nullable || newDetail.nullable,
+          isReference: existingDetail.isReference || newDetail.isReference,
+          reference: existingDetail.reference || newDetail.reference
+        })
+        return objectMap
+      }
+
+      var useDetail = diff[0] > 0 ? existingDetail : newDetail
+      var useIndex = diff[0] > 0 ? useDetail.index : objectMap.length
+      objectMap.details[useIndex] = Object.assign({}, useDetail, {
+        index: useIndex,
+        optional: true
+      })
+      objectMap.length = objectMap.length < objectMap.details.length ? objectMap.details.length : objectMap.length
+      return objectMap
+    })
+    objectMap.keys = traceObjectKeys(objectMap)
+    objectMap.references = traceObjectReferences(objectMap)
+    objectMap.isArray = traceObjectIsArray(objectMap)
+    objectMap.complete = !objectMap.references.length
+    return objectMap
+  }, cloneTraceObject(originalMap))
 }
 /**
  * Trace an object and return the trace which defines the object's structure and attributes.
@@ -235,7 +369,7 @@ var traceObjectDetail = function traceObjectDetail (value) {
  * @returns {objectMap}
  */
 
-exports.traceObjectDetail = traceObjectDetail
+exports.assignTraceObject = assignTraceObject
 
 var traceObject = function traceObject (object) {
   var objectMap = reduceObject(object, function (objectMap, value, key) {
@@ -261,27 +395,91 @@ var traceObject = function traceObject (object) {
     details: [],
     length: 0,
     keys: [],
-    types: [],
     references: [],
     isArray: false,
     complete: false
   })
-  objectMap.keys = (0, _arrays.uniqueArray)(objectMap.details.map(function (detail) {
-    return detail.key
-  }))
-  objectMap.types = (0, _arrays.uniqueArray)(objectMap.details.map(function (detail) {
-    return detail.type
-  }))
-  objectMap.references = (0, _arrays.uniqueArray)(objectMap.details.filter(function (detail) {
-    return detail.isReference
-  }).map(function (detail) {
-    return detail.index
-  }))
+  objectMap.keys = traceObjectKeys(objectMap)
+  objectMap.references = traceObjectReferences(objectMap)
+  objectMap.isArray = traceObjectIsArray(objectMap)
   objectMap.complete = !objectMap.references.length
-  objectMap.isArray = objectMap.keys.every(function (key) {
-    return typeof key === 'number'
-  })
   return objectMap
+}
+/**
+ * Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
+ * @param {objectMap} trace1
+ * @param {objectMap} trace2
+ * @returns {boolean}
+ */
+
+exports.traceObject = traceObject
+
+var compareTrace = function compareTrace (trace1, trace2) {
+  return trace1.keys.every(function (key) {
+    return trace2.keys.includes(key)
+  }) ? trace1.details.every(function (detail) {
+      detail.type.some(function (type) {
+        return trace2.details.find(function (foundDetail) {
+          return foundDetail.key === detail.key
+        }).type.includes(type)
+      })
+    }) : false
+}
+/**
+ * Trace out the entire object including nested objects.
+ * @param {Object|Array} object
+ * @param {number} [mapLimit=1000]
+ * @param {number} [depthLimit=-1]
+ * @returns {objectTraceMap}
+ */
+
+exports.compareTrace = compareTrace
+
+var traceObjectMap = function traceObjectMap (object) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  var _ref$mapLimit = _ref.mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+  var _ref$depthLimit = _ref.depthLimit
+  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+
+  var traceMap = []
+
+  var doTrace = function doTrace (trace) {
+    trace.references.forEach(function (referenceId) {
+      var index = traceMap.length
+      var referenceDetail = trace.details[referenceId]
+      referenceDetail.value.forEach(function (val) {
+        if (_typeof(val) === 'object') {
+          var tempTrace = traceObject(val)
+
+          if (traceMap[index]) {
+            traceMap[index] = assignTraceObject(traceMap[index], tempTrace)
+          }
+
+          var existingTraceIndex = traceMap.findIndex(function (map) {
+            return compareTrace(tempTrace, map)
+          })
+
+          if (existingTraceIndex >= 0) {
+            index = existingTraceIndex
+            referenceDetail.reference = existingTraceIndex
+            referenceDetail.circular = true
+            return referenceDetail
+          }
+
+          traceMap[index] = tempTrace
+        }
+      })
+      referenceDetail.reference = index
+    })
+    trace.references.forEach(function (referenceId) {
+      var referenceDetail = trace.details[referenceId]
+      return !referenceDetail.circular ? doTrace(traceMap[referenceDetail.reference]) : true
+    })
+    return traceMap
+  }
+
+  return doTrace(traceObject([object]))
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -289,7 +487,7 @@ var traceObject = function traceObject (object) {
  * @returns {Object}
  */
 
-exports.traceObject = traceObject
+exports.traceObjectMap = traceObjectMap
 
 var cloneObject = function cloneObject (object) {
   return JSON.parse(JSON.stringify(object))
@@ -327,8 +525,8 @@ var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
  */
 
 var mergeObjects = function mergeObjects () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key]
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2]
   }
 
   return args.length === 2 ? mergeObjectsBase(false, mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce((0, _functions.curry)(mergeObjectsBase)(false, mergeObjects), {})
@@ -347,8 +545,8 @@ var mergeObjects = function mergeObjects () {
 exports.mergeObjects = mergeObjects
 
 var mergeObjectsMutable = function mergeObjectsMutable () {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2]
+  for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    args[_key3] = arguments[_key3]
   }
 
   return args.length === 2 ? mergeObjectsBase(true, mergeObjectsMutable, args[0], args[1]) : args.length === 1 ? args[0] : args.reduce((0, _functions.curry)(mergeObjectsBase)(true, mergeObjectsMutable), {})

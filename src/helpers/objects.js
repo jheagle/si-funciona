@@ -8,7 +8,7 @@
 
 import 'core-js/stable'
 import { curry, callWithParams } from './functions'
-import { uniqueArray } from './arrays'
+import { compareArrays, uniqueArray } from './arrays'
 
 /**
  * Set a value on an item, then return the item
@@ -160,10 +160,94 @@ export const traceObjectDetail = (value, key = 0, index = 0) => {
     type: value === null ? [] : [type],
     value: [value],
     nullable: value === null,
+    optional: false,
+    circular: false,
     isReference: isReference,
     reference: null
   }
 }
+
+/**
+ * Build an array of all keys from the details of this trace.
+ * @param {objectMap} trace
+ * @returns {Array.<string>}
+ */
+const traceObjectKeys = trace => uniqueArray(trace.details.map(detail => detail.key))
+/**
+ * Create an array of the indexes in the details that contain references.
+ * @param {objectMap} trace
+ * @returns {Array.<number>}
+ */
+const traceObjectReferences = trace => uniqueArray(trace.details.filter(detail => detail.isReference).map(detail => detail.index))
+/**
+ * Check based on the detail keys if this trace represents an array.
+ * @param {objectMap} trace
+ * @returns {boolean}
+ */
+const traceObjectIsArray = trace => trace.details.every(detail => (typeof detail.key === 'number'))
+
+/**
+ * Make a copy of an object trace so that the original will not be mutated.
+ * @param {objectMap} originalMap
+ * @returns {objectMap}
+ */
+const cloneTraceObject = originalMap => {
+  const copyMap = {}
+  copyMap.details = originalMap.details.map(detail => {
+    const copyDetail = {}
+    Object.keys(detail).forEach(key => {
+      copyDetail[key] = Array.isArray(detail[key])
+        ? detail[key].map(value => value)
+        : detail[key]
+    })
+    return copyDetail
+  })
+  copyMap.length = originalMap.length
+  copyMap.keys = originalMap.keys.map(key => key)
+  copyMap.references = originalMap.references.map(reference => reference)
+  copyMap.isArray = originalMap.isArray
+  copyMap.complete = originalMap.complete
+  return copyMap
+}
+
+/**
+ * Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
+ * @param {objectMap} originalMap
+ * @param  {...objectMap} objectMaps
+ * @returns {objectMap}
+ */
+export const assignTraceObject = (originalMap, ...objectMaps) => objectMaps.reduce((objectMap, trace) => {
+  const detailsDiff = compareArrays(objectMap.keys, trace.keys)
+  detailsDiff.forEach(diff => {
+    const existingDetail = objectMap.details.find(detail => detail.key === diff.value)
+    const newDetail = trace.details.find(detail => detail.key === diff.value)
+    if (diff.result.every(result => result === 0)) {
+      objectMap.details[existingDetail.index] = Object.assign({}, existingDetail, {
+        type: uniqueArray([...existingDetail.type, ...newDetail.type]),
+        value: uniqueArray([...existingDetail.value, ...newDetail.value]),
+        nullable: existingDetail.nullable || newDetail.nullable,
+        isReference: existingDetail.isReference || newDetail.isReference,
+        reference: existingDetail.reference || newDetail.reference
+      })
+      return objectMap
+    }
+    const useDetail = diff[0] > 0 ? existingDetail : newDetail
+    const useIndex = diff[0] > 0 ? useDetail.index : objectMap.length
+    objectMap.details[useIndex] = Object.assign({}, useDetail, {
+      index: useIndex,
+      optional: true
+    })
+    objectMap.length = objectMap.length < objectMap.details.length
+      ? objectMap.details.length
+      : objectMap.length
+    return objectMap
+  })
+  objectMap.keys = traceObjectKeys(objectMap)
+  objectMap.references = traceObjectReferences(objectMap)
+  objectMap.isArray = traceObjectIsArray(objectMap)
+  objectMap.complete = !objectMap.references.length
+  return objectMap
+}, cloneTraceObject(originalMap))
 
 /**
  * Trace an object and return the trace which defines the object's structure and attributes.
@@ -193,18 +277,70 @@ export const traceObject = object => {
       details: [],
       length: 0,
       keys: [],
-      types: [],
       references: [],
       isArray: false,
       complete: false
     }
   )
-  objectMap.keys = uniqueArray(objectMap.details.map(detail => detail.key))
-  objectMap.types = uniqueArray(objectMap.details.map(detail => detail.type))
-  objectMap.references = uniqueArray(objectMap.details.filter(detail => detail.isReference).map(detail => detail.index))
+  objectMap.keys = traceObjectKeys(objectMap)
+  objectMap.references = traceObjectReferences(objectMap)
+  objectMap.isArray = traceObjectIsArray(objectMap)
   objectMap.complete = !objectMap.references.length
-  objectMap.isArray = objectMap.keys.every(key => (typeof key === 'number'))
   return objectMap
+}
+
+/**
+ * Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
+ * @param {objectMap} trace1
+ * @param {objectMap} trace2
+ * @returns {boolean}
+ */
+export const compareTrace = (trace1, trace2) => trace1.keys.every(key => trace2.keys.includes(key))
+  ? trace1.details.every(detail => {
+    detail.type.some(type => trace2.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))
+  })
+  : false
+
+/**
+ * Trace out the entire object including nested objects.
+ * @param {Object|Array} object
+ * @param {number} [mapLimit=1000]
+ * @param {number} [depthLimit=-1]
+ * @returns {objectTraceMap}
+ */
+export const traceObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
+  const traceMap = []
+  const doTrace = trace => {
+    trace.references.forEach(referenceId => {
+      let index = traceMap.length
+      const referenceDetail = trace.details[referenceId]
+      referenceDetail.value.forEach(val => {
+        if (typeof val === 'object') {
+          const tempTrace = traceObject(val)
+          if (traceMap[index]) {
+            traceMap[index] = assignTraceObject(traceMap[index], tempTrace)
+          }
+          const existingTraceIndex = traceMap.findIndex(map => compareTrace(tempTrace, map))
+          if (existingTraceIndex >= 0) {
+            index = existingTraceIndex
+            referenceDetail.reference = existingTraceIndex
+            referenceDetail.circular = true
+            return referenceDetail
+          }
+          traceMap[index] = tempTrace
+        }
+      })
+      referenceDetail.reference = index
+    })
+    trace.references.forEach(referenceId => {
+      const referenceDetail = trace.details[referenceId]
+      return !referenceDetail.circular
+        ? doTrace(traceMap[referenceDetail.reference])
+        : true
+    })
+    return traceMap
+  }
+  return doTrace(traceObject([object]))
 }
 
 /**

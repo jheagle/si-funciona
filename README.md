@@ -390,11 +390,18 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.reduceObject](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.notEmptyObjectOrArray](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
         * [.traceObjectDetail](#module_objectHelpers.traceObjectDetail) ⇒ <code>objectMapDetail</code>
+        * [.assignTraceObject](#module_objectHelpers.assignTraceObject) ⇒ <code>objectMap</code>
         * [.traceObject](#module_objectHelpers.traceObject) ⇒ <code>objectMap</code>
+        * [.compareTrace](#module_objectHelpers.compareTrace) ⇒ <code>boolean</code>
+        * [.traceObjectMap](#module_objectHelpers.traceObjectMap) ⇒ <code>objectTraceMap</code>
         * [.cloneObject](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
+        * [~traceObjectKeys(trace)](#module_objectHelpers..traceObjectKeys) ⇒ <code>Array.&lt;string&gt;</code>
+        * [~traceObjectReferences(trace)](#module_objectHelpers..traceObjectReferences) ⇒ <code>Array.&lt;number&gt;</code>
+        * [~traceObjectIsArray(trace)](#module_objectHelpers..traceObjectIsArray) ⇒ <code>boolean</code>
+        * [~cloneTraceObject(originalMap)](#module_objectHelpers..cloneTraceObject) ⇒ <code>objectMap</code>
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
@@ -508,6 +515,18 @@ Trace an object's attribute and provide details about it.
 | [key] | <code>string</code> \| <code>number</code> | <code>0</code> | 
 | [index] | <code>number</code> | <code>0</code> | 
 
+<a name="module_objectHelpers.assignTraceObject"></a>
+
+### objectHelpers.assignTraceObject ⇒ <code>objectMap</code>
+Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| originalMap | <code>objectMap</code> | 
+| ...objectMaps | <code>objectMap</code> | 
+
 <a name="module_objectHelpers.traceObject"></a>
 
 ### objectHelpers.traceObject ⇒ <code>objectMap</code>
@@ -518,6 +537,31 @@ Trace an object and return the trace which defines the object's structure and at
 | Param | Type |
 | --- | --- |
 | object | <code>Object</code> | 
+
+<a name="module_objectHelpers.compareTrace"></a>
+
+### objectHelpers.compareTrace ⇒ <code>boolean</code>
+Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| trace1 | <code>objectMap</code> | 
+| trace2 | <code>objectMap</code> | 
+
+<a name="module_objectHelpers.traceObjectMap"></a>
+
+### objectHelpers.traceObjectMap ⇒ <code>objectTraceMap</code>
+Trace out the entire object including nested objects.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| object | <code>Object</code> \| <code>Array</code> |  | 
+| [mapLimit] | <code>number</code> | <code>1000</code> | 
+| [depthLimit] | <code>number</code> | <code>-1</code> | 
 
 <a name="module_objectHelpers.cloneObject"></a>
 
@@ -558,6 +602,50 @@ WARNING: This will mutate the first object passed in as input
 | Param | Type | Description |
 | --- | --- | --- |
 | ...args | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first object |
+
+<a name="module_objectHelpers..traceObjectKeys"></a>
+
+### objectHelpers~traceObjectKeys(trace) ⇒ <code>Array.&lt;string&gt;</code>
+Build an array of all keys from the details of this trace.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| trace | <code>objectMap</code> | 
+
+<a name="module_objectHelpers..traceObjectReferences"></a>
+
+### objectHelpers~traceObjectReferences(trace) ⇒ <code>Array.&lt;number&gt;</code>
+Create an array of the indexes in the details that contain references.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| trace | <code>objectMap</code> | 
+
+<a name="module_objectHelpers..traceObjectIsArray"></a>
+
+### objectHelpers~traceObjectIsArray(trace) ⇒ <code>boolean</code>
+Check based on the detail keys if this trace represents an array.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| trace | <code>objectMap</code> | 
+
+<a name="module_objectHelpers..cloneTraceObject"></a>
+
+### objectHelpers~cloneTraceObject(originalMap) ⇒ <code>objectMap</code>
+Make a copy of an object trace so that the original will not be mutated.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| originalMap | <code>objectMap</code> | 
 
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
