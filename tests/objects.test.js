@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import * as samples from '../dist/helpers/objects/traceObject'
+import * as samples from '../dist/helpers/objects/descriptorSamples'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
@@ -60,9 +60,9 @@ test('notEmptyObjectOrArray returns correct boolean for object and array check',
   expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
 })
 
-describe('traceObjectDetail generates detail for', () => {
+describe('descriptorDetail generates detail for', () => {
   test('undefined type', () => {
-    expect(helpers.traceObjectDetail(undefined, 'anUndefined'))
+    expect(helpers.describeObjectDetail(undefined, 'anUndefined'))
       .toEqual({
         index: 0,
         key: 'anUndefined',
@@ -77,7 +77,7 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('boolean type', () => {
-    expect(helpers.traceObjectDetail(true, 'aBoolean'))
+    expect(helpers.describeObjectDetail(true, 'aBoolean'))
       .toEqual({
         index: 0,
         key: 'aBoolean',
@@ -92,7 +92,7 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('number type', () => {
-    expect(helpers.traceObjectDetail(34, 'aNumber'))
+    expect(helpers.describeObjectDetail(34, 'aNumber'))
       .toEqual({
         index: 0,
         key: 'aNumber',
@@ -107,7 +107,7 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('string type', () => {
-    expect(helpers.traceObjectDetail('someString', 'aString'))
+    expect(helpers.describeObjectDetail('someString', 'aString'))
       .toEqual({
         index: 0,
         key: 'aString',
@@ -122,7 +122,7 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('bigint type', () => {
-    expect(helpers.traceObjectDetail(9007199254740992n, 'aBigInt'))
+    expect(helpers.describeObjectDetail(9007199254740992n, 'aBigInt'))
       .toEqual({
         index: 0,
         key: 'aBigInt',
@@ -138,7 +138,7 @@ describe('traceObjectDetail generates detail for', () => {
 
   test('symbol type', () => {
     const sym1 = Symbol('sym')
-    expect(helpers.traceObjectDetail(sym1, 'aSymbol'))
+    expect(helpers.describeObjectDetail(sym1, 'aSymbol'))
       .toEqual({
         index: 0,
         key: 'aSymbol',
@@ -153,7 +153,7 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('null type', () => {
-    expect(helpers.traceObjectDetail(null, 'aNull'))
+    expect(helpers.describeObjectDetail(null, 'aNull'))
       .toEqual({
         index: 0,
         key: 'aNull',
@@ -169,7 +169,7 @@ describe('traceObjectDetail generates detail for', () => {
 
   test('object type', () => {
     const someObject = { item: 'something' }
-    expect(helpers.traceObjectDetail(someObject, 'anObject'))
+    expect(helpers.describeObjectDetail(someObject, 'anObject'))
       .toEqual({
         index: 0,
         key: 'anObject',
@@ -183,7 +183,7 @@ describe('traceObjectDetail generates detail for', () => {
       })
 
     const dateObject = new Date()
-    expect(helpers.traceObjectDetail(dateObject, 'aDate'))
+    expect(helpers.describeObjectDetail(dateObject, 'aDate'))
       .toEqual({
         index: 0,
         key: 'aDate',
@@ -197,7 +197,7 @@ describe('traceObjectDetail generates detail for', () => {
       })
 
     const someArray = ['a', 'b', 'c']
-    expect(helpers.traceObjectDetail(someArray, 'anArray'))
+    expect(helpers.describeObjectDetail(someArray, 'anArray'))
       .toEqual({
         index: 0,
         key: 'anArray',
@@ -213,7 +213,7 @@ describe('traceObjectDetail generates detail for', () => {
 
   test('function type', () => {
     const someFunction = () => true
-    expect(helpers.traceObjectDetail(someFunction, 'aFunction'))
+    expect(helpers.describeObjectDetail(someFunction, 'aFunction'))
       .toEqual({
         index: 0,
         key: 'aFunction',
@@ -228,14 +228,14 @@ describe('traceObjectDetail generates detail for', () => {
   })
 
   test('sample object detail with string', () => {
-    expect(helpers.traceObjectDetail('', 'keyName'))
-      .toEqual(samples.mapDetailSample)
+    expect(helpers.describeObjectDetail('', 'keyName'))
+      .toEqual(samples.descriptorDetailSample)
   })
 })
 
-describe('assignTraceObject', () => {
+describe('assignDescriptor', () => {
   test('assigns new value on same detail', () => {
-    expect(helpers.assignTraceObject(samples.objectMapSample, helpers.traceObject({ keyName: 'someString' })))
+    expect(helpers.assignDescriptor(samples.descriptorSample, helpers.describeObject({ keyName: 'someString' })))
       .toMatchObject({
         details: [
           {
@@ -253,16 +253,16 @@ describe('assignTraceObject', () => {
   })
 })
 
-describe('traceObject', () => {
+describe('descriptor', () => {
   test('can produce structure matching sample with single string detail', () => {
-    expect(helpers.traceObject({ keyName: '' }))
-      .toEqual(samples.objectMapSample)
+    expect(helpers.describeObject({ keyName: '' }))
+      .toEqual(samples.descriptorSample)
   })
 
-  test('produces a simple trace of an object', () => {
+  test('produces a simple descriptor of an object', () => {
     const someItem = { aString: 'someString', aNumber: 34, aBoolean: true, aNull: null, anUndefined: undefined }
-    const trace = helpers.traceObject(someItem)
-    expect(trace.details[0]).toEqual({
+    const descriptor = helpers.describeObject(someItem)
+    expect(descriptor.details[0]).toEqual({
       index: 0,
       key: 'aString',
       type: ['string'],
@@ -273,7 +273,7 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.details[1]).toEqual({
+    expect(descriptor.details[1]).toEqual({
       index: 1,
       key: 'aNumber',
       type: ['number'],
@@ -284,7 +284,7 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.details[2]).toEqual({
+    expect(descriptor.details[2]).toEqual({
       index: 2,
       key: 'aBoolean',
       type: ['boolean'],
@@ -295,7 +295,7 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.details[3]).toEqual({
+    expect(descriptor.details[3]).toEqual({
       index: 3,
       key: 'aNull',
       type: [],
@@ -306,7 +306,7 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.details[4]).toEqual({
+    expect(descriptor.details[4]).toEqual({
       index: 4,
       key: 'anUndefined',
       type: ['undefined'],
@@ -317,16 +317,16 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.length).toBe(5)
-    expect(trace.references).toStrictEqual([])
-    expect(trace.complete).toBe(true)
-    expect(trace.isArray).toBe(false)
+    expect(descriptor.length).toBe(5)
+    expect(descriptor.references).toStrictEqual([])
+    expect(descriptor.complete).toBe(true)
+    expect(descriptor.isArray).toBe(false)
   })
 
-  test('produces a simple trace of an array', () => {
+  test('produces a simple descriptor of an array', () => {
     const someItem = ['someString', 34, true, null, undefined]
-    const trace = helpers.traceObject(someItem)
-    expect(trace.details[0]).toEqual({
+    const descriptor = helpers.describeObject(someItem)
+    expect(descriptor.details[0]).toEqual({
       index: 0,
       key: 0,
       type: ['string', 'number', 'boolean', 'undefined'],
@@ -337,22 +337,22 @@ describe('traceObject', () => {
       isReference: false,
       reference: null
     })
-    expect(trace.length).toBe(5)
-    expect(trace.references).toStrictEqual([])
-    expect(trace.complete).toBe(true)
-    expect(trace.isArray).toBe(true)
+    expect(descriptor.length).toBe(5)
+    expect(descriptor.references).toStrictEqual([])
+    expect(descriptor.complete).toBe(true)
+    expect(descriptor.isArray).toBe(true)
   })
 })
 
-describe('traceObjectMap', () => {
+describe('descriptorMap', () => {
   test('can produce structure matching sample with single string detail', () => {
-    expect(helpers.traceObjectMap({ keyName: '' }))
-      .toEqual(samples.traceObjectMapSample)
+    expect(helpers.describeObjectMap({ keyName: '' }))
+      .toEqual(samples.descriptorMapSample)
   })
 
   test('can produce structure similar to sample mapped sample', () => {
-    expect(helpers.traceObjectMap(helpers.traceObject({ keyName: '' })))
-      .toEqual(samples.mappedTraceMap)
+    expect(helpers.describeObjectMap(helpers.describeObject({ keyName: '' })))
+      .toEqual(samples.mappedDescriptorMap)
   })
 })
 

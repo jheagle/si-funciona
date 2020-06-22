@@ -145,13 +145,13 @@ export const notEmptyObjectOrArray = item => !!(
 )
 
 /**
- * Trace an object's attribute and provide details about it.
+ * Descriptor an object's attribute and provide details about it.
  * @param {*} value
  * @param {string|number} [key=0]
  * @param {number} [index=0]
- * @returns {objectMapDetail}
+ * @returns {descriptorDetail}
  */
-export const traceObjectDetail = (value, key = 0, index = 0) => {
+export const describeObjectDetail = (value, key = 0, index = 0) => {
   const type = (typeof value)
   const isReference = (type === 'object' && value !== null)
   return {
@@ -168,30 +168,30 @@ export const traceObjectDetail = (value, key = 0, index = 0) => {
 }
 
 /**
- * Build an array of all keys from the details of this trace.
- * @param {objectMap} trace
+ * Build an array of all keys from the details of this descriptor.
+ * @param {descriptor} descriptor
  * @returns {Array.<string>}
  */
-const traceObjectKeys = trace => uniqueArray(trace.details.map(detail => detail.key))
+const descriptorKeys = descriptor => uniqueArray(descriptor.details.map(detail => detail.key))
 /**
  * Create an array of the indexes in the details that contain references.
- * @param {objectMap} trace
+ * @param {descriptor} descriptor
  * @returns {Array.<number>}
  */
-const traceObjectReferences = trace => uniqueArray(trace.details.filter(detail => detail.isReference).map(detail => detail.index))
+const descriptorReferences = descriptor => uniqueArray(descriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
 /**
- * Check based on the detail keys if this trace represents an array.
- * @param {objectMap} trace
+ * Check based on the detail keys if this descriptor represents an array.
+ * @param {descriptor} descriptor
  * @returns {boolean}
  */
-const traceObjectIsArray = trace => trace.details.every(detail => (typeof detail.key === 'number'))
+const descriptorIsArray = descriptor => descriptor.details.every(detail => (typeof detail.key === 'number'))
 
 /**
- * Make a copy of an object trace so that the original will not be mutated.
- * @param {objectMap} originalMap
- * @returns {objectMap}
+ * Make a copy of an object descriptor so that the original will not be mutated.
+ * @param {descriptor} originalMap
+ * @returns {descriptor}
  */
-const cloneTraceObject = originalMap => {
+const cloneDescriptor = originalMap => {
   const copyMap = {}
   copyMap.details = originalMap.details.map(detail => {
     const copyDetail = {}
@@ -211,67 +211,67 @@ const cloneTraceObject = originalMap => {
 }
 
 /**
- * Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
- * @param {objectMap} originalMap
- * @param  {...objectMap} objectMaps
- * @returns {objectMap}
+ * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
+ * @param {descriptor} originalMap
+ * @param  {...descriptor} descriptors
+ * @returns {descriptor}
  */
-export const assignTraceObject = (originalMap, ...objectMaps) => objectMaps.reduce((objectMap, trace) => {
-  const detailsDiff = compareArrays(objectMap.keys, trace.keys)
+export const assignDescriptor = (originalMap, ...descriptors) => descriptors.reduce((assignedDescriptor, descriptor) => {
+  const detailsDiff = compareArrays(assignedDescriptor.keys, descriptor.keys)
   detailsDiff.forEach(diff => {
-    const existingDetail = objectMap.details.find(detail => detail.key === diff.value)
-    const newDetail = trace.details.find(detail => detail.key === diff.value)
+    const existingDetail = assignedDescriptor.details.find(detail => detail.key === diff.value)
+    const newDetail = descriptor.details.find(detail => detail.key === diff.value)
     if (diff.result.every(result => result === 0)) {
-      objectMap.details[existingDetail.index] = Object.assign({}, existingDetail, {
+      assignedDescriptor.details[existingDetail.index] = Object.assign({}, existingDetail, {
         type: uniqueArray([...existingDetail.type, ...newDetail.type]),
         value: uniqueArray([...existingDetail.value, ...newDetail.value]),
         nullable: existingDetail.nullable || newDetail.nullable,
         isReference: existingDetail.isReference || newDetail.isReference,
         reference: existingDetail.reference || newDetail.reference
       })
-      return objectMap
+      return assignedDescriptor
     }
     const useDetail = diff[0] > 0 ? existingDetail : newDetail
-    const useIndex = diff[0] > 0 ? useDetail.index : objectMap.length
-    objectMap.details[useIndex] = Object.assign({}, useDetail, {
+    const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+    assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
       index: useIndex,
       optional: true
     })
-    objectMap.length = objectMap.length < objectMap.details.length
-      ? objectMap.details.length
-      : objectMap.length
-    return objectMap
+    assignedDescriptor.length = assignedDescriptor.length < assignedDescriptor.details.length
+      ? assignedDescriptor.details.length
+      : assignedDescriptor.length
+    return assignedDescriptor
   })
-  objectMap.keys = traceObjectKeys(objectMap)
-  objectMap.references = traceObjectReferences(objectMap)
-  objectMap.isArray = traceObjectIsArray(objectMap)
-  objectMap.complete = !objectMap.references.length
-  return objectMap
-}, cloneTraceObject(originalMap))
+  assignedDescriptor.keys = descriptorKeys(assignedDescriptor)
+  assignedDescriptor.references = descriptorReferences(assignedDescriptor)
+  assignedDescriptor.isArray = descriptorIsArray(assignedDescriptor)
+  assignedDescriptor.complete = !assignedDescriptor.references.length
+  return assignedDescriptor
+}, cloneDescriptor(originalMap))
 
 /**
- * Trace an object and return the trace which defines the object's structure and attributes.
+ * Descriptor an object and return the descriptor which defines the object's structure and attributes.
  * @param {Object} object
- * @returns {objectMap}
+ * @returns {descriptor}
  */
-export const traceObject = object => {
-  const objectMap = reduceObject(
+export const describeObject = object => {
+  const descriptor = reduceObject(
     object,
-    (objectMap, value, key) => {
-      if (typeof key === 'number' && objectMap.details.length) {
+    (descriptor, value, key) => {
+      if (typeof key === 'number' && descriptor.details.length) {
         const type = (typeof value)
         const isReference = (type === 'object' && value !== null)
         if (value !== null) {
-          objectMap.details[0].type = uniqueArray([...objectMap.details[0].type, type])
+          descriptor.details[0].type = uniqueArray([...descriptor.details[0].type, type])
         }
-        objectMap.details[0].value = uniqueArray([...objectMap.details[0].value, value])
-        objectMap.details[0].nullable = objectMap.details[0].nullable || value === null
-        objectMap.details[0].isReference = objectMap.details[0].isReference || isReference
-        ++objectMap.length
-        return objectMap
+        descriptor.details[0].value = uniqueArray([...descriptor.details[0].value, value])
+        descriptor.details[0].nullable = descriptor.details[0].nullable || value === null
+        descriptor.details[0].isReference = descriptor.details[0].isReference || isReference
+        ++descriptor.length
+        return descriptor
       }
-      objectMap.details = [...objectMap.details, traceObjectDetail(value, key, objectMap.length++)]
-      return objectMap
+      descriptor.details = [...descriptor.details, describeObjectDetail(value, key, descriptor.length++)]
+      return descriptor
     },
     {
       details: [],
@@ -282,65 +282,74 @@ export const traceObject = object => {
       complete: false
     }
   )
-  objectMap.keys = traceObjectKeys(objectMap)
-  objectMap.references = traceObjectReferences(objectMap)
-  objectMap.isArray = traceObjectIsArray(objectMap)
-  objectMap.complete = !objectMap.references.length
-  return objectMap
+  descriptor.keys = descriptorKeys(descriptor)
+  descriptor.references = descriptorReferences(descriptor)
+  descriptor.isArray = descriptorIsArray(descriptor)
+  descriptor.complete = !descriptor.references.length
+  return descriptor
 }
 
 /**
- * Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
- * @param {objectMap} trace1
- * @param {objectMap} trace2
+ * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
+ * @param {descriptor} descriptor1
+ * @param {descriptor} descriptor2
  * @returns {boolean}
  */
-export const compareTrace = (trace1, trace2) => trace1.keys.every(key => trace2.keys.includes(key))
-  ? trace1.details.every(detail => {
-    detail.type.some(type => trace2.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))
-  })
-  : false
-
+export const compareDescriptor = (descriptor1, descriptor2) => {
+  if (descriptor1.isArray !== descriptor2.isArray) {
+    return false
+  }
+  if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
+    return false
+  }
+  return descriptor1.keys.every(key => descriptor2.keys.includes(key))
+    ? descriptor1.details.every(detail => detail.type.some(type => descriptor2.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type)))
+    : false
+}
 /**
- * Trace out the entire object including nested objects.
+ * Descriptor out the entire object including nested objects.
  * @param {Object|Array} object
  * @param {number} [mapLimit=1000]
  * @param {number} [depthLimit=-1]
- * @returns {objectTraceMap}
+ * @returns {descriptorMap}
  */
-export const traceObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
-  const traceMap = []
-  const doTrace = trace => {
-    trace.references.forEach(referenceId => {
-      let index = traceMap.length
-      const referenceDetail = trace.details[referenceId]
-      referenceDetail.value.forEach(val => {
-        if (typeof val === 'object') {
-          const tempTrace = traceObject(val)
-          if (traceMap[index]) {
-            traceMap[index] = assignTraceObject(traceMap[index], tempTrace)
-          }
-          const existingTraceIndex = traceMap.findIndex(map => compareTrace(tempTrace, map))
-          if (existingTraceIndex >= 0) {
-            index = existingTraceIndex
-            referenceDetail.reference = existingTraceIndex
-            referenceDetail.circular = true
-            return referenceDetail
-          }
-          traceMap[index] = tempTrace
+export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
+  const descriptorMap = []
+  const doDescribe = descriptor => {
+    descriptor.references = descriptor.references.map(referenceId => {
+      let index = descriptorMap.length
+      const referenceDetail = descriptor.details[referenceId]
+      referenceDetail.value = referenceDetail.value.reduce((values, val) => {
+        if (typeof val !== 'object') {
+          return [...values, val]
         }
-      })
+        const tempDescriptor = describeObject(val)
+        if (descriptorMap[index]) {
+          descriptorMap[index] = assignDescriptor(descriptorMap[index], tempDescriptor)
+          return [...values, val]
+        }
+        const existingDescriptorIndex = descriptorMap.findIndex(map => compareDescriptor(tempDescriptor, map))
+        if (existingDescriptorIndex >= 0) {
+          index = existingDescriptorIndex
+          referenceDetail.reference = existingDescriptorIndex
+          referenceDetail.circular = true
+          return [...values, val]
+        }
+        descriptorMap[index] = tempDescriptor
+        return [...values, val]
+      }, [])
       referenceDetail.reference = index
+      return referenceId
     })
-    trace.references.forEach(referenceId => {
-      const referenceDetail = trace.details[referenceId]
-      return !referenceDetail.circular
-        ? doTrace(traceMap[referenceDetail.reference])
-        : true
+    descriptor.references = descriptor.references.map(referenceId => {
+      if (!descriptor.details[referenceId].circular) {
+        doDescribe(descriptorMap[descriptor.details[referenceId].reference])
+      }
+      return referenceId
     })
-    return traceMap
+    return descriptorMap
   }
-  return doTrace(traceObject([object]))
+  return doDescribe(describeObject([object]))
 }
 
 /**

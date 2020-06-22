@@ -3,11 +3,11 @@
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- * @module traceObject
+ * @module descriptorSamples
 */
 
 /**
- * @typedef {Object} objectMapDetail
+ * @typedef {Object} descriptorDetail
  * @property {number} index
  * @property {string|number} key
  * @property {Array.<string>} type
@@ -20,9 +20,9 @@
  */
 
 /**
- * @type {objectMapDetail}
+ * @type {descriptorDetail}
  */
-export const mapDetailSample = {
+export const descriptorDetailSample = {
   index: 0,
   key: 'keyName',
   type: ['string'],
@@ -35,8 +35,8 @@ export const mapDetailSample = {
 }
 
 /**
- * @typedef {Object} objectMap
- * @property {Array.<objectMapDetail>} details
+ * @typedef {Object} descriptor
+ * @property {Array.<descriptorDetail>} details
  * @property {number} length
  * @property {Array.<string|number>} keys
  * @property {Array.<number>} references
@@ -45,51 +45,32 @@ export const mapDetailSample = {
  */
 
 /**
- * @type {objectMap}
+ * @type {descriptor}
  */
-export const objectMapSample = {
-  details: [mapDetailSample],
+export const descriptorSample = {
+  details: [descriptorDetailSample],
   length: 1,
-  keys: [mapDetailSample.key],
+  keys: [descriptorDetailSample.key],
   references: [],
   isArray: false,
   complete: true
 }
 
 /**
- * @typedef {Array.<objectMap>} objectTraceMap
+ * @typedef {Array.<descriptor>} descriptorMap
  */
 
 /**
- * @type {objectTraceMap}
+ * @type {descriptorMap}
  */
-export const traceObjectMapSample = [
-  {
-    details: [
-      {
-        index: 0,
-        key: 'keyName',
-        type: ['string'],
-        value: [''],
-        nullable: false,
-        optional: false,
-        circular: false,
-        isReference: false,
-        reference: null
-      }
-    ],
-    length: 1,
-    keys: ['keyName'],
-    references: [],
-    isArray: false,
-    complete: true
-  }
+export const descriptorMapSample = [
+  descriptorSample
 ]
 
 /**
- * @type {objectTraceMap}
+ * @type {descriptorMap}
  */
-export const mappedTraceMap = [
+export const mappedDescriptorMap = [
   {
     details: [
       {
@@ -146,9 +127,9 @@ export const mappedTraceMap = [
         value: [[]],
         nullable: false,
         optional: false,
-        circular: true,
+        circular: false,
         isReference: true,
-        reference: 0
+        reference: 3
       },
       {
         index: 4,
@@ -209,7 +190,7 @@ export const mappedTraceMap = [
         optional: false,
         circular: false,
         isReference: true,
-        reference: 3
+        reference: 4
       }
     ],
     length: 1,
@@ -234,6 +215,14 @@ export const mappedTraceMap = [
     ],
     length: 1,
     keys: [0],
+    references: [],
+    isArray: true,
+    complete: true
+  },
+  {
+    details: [],
+    length: 0,
+    keys: [],
     references: [],
     isArray: true,
     complete: true
@@ -269,9 +258,9 @@ export const mappedTraceMap = [
         value: [['string']],
         nullable: false,
         optional: false,
-        circular: false,
+        circular: true,
         isReference: true,
-        reference: 4
+        reference: 2
       },
       {
         index: 3,
@@ -280,9 +269,9 @@ export const mappedTraceMap = [
         value: [['']],
         nullable: false,
         optional: false,
-        circular: false,
+        circular: true,
         isReference: true,
-        reference: 5
+        reference: 2
       },
       {
         index: 4,
@@ -355,45 +344,5 @@ export const mappedTraceMap = [
     references: [2, 3],
     isArray: false,
     complete: false
-  },
-  {
-    details: [
-      {
-        index: 0,
-        key: 0,
-        type: ['string'],
-        value: ['string'],
-        nullable: false,
-        optional: false,
-        circular: false,
-        isReference: false,
-        reference: null
-      }
-    ],
-    length: 1,
-    keys: [0],
-    references: [],
-    isArray: true,
-    complete: true
-  },
-  {
-    details: [
-      {
-        index: 0,
-        key: 0,
-        type: ['string'],
-        value: [''],
-        nullable: false,
-        optional: false,
-        circular: false,
-        isReference: false,
-        reference: null
-      }
-    ],
-    length: 1,
-    keys: [0],
-    references: [],
-    isArray: true,
-    complete: true
   }
 ]

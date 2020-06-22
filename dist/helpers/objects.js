@@ -53,7 +53,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.traceObjectMap = exports.compareTrace = exports.traceObject = exports.assignTraceObject = exports.traceObjectDetail = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.describeObjectMap = exports.compareDescriptor = exports.describeObject = exports.assignDescriptor = exports.describeObjectDetail = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
@@ -219,16 +219,16 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
   return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
 }
 /**
- * Trace an object's attribute and provide details about it.
+ * Descriptor an object's attribute and provide details about it.
  * @param {*} value
  * @param {string|number} [key=0]
  * @param {number} [index=0]
- * @returns {objectMapDetail}
+ * @returns {descriptorDetail}
  */
 
 exports.notEmptyObjectOrArray = notEmptyObjectOrArray
 
-var traceObjectDetail = function traceObjectDetail (value) {
+var describeObjectDetail = function describeObjectDetail (value) {
   var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
   var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
 
@@ -248,49 +248,49 @@ var traceObjectDetail = function traceObjectDetail (value) {
   }
 }
 /**
- * Build an array of all keys from the details of this trace.
- * @param {objectMap} trace
+ * Build an array of all keys from the details of this descriptor.
+ * @param {descriptor} descriptor
  * @returns {Array.<string>}
  */
 
-exports.traceObjectDetail = traceObjectDetail
+exports.describeObjectDetail = describeObjectDetail
 
-var traceObjectKeys = function traceObjectKeys (trace) {
-  return (0, _arrays.uniqueArray)(trace.details.map(function (detail) {
+var descriptorKeys = function descriptorKeys (descriptor) {
+  return (0, _arrays.uniqueArray)(descriptor.details.map(function (detail) {
     return detail.key
   }))
 }
 /**
  * Create an array of the indexes in the details that contain references.
- * @param {objectMap} trace
+ * @param {descriptor} descriptor
  * @returns {Array.<number>}
  */
 
-var traceObjectReferences = function traceObjectReferences (trace) {
-  return (0, _arrays.uniqueArray)(trace.details.filter(function (detail) {
+var descriptorReferences = function descriptorReferences (descriptor) {
+  return (0, _arrays.uniqueArray)(descriptor.details.filter(function (detail) {
     return detail.isReference
   }).map(function (detail) {
     return detail.index
   }))
 }
 /**
- * Check based on the detail keys if this trace represents an array.
- * @param {objectMap} trace
+ * Check based on the detail keys if this descriptor represents an array.
+ * @param {descriptor} descriptor
  * @returns {boolean}
  */
 
-var traceObjectIsArray = function traceObjectIsArray (trace) {
-  return trace.details.every(function (detail) {
+var descriptorIsArray = function descriptorIsArray (descriptor) {
+  return descriptor.details.every(function (detail) {
     return typeof detail.key === 'number'
   })
 }
 /**
- * Make a copy of an object trace so that the original will not be mutated.
- * @param {objectMap} originalMap
- * @returns {objectMap}
+ * Make a copy of an object descriptor so that the original will not be mutated.
+ * @param {descriptor} originalMap
+ * @returns {descriptor}
  */
 
-var cloneTraceObject = function cloneTraceObject (originalMap) {
+var cloneDescriptor = function cloneDescriptor (originalMap) {
   var copyMap = {}
   copyMap.details = originalMap.details.map(function (detail) {
     var copyDetail = {}
@@ -313,84 +313,84 @@ var cloneTraceObject = function cloneTraceObject (originalMap) {
   return copyMap
 }
 /**
- * Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
- * @param {objectMap} originalMap
- * @param  {...objectMap} objectMaps
- * @returns {objectMap}
+ * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
+ * @param {descriptor} originalMap
+ * @param  {...descriptor} descriptors
+ * @returns {descriptor}
  */
 
-var assignTraceObject = function assignTraceObject (originalMap) {
-  for (var _len = arguments.length, objectMaps = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    objectMaps[_key - 1] = arguments[_key]
+var assignDescriptor = function assignDescriptor (originalMap) {
+  for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    descriptors[_key - 1] = arguments[_key]
   }
 
-  return objectMaps.reduce(function (objectMap, trace) {
-    var detailsDiff = (0, _arrays.compareArrays)(objectMap.keys, trace.keys)
+  return descriptors.reduce(function (assignedDescriptor, descriptor) {
+    var detailsDiff = (0, _arrays.compareArrays)(assignedDescriptor.keys, descriptor.keys)
     detailsDiff.forEach(function (diff) {
-      var existingDetail = objectMap.details.find(function (detail) {
+      var existingDetail = assignedDescriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
-      var newDetail = trace.details.find(function (detail) {
+      var newDetail = descriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
 
       if (diff.result.every(function (result) {
         return result === 0
       })) {
-        objectMap.details[existingDetail.index] = Object.assign({}, existingDetail, {
+        assignedDescriptor.details[existingDetail.index] = Object.assign({}, existingDetail, {
           type: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.type), _toConsumableArray(newDetail.type))),
           value: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.value), _toConsumableArray(newDetail.value))),
           nullable: existingDetail.nullable || newDetail.nullable,
           isReference: existingDetail.isReference || newDetail.isReference,
           reference: existingDetail.reference || newDetail.reference
         })
-        return objectMap
+        return assignedDescriptor
       }
 
       var useDetail = diff[0] > 0 ? existingDetail : newDetail
-      var useIndex = diff[0] > 0 ? useDetail.index : objectMap.length
-      objectMap.details[useIndex] = Object.assign({}, useDetail, {
+      var useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+      assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
         index: useIndex,
         optional: true
       })
-      objectMap.length = objectMap.length < objectMap.details.length ? objectMap.details.length : objectMap.length
-      return objectMap
+      assignedDescriptor.length = assignedDescriptor.length < assignedDescriptor.details.length ? assignedDescriptor.details.length : assignedDescriptor.length
+      return assignedDescriptor
     })
-    objectMap.keys = traceObjectKeys(objectMap)
-    objectMap.references = traceObjectReferences(objectMap)
-    objectMap.isArray = traceObjectIsArray(objectMap)
-    objectMap.complete = !objectMap.references.length
-    return objectMap
-  }, cloneTraceObject(originalMap))
+    assignedDescriptor.keys = descriptorKeys(assignedDescriptor)
+    assignedDescriptor.references = descriptorReferences(assignedDescriptor)
+    assignedDescriptor.isArray = descriptorIsArray(assignedDescriptor)
+    assignedDescriptor.complete = !assignedDescriptor.references.length
+    return assignedDescriptor
+  }, cloneDescriptor(originalMap))
 }
 /**
- * Trace an object and return the trace which defines the object's structure and attributes.
+ * Descriptor an object and return the descriptor which defines the object's structure and attributes.
  * @param {Object} object
- * @returns {objectMap}
+ * @returns {descriptor}
  */
 
-exports.assignTraceObject = assignTraceObject
+exports.assignDescriptor = assignDescriptor
 
-var traceObject = function traceObject (object) {
-  var objectMap = reduceObject(object, function (objectMap, value, key) {
-    if (typeof key === 'number' && objectMap.details.length) {
+var describeObject = function describeObject (object) {
+  var descriptor = reduceObject(object, function (descriptor, value, key) {
+    if (typeof key === 'number' && descriptor.details.length) {
       var type = _typeof(value)
 
       var isReference = type === 'object' && value !== null
 
       if (value !== null) {
-        objectMap.details[0].type = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(objectMap.details[0].type), [type]))
+        descriptor.details[0].type = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(descriptor.details[0].type), [type]))
       }
 
-      objectMap.details[0].value = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(objectMap.details[0].value), [value]))
-      objectMap.details[0].nullable = objectMap.details[0].nullable || value === null
-      objectMap.details[0].isReference = objectMap.details[0].isReference || isReference
-      ++objectMap.length
-      return objectMap
+      descriptor.details[0].value = (0, _arrays.uniqueArray)([].concat(_toConsumableArray(descriptor.details[0].value), [value]))
+      descriptor.details[0].nullable = descriptor.details[0].nullable || value === null
+      descriptor.details[0].isReference = descriptor.details[0].isReference || isReference
+      ++descriptor.length
+      return descriptor
     }
 
-    objectMap.details = [].concat(_toConsumableArray(objectMap.details), [traceObjectDetail(value, key, objectMap.length++)])
-    return objectMap
+    descriptor.details = [].concat(_toConsumableArray(descriptor.details), [describeObjectDetail(value, key, descriptor.length++)])
+    return descriptor
   }, {
     details: [],
     length: 0,
@@ -399,87 +399,103 @@ var traceObject = function traceObject (object) {
     isArray: false,
     complete: false
   })
-  objectMap.keys = traceObjectKeys(objectMap)
-  objectMap.references = traceObjectReferences(objectMap)
-  objectMap.isArray = traceObjectIsArray(objectMap)
-  objectMap.complete = !objectMap.references.length
-  return objectMap
+  descriptor.keys = descriptorKeys(descriptor)
+  descriptor.references = descriptorReferences(descriptor)
+  descriptor.isArray = descriptorIsArray(descriptor)
+  descriptor.complete = !descriptor.references.length
+  return descriptor
 }
 /**
- * Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
- * @param {objectMap} trace1
- * @param {objectMap} trace2
+ * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
+ * @param {descriptor} descriptor1
+ * @param {descriptor} descriptor2
  * @returns {boolean}
  */
 
-exports.traceObject = traceObject
+exports.describeObject = describeObject
 
-var compareTrace = function compareTrace (trace1, trace2) {
-  return trace1.keys.every(function (key) {
-    return trace2.keys.includes(key)
-  }) ? trace1.details.every(function (detail) {
-      detail.type.some(function (type) {
-        return trace2.details.find(function (foundDetail) {
+var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
+  if (descriptor1.isArray !== descriptor2.isArray) {
+    return false
+  }
+
+  if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
+    return false
+  }
+
+  return descriptor1.keys.every(function (key) {
+    return descriptor2.keys.includes(key)
+  }) ? descriptor1.details.every(function (detail) {
+      return detail.type.some(function (type) {
+        return descriptor2.details.find(function (foundDetail) {
           return foundDetail.key === detail.key
         }).type.includes(type)
       })
     }) : false
 }
 /**
- * Trace out the entire object including nested objects.
+ * Descriptor out the entire object including nested objects.
  * @param {Object|Array} object
  * @param {number} [mapLimit=1000]
  * @param {number} [depthLimit=-1]
- * @returns {objectTraceMap}
+ * @returns {descriptorMap}
  */
 
-exports.compareTrace = compareTrace
+exports.compareDescriptor = compareDescriptor
 
-var traceObjectMap = function traceObjectMap (object) {
+var describeObjectMap = function describeObjectMap (object) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
   var _ref$mapLimit = _ref.mapLimit
   var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
 
-  var traceMap = []
+  var descriptorMap = []
 
-  var doTrace = function doTrace (trace) {
-    trace.references.forEach(function (referenceId) {
-      var index = traceMap.length
-      var referenceDetail = trace.details[referenceId]
-      referenceDetail.value.forEach(function (val) {
-        if (_typeof(val) === 'object') {
-          var tempTrace = traceObject(val)
-
-          if (traceMap[index]) {
-            traceMap[index] = assignTraceObject(traceMap[index], tempTrace)
-          }
-
-          var existingTraceIndex = traceMap.findIndex(function (map) {
-            return compareTrace(tempTrace, map)
-          })
-
-          if (existingTraceIndex >= 0) {
-            index = existingTraceIndex
-            referenceDetail.reference = existingTraceIndex
-            referenceDetail.circular = true
-            return referenceDetail
-          }
-
-          traceMap[index] = tempTrace
+  var doDescribe = function doDescribe (descriptor) {
+    descriptor.references = descriptor.references.map(function (referenceId) {
+      var index = descriptorMap.length
+      var referenceDetail = descriptor.details[referenceId]
+      referenceDetail.value = referenceDetail.value.reduce(function (values, val) {
+        if (_typeof(val) !== 'object') {
+          return [].concat(_toConsumableArray(values), [val])
         }
-      })
+
+        var tempDescriptor = describeObject(val)
+
+        if (descriptorMap[index]) {
+          descriptorMap[index] = assignDescriptor(descriptorMap[index], tempDescriptor)
+          return [].concat(_toConsumableArray(values), [val])
+        }
+
+        var existingDescriptorIndex = descriptorMap.findIndex(function (map) {
+          return compareDescriptor(tempDescriptor, map)
+        })
+
+        if (existingDescriptorIndex >= 0) {
+          index = existingDescriptorIndex
+          referenceDetail.reference = existingDescriptorIndex
+          referenceDetail.circular = true
+          return [].concat(_toConsumableArray(values), [val])
+        }
+
+        descriptorMap[index] = tempDescriptor
+        return [].concat(_toConsumableArray(values), [val])
+      }, [])
       referenceDetail.reference = index
+      return referenceId
     })
-    trace.references.forEach(function (referenceId) {
-      var referenceDetail = trace.details[referenceId]
-      return !referenceDetail.circular ? doTrace(traceMap[referenceDetail.reference]) : true
+    descriptor.references = descriptor.references.map(function (referenceId) {
+      if (!descriptor.details[referenceId].circular) {
+        doDescribe(descriptorMap[descriptor.details[referenceId].reference])
+      }
+
+      return referenceId
     })
-    return traceMap
+    return descriptorMap
   }
 
-  return doTrace(traceObject([object]))
+  return doDescribe(describeObject([object]))
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -487,7 +503,7 @@ var traceObjectMap = function traceObjectMap (object) {
  * @returns {Object}
  */
 
-exports.traceObjectMap = traceObjectMap
+exports.describeObjectMap = describeObjectMap
 
 var cloneObject = function cloneObject (object) {
   return JSON.parse(JSON.stringify(object))

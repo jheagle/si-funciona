@@ -389,19 +389,19 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.filterObject](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.reduceObject](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.notEmptyObjectOrArray](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
-        * [.traceObjectDetail](#module_objectHelpers.traceObjectDetail) ⇒ <code>objectMapDetail</code>
-        * [.assignTraceObject](#module_objectHelpers.assignTraceObject) ⇒ <code>objectMap</code>
-        * [.traceObject](#module_objectHelpers.traceObject) ⇒ <code>objectMap</code>
-        * [.compareTrace](#module_objectHelpers.compareTrace) ⇒ <code>boolean</code>
-        * [.traceObjectMap](#module_objectHelpers.traceObjectMap) ⇒ <code>objectTraceMap</code>
+        * [.describeObjectDetail](#module_objectHelpers.describeObjectDetail) ⇒ <code>descriptorDetail</code>
+        * [.assignDescriptor](#module_objectHelpers.assignDescriptor) ⇒ <code>descriptor</code>
+        * [.describeObject](#module_objectHelpers.describeObject) ⇒ <code>descriptor</code>
+        * [.compareDescriptor](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
+        * [.describeObjectMap](#module_objectHelpers.describeObjectMap) ⇒ <code>descriptorMap</code>
         * [.cloneObject](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
-        * [~traceObjectKeys(trace)](#module_objectHelpers..traceObjectKeys) ⇒ <code>Array.&lt;string&gt;</code>
-        * [~traceObjectReferences(trace)](#module_objectHelpers..traceObjectReferences) ⇒ <code>Array.&lt;number&gt;</code>
-        * [~traceObjectIsArray(trace)](#module_objectHelpers..traceObjectIsArray) ⇒ <code>boolean</code>
-        * [~cloneTraceObject(originalMap)](#module_objectHelpers..cloneTraceObject) ⇒ <code>objectMap</code>
+        * [~descriptorKeys(descriptor)](#module_objectHelpers..descriptorKeys) ⇒ <code>Array.&lt;string&gt;</code>
+        * [~descriptorReferences(descriptor)](#module_objectHelpers..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
+        * [~descriptorIsArray(descriptor)](#module_objectHelpers..descriptorIsArray) ⇒ <code>boolean</code>
+        * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ <code>descriptor</code>
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
@@ -502,10 +502,10 @@ Helper function for testing if the item is an Object or Array that contains prop
 | --- | --- | --- |
 | item | <code>Object</code> \| <code>Array</code> | Object or Array to test |
 
-<a name="module_objectHelpers.traceObjectDetail"></a>
+<a name="module_objectHelpers.describeObjectDetail"></a>
 
-### objectHelpers.traceObjectDetail ⇒ <code>objectMapDetail</code>
-Trace an object's attribute and provide details about it.
+### objectHelpers.describeObjectDetail ⇒ <code>descriptorDetail</code>
+Descriptor an object's attribute and provide details about it.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -515,22 +515,22 @@ Trace an object's attribute and provide details about it.
 | [key] | <code>string</code> \| <code>number</code> | <code>0</code> | 
 | [index] | <code>number</code> | <code>0</code> | 
 
-<a name="module_objectHelpers.assignTraceObject"></a>
+<a name="module_objectHelpers.assignDescriptor"></a>
 
-### objectHelpers.assignTraceObject ⇒ <code>objectMap</code>
-Apply one or more objectMaps to an existing objectMap so that they represent a merged version of the objectMaps.
+### objectHelpers.assignDescriptor ⇒ <code>descriptor</code>
+Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>objectMap</code> | 
-| ...objectMaps | <code>objectMap</code> | 
+| originalMap | <code>descriptor</code> | 
+| ...descriptors | <code>descriptor</code> | 
 
-<a name="module_objectHelpers.traceObject"></a>
+<a name="module_objectHelpers.describeObject"></a>
 
-### objectHelpers.traceObject ⇒ <code>objectMap</code>
-Trace an object and return the trace which defines the object's structure and attributes.
+### objectHelpers.describeObject ⇒ <code>descriptor</code>
+Descriptor an object and return the descriptor which defines the object's structure and attributes.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -538,22 +538,22 @@ Trace an object and return the trace which defines the object's structure and at
 | --- | --- |
 | object | <code>Object</code> | 
 
-<a name="module_objectHelpers.compareTrace"></a>
+<a name="module_objectHelpers.compareDescriptor"></a>
 
-### objectHelpers.compareTrace ⇒ <code>boolean</code>
-Check if two traces are the same or similar in that they have similar keys and the associated types are the same.
+### objectHelpers.compareDescriptor ⇒ <code>boolean</code>
+Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| trace1 | <code>objectMap</code> | 
-| trace2 | <code>objectMap</code> | 
+| descriptor1 | <code>descriptor</code> | 
+| descriptor2 | <code>descriptor</code> | 
 
-<a name="module_objectHelpers.traceObjectMap"></a>
+<a name="module_objectHelpers.describeObjectMap"></a>
 
-### objectHelpers.traceObjectMap ⇒ <code>objectTraceMap</code>
-Trace out the entire object including nested objects.
+### objectHelpers.describeObjectMap ⇒ <code>descriptorMap</code>
+Descriptor out the entire object including nested objects.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -603,49 +603,49 @@ WARNING: This will mutate the first object passed in as input
 | --- | --- | --- |
 | ...args | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first object |
 
-<a name="module_objectHelpers..traceObjectKeys"></a>
+<a name="module_objectHelpers..descriptorKeys"></a>
 
-### objectHelpers~traceObjectKeys(trace) ⇒ <code>Array.&lt;string&gt;</code>
-Build an array of all keys from the details of this trace.
+### objectHelpers~descriptorKeys(descriptor) ⇒ <code>Array.&lt;string&gt;</code>
+Build an array of all keys from the details of this descriptor.
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| trace | <code>objectMap</code> | 
+| descriptor | <code>descriptor</code> | 
 
-<a name="module_objectHelpers..traceObjectReferences"></a>
+<a name="module_objectHelpers..descriptorReferences"></a>
 
-### objectHelpers~traceObjectReferences(trace) ⇒ <code>Array.&lt;number&gt;</code>
+### objectHelpers~descriptorReferences(descriptor) ⇒ <code>Array.&lt;number&gt;</code>
 Create an array of the indexes in the details that contain references.
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| trace | <code>objectMap</code> | 
+| descriptor | <code>descriptor</code> | 
 
-<a name="module_objectHelpers..traceObjectIsArray"></a>
+<a name="module_objectHelpers..descriptorIsArray"></a>
 
-### objectHelpers~traceObjectIsArray(trace) ⇒ <code>boolean</code>
-Check based on the detail keys if this trace represents an array.
-
-**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type |
-| --- | --- |
-| trace | <code>objectMap</code> | 
-
-<a name="module_objectHelpers..cloneTraceObject"></a>
-
-### objectHelpers~cloneTraceObject(originalMap) ⇒ <code>objectMap</code>
-Make a copy of an object trace so that the original will not be mutated.
+### objectHelpers~descriptorIsArray(descriptor) ⇒ <code>boolean</code>
+Check based on the detail keys if this descriptor represents an array.
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>objectMap</code> | 
+| descriptor | <code>descriptor</code> | 
+
+<a name="module_objectHelpers..cloneDescriptor"></a>
+
+### objectHelpers~cloneDescriptor(originalMap) ⇒ <code>descriptor</code>
+Make a copy of an object descriptor so that the original will not be mutated.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| originalMap | <code>descriptor</code> | 
 
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 

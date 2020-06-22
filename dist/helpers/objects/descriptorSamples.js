@@ -3,18 +3,18 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mappedTraceMap = exports.traceObjectMapSample = exports.objectMapSample = exports.mapDetailSample = void 0
+exports.mappedDescriptorMap = exports.descriptorMapSample = exports.descriptorSample = exports.descriptorDetailSample = void 0
 
 /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- * @module traceObject
+ * @module descriptorSamples
 */
 
 /**
- * @typedef {Object} objectMapDetail
+ * @typedef {Object} descriptorDetail
  * @property {number} index
  * @property {string|number} key
  * @property {Array.<string>} type
@@ -27,9 +27,9 @@ exports.mappedTraceMap = exports.traceObjectMapSample = exports.objectMapSample 
  */
 
 /**
- * @type {objectMapDetail}
+ * @type {descriptorDetail}
  */
-var mapDetailSample = {
+var descriptorDetailSample = {
   index: 0,
   key: 'keyName',
   type: ['string'],
@@ -41,8 +41,8 @@ var mapDetailSample = {
   reference: null
 }
 /**
- * @typedef {Object} objectMap
- * @property {Array.<objectMapDetail>} details
+ * @typedef {Object} descriptor
+ * @property {Array.<descriptorDetail>} details
  * @property {number} length
  * @property {Array.<string|number>} keys
  * @property {Array.<number>} references
@@ -51,51 +51,34 @@ var mapDetailSample = {
  */
 
 /**
- * @type {objectMap}
+ * @type {descriptor}
  */
 
-exports.mapDetailSample = mapDetailSample
-var objectMapSample = {
-  details: [mapDetailSample],
+exports.descriptorDetailSample = descriptorDetailSample
+var descriptorSample = {
+  details: [descriptorDetailSample],
   length: 1,
-  keys: [mapDetailSample.key],
+  keys: [descriptorDetailSample.key],
   references: [],
   isArray: false,
   complete: true
 }
 /**
- * @typedef {Array.<objectMap>} objectTraceMap
+ * @typedef {Array.<descriptor>} descriptorMap
  */
 
 /**
- * @type {objectTraceMap}
+ * @type {descriptorMap}
  */
 
-exports.objectMapSample = objectMapSample
-var traceObjectMapSample = [{
-  details: [{
-    index: 0,
-    key: 'keyName',
-    type: ['string'],
-    value: [''],
-    nullable: false,
-    optional: false,
-    circular: false,
-    isReference: false,
-    reference: null
-  }],
-  length: 1,
-  keys: ['keyName'],
-  references: [],
-  isArray: false,
-  complete: true
-}]
+exports.descriptorSample = descriptorSample
+var descriptorMapSample = [descriptorSample]
 /**
- * @type {objectTraceMap}
+ * @type {descriptorMap}
  */
 
-exports.traceObjectMapSample = traceObjectMapSample
-var mappedTraceMap = [{
+exports.descriptorMapSample = descriptorMapSample
+var mappedDescriptorMap = [{
   details: [{
     index: 0,
     key: 'details',
@@ -143,9 +126,9 @@ var mappedTraceMap = [{
     value: [[]],
     nullable: false,
     optional: false,
-    circular: true,
+    circular: false,
     isReference: true,
-    reference: 0
+    reference: 3
   }, {
     index: 4,
     key: 'isArray',
@@ -192,7 +175,7 @@ var mappedTraceMap = [{
     optional: false,
     circular: false,
     isReference: true,
-    reference: 3
+    reference: 4
   }],
   length: 1,
   keys: [0],
@@ -213,6 +196,13 @@ var mappedTraceMap = [{
   }],
   length: 1,
   keys: [0],
+  references: [],
+  isArray: true,
+  complete: true
+}, {
+  details: [],
+  length: 0,
+  keys: [],
   references: [],
   isArray: true,
   complete: true
@@ -244,9 +234,9 @@ var mappedTraceMap = [{
     value: [['string']],
     nullable: false,
     optional: false,
-    circular: false,
+    circular: true,
     isReference: true,
-    reference: 4
+    reference: 2
   }, {
     index: 3,
     key: 'value',
@@ -254,9 +244,9 @@ var mappedTraceMap = [{
     value: [['']],
     nullable: false,
     optional: false,
-    circular: false,
+    circular: true,
     isReference: true,
-    reference: 5
+    reference: 2
   }, {
     index: 4,
     key: 'nullable',
@@ -313,39 +303,5 @@ var mappedTraceMap = [{
   references: [2, 3],
   isArray: false,
   complete: false
-}, {
-  details: [{
-    index: 0,
-    key: 0,
-    type: ['string'],
-    value: ['string'],
-    nullable: false,
-    optional: false,
-    circular: false,
-    isReference: false,
-    reference: null
-  }],
-  length: 1,
-  keys: [0],
-  references: [],
-  isArray: true,
-  complete: true
-}, {
-  details: [{
-    index: 0,
-    key: 0,
-    type: ['string'],
-    value: [''],
-    nullable: false,
-    optional: false,
-    circular: false,
-    isReference: false,
-    reference: null
-  }],
-  length: 1,
-  keys: [0],
-  references: [],
-  isArray: true,
-  complete: true
 }]
-exports.mappedTraceMap = mappedTraceMap
+exports.mappedDescriptorMap = mappedDescriptorMap
