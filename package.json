@@ -7,11 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "readmeIntro": "cp src/README.md README.md && echo \"\" >> README.md",
-    "readmeMain": "jsdoc2md src/main.js >> README.md && echo \"\" >> README.md",
-    "readmeHelpers": "jsdoc2md src/helpers/*.js >> README.md && echo \"\" >> README.md",
-    "readmeObjects": "jsdoc2md src/helpers/objects/*.js >> README.md",
-    "readme": "npm run readmeIntro \n npm run readmeMain \n npm run readmeHelpers \n npm run readmeObjects",
+    "readme": "cp src/README.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/objects/*.js >> README.md",
     "htmldocs": "jsdoc -R src/README.md -r src/ -d docs"
   },
   "devDependencies": {

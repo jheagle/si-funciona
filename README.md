@@ -2,6 +2,29 @@
 
 ## General usage utility functions
 
+## Modules
+
+<dl>
+<dt><a href="#module_functionalHelpers">functionalHelpers</a></dt>
+<dd><p>All of the functionalHelpers system functions for stringing together functions and simplifying logic.</p>
+</dd>
+<dt><a href="#module_arrayHelpers">arrayHelpers</a></dt>
+<dd><p>Some simple utility functions for generating arrays or performing work on arrays.</p>
+</dd>
+<dt><a href="#module_functionHelpers">functionHelpers</a></dt>
+<dd><p>Manage how functions are called with these utilities.</p>
+</dd>
+<dt><a href="#module_numberHelpers">numberHelpers</a></dt>
+<dd><p>Some number comparators and random number generators.</p>
+</dd>
+<dt><a href="#module_objectHelpers">objectHelpers</a></dt>
+<dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
+</dd>
+<dt><a href="#module_descriptorSamples">descriptorSamples</a></dt>
+<dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
+</dd>
+</dl>
+
 <a name="module_functionalHelpers"></a>
 
 ## functionalHelpers
@@ -14,7 +37,7 @@ All of the functionalHelpers system functions for stringing together functions a
     * [~root](#module_functionalHelpers..root)
     * [~previousFunctionalHelpers](#module_functionalHelpers..previousFunctionalHelpers) : <code>module</code> \| <code>\*</code>
     * [~noConflict()](#module_functionalHelpers..noConflict) ⇒ [<code>functionalHelpers</code>](#module_functionalHelpers..functionalHelpers)
-    * [~functionalHelpers](#module_functionalHelpers..functionalHelpers) : [<code>functionalHelpers</code>](#module_functionalHelpers) \| <code>module:arrayHelpers</code> \| <code>module:functionHelpers</code> \| <code>module:numberHelpers</code> \| <code>module:objectHelpers</code>
+    * [~functionalHelpers](#module_functionalHelpers..functionalHelpers) : [<code>functionalHelpers</code>](#module_functionalHelpers) \| [<code>arrayHelpers</code>](#module_arrayHelpers) \| [<code>functionHelpers</code>](#module_functionHelpers) \| [<code>numberHelpers</code>](#module_numberHelpers) \| [<code>objectHelpers</code>](#module_objectHelpers)
 
 <a name="module_functionalHelpers..root"></a>
 
@@ -36,28 +59,10 @@ Return a reference to this library while preserving the original same-named libr
 **Kind**: inner method of [<code>functionalHelpers</code>](#module_functionalHelpers)  
 <a name="module_functionalHelpers..functionalHelpers"></a>
 
-### functionalHelpers~functionalHelpers : [<code>functionalHelpers</code>](#module_functionalHelpers) \| <code>module:arrayHelpers</code> \| <code>module:functionHelpers</code> \| <code>module:numberHelpers</code> \| <code>module:objectHelpers</code>
+### functionalHelpers~functionalHelpers : [<code>functionalHelpers</code>](#module_functionalHelpers) \| [<code>arrayHelpers</code>](#module_arrayHelpers) \| [<code>functionHelpers</code>](#module_functionHelpers) \| [<code>numberHelpers</code>](#module_numberHelpers) \| [<code>objectHelpers</code>](#module_objectHelpers)
 All methods exported from this module are encapsulated within functionalHelpers.
 
 **Kind**: inner typedef of [<code>functionalHelpers</code>](#module_functionalHelpers)  
-
-## Modules
-
-<dl>
-<dt><a href="#module_arrayHelpers">arrayHelpers</a></dt>
-<dd><p>Some simple utility functions for generating arrays or performing work on arrays.</p>
-</dd>
-<dt><a href="#module_functionHelpers">functionHelpers</a></dt>
-<dd><p>Manage how functions are called with these utilities.</p>
-</dd>
-<dt><a href="#module_numberHelpers">numberHelpers</a></dt>
-<dd><p>Some number comparators and random number generators.</p>
-</dd>
-<dt><a href="#module_objectHelpers">objectHelpers</a></dt>
-<dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
-</dd>
-</dl>
-
 <a name="module_arrayHelpers"></a>
 
 ## arrayHelpers
@@ -429,11 +434,11 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.notEmptyObjectOrArray(item)](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
-        * [.describeObjectDetail(value, [key], [index])](#module_objectHelpers.describeObjectDetail) ⇒ <code>module:descriptorSamples~descriptorDetail</code>
-        * [.assignDescriptor(originalMap, ...descriptors)](#module_objectHelpers.assignDescriptor) ⇒ <code>module:descriptorSamples~descriptor</code>
-        * [.describeObject(object)](#module_objectHelpers.describeObject) ⇒ <code>module:descriptorSamples~descriptor</code>
+        * [.describeObjectDetail(value, [key], [index])](#module_objectHelpers.describeObjectDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
+        * [.assignDescriptor(originalMap, ...descriptors)](#module_objectHelpers.assignDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
+        * [.describeObject(object)](#module_objectHelpers.describeObject) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [.compareDescriptor(descriptor1, descriptor2)](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
-        * [.describeObjectMap(object, [mapLimit], [depthLimit])](#module_objectHelpers.describeObjectMap) ⇒ <code>module:descriptorSamples~descriptorMap</code>
+        * [.describeObjectMap(object, [mapLimit], [depthLimit])](#module_objectHelpers.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
         * [.cloneObject(object)](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
@@ -441,7 +446,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [~descriptorKeys(descriptor)](#module_objectHelpers..descriptorKeys) ⇒ <code>Array.&lt;string&gt;</code>
         * [~descriptorReferences(descriptor)](#module_objectHelpers..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
         * [~descriptorIsArray(descriptor)](#module_objectHelpers..descriptorIsArray) ⇒ <code>boolean</code>
-        * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ <code>module:descriptorSamples~descriptor</code>
+        * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
@@ -544,7 +549,7 @@ Helper function for testing if the item is an Object or Array that contains prop
 
 <a name="module_objectHelpers.describeObjectDetail"></a>
 
-### objectHelpers.describeObjectDetail(value, [key], [index]) ⇒ <code>module:descriptorSamples~descriptorDetail</code>
+### objectHelpers.describeObjectDetail(value, [key], [index]) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
 Descriptor an object's attribute and provide details about it.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -557,19 +562,19 @@ Descriptor an object's attribute and provide details about it.
 
 <a name="module_objectHelpers.assignDescriptor"></a>
 
-### objectHelpers.assignDescriptor(originalMap, ...descriptors) ⇒ <code>module:descriptorSamples~descriptor</code>
+### objectHelpers.assignDescriptor(originalMap, ...descriptors) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
 Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>module:descriptorSamples~descriptor</code> | 
-| ...descriptors | <code>module:descriptorSamples~descriptor</code> | 
+| originalMap | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
+| ...descriptors | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers.describeObject"></a>
 
-### objectHelpers.describeObject(object) ⇒ <code>module:descriptorSamples~descriptor</code>
+### objectHelpers.describeObject(object) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
 Descriptor an object and return the descriptor which defines the object's structure and attributes.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -587,12 +592,12 @@ Check if two descriptors are the same or similar in that they have similar keys 
 
 | Param | Type |
 | --- | --- |
-| descriptor1 | <code>module:descriptorSamples~descriptor</code> | 
-| descriptor2 | <code>module:descriptorSamples~descriptor</code> | 
+| descriptor1 | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
+| descriptor2 | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers.describeObjectMap"></a>
 
-### objectHelpers.describeObjectMap(object, [mapLimit], [depthLimit]) ⇒ <code>module:descriptorSamples~descriptorMap</code>
+### objectHelpers.describeObjectMap(object, [mapLimit], [depthLimit]) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
 Descriptor out the entire object including nested objects.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -652,7 +657,7 @@ Build an array of all keys from the details of this descriptor.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>module:descriptorSamples~descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers..descriptorReferences"></a>
 
@@ -663,7 +668,7 @@ Create an array of the indexes in the details that contain references.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>module:descriptorSamples~descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers..descriptorIsArray"></a>
 
@@ -674,18 +679,18 @@ Check based on the detail keys if this descriptor represents an array.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>module:descriptorSamples~descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers..cloneDescriptor"></a>
 
-### objectHelpers~cloneDescriptor(originalMap) ⇒ <code>module:descriptorSamples~descriptor</code>
+### objectHelpers~cloneDescriptor(originalMap) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
 Make a copy of an object descriptor so that the original will not be mutated.
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>module:descriptorSamples~descriptor</code> | 
+| originalMap | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
@@ -744,7 +749,6 @@ Function to execute on each property in the object, taking four arguments
 | [currentProperty] | <code>\*</code> | <code>{}</code> | The current property being processed in the object. |
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
-
 
 <a name="module_descriptorSamples"></a>
 
