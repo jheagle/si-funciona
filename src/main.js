@@ -25,19 +25,21 @@ const previousFunctionalHelpers = root.functionalHelpers || {}
 
 /**
    * All methods exported from this module are encapsulated within functionalHelpers.
-   * @typedef {Object} functionalHelpers
+   * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
    */
 const functionalHelpers = {}
 root.functionalHelpers = functionalHelpers
 
 /**
    * Return a reference to this library while preserving the original same-named library
-   * @returns {functionalHelpers}
+   * @function
+   * @returns {module:functionalHelpers~functionalHelpers}
    */
-functionalHelpers.noConflict = () => {
+const noConflict = () => {
   root.functionalHelpers = previousFunctionalHelpers
   return functionalHelpers
 }
+functionalHelpers.noConflict = noConflict
 
 export default Object.assign(
   functionalHelpers,

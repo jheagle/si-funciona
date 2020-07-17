@@ -53,8 +53,9 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
- * @param {function} fn - Receives a function to be curried
- * @returns {function|*}
+ * @function
+ * @param {Function} fn - Receives a function to be curried
+ * @returns {Function|*}
  */
 var curry = function curry (fn) {
   return function () {
@@ -74,7 +75,8 @@ var curry = function curry (fn) {
 /**
  * Take one or more function with a single parameter and return value.
  * Pass a paramter and the value will be transformed by each function then returned.
- * @param {...function} fns - Takes a series of functions having the same parameter
+ * @function
+ * @param {...Function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
 
@@ -93,7 +95,8 @@ var pipe = function pipe () {
 }
 /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
- * @param {function} fn - The function to be called
+ * @function
+ * @param {Function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
  * @returns {*}
@@ -115,6 +118,7 @@ var callWithParams = function callWithParams (fn) {
 
 /**
  * Provide a timeout which returns a promise.
+ * @function
  * @param {number} time - Delay in milliseconds
  * @returns {delayHandler}
  */
@@ -146,16 +150,17 @@ var delay = function delay () {
 }
 /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @function queueManagerHandle
+ * @typedef {Function} queueManagerHandle
  * @param {Function} fn - A function to enqueue
- * @param  {...any} args - Arguments to be passed to the function once it is ready
+ * @param  {...*} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
  */
 
 /**
  * Manage functions to run sequentially.
+ * @function
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {functionHelpers~queueManagerHandle}
+ * @returns {module:functionHelpers~queueManagerHandle}
  */
 
 exports.delay = delay
@@ -217,8 +222,8 @@ var queueManager = function queueManager () {
 }
 /**
  * Run Timeout functions one after the otherin queue.
- * @function queueTimeoutHandle
- * @param {function} fn - A callback function to be performed at some time in the future.
+ * @typedef {Function} queueTimeoutHandle
+ * @param {Function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
  * @returns {Promise}
@@ -226,8 +231,9 @@ var queueManager = function queueManager () {
 
 /**
  * Manage functions to run sequentially with delays.
+ * @function
  * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {functionHelpers~queueTimeoutHandle}
+ * @returns {module:functionHelpers~queueTimeoutHandle}
  */
 
 exports.queueManager = queueManager

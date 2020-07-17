@@ -65,6 +65,7 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * Generate an array filled with a copy of the provided item or references to the provided item.
  * The length defines how long the array should be.
  * WARNING: This is a recursive function.
+ * @function
  * @param {boolean} useReference - Choose to multiply by clone or reference, true is by reference
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
@@ -79,6 +80,7 @@ var buildArrayBase = function buildArrayBase (useReference, item, length) {
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
+ * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
@@ -89,6 +91,7 @@ var buildArray = (0, _functions.curry)(buildArrayBase)(false)
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
+ * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
@@ -113,6 +116,7 @@ var uniqueArray = function uniqueArray (array) {
 }
 /**
  * Take multiple arrays and then filter all these into one unique array.
+ * @function
  * @param {...Array} arrays - Provide mulitple arrays to create one unique array
  * @returns {Array}
  */
@@ -141,6 +145,7 @@ var mergeArrays = function mergeArrays () {
  * Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
  * the first length will be one or more and the second will be zero, if the both have the value then both will be one
  * or more.
+ * @function
  * @example
  * // example of input and resulting output
  * compareArrays(

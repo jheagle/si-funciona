@@ -1,5 +1,45 @@
-# functional-helpers
-General usage utility functions.
+# Functional Helpers
+
+## General usage utility functions
+
+<a name="module_functionalHelpers"></a>
+
+## functionalHelpers
+All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+
+**Version**: 1.0.0  
+**Author**: Joshua Heagle <joshuaheagle@gmail.com>  
+
+* [functionalHelpers](#module_functionalHelpers)
+    * [~root](#module_functionalHelpers..root)
+    * [~previousFunctionalHelpers](#module_functionalHelpers..previousFunctionalHelpers) : <code>module</code> \| <code>\*</code>
+    * [~noConflict()](#module_functionalHelpers..noConflict) ⇒ [<code>functionalHelpers</code>](#module_functionalHelpers..functionalHelpers)
+    * [~functionalHelpers](#module_functionalHelpers..functionalHelpers) : [<code>functionalHelpers</code>](#module_functionalHelpers) \| <code>module:arrayHelpers</code> \| <code>module:functionHelpers</code> \| <code>module:numberHelpers</code> \| <code>module:objectHelpers</code>
+
+<a name="module_functionalHelpers..root"></a>
+
+### functionalHelpers~root
+Store a reference to this scope which will be Window if rendered via browser
+
+**Kind**: inner constant of [<code>functionalHelpers</code>](#module_functionalHelpers)  
+<a name="module_functionalHelpers..previousFunctionalHelpers"></a>
+
+### functionalHelpers~previousFunctionalHelpers : <code>module</code> \| <code>\*</code>
+Store reference to any pre-existing module of the same name
+
+**Kind**: inner constant of [<code>functionalHelpers</code>](#module_functionalHelpers)  
+<a name="module_functionalHelpers..noConflict"></a>
+
+### functionalHelpers~noConflict() ⇒ [<code>functionalHelpers</code>](#module_functionalHelpers..functionalHelpers)
+Return a reference to this library while preserving the original same-named library
+
+**Kind**: inner method of [<code>functionalHelpers</code>](#module_functionalHelpers)  
+<a name="module_functionalHelpers..functionalHelpers"></a>
+
+### functionalHelpers~functionalHelpers : [<code>functionalHelpers</code>](#module_functionalHelpers) \| <code>module:arrayHelpers</code> \| <code>module:functionHelpers</code> \| <code>module:numberHelpers</code> \| <code>module:objectHelpers</code>
+All methods exported from this module are encapsulated within functionalHelpers.
+
+**Kind**: inner typedef of [<code>functionalHelpers</code>](#module_functionalHelpers)  
 
 ## Modules
 
@@ -28,21 +68,21 @@ Some simple utility functions for generating arrays or performing work on arrays
 
 * [arrayHelpers](#module_arrayHelpers)
     * _static_
-        * [.buildArray](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
-        * [.buildArrayOfReferences](#module_arrayHelpers.buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
-        * [.mergeArrays](#module_arrayHelpers.mergeArrays) ⇒ <code>Array</code>
-        * [.compareArrays](#module_arrayHelpers.compareArrays) ⇒ <code>Object.&lt;string, number&gt;</code>
+        * [.buildArray(item, length, [arr])](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
+        * [.buildArrayOfReferences(item, length, [arr])](#module_arrayHelpers.buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
+        * [.mergeArrays(...arrays)](#module_arrayHelpers.mergeArrays) ⇒ <code>Array</code>
+        * [.compareArrays(arr1, arr2)](#module_arrayHelpers.compareArrays) ⇒ <code>Object.&lt;string, number&gt;</code>
     * _inner_
         * [~buildArrayBase(useReference, item, length, [arr])](#module_arrayHelpers..buildArrayBase) ⇒ <code>Array.&lt;\*&gt;</code>
         * [~uniqueArray(array)](#module_arrayHelpers..uniqueArray) ⇒ <code>Array</code>
 
 <a name="module_arrayHelpers.buildArray"></a>
 
-### arrayHelpers.buildArray ⇒ <code>Array.&lt;\*&gt;</code>
+### arrayHelpers.buildArray(item, length, [arr]) ⇒ <code>Array.&lt;\*&gt;</code>
 Leverage buildArrayBase to generate an array filled with a copy of the provided item.
 The length defines how long the array should be.
 
-**Kind**: static constant of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+**Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -52,11 +92,11 @@ The length defines how long the array should be.
 
 <a name="module_arrayHelpers.buildArrayOfReferences"></a>
 
-### arrayHelpers.buildArrayOfReferences ⇒ <code>Array.&lt;\*&gt;</code>
+### arrayHelpers.buildArrayOfReferences(item, length, [arr]) ⇒ <code>Array.&lt;\*&gt;</code>
 Leverage buildArrayBase to generate an array filled with references to the provided item.
 The length defines how long the array should be.
 
-**Kind**: static constant of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+**Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -66,10 +106,10 @@ The length defines how long the array should be.
 
 <a name="module_arrayHelpers.mergeArrays"></a>
 
-### arrayHelpers.mergeArrays ⇒ <code>Array</code>
+### arrayHelpers.mergeArrays(...arrays) ⇒ <code>Array</code>
 Take multiple arrays and then filter all these into one unique array.
 
-**Kind**: static constant of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+**Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -77,7 +117,7 @@ Take multiple arrays and then filter all these into one unique array.
 
 <a name="module_arrayHelpers.compareArrays"></a>
 
-### arrayHelpers.compareArrays ⇒ <code>Object.&lt;string, number&gt;</code>
+### arrayHelpers.compareArrays(arr1, arr2) ⇒ <code>Object.&lt;string, number&gt;</code>
 Compare two Arrays and return the Object where the value for each property is as follows:
 -1 to indicate val1 is less than val2
 0 to indicate both values are the equal
@@ -89,7 +129,7 @@ Use the lengths of these filtered arrays to compare. So if the first array has t
 the first length will be one or more and the second will be zero, if the both have the value then both will be one
 or more.
 
-**Kind**: static constant of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+**Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -170,25 +210,25 @@ Manage how functions are called with these utilities.
 
 * [functionHelpers](#module_functionHelpers)
     * _static_
-        * [.curry](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
-        * [.pipe](#module_functionHelpers.pipe) ⇒ <code>\*</code>
-        * [.callWithParams](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
-        * [.delay](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
-        * [.queueManager](#module_functionHelpers.queueManager) ⇒ <code>functionHelpers~queueManagerHandle</code>
-        * [.queueTimeout](#module_functionHelpers.queueTimeout) ⇒ <code>functionHelpers~queueTimeoutHandle</code>
+        * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
+        * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
+        * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
+        * [.delay(time)](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
+        * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
+        * [.queueTimeout([queue])](#module_functionHelpers.queueTimeout) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
     * _inner_
-        * [~queueManagerHandle(fn, ...args)](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
-        * [~queueTimeoutHandle(fn, time, ...args)](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
         * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
+        * [~queueManagerHandle](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
+        * [~queueTimeoutHandle](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
 
 <a name="module_functionHelpers.curry"></a>
 
-### functionHelpers.curry ⇒ <code>function</code> \| <code>\*</code>
+### functionHelpers.curry(fn) ⇒ <code>function</code> \| <code>\*</code>
 Return a curried version of the passed function.
 The returned function expects the same number of arguments minus the ones provided.
 fn is the name of the function being curried.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -196,11 +236,11 @@ fn is the name of the function being curried.
 
 <a name="module_functionHelpers.pipe"></a>
 
-### functionHelpers.pipe ⇒ <code>\*</code>
+### functionHelpers.pipe(...fns) ⇒ <code>\*</code>
 Take one or more function with a single parameter and return value.
 Pass a paramter and the value will be transformed by each function then returned.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -208,10 +248,10 @@ Pass a paramter and the value will be transformed by each function then returned
 
 <a name="module_functionHelpers.callWithParams"></a>
 
-### functionHelpers.callWithParams ⇒ <code>\*</code>
+### functionHelpers.callWithParams(fn, params, [minimum]) ⇒ <code>\*</code>
 Given a function, call with the correct number of paramters from an array of possible parameters.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -221,10 +261,10 @@ Given a function, call with the correct number of paramters from an array of pos
 
 <a name="module_functionHelpers.delay"></a>
 
-### functionHelpers.delay ⇒ <code>delayHandler</code>
+### functionHelpers.delay(time) ⇒ <code>delayHandler</code>
 Provide a timeout which returns a promise.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -232,10 +272,10 @@ Provide a timeout which returns a promise.
 
 <a name="module_functionHelpers.queueManager"></a>
 
-### functionHelpers.queueManager ⇒ <code>functionHelpers~queueManagerHandle</code>
+### functionHelpers.queueManager([queue]) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
 Manage functions to run sequentially.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -243,39 +283,14 @@ Manage functions to run sequentially.
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
-### functionHelpers.queueTimeout ⇒ <code>functionHelpers~queueTimeoutHandle</code>
+### functionHelpers.queueTimeout([queue]) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
 Manage functions to run sequentially with delays.
 
-**Kind**: static constant of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [queue] | <code>Iterable</code> | <code>[]</code> | The iterable that can be used to store queued functions |
-
-<a name="module_functionHelpers..queueManagerHandle"></a>
-
-### functionHelpers~queueManagerHandle(fn, ...args) ⇒ <code>Promise</code>
-Each time queue handle is called the passed function is added to the queue to be called when ready.
-
-**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | A function to enqueue |
-| ...args | <code>any</code> | Arguments to be passed to the function once it is ready |
-
-<a name="module_functionHelpers..queueTimeoutHandle"></a>
-
-### functionHelpers~queueTimeoutHandle(fn, time, ...args) ⇒ <code>Promise</code>
-Run Timeout functions one after the otherin queue.
-
-**Kind**: inner method of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | A callback function to be performed at some time in the future. |
-| time | <code>number</code> | The time in milliseconds to delay. |
-| ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
 
 <a name="module_functionHelpers..delayHandler"></a>
 
@@ -290,6 +305,31 @@ Provide a way to cancel a request or attach a resolve event.
 | resolver | <code>Promise</code> | 
 | cancel | <code>function</code> | 
 
+<a name="module_functionHelpers..queueManagerHandle"></a>
+
+### functionHelpers~queueManagerHandle ⇒ <code>Promise</code>
+Each time queue handle is called the passed function is added to the queue to be called when ready.
+
+**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | A function to enqueue |
+| ...args | <code>\*</code> | Arguments to be passed to the function once it is ready |
+
+<a name="module_functionHelpers..queueTimeoutHandle"></a>
+
+### functionHelpers~queueTimeoutHandle ⇒ <code>Promise</code>
+Run Timeout functions one after the otherin queue.
+
+**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | A callback function to be performed at some time in the future. |
+| time | <code>number</code> | The time in milliseconds to delay. |
+| ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
+
 <a name="module_numberHelpers"></a>
 
 ## numberHelpers
@@ -299,18 +339,18 @@ Some number comparators and random number generators.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [numberHelpers](#module_numberHelpers)
-    * [.getAbsoluteMax](#module_numberHelpers.getAbsoluteMax) ⇒ <code>number</code>
-    * [.getAbsoluteMin](#module_numberHelpers.getAbsoluteMin) ⇒ <code>number</code>
-    * [.randomNumber](#module_numberHelpers.randomNumber) ⇒ <code>number</code>
-    * [.randomInteger](#module_numberHelpers.randomInteger) ⇒ <code>number</code>
-    * [.compare](#module_numberHelpers.compare) ⇒ <code>number</code>
+    * [.getAbsoluteMax(num1, num2)](#module_numberHelpers.getAbsoluteMax) ⇒ <code>number</code>
+    * [.getAbsoluteMin(num1, num2)](#module_numberHelpers.getAbsoluteMin) ⇒ <code>number</code>
+    * [.randomNumber(range, [offset], [interval])](#module_numberHelpers.randomNumber) ⇒ <code>number</code>
+    * [.randomInteger(range, [offset], [interval])](#module_numberHelpers.randomInteger) ⇒ <code>number</code>
+    * [.compare(val1, val2)](#module_numberHelpers.compare) ⇒ <code>number</code>
 
 <a name="module_numberHelpers.getAbsoluteMax"></a>
 
-### numberHelpers.getAbsoluteMax ⇒ <code>number</code>
+### numberHelpers.getAbsoluteMax(num1, num2) ⇒ <code>number</code>
 Helper for returning the absolute max value
 
-**Kind**: static constant of [<code>numberHelpers</code>](#module_numberHelpers)  
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -319,10 +359,10 @@ Helper for returning the absolute max value
 
 <a name="module_numberHelpers.getAbsoluteMin"></a>
 
-### numberHelpers.getAbsoluteMin ⇒ <code>number</code>
+### numberHelpers.getAbsoluteMin(num1, num2) ⇒ <code>number</code>
 Helper for returning the absolute min value
 
-**Kind**: static constant of [<code>numberHelpers</code>](#module_numberHelpers)  
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -331,11 +371,11 @@ Helper for returning the absolute min value
 
 <a name="module_numberHelpers.randomNumber"></a>
 
-### numberHelpers.randomNumber ⇒ <code>number</code>
+### numberHelpers.randomNumber(range, [offset], [interval]) ⇒ <code>number</code>
 Create a single random number within provided range. And with optional offset,
 The distance between the result numbers can be adjusted with interval.
 
-**Kind**: static constant of [<code>numberHelpers</code>](#module_numberHelpers)  
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -345,11 +385,11 @@ The distance between the result numbers can be adjusted with interval.
 
 <a name="module_numberHelpers.randomInteger"></a>
 
-### numberHelpers.randomInteger ⇒ <code>number</code>
+### numberHelpers.randomInteger(range, [offset], [interval]) ⇒ <code>number</code>
 Create a single random integer within provide range. And with optional offset,
 The distance between the result numbers can be adjusted with interval.
 
-**Kind**: static constant of [<code>numberHelpers</code>](#module_numberHelpers)  
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -359,13 +399,13 @@ The distance between the result numbers can be adjusted with interval.
 
 <a name="module_numberHelpers.compare"></a>
 
-### numberHelpers.compare ⇒ <code>number</code>
+### numberHelpers.compare(val1, val2) ⇒ <code>number</code>
 Compare two numbers and return:
 -1 to indicate val1 is less than val2
 0 to indicate both values are the equal
 1 to indicate val1 is greater than val2
 
-**Kind**: static constant of [<code>numberHelpers</code>](#module_numberHelpers)  
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -382,26 +422,26 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
-        * [.setValue](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.setAndReturnValue](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
-        * [.mapObject](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.mapProperty](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
-        * [.filterObject](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.reduceObject](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.notEmptyObjectOrArray](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
-        * [.describeObjectDetail](#module_objectHelpers.describeObjectDetail) ⇒ <code>descriptorDetail</code>
-        * [.assignDescriptor](#module_objectHelpers.assignDescriptor) ⇒ <code>descriptor</code>
-        * [.describeObject](#module_objectHelpers.describeObject) ⇒ <code>descriptor</code>
-        * [.compareDescriptor](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
-        * [.describeObjectMap](#module_objectHelpers.describeObjectMap) ⇒ <code>descriptorMap</code>
-        * [.cloneObject](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
-        * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
-        * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
+        * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
+        * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.mapProperty(property, mapFunction, obj)](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
+        * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.notEmptyObjectOrArray(item)](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
+        * [.describeObjectDetail(value, [key], [index])](#module_objectHelpers.describeObjectDetail) ⇒ <code>module:descriptorSamples~descriptorDetail</code>
+        * [.assignDescriptor(originalMap, ...descriptors)](#module_objectHelpers.assignDescriptor) ⇒ <code>module:descriptorSamples~descriptor</code>
+        * [.describeObject(object)](#module_objectHelpers.describeObject) ⇒ <code>module:descriptorSamples~descriptor</code>
+        * [.compareDescriptor(descriptor1, descriptor2)](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
+        * [.describeObjectMap(object, [mapLimit], [depthLimit])](#module_objectHelpers.describeObjectMap) ⇒ <code>module:descriptorSamples~descriptorMap</code>
+        * [.cloneObject(object)](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
+        * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
+        * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
         * [~descriptorKeys(descriptor)](#module_objectHelpers..descriptorKeys) ⇒ <code>Array.&lt;string&gt;</code>
         * [~descriptorReferences(descriptor)](#module_objectHelpers..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
         * [~descriptorIsArray(descriptor)](#module_objectHelpers..descriptorIsArray) ⇒ <code>boolean</code>
-        * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ <code>descriptor</code>
+        * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ <code>module:descriptorSamples~descriptor</code>
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
@@ -409,10 +449,10 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 <a name="module_objectHelpers.setValue"></a>
 
-### objectHelpers.setValue ⇒ <code>Object</code> \| <code>Array</code>
+### objectHelpers.setValue(key, value, item) ⇒ <code>Object</code> \| <code>Array</code>
 Set a value on an item, then return the item
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -422,10 +462,10 @@ Set a value on an item, then return the item
 
 <a name="module_objectHelpers.setAndReturnValue"></a>
 
-### objectHelpers.setAndReturnValue ⇒ <code>\*</code>
+### objectHelpers.setAndReturnValue(item, key, value) ⇒ <code>\*</code>
 Set a value on an item, then return the value
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -435,68 +475,68 @@ Set a value on an item, then return the value
 
 <a name="module_objectHelpers.mapObject"></a>
 
-### objectHelpers.mapObject ⇒ <code>Object</code> \| <code>Array</code>
+### objectHelpers.mapObject(obj, fn, [thisArg]) ⇒ <code>Object</code> \| <code>Array</code>
 This function is intended to replicate behaviour of the Array.map() function but for Objects.
 If an array is passed in instead then it will perform standard map(). It is recommended to
 always use the standard map() function when it is known that the object is actually an array.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be mapped |
-| fn | <code>mapCallback</code> \| <code>function</code> | The function to be processed for each mapped property |
+| fn | [<code>mapCallback</code>](#module_objectHelpers..mapCallback) \| <code>function</code> | The function to be processed for each mapped property |
 | [thisArg] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as this when executing callback. |
 
 <a name="module_objectHelpers.mapProperty"></a>
 
-### objectHelpers.mapProperty ⇒ <code>object</code>
+### objectHelpers.mapProperty(property, mapFunction, obj) ⇒ <code>object</code>
 Perform map on an array property of an object, then return the object
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | property | <code>string</code> | The string key for the array property to be mapped |
-| mapFunction | <code>mapCallback</code> \| <code>function</code> | A function suitable to be passed to map |
+| mapFunction | [<code>mapCallback</code>](#module_objectHelpers..mapCallback) \| <code>function</code> | A function suitable to be passed to map |
 | obj | <code>Object</code> \| <code>Array</code> | An object having an array property |
 
 <a name="module_objectHelpers.filterObject"></a>
 
-### objectHelpers.filterObject ⇒ <code>Object</code> \| <code>Array</code>
+### objectHelpers.filterObject(obj, fn, [thisArg]) ⇒ <code>Object</code> \| <code>Array</code>
 This function is intended to replicate behaviour of the Array.filter() function but for Objects.
 If an array is passed in instead then it will perform standard filter(). It is recommended to
 always use the standard filter() function when it is known that the object is actually an array.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be filtered |
-| fn | <code>filterCallback</code> \| <code>function</code> | The function to be processed for each filtered property |
+| fn | [<code>filterCallback</code>](#module_objectHelpers..filterCallback) \| <code>function</code> | The function to be processed for each filtered property |
 | [thisArg] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as this when executing callback. |
 
 <a name="module_objectHelpers.reduceObject"></a>
 
-### objectHelpers.reduceObject ⇒ <code>Object</code> \| <code>Array</code>
+### objectHelpers.reduceObject(obj, fn, [initialValue]) ⇒ <code>Object</code> \| <code>Array</code>
 This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
 If an array is passed in instead then it will perform standard reduce(). It is recommended to
 always use the standard reduce() function when it is known that the object is actually an array.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be filtered |
-| fn | <code>reduceCallback</code> \| <code>function</code> | The function to be processed for each filtered property |
+| fn | [<code>reduceCallback</code>](#module_objectHelpers..reduceCallback) \| <code>function</code> | The function to be processed for each filtered property |
 | [initialValue] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty array without an initial value is an error. |
 
 <a name="module_objectHelpers.notEmptyObjectOrArray"></a>
 
-### objectHelpers.notEmptyObjectOrArray ⇒ <code>boolean</code>
+### objectHelpers.notEmptyObjectOrArray(item) ⇒ <code>boolean</code>
 Helper function for testing if the item is an Object or Array that contains properties or elements
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -504,10 +544,10 @@ Helper function for testing if the item is an Object or Array that contains prop
 
 <a name="module_objectHelpers.describeObjectDetail"></a>
 
-### objectHelpers.describeObjectDetail ⇒ <code>descriptorDetail</code>
+### objectHelpers.describeObjectDetail(value, [key], [index]) ⇒ <code>module:descriptorSamples~descriptorDetail</code>
 Descriptor an object's attribute and provide details about it.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -517,22 +557,22 @@ Descriptor an object's attribute and provide details about it.
 
 <a name="module_objectHelpers.assignDescriptor"></a>
 
-### objectHelpers.assignDescriptor ⇒ <code>descriptor</code>
+### objectHelpers.assignDescriptor(originalMap, ...descriptors) ⇒ <code>module:descriptorSamples~descriptor</code>
 Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>descriptor</code> | 
-| ...descriptors | <code>descriptor</code> | 
+| originalMap | <code>module:descriptorSamples~descriptor</code> | 
+| ...descriptors | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers.describeObject"></a>
 
-### objectHelpers.describeObject ⇒ <code>descriptor</code>
+### objectHelpers.describeObject(object) ⇒ <code>module:descriptorSamples~descriptor</code>
 Descriptor an object and return the descriptor which defines the object's structure and attributes.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
@@ -540,22 +580,22 @@ Descriptor an object and return the descriptor which defines the object's struct
 
 <a name="module_objectHelpers.compareDescriptor"></a>
 
-### objectHelpers.compareDescriptor ⇒ <code>boolean</code>
+### objectHelpers.compareDescriptor(descriptor1, descriptor2) ⇒ <code>boolean</code>
 Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| descriptor1 | <code>descriptor</code> | 
-| descriptor2 | <code>descriptor</code> | 
+| descriptor1 | <code>module:descriptorSamples~descriptor</code> | 
+| descriptor2 | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers.describeObjectMap"></a>
 
-### objectHelpers.describeObjectMap ⇒ <code>descriptorMap</code>
+### objectHelpers.describeObjectMap(object, [mapLimit], [depthLimit]) ⇒ <code>module:descriptorSamples~descriptorMap</code>
 Descriptor out the entire object including nested objects.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -565,10 +605,10 @@ Descriptor out the entire object including nested objects.
 
 <a name="module_objectHelpers.cloneObject"></a>
 
-### objectHelpers.cloneObject ⇒ <code>Object</code>
+### objectHelpers.cloneObject(object) ⇒ <code>Object</code>
 Clone objects for manipulation without data corruption, returns a copy of the provided object.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -576,13 +616,13 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 
 <a name="module_objectHelpers.mergeObjects"></a>
 
-### objectHelpers.mergeObjects ⇒ <code>Object</code>
+### objectHelpers.mergeObjects(...args) ⇒ <code>Object</code>
 Perform a deep merge of objects. This will combine all objects and sub-objects,
 objects having the same attributes will overwrite starting from the end of the argument
 list and bubbling up to return a merged version of the first object.
 WARNING: This is a recursive function.
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -590,14 +630,14 @@ WARNING: This is a recursive function.
 
 <a name="module_objectHelpers.mergeObjectsMutable"></a>
 
-### objectHelpers.mergeObjectsMutable ⇒ <code>Object</code>
+### objectHelpers.mergeObjectsMutable(...args) ⇒ <code>Object</code>
 Perform a deep merge of objects. This will combine all objects and sub-objects,
 objects having the same attributes will overwrite starting from the end of the argument
 list and bubbling up to return the overwritten first object.
 WARNING: This is a recursive function.
 WARNING: This will mutate the first object passed in as input
 
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -612,7 +652,7 @@ Build an array of all keys from the details of this descriptor.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>descriptor</code> | 
+| descriptor | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers..descriptorReferences"></a>
 
@@ -623,7 +663,7 @@ Create an array of the indexes in the details that contain references.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>descriptor</code> | 
+| descriptor | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers..descriptorIsArray"></a>
 
@@ -634,18 +674,18 @@ Check based on the detail keys if this descriptor represents an array.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>descriptor</code> | 
+| descriptor | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers..cloneDescriptor"></a>
 
-### objectHelpers~cloneDescriptor(originalMap) ⇒ <code>descriptor</code>
+### objectHelpers~cloneDescriptor(originalMap) ⇒ <code>module:descriptorSamples~descriptor</code>
 Make a copy of an object descriptor so that the original will not be mutated.
 
 **Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | <code>descriptor</code> | 
+| originalMap | <code>module:descriptorSamples~descriptor</code> | 
 
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
@@ -660,7 +700,7 @@ have the word 'mutable' in the name (case-insensitive).
 | Param | Type | Description |
 | --- | --- | --- |
 | isMutable | <code>boolean</code> | An optional flag which indicates whether we will clone objects or directly |
-| fn | <code>mergeObjects</code> \| <code>mergeObjectsMutable</code> \| <code>function</code> | Pass one of the mergeObjects functions to be used |
+| fn | [<code>mergeObjects</code>](#module_objectHelpers.mergeObjects) \| [<code>mergeObjectsMutable</code>](#module_objectHelpers.mergeObjectsMutable) \| <code>function</code> | Pass one of the mergeObjects functions to be used |
 | obj1 | <code>Object</code> | The receiving object; this is the object which will have it's properties overridden |
 | obj2 | <code>Object</code> | The contributing object; this is the object which will contribute new properties and override existing ones modify them |
 
@@ -705,3 +745,76 @@ Function to execute on each property in the object, taking four arguments
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
 
+
+<a name="module_descriptorSamples"></a>
+
+## descriptorSamples
+Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
+
+**Version**: 1.0.0  
+**Author**: Joshua Heagle <joshuaheagle@gmail.com>  
+
+* [descriptorSamples](#module_descriptorSamples)
+    * _static_
+        * [.descriptorDetailSample](#module_descriptorSamples.descriptorDetailSample) : <code>descriptorDetail</code>
+        * [.descriptorSample](#module_descriptorSamples.descriptorSample) : <code>descriptor</code>
+        * [.descriptorMapSample](#module_descriptorSamples.descriptorMapSample) : <code>descriptorMap</code>
+        * [.mappedDescriptorMap](#module_descriptorSamples.mappedDescriptorMap) : <code>descriptorMap</code>
+    * _inner_
+        * [~descriptorDetail](#module_descriptorSamples..descriptorDetail) : <code>Object</code>
+        * [~descriptor](#module_descriptorSamples..descriptor) : <code>Object</code>
+        * [~descriptorMap](#module_descriptorSamples..descriptorMap) : <code>Array.&lt;descriptor&gt;</code>
+
+<a name="module_descriptorSamples.descriptorDetailSample"></a>
+
+### descriptorSamples.descriptorDetailSample : <code>descriptorDetail</code>
+**Kind**: static constant of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+<a name="module_descriptorSamples.descriptorSample"></a>
+
+### descriptorSamples.descriptorSample : <code>descriptor</code>
+**Kind**: static constant of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+<a name="module_descriptorSamples.descriptorMapSample"></a>
+
+### descriptorSamples.descriptorMapSample : <code>descriptorMap</code>
+**Kind**: static constant of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+<a name="module_descriptorSamples.mappedDescriptorMap"></a>
+
+### descriptorSamples.mappedDescriptorMap : <code>descriptorMap</code>
+**Kind**: static constant of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+<a name="module_descriptorSamples..descriptorDetail"></a>
+
+### descriptorSamples~descriptorDetail : <code>Object</code>
+**Kind**: inner typedef of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| index | <code>number</code> | 
+| key | <code>string</code> \| <code>number</code> | 
+| type | <code>Array.&lt;string&gt;</code> | 
+| value | <code>Array</code> | 
+| nullable | <code>boolean</code> | 
+| optional | <code>boolean</code> | 
+| circular | <code>boolean</code> | 
+| isReference | <code>boolean</code> | 
+| reference | <code>null</code> \| <code>number</code> | 
+
+<a name="module_descriptorSamples..descriptor"></a>
+
+### descriptorSamples~descriptor : <code>Object</code>
+**Kind**: inner typedef of [<code>descriptorSamples</code>](#module_descriptorSamples)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| details | <code>Array.&lt;descriptorDetail&gt;</code> | 
+| length | <code>number</code> | 
+| keys | <code>Array.&lt;(string\|number)&gt;</code> | 
+| references | <code>Array.&lt;number&gt;</code> | 
+| isArray | <code>boolean</code> | 
+| complete | <code>boolean</code> | 
+
+<a name="module_descriptorSamples..descriptorMap"></a>
+
+### descriptorSamples~descriptorMap : <code>Array.&lt;descriptor&gt;</code>
+**Kind**: inner typedef of [<code>descriptorSamples</code>](#module_descriptorSamples)  
