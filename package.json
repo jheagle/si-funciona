@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "readme": "cp src/README.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/objects/*.js >> README.md",
-    "htmldocs": "jsdoc -R src/README.md -r src/ -d docs"
+    "readme": "cp README README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/objects/*.js >> README.md",
+    "htmldocs": "jsdoc -R README -r src/ -d docs"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -54,5 +54,8 @@
     "env": [
       "jest"
     ]
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
