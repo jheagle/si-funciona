@@ -60,7 +60,7 @@ test('notEmptyObjectOrArray returns correct boolean for object and array check',
   expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
 })
 
-describe('descriptorDetail generates detail for', () => {
+describe('describeObjectDetail generates detail for', () => {
   test('undefined type', () => {
     expect(helpers.describeObjectDetail(undefined, 'anUndefined'))
       .toEqual({
@@ -72,7 +72,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -87,7 +88,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -102,7 +104,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -117,7 +120,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -132,7 +136,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -148,7 +153,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -163,7 +169,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -179,7 +186,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: true,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
 
     const dateObject = new Date()
@@ -193,7 +201,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: true,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
 
     const someArray = ['a', 'b', 'c']
@@ -207,7 +216,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: true,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -223,7 +233,8 @@ describe('descriptorDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
-        reference: null
+        arrayReference: null,
+        objectReference: null
       })
   })
 
@@ -253,7 +264,7 @@ describe('assignDescriptor', () => {
   })
 })
 
-describe('descriptor', () => {
+describe('describeObject', () => {
   test('can produce structure matching sample with single string detail', () => {
     expect(helpers.describeObject({ keyName: '' }))
       .toEqual(samples.descriptorSample)
@@ -271,7 +282,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.details[1]).toEqual({
       index: 1,
@@ -282,7 +294,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.details[2]).toEqual({
       index: 2,
@@ -293,7 +306,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.details[3]).toEqual({
       index: 3,
@@ -304,7 +318,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.details[4]).toEqual({
       index: 4,
@@ -315,7 +330,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.length).toBe(5)
     expect(descriptor.references).toStrictEqual([])
@@ -335,7 +351,8 @@ describe('descriptor', () => {
       optional: false,
       circular: false,
       isReference: false,
-      reference: null
+      arrayReference: null,
+      objectReference: null
     })
     expect(descriptor.length).toBe(5)
     expect(descriptor.references).toStrictEqual([])
@@ -344,7 +361,11 @@ describe('descriptor', () => {
   })
 })
 
-describe('descriptorMap', () => {
+describe('compareDescriptor', () => {
+
+})
+
+describe('describeObjectMap', () => {
   test('can produce structure matching sample with single string detail', () => {
     expect(helpers.describeObjectMap({ keyName: '' }))
       .toEqual(samples.descriptorMapSample)

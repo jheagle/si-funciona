@@ -226,7 +226,7 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
   return !!(_typeof(item) === 'object' && Object.keys(item).length || Array.isArray(item) && item.length)
 }
 /**
- * Descriptor an object's attribute and provide details about it.
+ * Trace an object's attribute and provide details about it.
  * @function
  * @param {*} value
  * @param {string|number} [key=0]
@@ -252,7 +252,8 @@ var describeObjectDetail = function describeObjectDetail (value) {
     optional: false,
     circular: false,
     isReference: isReference,
-    reference: null
+    arrayReference: null,
+    objectReference: null
   }
 }
 /**
@@ -355,7 +356,8 @@ var assignDescriptor = function assignDescriptor (originalMap) {
           value: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.value), _toConsumableArray(newDetail.value))),
           nullable: existingDetail.nullable || newDetail.nullable,
           isReference: existingDetail.isReference || newDetail.isReference,
-          reference: existingDetail.reference || newDetail.reference
+          arrayReference: existingDetail.arrayReference || newDetail.arrayReference,
+          objectReference: existingDetail.objectReference || newDetail.objectReference
         })
         return assignedDescriptor
       }
@@ -377,7 +379,7 @@ var assignDescriptor = function assignDescriptor (originalMap) {
   }, cloneDescriptor(originalMap))
 }
 /**
- * Descriptor an object and return the descriptor which defines the object's structure and attributes.
+ * Trace an object and return the descriptor which defines the object's structure and attributes.
  * @function
  * @param {Object} object
  * @returns {module:descriptorSamples~descriptor}
@@ -449,7 +451,7 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
     }) : false
 }
 /**
- * Descriptor out the entire object including nested objects.
+ * Trace out the entire object including nested objects.
  * @function
  * @param {Object|Array} object
  * @param {number} [mapLimit=1000]
@@ -490,7 +492,13 @@ var describeObjectMap = function describeObjectMap (object) {
 
         if (existingDescriptorIndex >= 0) {
           index = existingDescriptorIndex
-          referenceDetail.reference = existingDescriptorIndex
+
+          if (descriptorMap[existingDescriptorIndex].isArray) {
+            referenceDetail.arrayReference = existingDescriptorIndex
+          } else {
+            referenceDetail.objectReference = existingDescriptorIndex
+          }
+
           referenceDetail.circular = true
           return [].concat(_toConsumableArray(values), [val])
         }
@@ -498,12 +506,24 @@ var describeObjectMap = function describeObjectMap (object) {
         descriptorMap[index] = tempDescriptor
         return [].concat(_toConsumableArray(values), [val])
       }, [])
-      referenceDetail.reference = index
+
+      if (descriptorMap[index].isArray) {
+        referenceDetail.arrayReference = index
+      } else {
+        referenceDetail.objectReference = index
+      }
+
       return referenceId
     })
     descriptor.references = descriptor.references.map(function (referenceId) {
       if (!descriptor.details[referenceId].circular) {
-        doDescribe(descriptorMap[descriptor.details[referenceId].reference])
+        if (descriptor.details[referenceId].arrayReference !== null) {
+          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference])
+        }
+
+        if (descriptor.details[referenceId].objectReference !== null) {
+          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference])
+        }
       }
 
       return referenceId

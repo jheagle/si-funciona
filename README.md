@@ -550,7 +550,7 @@ Helper function for testing if the item is an Object or Array that contains prop
 <a name="module_objectHelpers.describeObjectDetail"></a>
 
 ### objectHelpers.describeObjectDetail(value, [key], [index]) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
-Descriptor an object's attribute and provide details about it.
+Trace an object's attribute and provide details about it.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -575,7 +575,7 @@ Apply one or more descriptors to an existing descriptor so that they represent a
 <a name="module_objectHelpers.describeObject"></a>
 
 ### objectHelpers.describeObject(object) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
-Descriptor an object and return the descriptor which defines the object's structure and attributes.
+Trace an object and return the descriptor which defines the object's structure and attributes.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -598,7 +598,7 @@ Check if two descriptors are the same or similar in that they have similar keys 
 <a name="module_objectHelpers.describeObjectMap"></a>
 
 ### objectHelpers.describeObjectMap(object, [mapLimit], [depthLimit]) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
-Descriptor out the entire object including nested objects.
+Trace out the entire object including nested objects.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -801,7 +801,8 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 | optional | <code>boolean</code> | 
 | circular | <code>boolean</code> | 
 | isReference | <code>boolean</code> | 
-| reference | <code>null</code> \| <code>number</code> | 
+| arrayReference | <code>null</code> \| <code>number</code> | 
+| objectReference | <code>null</code> \| <code>number</code> | 
 
 <a name="module_descriptorSamples..descriptor"></a>
 
