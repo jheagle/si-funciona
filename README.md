@@ -812,6 +812,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 | Name | Type |
 | --- | --- |
+| index | <code>number</code> | 
 | details | <code>Array.&lt;descriptorDetail&gt;</code> | 
 | length | <code>number</code> | 
 | keys | <code>Array.&lt;(string\|number)&gt;</code> | 

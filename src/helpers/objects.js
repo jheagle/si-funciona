@@ -290,6 +290,7 @@ export const describeObject = object => {
       return descriptor
     },
     {
+      index: 0,
       details: [],
       length: 0,
       keys: [],
@@ -319,8 +320,10 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
   if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
     return false
   }
-  return descriptor1.keys.every(key => descriptor2.keys.includes(key))
-    ? descriptor1.details.every(detail => detail.type.some(type => descriptor2.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type)))
+  const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
+  const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
+  return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key))
+    ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type)))
     : false
 }
 
@@ -334,7 +337,7 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
  */
 export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
   const descriptorMap = []
-  const doDescribe = descriptor => {
+  const doDescribe = (descriptor, limit) => {
     descriptor.references = descriptor.references.map(referenceId => {
       let index = descriptorMap.length
       const referenceDetail = descriptor.details[referenceId]
@@ -347,7 +350,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
           descriptorMap[index] = assignDescriptor(descriptorMap[index], tempDescriptor)
           return [...values, val]
         }
-        const existingDescriptorIndex = descriptorMap.findIndex(map => compareDescriptor(tempDescriptor, map))
+        const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
         if (existingDescriptorIndex >= 0) {
           index = existingDescriptorIndex
           if (descriptorMap[existingDescriptorIndex].isArray) {
@@ -358,9 +361,15 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
           referenceDetail.circular = true
           return [...values, val]
         }
-        descriptorMap[index] = tempDescriptor
+        if (index < mapLimit) {
+          tempDescriptor.index = index
+          descriptorMap[index] = tempDescriptor
+        }
         return [...values, val]
       }, [])
+      if (index >= mapLimit) {
+        return referenceId
+      }
       if (descriptorMap[index].isArray) {
         referenceDetail.arrayReference = index
       } else {
@@ -368,20 +377,23 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
       }
       return referenceId
     })
+    if (limit-- === 0) {
+      return descriptorMap
+    }
     descriptor.references = descriptor.references.map(referenceId => {
       if (!descriptor.details[referenceId].circular) {
         if (descriptor.details[referenceId].arrayReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference])
+          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference], limit)
         }
         if (descriptor.details[referenceId].objectReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference])
+          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference], limit)
         }
       }
       return referenceId
     })
     return descriptorMap
   }
-  return doDescribe(describeObject([object]))
+  return doDescribe(describeObject([object]), depthLimit)
 }
 
 /**

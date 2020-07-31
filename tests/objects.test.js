@@ -361,8 +361,78 @@ describe('describeObject', () => {
   })
 })
 
-describe('compareDescriptor', () => {
+describe('compareDescriptor; object-descriptors', () => {
+  test('will return true for two exact match descriptors of objects', () => {
+    expect(helpers.compareDescriptor(
+      samples.descriptorSample,
+      samples.descriptorSample
+    )).toBe(true)
+  })
 
+  test('will return true for descriptor where all keys exist in another descriptor of an object', () => {
+    expect(helpers.compareDescriptor(
+      samples.descriptorSample,
+      helpers.describeObject({ keyName: '', someNumber: 23 })
+    )).toBe(true)
+  })
+
+  test('will return true when the smaller descriptor\'s keys exist in another descriptor of an object', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject({ keyName: '', someNumber: 23 }),
+      samples.descriptorSample
+    )).toBe(true)
+  })
+
+  test('will return false for descriptor where the keys exist but have a different type of an object', () => {
+    expect(helpers.compareDescriptor(
+      samples.descriptorSample,
+      helpers.describeObject({ keyName: 23 })
+    )).toBe(false)
+  })
+
+  test('will return false for descriptor where no keys match for an object', () => {
+    expect(helpers.compareDescriptor(
+      samples.descriptorSample,
+      helpers.describeObject({ someName: '' })
+    )).toBe(false)
+  })
+
+  test('will return false for the smallest descriptor when not all keys match the other descriptor for an object', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject({ keyName: '', someNumber: 23 }),
+      helpers.describeObject({ keyName: '', someNull: null })
+    )).toBe(false)
+  })
+})
+
+describe('compareDescriptor; array-descriptors', () => {
+  test('will return true for two exact match descriptors of arrays', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject(['']),
+      helpers.describeObject([''])
+    )).toBe(true)
+  })
+
+  test('will return true for the same type and length', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject(['', 1, null]),
+      helpers.describeObject([23, '', 6])
+    )).toBe(true)
+  })
+
+  test('will return false for the same type but different length', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject(['', 1, 'string']),
+      helpers.describeObject([23, ''])
+    )).toBe(false)
+  })
+
+  test('will return false for array descriptor comarison with object descriptor', () => {
+    expect(helpers.compareDescriptor(
+      helpers.describeObject(['']),
+      helpers.describeObject({ 0: '' })
+    )).toBe(false)
+  })
 })
 
 describe('describeObjectMap', () => {
@@ -374,6 +444,88 @@ describe('describeObjectMap', () => {
   test('can produce structure similar to sample mapped sample', () => {
     expect(helpers.describeObjectMap(helpers.describeObject({ keyName: '' })))
       .toEqual(samples.mappedDescriptorMap)
+  })
+})
+
+describe('describeObjectMap; with mapLimit', () => {
+  const multiReferenceObject = {
+    object1: {
+      name: 'someName'
+    },
+    object2: {
+      age: 12
+    },
+    array1: [
+      'someString',
+      'anotherString'
+    ],
+    array2: [
+      89,
+      32
+    ],
+    title: 'Some Title',
+    item: 45
+  }
+
+  test('will limit a map to one which is the same as a single descriptor within an array', () => {
+    const result = helpers.describeObjectMap(multiReferenceObject, { mapLimit: 1 })
+    expect(result).toEqual([helpers.describeObject(multiReferenceObject)])
+    expect(result.length).toBe(1)
+  })
+
+  test('will limit a map to two, capturing the original and one reference object', () => {
+    expect(helpers.describeObjectMap(multiReferenceObject, { mapLimit: 2 }).length).toBe(2)
+  })
+
+  test('will limit a map to four, capturing three of the references', () => {
+    expect(helpers.describeObjectMap(multiReferenceObject, { mapLimit: 4 }).length).toBe(4)
+  })
+
+  test('will limit a map by five which is the same as all references', () => {
+    const fullyMapped = helpers.describeObjectMap(multiReferenceObject)
+    const limitFive = helpers.describeObjectMap(multiReferenceObject, { mapLimit: 5 })
+    expect(fullyMapped).toEqual(limitFive)
+  })
+})
+
+describe('describeObjectMap; with depthLimit', () => {
+  const deepReferenceObject = {
+    object1: {
+      name: 'someName',
+      object2: {
+        age: 12,
+        array1: [
+          'someString',
+          'anotherString'
+        ]
+      },
+      array2: [
+        89,
+        32
+      ]
+    },
+    title: 'Some Title',
+    item: 45
+  }
+
+  test('with depth limit zero will be the same as single descriptor within an array', () => {
+    const result = helpers.describeObjectMap(deepReferenceObject, { depthLimit: 0 })
+    expect(result).toEqual([helpers.describeObject(deepReferenceObject)])
+    expect(result.length).toBe(1)
+  })
+
+  test('with depth limit one will only include main descriptor and one nested object', () => {
+    expect(helpers.describeObjectMap(deepReferenceObject, { depthLimit: 1 }).length).toBe(2)
+  })
+
+  test('with depth limit two will not include the array on depth of four', () => {
+    expect(helpers.describeObjectMap(deepReferenceObject, { depthLimit: 2 }).length).toBe(4)
+  })
+
+  test('with depth limit three is the max depth of this object so it should result in the same as no limit', () => {
+    const result = helpers.describeObjectMap(deepReferenceObject, { depthLimit: 3 })
+    expect(result.length).toBe(5)
+    expect(result).toEqual(helpers.describeObjectMap(deepReferenceObject))
   })
 })
 

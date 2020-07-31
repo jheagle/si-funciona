@@ -38,6 +38,7 @@ export const descriptorDetailSample = {
 
 /**
  * @typedef {Object} descriptor
+ * @property {number} index
  * @property {Array.<descriptorDetail>} details
  * @property {number} length
  * @property {Array.<string|number>} keys
@@ -50,6 +51,7 @@ export const descriptorDetailSample = {
  * @type {descriptor}
  */
 export const descriptorSample = {
+  index: 0,
   details: [descriptorDetailSample],
   length: 1,
   keys: [descriptorDetailSample.key],
@@ -74,9 +76,22 @@ export const descriptorMapSample = [
  */
 export const mappedDescriptorMap = [
   {
+    index: 0,
     details: [
       {
         index: 0,
+        key: 'index',
+        type: ['number'],
+        value: [0],
+        nullable: false,
+        optional: false,
+        circular: false,
+        isReference: false,
+        arrayReference: null,
+        objectReference: null
+      },
+      {
+        index: 1,
         key: 'details',
         type: ['object'],
         value: [
@@ -103,7 +118,7 @@ export const mappedDescriptorMap = [
         objectReference: null
       },
       {
-        index: 1,
+        index: 2,
         key: 'length',
         type: ['number'],
         value: [1],
@@ -115,7 +130,7 @@ export const mappedDescriptorMap = [
         objectReference: null
       },
       {
-        index: 2,
+        index: 3,
         key: 'keys',
         type: ['object'],
         value: [['keyName']],
@@ -127,7 +142,7 @@ export const mappedDescriptorMap = [
         objectReference: null
       },
       {
-        index: 3,
+        index: 4,
         key: 'references',
         type: ['object'],
         value: [[]],
@@ -139,7 +154,7 @@ export const mappedDescriptorMap = [
         objectReference: null
       },
       {
-        index: 4,
+        index: 5,
         key: 'isArray',
         type: ['boolean'],
         value: [false],
@@ -151,7 +166,7 @@ export const mappedDescriptorMap = [
         objectReference: null
       },
       {
-        index: 5,
+        index: 6,
         key: 'complete',
         type: ['boolean'],
         value: [true],
@@ -163,8 +178,9 @@ export const mappedDescriptorMap = [
         objectReference: null
       }
     ],
-    length: 6,
+    length: 7,
     keys: [
+      'index',
       'details',
       'length',
       'keys',
@@ -172,11 +188,12 @@ export const mappedDescriptorMap = [
       'isArray',
       'complete'
     ],
-    references: [0, 2, 3],
+    references: [1, 3, 4],
     isArray: false,
     complete: false
   },
   {
+    index: 1,
     details: [
       {
         index: 0,
@@ -211,6 +228,7 @@ export const mappedDescriptorMap = [
     complete: false
   },
   {
+    index: 2,
     details: [
       {
         index: 0,
@@ -232,6 +250,7 @@ export const mappedDescriptorMap = [
     complete: true
   },
   {
+    index: 3,
     details: [],
     length: 0,
     keys: [],
@@ -240,6 +259,7 @@ export const mappedDescriptorMap = [
     complete: true
   },
   {
+    index: 4,
     details: [
       {
         index: 0,

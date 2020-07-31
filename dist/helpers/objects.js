@@ -408,6 +408,7 @@ var describeObject = function describeObject (object) {
     descriptor.details = [].concat(_toConsumableArray(descriptor.details), [describeObjectDetail(value, key, descriptor.length++)])
     return descriptor
   }, {
+    index: 0,
     details: [],
     length: 0,
     keys: [],
@@ -440,11 +441,13 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
     return false
   }
 
-  return descriptor1.keys.every(function (key) {
-    return descriptor2.keys.includes(key)
-  }) ? descriptor1.details.every(function (detail) {
+  var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
+  var largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
+  return smallerDescriptor.keys.every(function (key) {
+    return largerDescriptor.keys.includes(key)
+  }) ? smallerDescriptor.details.every(function (detail) {
       return detail.type.some(function (type) {
-        return descriptor2.details.find(function (foundDetail) {
+        return largerDescriptor.details.find(function (foundDetail) {
           return foundDetail.key === detail.key
         }).type.includes(type)
       })
@@ -470,7 +473,7 @@ var describeObjectMap = function describeObjectMap (object) {
 
   var descriptorMap = []
 
-  var doDescribe = function doDescribe (descriptor) {
+  var doDescribe = function doDescribe (descriptor, limit) {
     descriptor.references = descriptor.references.map(function (referenceId) {
       var index = descriptorMap.length
       var referenceDetail = descriptor.details[referenceId]
@@ -486,8 +489,8 @@ var describeObjectMap = function describeObjectMap (object) {
           return [].concat(_toConsumableArray(values), [val])
         }
 
-        var existingDescriptorIndex = descriptorMap.findIndex(function (map) {
-          return compareDescriptor(tempDescriptor, map)
+        var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
+          return compareDescriptor(tempDescriptor, existingDescriptor)
         })
 
         if (existingDescriptorIndex >= 0) {
@@ -503,9 +506,17 @@ var describeObjectMap = function describeObjectMap (object) {
           return [].concat(_toConsumableArray(values), [val])
         }
 
-        descriptorMap[index] = tempDescriptor
+        if (index < mapLimit) {
+          tempDescriptor.index = index
+          descriptorMap[index] = tempDescriptor
+        }
+
         return [].concat(_toConsumableArray(values), [val])
       }, [])
+
+      if (index >= mapLimit) {
+        return referenceId
+      }
 
       if (descriptorMap[index].isArray) {
         referenceDetail.arrayReference = index
@@ -515,14 +526,19 @@ var describeObjectMap = function describeObjectMap (object) {
 
       return referenceId
     })
+
+    if (limit-- === 0) {
+      return descriptorMap
+    }
+
     descriptor.references = descriptor.references.map(function (referenceId) {
       if (!descriptor.details[referenceId].circular) {
         if (descriptor.details[referenceId].arrayReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference])
+          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference], limit)
         }
 
         if (descriptor.details[referenceId].objectReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference])
+          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference], limit)
         }
       }
 
@@ -531,7 +547,7 @@ var describeObjectMap = function describeObjectMap (object) {
     return descriptorMap
   }
 
-  return doDescribe(describeObject([object]))
+  return doDescribe(describeObject([object]), depthLimit)
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
