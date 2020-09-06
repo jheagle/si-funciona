@@ -165,7 +165,7 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
   return {
     index: index,
     key: key,
-    type: value === null ? [] : [type],
+    type: [type],
     value: [value],
     nullable: value === null,
     optional: false,
@@ -206,6 +206,7 @@ const descriptorIsArray = descriptor => descriptor.details.every(detail => (type
  */
 const cloneDescriptor = originalMap => {
   const copyMap = {}
+  copyMap.index = originalMap.index || 0
   copyMap.details = originalMap.details.map(detail => {
     const copyDetail = {}
     Object.keys(detail).forEach(key => {
@@ -241,12 +242,22 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
         value: uniqueArray([...existingDetail.value, ...newDetail.value]),
         nullable: existingDetail.nullable || newDetail.nullable,
         isReference: existingDetail.isReference || newDetail.isReference,
-        arrayReference: existingDetail.arrayReference || newDetail.arrayReference,
-        objectReference: existingDetail.objectReference || newDetail.objectReference
+        arrayReference: [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number'),
+        objectReference: [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
       })
+      assignedDescriptor.details[existingDetail.index].arrayReference = (typeof assignedDescriptor.details[existingDetail.index].arrayReference === 'undefined')
+        ? null
+        : assignedDescriptor.details[existingDetail.index].arrayReference
+      assignedDescriptor.details[existingDetail.index].objectReference = (typeof assignedDescriptor.details[existingDetail.index].objectReference === 'undefined')
+        ? null
+        : assignedDescriptor.details[existingDetail.index].objectReference
       return assignedDescriptor
     }
     const useDetail = diff[0] > 0 ? existingDetail : newDetail
+    if (!useDetail) {
+      assignedDescriptor.details[existingDetail.index].optional = true
+      return assignedDescriptor
+    }
     const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
     assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
       index: useIndex,
@@ -260,7 +271,7 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
   assignedDescriptor.keys = descriptorKeys(assignedDescriptor)
   assignedDescriptor.references = descriptorReferences(assignedDescriptor)
   assignedDescriptor.isArray = descriptorIsArray(assignedDescriptor)
-  assignedDescriptor.complete = !assignedDescriptor.references.length
+  assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
   return assignedDescriptor
 }, cloneDescriptor(originalMap))
 
@@ -301,7 +312,7 @@ export const describeObject = object => {
   )
   descriptor.keys = descriptorKeys(descriptor)
   descriptor.references = descriptorReferences(descriptor)
-  descriptor.isArray = descriptorIsArray(descriptor)
+  descriptor.isArray = Array.isArray(object) && descriptorIsArray(descriptor)
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
@@ -327,6 +338,13 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
     : false
 }
 
+export const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
+
+const tempDescriptorReference = (descriptor, mapIndex) => ({
+  tempDescriptor: descriptor,
+  refIndex: mapIndex
+})
+
 /**
  * Trace out the entire object including nested objects.
  * @function
@@ -336,73 +354,238 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
  * @returns {module:descriptorSamples~descriptorMap}
  */
 export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
-  const descriptorMap = []
-  const doDescribe = (descriptor, limit) => {
+  const descriptorMap = [describeObject(object)]
+  descriptorMap[0].index = 0
+  const describeReferences = (descriptor, limit) => {
     descriptor.references = descriptor.references.map(referenceId => {
       let index = descriptorMap.length
-      const referenceDetail = descriptor.details[referenceId]
-      referenceDetail.value = referenceDetail.value.reduce((values, val) => {
-        if (typeof val !== 'object') {
-          return [...values, val]
+      const val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
+      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular) {
+        return referenceId
+      }
+      const tempDescriptor = describeObject(val)
+      const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
+      if (existingDescriptorIndex >= 0) {
+        index = existingDescriptorIndex
+        if (sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
+          descriptor = descriptorMap[existingDescriptorIndex]
+          descriptor.details[referenceId].circular = true
         }
-        const tempDescriptor = describeObject(val)
-        if (descriptorMap[index]) {
-          descriptorMap[index] = assignDescriptor(descriptorMap[index], tempDescriptor)
-          return [...values, val]
-        }
-        const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
-        if (existingDescriptorIndex >= 0) {
-          index = existingDescriptorIndex
-          if (descriptorMap[existingDescriptorIndex].isArray) {
-            referenceDetail.arrayReference = existingDescriptorIndex
-          } else {
-            referenceDetail.objectReference = existingDescriptorIndex
-          }
-          referenceDetail.circular = true
-          return [...values, val]
-        }
-        if (index < mapLimit) {
-          tempDescriptor.index = index
-          descriptorMap[index] = tempDescriptor
-        }
-        return [...values, val]
-      }, [])
+      }
       if (index >= mapLimit) {
         return referenceId
       }
-      if (descriptorMap[index].isArray) {
-        referenceDetail.arrayReference = index
+      if (limit === 0) {
+        return referenceId
+      }
+      if (tempDescriptor.isArray) {
+        index = descriptor.details[referenceId].arrayReference ?? index
+        descriptor.details[referenceId].arrayReference = tempDescriptorReference(tempDescriptor, index)
       } else {
-        referenceDetail.objectReference = index
+        index = descriptor.details[referenceId].objectReference ?? index
+        descriptor.details[referenceId].objectReference = tempDescriptorReference(tempDescriptor, index)
+      }
+      tempDescriptor.index = index
+      if (existingDescriptorIndex < 0) {
+        descriptorMap[index] = descriptorMap[index]
+          ? assignDescriptor(descriptorMap[index], tempDescriptor)
+          : tempDescriptor
       }
       return referenceId
     })
-    if (limit-- === 0) {
-      return descriptorMap
-    }
     descriptor.references = descriptor.references.map(referenceId => {
+      let tempDescriptor = null
+      let refIndex = -1
+      if (descriptor.details[referenceId].arrayReference !== null) {
+        ; ({ tempDescriptor, refIndex } = descriptor.details[referenceId].arrayReference)
+        descriptor.details[referenceId].arrayReference = refIndex
+      }
+      if (descriptor.details[referenceId].objectReference !== null) {
+        ; ({ tempDescriptor, refIndex } = descriptor.details[referenceId].objectReference)
+        descriptor.details[referenceId].objectReference = refIndex
+      }
+      if (tempDescriptor === null) {
+        return referenceId
+      }
+      if (!descriptorMap[refIndex]) {
+        return referenceId
+      }
+      descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
       if (!descriptor.details[referenceId].circular) {
-        if (descriptor.details[referenceId].arrayReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].arrayReference], limit)
-        }
-        if (descriptor.details[referenceId].objectReference !== null) {
-          doDescribe(descriptorMap[descriptor.details[referenceId].objectReference], limit)
-        }
+        describeReferences(tempDescriptor, --limit)
       }
       return referenceId
     })
+    descriptor.complete = descriptor.references
+      .every(
+        refId => [
+          descriptor.details[refId].arrayReference,
+          descriptor.details[refId].objectReference
+        ].some(ref => typeof ref === 'number')
+      )
+    descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
     return descriptorMap
   }
-  return doDescribe(describeObject([object]), depthLimit)
+  return describeReferences(descriptorMap[0], depthLimit)
+}
+
+/**
+ * @typedef {Object.<string, number|Object|Array>} referenceIdentifier
+ * @property {number} index
+ * @property {Array|Object} object
+ * @property {descriptor} descriptor
+ * @property {Array.<string|number>} references
+ * @property {Array.<string|number>} circular
+ */
+
+/**
+ * Create a referenceIdentifier for building the object clone.
+ * @param {Array|Object} [object=null]
+ * @param {number} [index=0]
+ * @returns {referenceIdentifier}
+ */
+const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}, {
+  index: index,
+  object: object,
+  descriptor: describeObject(object || {}),
+  references: [],
+  circular: []
+})
+
+/**
+ * Prepare to map over an object and return the callback that will be used for each reference.
+ * @function
+ * @param {descriptorMap} descriptorMap
+ * @param {Array.<referenceIdentifier>} newReferenceMap
+ * @returns {mapOriginal}
+ */
+export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { mapLimit = 1000, depthLimit = -1 } = {}) => {
+  /**
+   * Map over the provided object and generate an array of cloned references.
+   * @function
+   * @param {Array|Object} focusObject
+   * @param {descriptor} descriptor
+   * @returns {Array.<referenceIdentifier>}
+   */
+  const mapOriginal = (focusObject, descriptor, index = 0, limit = null) => {
+    if (limit === null) {
+      limit = depthLimit
+    }
+    if (!newReferenceMap[index]) {
+      newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
+    }
+    if (descriptor.isArray && Array.isArray(focusObject)) {
+      const detail = descriptor.details[0]
+      newReferenceMap[index].object = focusObject.map((item, id) => {
+        if (!detail.isReference) {
+          return item
+        }
+        if (detail.isReference && notEmptyObjectOrArray(item)) {
+          newReferenceMap[index].references.push(id)
+          return null
+        }
+        return Array.isArray(item) ? [] : {}
+      }, [])
+    } else {
+      newReferenceMap[index].object = descriptor.details.reduce((newRef, detail) => {
+        if (!(detail.key in focusObject)) {
+          return newRef
+        }
+        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null) {
+          newRef[detail.key] = focusObject[detail.key]
+          return newRef
+        }
+        if (detail.isReference && notEmptyObjectOrArray(focusObject[detail.key])) {
+          newReferenceMap[index].references.push(detail.key)
+          newRef[detail.key] = null
+          return newRef
+        }
+        newRef[detail.key] = Array.isArray(focusObject[detail.key]) ? [] : {}
+        return newRef
+      }, {})
+    }
+    newReferenceMap[index] = newReferenceMap[index].references.reduce((newRef, key) => {
+      const detail = descriptor.isArray
+        ? descriptor.details[0]
+        : descriptor.details.find(detail => detail.key === key)
+      const newRefIndex = newReferenceMap.length
+      const objectToRef = focusObject[key]
+      if (detail.circular) {
+        const tempDescriptor = describeObject(objectToRef)
+        const existingIndex = newReferenceMap.findIndex(existing => sameDescriptor(tempDescriptor, existing.descriptor))
+        newRef.object[key] = existingIndex
+        newRef.circular.push(key)
+        return newRef
+      }
+      if (newRefIndex >= mapLimit) {
+        newRef.object[key] = Array.isArray(focusObject[key]) ? [] : {}
+        return newRef
+      }
+      if (limit === 0) {
+        return newReferenceMap[index]
+      }
+      newReferenceMap[newRefIndex] = createReferenceIdentifier(focusObject[key], newRefIndex)
+      newRef.object[key] = newRefIndex
+      return newRef
+    }, newReferenceMap[index])
+
+    return newReferenceMap[index].references.reduce((newRef, key) => {
+      if (typeof newRef.object[key] !== 'number') {
+        return newRef
+      }
+      const detail = descriptor.isArray
+        ? descriptor.details[0]
+        : descriptor.details.find(detail => detail.key === key)
+      if (detail.circular) {
+        return newRef
+      }
+      const objectToRef = focusObject[key]
+      const descriptorRefIndex = (Array.isArray(objectToRef) && detail.arrayReference)
+        ? detail.arrayReference
+        : detail.objectReference
+      newReferenceMap[newRef.object[key]] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
+      return newRef
+    }, newReferenceMap[index])
+  }
+  return mapOriginal
+}
+
+/**
+ * Take an array for reference identifiers and return a callback to build the final reference
+ * @param {Array.<referenceIdentifier>} newReferenceMap
+ * @returns {assignReferences}
+ */
+export const assignNewReferences = (newReferenceMap = []) => {
+  /**
+   * Take a reference identifier and return a new reference.
+   * @function
+   * @param {referenceIdentifier} reference
+   * @returns {Array|Object}
+   */
+  const assignReferences = reference => reference.references.reduce((newRef, key) => {
+    newRef[key] = reference.circular.includes(key)
+      ? newReferenceMap[newRef[key]].object
+      : assignReferences(newReferenceMap[newRef[key]])
+    return newRef
+  }, reference.object)
+  return assignReferences
 }
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function
  * @param {Object} object - The original object that is being cloned
+ * @param {module:descriptorSamples~descriptorMap} descriptorMap - The map of the object
  * @returns {Object}
  */
-export const cloneObject = object => JSON.parse(JSON.stringify(object))
+export const cloneObject = (object, descriptorMap = []) => {
+  if (!descriptorMap.length) {
+    descriptorMap = describeObjectMap(object)
+  }
+  const newReferenceMap = []
+  newReferenceMap[0] = mapOriginalObject(descriptorMap, newReferenceMap)(object, descriptorMap[0])
+  return assignNewReferences(newReferenceMap)(newReferenceMap[0])
+}
 
 /**
  * Merge two objects and provide clone or original on the provided function.

@@ -144,6 +144,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".assignNewReferences"><span class="type-signature">(static, constant) </span>assignNewReferences<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Take an array for reference identifiers and return a callback to build the final reference
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line558">line 558</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -298,7 +364,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line233">line 233</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line234">line 234</a>
     </li></ul></dd>
     
 
@@ -352,7 +418,7 @@
     
 
     
-    <h4 class="name" id=".cloneObject"><span class="type-signature">(static) </span>cloneObject<span class="signature">(object)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id=".cloneObject"><span class="type-signature">(static) </span>cloneObject<span class="signature">(object, descriptorMap)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -416,6 +482,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>descriptorMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorMap">module:descriptorSamples~descriptorMap</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The map of the object</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -453,7 +542,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line405">line 405</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -631,7 +720,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line316">line 316</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line327">line 327</a>
     </li></ul></dd>
     
 
@@ -786,7 +875,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line273">line 273</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line284">line 284</a>
     </li></ul></dd>
     
 
@@ -1290,7 +1379,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line338">line 338</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line356">line 356</a>
     </li></ul></dd>
     
 
@@ -1830,6 +1919,184 @@ always use the standard map() function when it is known that the object is actua
     
 
     
+    <h4 class="name" id=".mapOriginalObject"><span class="type-signature">(static) </span>mapOriginalObject<span class="signature">(descriptorMap, newReferenceMap)</span><span class="type-signature"> &rarr; {mapOriginal}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Prepare to map over an object and return the callback that will be used for each reference.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>descriptorMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">descriptorMap</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newReferenceMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;referenceIdentifier></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line462">line 462</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">mapOriginal</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".mapProperty"><span class="type-signature">(static) </span>mapProperty<span class="signature">(property, mapFunction, obj)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
@@ -2154,7 +2421,7 @@ object</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line442">line 442</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line625">line 625</a>
     </li></ul></dd>
     
 
@@ -2326,7 +2593,7 @@ object</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line459">line 459</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line642">line 642</a>
     </li></ul></dd>
     
 
@@ -3355,6 +3622,223 @@ array without an initial value is an error.</td>
     
 
     
+    <h4 class="name" id="~createReferenceIdentifier"><span class="type-signature">(inner) </span>createReferenceIdentifier<span class="signature">(object<span class="signature-attributes">opt</span>, index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {referenceIdentifier}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Create a referenceIdentifier for building the object clone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line447">line 447</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">referenceIdentifier</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="~descriptorIsArray"><span class="type-signature">(inner) </span>descriptorIsArray<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
@@ -4002,7 +4486,7 @@ modify them</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line422">line 422</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line605">line 605</a>
     </li></ul></dd>
     
 
@@ -4823,6 +5307,221 @@ value previously returned in the last invocation of the callback, or initialValu
 
 
             
+                
+<h4 class="name" id="~referenceIdentifier">referenceIdentifier</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object.&lt;string, (number|Object|Array)></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>descriptor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">descriptor</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>references</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;(string|number)></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>circular</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;(string|number)></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line432">line 432</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -4842,7 +5541,7 @@ value previously returned in the last invocation of the callback, or initialValu
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Thu Jul 30 2020 22:18:16 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sat Sep 05 2020 22:27:41 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

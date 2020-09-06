@@ -177,7 +177,7 @@ var mappedDescriptorMap = [{
   keys: ['index', 'details', 'length', 'keys', 'references', 'isArray', 'complete'],
   references: [1, 3, 4],
   isArray: false,
-  complete: false
+  complete: true
 }, {
   index: 1,
   details: [{
@@ -207,14 +207,14 @@ var mappedDescriptorMap = [{
   keys: [0],
   references: [0],
   isArray: true,
-  complete: false
+  complete: true
 }, {
   index: 2,
   details: [{
     index: 0,
     key: 0,
     type: ['string'],
-    value: ['keyName'],
+    value: ['keyName', 'string', ''],
     nullable: false,
     optional: false,
     circular: false,
@@ -266,7 +266,7 @@ var mappedDescriptorMap = [{
     value: [['string']],
     nullable: false,
     optional: false,
-    circular: true,
+    circular: false,
     isReference: true,
     arrayReference: 2,
     objectReference: null
@@ -277,7 +277,7 @@ var mappedDescriptorMap = [{
     value: [['']],
     nullable: false,
     optional: false,
-    circular: true,
+    circular: false,
     isReference: true,
     arrayReference: 2,
     objectReference: null
@@ -328,7 +328,7 @@ var mappedDescriptorMap = [{
   }, {
     index: 8,
     key: 'arrayReference',
-    type: [],
+    type: ['object'],
     value: [null],
     nullable: true,
     optional: false,
@@ -339,7 +339,7 @@ var mappedDescriptorMap = [{
   }, {
     index: 9,
     key: 'objectReference',
-    type: [],
+    type: ['object'],
     value: [null],
     nullable: true,
     optional: false,
@@ -352,6 +352,6 @@ var mappedDescriptorMap = [{
   keys: ['index', 'key', 'type', 'value', 'nullable', 'optional', 'circular', 'isReference', 'arrayReference', 'objectReference'],
   references: [2, 3],
   isArray: false,
-  complete: false
+  complete: true
 }]
 exports.mappedDescriptorMap = mappedDescriptorMap

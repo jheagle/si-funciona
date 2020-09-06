@@ -427,6 +427,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
+        * [.assignNewReferences](#module_objectHelpers.assignNewReferences) ⇒ <code>assignReferences</code>
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
@@ -439,7 +440,8 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.describeObject(object)](#module_objectHelpers.describeObject) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [.compareDescriptor(descriptor1, descriptor2)](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
         * [.describeObjectMap(object, [mapLimit], [depthLimit])](#module_objectHelpers.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
-        * [.cloneObject(object)](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
+        * [.mapOriginalObject(descriptorMap, newReferenceMap)](#module_objectHelpers.mapOriginalObject) ⇒ <code>mapOriginal</code>
+        * [.cloneObject(object, descriptorMap)](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
@@ -447,10 +449,23 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [~descriptorReferences(descriptor)](#module_objectHelpers..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
         * [~descriptorIsArray(descriptor)](#module_objectHelpers..descriptorIsArray) ⇒ <code>boolean</code>
         * [~cloneDescriptor(originalMap)](#module_objectHelpers..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
+        * [~createReferenceIdentifier([object], [index])](#module_objectHelpers..createReferenceIdentifier) ⇒ <code>referenceIdentifier</code>
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
+        * [~referenceIdentifier](#module_objectHelpers..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+
+<a name="module_objectHelpers.assignNewReferences"></a>
+
+### objectHelpers.assignNewReferences ⇒ <code>assignReferences</code>
+Take an array for reference identifiers and return a callback to build the final reference
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| newReferenceMap | <code>Array.&lt;referenceIdentifier&gt;</code> | 
 
 <a name="module_objectHelpers.setValue"></a>
 
@@ -608,9 +623,21 @@ Trace out the entire object including nested objects.
 | [mapLimit] | <code>number</code> | <code>1000</code> | 
 | [depthLimit] | <code>number</code> | <code>-1</code> | 
 
+<a name="module_objectHelpers.mapOriginalObject"></a>
+
+### objectHelpers.mapOriginalObject(descriptorMap, newReferenceMap) ⇒ <code>mapOriginal</code>
+Prepare to map over an object and return the callback that will be used for each reference.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| descriptorMap | <code>descriptorMap</code> | 
+| newReferenceMap | <code>Array.&lt;referenceIdentifier&gt;</code> | 
+
 <a name="module_objectHelpers.cloneObject"></a>
 
-### objectHelpers.cloneObject(object) ⇒ <code>Object</code>
+### objectHelpers.cloneObject(object, descriptorMap) ⇒ <code>Object</code>
 Clone objects for manipulation without data corruption, returns a copy of the provided object.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -618,6 +645,7 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 | Param | Type | Description |
 | --- | --- | --- |
 | object | <code>Object</code> | The original object that is being cloned |
+| descriptorMap | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) | The map of the object |
 
 <a name="module_objectHelpers.mergeObjects"></a>
 
@@ -692,6 +720,18 @@ Make a copy of an object descriptor so that the original will not be mutated.
 | --- | --- |
 | originalMap | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
+<a name="module_objectHelpers..createReferenceIdentifier"></a>
+
+### objectHelpers~createReferenceIdentifier([object], [index]) ⇒ <code>referenceIdentifier</code>
+Create a referenceIdentifier for building the object clone.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [object] | <code>Array</code> \| <code>Object</code> | <code></code> | 
+| [index] | <code>number</code> | <code>0</code> | 
+
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
 ### objectHelpers~mergeObjectsBase(isMutable, fn, obj1, obj2) ⇒ <code>Object</code>
@@ -749,6 +789,20 @@ Function to execute on each property in the object, taking four arguments
 | [currentProperty] | <code>\*</code> | <code>{}</code> | The current property being processed in the object. |
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
+
+<a name="module_objectHelpers..referenceIdentifier"></a>
+
+### objectHelpers~referenceIdentifier : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| index | <code>number</code> | 
+| object | <code>Array</code> \| <code>Object</code> | 
+| descriptor | <code>descriptor</code> | 
+| references | <code>Array.&lt;(string\|number)&gt;</code> | 
+| circular | <code>Array.&lt;(string\|number)&gt;</code> | 
 
 <a name="module_descriptorSamples"></a>
 
