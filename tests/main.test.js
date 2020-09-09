@@ -1,7 +1,7 @@
 import functionalHelpers from '../dist/main'
 
 test('Generated main browser file exports intended functions', () => {
-  expect(Object.keys(functionalHelpers).length).toEqual(32)
+  expect(Object.keys(functionalHelpers).length).toEqual(27)
   expect(typeof functionalHelpers.noConflict).toBe('function')
   expect(typeof functionalHelpers.buildArray).toBe('function')
   expect(typeof functionalHelpers.buildArrayOfReferences).toBe('function')
@@ -24,11 +24,6 @@ test('Generated main browser file exports intended functions', () => {
   expect(typeof functionalHelpers.filterObject).toBe('function')
   expect(typeof functionalHelpers.reduceObject).toBe('function')
   expect(typeof functionalHelpers.notEmptyObjectOrArray).toBe('function')
-  expect(typeof functionalHelpers.describeObjectDetail).toBe('function')
-  expect(typeof functionalHelpers.assignDescriptor).toBe('function')
-  expect(typeof functionalHelpers.describeObject).toBe('function')
-  expect(typeof functionalHelpers.compareDescriptor).toBe('function')
-  expect(typeof functionalHelpers.describeObjectMap).toBe('function')
   expect(typeof functionalHelpers.cloneObject).toBe('function')
   expect(typeof functionalHelpers.mergeObjects).toBe('function')
   expect(typeof functionalHelpers.mergeObjectsMutable).toBe('function')
