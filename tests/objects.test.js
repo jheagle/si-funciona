@@ -9,8 +9,8 @@ test('setValue will update an item and return the item', () => {
     firstProp: null,
     secondProp: 'something here'
   }
-  const updateObject1 = helpers.setValue('firstProp', { newValue: 'some value' }, someObject)
-  const updateObject2 = helpers.setValue('secondProp', 'a new thing here', updateObject1)
+  const updateObject1 = helpers.setValue(someObject, 'firstProp', { newValue: 'some value' })
+  const updateObject2 = helpers.setValue(updateObject1, 'secondProp', 'a new thing here')
   expect(updateObject2).toEqual({ firstProp: { newValue: 'some value' }, secondProp: 'a new thing here' })
 })
 
@@ -881,6 +881,16 @@ describe('cloneObject', () => {
     const result = helpers.cloneObject(nodeTree)
     expect(result).not.toBe(nodeTree)
     expect(result).toEqual(nodeTree)
+  })
+
+  test('can remove deep references with 0 depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 0 })
+    expect(result).toEqual({ object1: {}, title: 'Some Title', item: 45 })
+  })
+
+  test('can limit the number of references created to one with map of 1', () => {
+    const result = helpers.cloneObject(multiReferenceObject, { mapLimit: 1 })
+    expect(result).toEqual({ object1: {}, object2: {}, array1: [], array2: [], title: 'Some Title', item: 45 })
   })
 })
 

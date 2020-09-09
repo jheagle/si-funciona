@@ -428,7 +428,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 * [objectHelpers](#module_objectHelpers)
     * _static_
         * [.assignNewReferences](#module_objectHelpers.assignNewReferences) ⇒ <code>assignReferences</code>
-        * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.setValue(item, key, value)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.mapProperty(property, mapFunction, obj)](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
@@ -439,9 +439,9 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.assignDescriptor(originalMap, ...descriptors)](#module_objectHelpers.assignDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [.describeObject(object)](#module_objectHelpers.describeObject) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [.compareDescriptor(descriptor1, descriptor2)](#module_objectHelpers.compareDescriptor) ⇒ <code>boolean</code>
-        * [.describeObjectMap(object, [mapLimit], [depthLimit])](#module_objectHelpers.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
-        * [.mapOriginalObject(descriptorMap, newReferenceMap)](#module_objectHelpers.mapOriginalObject) ⇒ <code>mapOriginal</code>
-        * [.cloneObject(object, descriptorMap)](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
+        * [.describeObjectMap(object, [options])](#module_objectHelpers.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
+        * [.mapOriginalObject([descriptorMap], [newReferenceMap], [options])](#module_objectHelpers.mapOriginalObject) ⇒ <code>mapOriginal</code>
+        * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
@@ -469,16 +469,16 @@ Take an array for reference identifiers and return a callback to build the final
 
 <a name="module_objectHelpers.setValue"></a>
 
-### objectHelpers.setValue(key, value, item) ⇒ <code>Object</code> \| <code>Array</code>
+### objectHelpers.setValue(item, key, value) ⇒ <code>Object</code> \| <code>Array</code>
 Set a value on an item, then return the item
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
+| item | <code>Object</code> \| <code>Array</code> | An object or array to be updated |
 | key | <code>string</code> \| <code>number</code> | The key on the item which will have its value set |
 | value | <code>\*</code> | Any value to be applied to the key |
-| item | <code>Object</code> \| <code>Array</code> | An object or array to be updated |
 
 <a name="module_objectHelpers.setAndReturnValue"></a>
 
@@ -612,7 +612,7 @@ Check if two descriptors are the same or similar in that they have similar keys 
 
 <a name="module_objectHelpers.describeObjectMap"></a>
 
-### objectHelpers.describeObjectMap(object, [mapLimit], [depthLimit]) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
+### objectHelpers.describeObjectMap(object, [options]) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
 Trace out the entire object including nested objects.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -620,32 +620,39 @@ Trace out the entire object including nested objects.
 | Param | Type | Default |
 | --- | --- | --- |
 | object | <code>Object</code> \| <code>Array</code> |  | 
-| [mapLimit] | <code>number</code> | <code>1000</code> | 
-| [depthLimit] | <code>number</code> | <code>-1</code> | 
+| [options] | <code>Object</code> | <code>{}</code> | 
+| [options.mapLimit] | <code>number</code> | <code>1000</code> | 
+| [options.depthLimit] | <code>number</code> | <code>-1</code> | 
 
 <a name="module_objectHelpers.mapOriginalObject"></a>
 
-### objectHelpers.mapOriginalObject(descriptorMap, newReferenceMap) ⇒ <code>mapOriginal</code>
+### objectHelpers.mapOriginalObject([descriptorMap], [newReferenceMap], [options]) ⇒ <code>mapOriginal</code>
 Prepare to map over an object and return the callback that will be used for each reference.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type |
-| --- | --- |
-| descriptorMap | <code>descriptorMap</code> | 
-| newReferenceMap | <code>Array.&lt;referenceIdentifier&gt;</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [descriptorMap] | <code>descriptorMap</code> | <code></code> | 
+| [newReferenceMap] | <code>Array.&lt;referenceIdentifier&gt;</code> | <code>[]</code> | 
+| [options] | <code>Object</code> | <code>{}</code> | 
+| [options.mapLimit] | <code>number</code> | <code>1000</code> | 
+| [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
 <a name="module_objectHelpers.cloneObject"></a>
 
-### objectHelpers.cloneObject(object, descriptorMap) ⇒ <code>Object</code>
+### objectHelpers.cloneObject(object, [options]) ⇒ <code>Object</code>
 Clone objects for manipulation without data corruption, returns a copy of the provided object.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| object | <code>Object</code> | The original object that is being cloned |
-| descriptorMap | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) | The map of the object |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| object | <code>Object</code> |  | The original object that is being cloned |
+| [options] | <code>Object</code> | <code>{}</code> |  |
+| options.descriptorMap | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) |  | The map of the object |
+| [options.mapLimit] | <code>number</code> | <code>1000</code> |  |
+| [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> |  |
 
 <a name="module_objectHelpers.mergeObjects"></a>
 
