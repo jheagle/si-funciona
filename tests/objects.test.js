@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { deepReferenceObject, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
+import { deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
@@ -82,6 +82,12 @@ describe('cloneObject', () => {
     expect(result.name).toEqual('something')
     expect(result.nested.value).toEqual('aValue')
     expect(result.nested2.nestedDeep.nestedValue).toEqual('bValue')
+  })
+
+  test('will clone object with empty nested objects', () => {
+    const result = helpers.cloneObject(jsonDom)
+    expect(result).not.toBe(jsonDom)
+    expect(result).toEqual(jsonDom)
   })
 
   test('will successfully clone linked list', () => {

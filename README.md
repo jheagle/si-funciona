@@ -186,7 +186,6 @@ compareArrays(
 ### arrayHelpers~buildArrayBase(useReference, item, length, [arr]) ⇒ <code>Array.&lt;\*&gt;</code>
 Generate an array filled with a copy of the provided item or references to the provided item.
 The length defines how long the array should be.
-WARNING: This is a recursive function.
 
 **Kind**: inner method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 

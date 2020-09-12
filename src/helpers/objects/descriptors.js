@@ -256,11 +256,11 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
       let tempDescriptor = null
       let refIndex = -1
       if (descriptor.details[referenceId].arrayReference !== null) {
-        ; ({ tempDescriptor, refIndex } = descriptor.details[referenceId].arrayReference)
+        ;({ tempDescriptor, refIndex } = descriptor.details[referenceId].arrayReference)
         descriptor.details[referenceId].arrayReference = refIndex
       }
       if (descriptor.details[referenceId].objectReference !== null) {
-        ; ({ tempDescriptor, refIndex } = descriptor.details[referenceId].objectReference)
+        ;({ tempDescriptor, refIndex } = descriptor.details[referenceId].objectReference)
         descriptor.details[referenceId].objectReference = refIndex
       }
       if (tempDescriptor === null) {
@@ -269,6 +269,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
       if (!descriptorMap[refIndex]) {
         return referenceId
       }
+      descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
       descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
       if (!descriptor.details[referenceId].circular) {
         describeReferences(tempDescriptor, --limit)

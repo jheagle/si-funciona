@@ -431,6 +431,7 @@ var describeObjectMap = function describeObjectMap (object) {
         return referenceId
       }
 
+      descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
       descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
 
       if (!descriptor.details[referenceId].circular) {

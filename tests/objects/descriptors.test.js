@@ -1,6 +1,6 @@
 import * as helpers from '../../dist/helpers/objects/descriptors'
 import * as samples from '../../dist/helpers/objects/descriptorSamples'
-import { deepReferenceObject, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
+import { deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
 
 describe('describeObjectDetail generates detail for', () => {
   test('undefined type', () => {
@@ -606,6 +606,156 @@ describe('describeObjectMap', () => {
         length: 2,
         keys: [0],
         references: [0],
+        isArray: true,
+        complete: true
+      }
+    ])
+  })
+
+  test('object with empty nested array or object can link to reference', () => {
+    expect(helpers.describeObjectMap(jsonDom)).toEqual([
+      {
+        index: 0,
+        details: [
+          {
+            index: 0,
+            key: 'tagName',
+            type: ['string'],
+            value: ['div'],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'attributes',
+            type: ['object'],
+            value: [{ style: {}, className: 'column' }],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          },
+          {
+            index: 2,
+            key: 'element',
+            type: ['object'],
+            value: [{}],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 3,
+            key: 'eventListeners',
+            type: ['object'],
+            value: [{}],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 4,
+            key: 'parentItem',
+            type: ['object'],
+            value: [{}],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 5,
+            key: 'children',
+            type: ['object'],
+            value: [[]],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: 2,
+            objectReference: null
+          },
+          {
+            index: 6,
+            key: 'axis',
+            type: ['string'],
+            value: ['x'],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          }
+        ],
+        length: 7,
+        keys: [
+          'tagName',
+          'attributes',
+          'element',
+          'eventListeners',
+          'parentItem',
+          'children',
+          'axis'
+        ],
+        references: [1, 2, 3, 4, 5],
+        isArray: false,
+        complete: true
+      },
+      {
+        index: 1,
+        details: [
+          {
+            index: 0,
+            key: 'style',
+            type: ['object'],
+            value: [{}],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'className',
+            type: ['string'],
+            value: ['column'],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          }
+        ],
+        length: 2,
+        keys: ['style', 'className'],
+        references: [0],
+        isArray: false,
+        complete: false
+      },
+      {
+        index: 2,
+        details: [],
+        length: 0,
+        keys: [],
+        references: [],
         isArray: true,
         complete: true
       }

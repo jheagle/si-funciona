@@ -49,6 +49,8 @@ var _functions = require('./functions')
 
 var _objects = require('./objects')
 
+var _descriptors = require('./objects/descriptors')
+
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
@@ -64,7 +66,6 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
 /**
  * Generate an array filled with a copy of the provided item or references to the provided item.
  * The length defines how long the array should be.
- * WARNING: This is a recursive function.
  * @function
  * @param {boolean} useReference - Choose to multiply by clone or reference, true is by reference
  * @param {*} item - The item to be used for each array element
@@ -72,11 +73,23 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-var buildArrayBase = function buildArrayBase (useReference, item, length) {
-  var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
-  item = useReference ? item : (0, _objects.cloneObject)(item)
-  return --length > 0 ? buildArrayBase(useReference, item, length, [].concat(_toConsumableArray(arr), [item])) : [].concat(_toConsumableArray(arr), [item])
-}
+var buildArrayBase = (function () {
+  var currentItem = null
+  var descriptorMap = []
+  return function (useReference, item, length) {
+    var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
+
+    if (currentItem !== item) {
+      currentItem = item
+      descriptorMap = useReference ? [] : (0, _descriptors.describeObjectMap)(item)
+    }
+
+    item = useReference ? item : (0, _objects.cloneObject)(item, {
+      descriptorMap: descriptorMap
+    })
+    return --length > 0 ? buildArrayBase(useReference, item, length, [].concat(_toConsumableArray(arr), [item])) : [].concat(_toConsumableArray(arr), [item])
+  }
+}())
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.

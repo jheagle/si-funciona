@@ -38,6 +38,19 @@ linkedList.next = { name: 'two', prev: linkedList, next: null }
 linkedList.next.next = { name: 'three', prev: linkedList.next, next: null }
 
 /**
+ * Sample of jsonDom object containing empty nested array and objects
+ */
+export const jsonDom = {
+  tagName: 'div',
+  attributes: { style: {}, className: 'column' },
+  element: {},
+  eventListeners: {},
+  parentItem: {},
+  children: [],
+  axis: 'x'
+}
+
+/**
  * Sample of object containing multiple references.
  * @type {Object.<string, string|number|Object>}
  */
