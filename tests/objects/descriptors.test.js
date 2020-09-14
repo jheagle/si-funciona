@@ -1,6 +1,6 @@
 import * as helpers from '../../dist/helpers/objects/descriptors'
 import * as samples from '../../dist/helpers/objects/descriptorSamples'
-import { deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
+import { logObject, deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
 
 describe('describeObjectDetail generates detail for', () => {
   test('undefined type', () => {
@@ -427,7 +427,7 @@ describe('compareDescriptor; array-descriptors', () => {
 
 describe('describeObjectMap', () => {
   test('can produce structure matching sample with single string detail', () => {
-    expect(helpers.describeObjectMap({ keyName: '' }))
+    expect(helpers.describeObjectMap({ keyName: '' }, { keepValues: true }))
       .toEqual(samples.descriptorMapSample)
   })
 
@@ -449,7 +449,7 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 'name',
             type: ['string'],
-            value: ['self'],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
@@ -461,7 +461,7 @@ describe('describeObjectMap', () => {
             index: 1,
             key: 'self',
             type: ['object'],
-            value: [selfItem],
+            value: [],
             nullable: false,
             optional: false,
             circular: true,
@@ -488,7 +488,7 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 'name',
             type: ['string'],
-            value: ['one', 'two', 'three'],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
@@ -500,7 +500,7 @@ describe('describeObjectMap', () => {
             index: 1,
             key: 'prev',
             type: ['object'],
-            value: [null, linkedList, linkedList.next],
+            value: [],
             nullable: true,
             optional: false,
             circular: true,
@@ -512,7 +512,7 @@ describe('describeObjectMap', () => {
             index: 2,
             key: 'next',
             type: ['object'],
-            value: [linkedList.next, linkedList.next.next, null],
+            value: [],
             nullable: true,
             optional: false,
             circular: false,
@@ -539,7 +539,7 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 'name',
             type: ['string'],
-            value: ['one', 'child two'],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
@@ -551,10 +551,7 @@ describe('describeObjectMap', () => {
             index: 1,
             key: 'parent',
             type: ['object'],
-            value: [
-              null,
-              nodeTree
-            ],
+            value: [],
             nullable: true,
             optional: false,
             circular: true,
@@ -566,10 +563,7 @@ describe('describeObjectMap', () => {
             index: 2,
             key: 'children',
             type: ['object'],
-            value: [
-              nodeTree.children,
-              []
-            ],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
@@ -591,10 +585,7 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 0,
             type: ['object'],
-            value: [
-              nodeTree.children[0],
-              nodeTree.children[1]
-            ],
+            value: [],
             nullable: false,
             optional: true,
             circular: false,
@@ -621,10 +612,10 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 'tagName',
             type: ['string'],
-            value: ['div'],
+            value: [],
             nullable: false,
-            optional: true,
-            circular: true,
+            optional: false,
+            circular: false,
             isReference: false,
             arrayReference: null,
             objectReference: null
@@ -633,9 +624,9 @@ describe('describeObjectMap', () => {
             index: 1,
             key: 'attributes',
             type: ['object'],
-            value: [{ style: {}, className: 'column' }],
+            value: [],
             nullable: false,
-            optional: true,
+            optional: false,
             circular: false,
             isReference: true,
             arrayReference: null,
@@ -645,57 +636,57 @@ describe('describeObjectMap', () => {
             index: 2,
             key: 'element',
             type: ['object'],
-            value: [{}],
+            value: [],
             nullable: false,
-            optional: true,
-            circular: true,
+            optional: false,
+            circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 0
+            objectReference: 2
           },
           {
             index: 3,
             key: 'eventListeners',
             type: ['object'],
-            value: [{}],
+            value: [],
             nullable: false,
-            optional: true,
-            circular: true,
+            optional: false,
+            circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 0
+            objectReference: 2
           },
           {
             index: 4,
             key: 'parentItem',
             type: ['object'],
-            value: [{}],
+            value: [],
             nullable: false,
-            optional: true,
-            circular: true,
+            optional: false,
+            circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 0
+            objectReference: 2
           },
           {
             index: 5,
             key: 'children',
             type: ['object'],
-            value: [[]],
+            value: [],
             nullable: false,
-            optional: true,
+            optional: false,
             circular: false,
             isReference: true,
-            arrayReference: 2,
+            arrayReference: 3,
             objectReference: null
           },
           {
             index: 6,
             key: 'axis',
             type: ['string'],
-            value: ['x'],
+            value: [],
             nullable: false,
-            optional: true,
+            optional: false,
             circular: false,
             isReference: false,
             arrayReference: null,
@@ -723,19 +714,19 @@ describe('describeObjectMap', () => {
             index: 0,
             key: 'style',
             type: ['object'],
-            value: [{}],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: null
+            objectReference: 2
           },
           {
             index: 1,
             key: 'className',
             type: ['string'],
-            value: ['column'],
+            value: [],
             nullable: false,
             optional: false,
             circular: false,
@@ -748,10 +739,19 @@ describe('describeObjectMap', () => {
         keys: ['style', 'className'],
         references: [0],
         isArray: false,
-        complete: false
+        complete: true
       },
       {
         index: 2,
+        details: [],
+        length: 0,
+        keys: [],
+        references: [],
+        isArray: false,
+        complete: true
+      },
+      {
+        index: 3,
         details: [],
         length: 0,
         keys: [],

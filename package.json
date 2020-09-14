@@ -14,6 +14,7 @@
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "babel-jest": "^26.3.0",
+    "browserify": "^16.5.2",
     "del": "^5.1.0",
     "eslint": "^7.8.1",
     "eslint-config-standard": "^14.1.1",
@@ -31,7 +32,9 @@
     "jest": "^26.4.2",
     "jsdoc": "^3.6.5",
     "jsdoc-to-markdown": "^6.0.1",
-    "standard": "^14.3.4"
+    "standard": "^14.3.4",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
@@ -56,6 +59,7 @@
     ]
   },
   "files": [
-    "dist"
+    "dist",
+    "browser"
   ]
 }

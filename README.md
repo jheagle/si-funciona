@@ -813,6 +813,7 @@ Trace out the entire object including nested objects.
 | [options] | <code>Object</code> | <code>{}</code> | 
 | [options.mapLimit] | <code>number</code> | <code>1000</code> | 
 | [options.depthLimit] | <code>number</code> | <code>-1</code> | 
+| [options.keepValues] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_objectDescriptors.mapOriginalObject"></a>
 

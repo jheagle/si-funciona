@@ -139,9 +139,9 @@ var descriptorReferences = function descriptorReferences (descriptor) {
  */
 
 var descriptorIsArray = function descriptorIsArray (descriptor) {
-  return descriptor.details.every(function (detail) {
+  return descriptor.length ? descriptor.details.every(function (detail) {
     return typeof detail.key === 'number'
-  })
+  }) : descriptor.isArray
 }
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.
@@ -278,7 +278,7 @@ var describeObject = function describeObject (object) {
   })
   descriptor.keys = descriptorKeys(descriptor)
   descriptor.references = descriptorReferences(descriptor)
-  descriptor.isArray = Array.isArray(object) && descriptorIsArray(descriptor)
+  descriptor.isArray = Array.isArray(object) || descriptorIsArray(descriptor)
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
@@ -299,6 +299,10 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
 
   if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
     return false
+  }
+
+  if (descriptor1.length === 0) {
+    return descriptor2.length === 0
   }
 
   var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
@@ -339,6 +343,7 @@ var tempDescriptorReference = function tempDescriptorReference (descriptor, mapI
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
  * @param {number} [options.depthLimit=-1]
+ * @param {boolean} [options.keepValues=false]
  * @returns {module:descriptorSamples~descriptorMap}
  */
 
@@ -348,6 +353,8 @@ var describeObjectMap = function describeObjectMap (object) {
   var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  var _ref$keepValues = _ref.keepValues
+  var keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
 
   var descriptorMap = [describeObject(object)]
   descriptorMap[0].index = 0
@@ -369,7 +376,7 @@ var describeObjectMap = function describeObjectMap (object) {
       if (existingDescriptorIndex >= 0) {
         index = existingDescriptorIndex
 
-        if (sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
+        if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
           descriptor = descriptorMap[existingDescriptorIndex]
           descriptor.details[referenceId].circular = true
         }
@@ -431,7 +438,6 @@ var describeObjectMap = function describeObjectMap (object) {
         return referenceId
       }
 
-      descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
       descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
 
       if (!descriptor.details[referenceId].circular) {
@@ -446,6 +452,13 @@ var describeObjectMap = function describeObjectMap (object) {
       })
     })
     descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
+
+    if (descriptor.complete && !keepValues) {
+      descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(function (detail) {
+        return (0, _objects.setValue)(detail, 'value', [])
+      })
+    }
+
     return descriptorMap
   }
 

@@ -54,7 +54,9 @@ const descriptorReferences = descriptor => uniqueArray(descriptor.details.filter
  * @param {module:descriptorSamples~descriptor} descriptor
  * @returns {boolean}
  */
-const descriptorIsArray = descriptor => descriptor.details.every(detail => (typeof detail.key === 'number'))
+const descriptorIsArray = descriptor => descriptor.length
+  ? descriptor.details.every(detail => (typeof detail.key === 'number'))
+  : descriptor.isArray
 
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.
@@ -170,7 +172,7 @@ export const describeObject = object => {
   )
   descriptor.keys = descriptorKeys(descriptor)
   descriptor.references = descriptorReferences(descriptor)
-  descriptor.isArray = Array.isArray(object) && descriptorIsArray(descriptor)
+  descriptor.isArray = Array.isArray(object) || descriptorIsArray(descriptor)
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
@@ -188,6 +190,9 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
   }
   if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
     return false
+  }
+  if (descriptor1.length === 0) {
+    return descriptor2.length === 0
   }
   const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
   const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
@@ -210,9 +215,10 @@ const tempDescriptorReference = (descriptor, mapIndex) => ({
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
  * @param {number} [options.depthLimit=-1]
+ * @param {boolean} [options.keepValues=false]
  * @returns {module:descriptorSamples~descriptorMap}
  */
-export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
+export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, keepValues = false } = {}) => {
   const descriptorMap = [describeObject(object)]
   descriptorMap[0].index = 0
   const describeReferences = (descriptor, limit) => {
@@ -226,7 +232,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
       const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
       if (existingDescriptorIndex >= 0) {
         index = existingDescriptorIndex
-        if (sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
+        if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
           descriptor = descriptorMap[existingDescriptorIndex]
           descriptor.details[referenceId].circular = true
         }
@@ -269,7 +275,6 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
       if (!descriptorMap[refIndex]) {
         return referenceId
       }
-      descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
       descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
       if (!descriptor.details[referenceId].circular) {
         describeReferences(tempDescriptor, --limit)
@@ -284,6 +289,11 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1 } =
         ].some(ref => typeof ref === 'number')
       )
     descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
+    if (descriptor.complete && !keepValues) {
+      descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(
+        detail => setValue(detail, 'value', [])
+      )
+    }
     return descriptorMap
   }
   return describeReferences(descriptorMap[0], depthLimit)
