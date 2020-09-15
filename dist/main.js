@@ -34,7 +34,7 @@ function _interopRequireWildcard (obj) { if (obj && obj.__esModule) { return obj
 /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-var root = void 0 || {}
+var root = void 0 || window || global || {}
 /**
    * Store reference to any pre-existing module of the same name
    * @type {module|*}
@@ -60,7 +60,6 @@ var noConflict = function noConflict () {
 }
 
 functionalHelpers.noConflict = noConflict
-
-var _default = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
-
+root.functionalHelpers = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
+var _default = root.functionalHelpers
 exports.default = _default

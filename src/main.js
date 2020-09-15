@@ -15,7 +15,7 @@ import * as objectHelpers from './helpers/objects'
 /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-const root = this || {}
+const root = this || window || global || {}
 
 /**
    * Store reference to any pre-existing module of the same name
@@ -41,10 +41,12 @@ const noConflict = () => {
 }
 functionalHelpers.noConflict = noConflict
 
-export default Object.assign(
+root.functionalHelpers = Object.assign(
   functionalHelpers,
   arrayHelpers,
   functionHelpers,
   numberHelpers,
   objectHelpers
 )
+
+export default root.functionalHelpers
