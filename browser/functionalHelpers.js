@@ -1596,8 +1596,9 @@
       }
 
       functionalHelpers.noConflict = noConflict
-      root.functionalHelpers = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
-      var _default = root.functionalHelpers
+
+      var _default = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
+
       exports.default = _default
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, { './helpers/arrays': 1, './helpers/functions': 2, './helpers/numbers': 3, './helpers/objects': 4, 'core-js/modules/es.object.assign': 239, 'core-js/stable': 379 }],

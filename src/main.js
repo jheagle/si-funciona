@@ -41,12 +41,10 @@ const noConflict = () => {
 }
 functionalHelpers.noConflict = noConflict
 
-root.functionalHelpers = Object.assign(
+export default Object.assign(
   functionalHelpers,
   arrayHelpers,
   functionHelpers,
   numberHelpers,
   objectHelpers
 )
-
-export default root.functionalHelpers

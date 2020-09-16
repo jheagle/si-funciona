@@ -60,6 +60,7 @@ var noConflict = function noConflict () {
 }
 
 functionalHelpers.noConflict = noConflict
-root.functionalHelpers = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
-var _default = root.functionalHelpers
+
+var _default = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
+
 exports.default = _default
