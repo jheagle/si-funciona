@@ -147,9 +147,15 @@ export const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] ||
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-export const notEmptyObjectOrArray = item => !!(
-  (typeof item === 'object' && Object.keys(item).length) || (Array.isArray(item) && item.length)
-)
+export const notEmptyObjectOrArray = item => {
+  if (typeof item !== 'object' || item === null) {
+    return false
+  }
+  if (Array.isArray(item)) {
+    return !!item.length
+  }
+  return !!Object.keys(item).length
+}
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.

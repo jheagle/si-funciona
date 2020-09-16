@@ -49,15 +49,22 @@ test('reduceObject applies function to create something new from the object', ()
   expect(helpers.reduceObject(testObject, testFunction, 0)).toEqual(15)
 })
 
-test('notEmptyObjectOrArray returns correct boolean for object and array check', () => {
-  const testObjectEmpty = {}
-  expect(helpers.notEmptyObjectOrArray(testObjectEmpty)).toBe(false)
-  const testObjectFull = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
-  expect(helpers.notEmptyObjectOrArray(testObjectFull)).toBe(true)
-  const testArrayEmpty = []
-  expect(helpers.notEmptyObjectOrArray(testArrayEmpty)).toBe(false)
-  const testArrayFull = ['first', 'second', 'third', 'fourth', 'fifth']
-  expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
+describe('notEmptyObjectorArray', () => {
+  test('returns correct boolean for object and array check', () => {
+    const testObjectEmpty = {}
+    expect(helpers.notEmptyObjectOrArray(testObjectEmpty)).toBe(false)
+    const testObjectFull = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+    expect(helpers.notEmptyObjectOrArray(testObjectFull)).toBe(true)
+    const testArrayEmpty = []
+    expect(helpers.notEmptyObjectOrArray(testArrayEmpty)).toBe(false)
+    const testArrayFull = ['first', 'second', 'third', 'fourth', 'fifth']
+    expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
+  })
+
+  test('returns false for null', () => {
+    const testNull = null
+    expect(helpers.notEmptyObjectOrArray(testNull)).toBe(false)
+  })
 })
 
 describe('cloneObject', () => {
