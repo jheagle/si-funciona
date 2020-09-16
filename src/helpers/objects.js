@@ -11,14 +11,15 @@ import { curry, callWithParams } from './functions'
 import { describeObjectMap, mapOriginalObject, assignNewReferences } from './objects/descriptors'
 
 /**
- * Set a value on an item, then return the item
+ * Set a value on an item, then return the item.
+ * NOTE: Argument order designed for usage with pipe
  * @function
- * @param {Object|Array} item - An object or array to be updated
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
+ * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-export const setValue = (item, key, value) => {
+export const setValue = (key, value, item) => {
   item[key] = value
   return item
 }
@@ -59,9 +60,9 @@ export const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.map(fn, thisArg)
   : Object.keys(obj).reduce(
     (newObj, curr) => setValue(
-      newObj,
       curr,
-      callWithParams(fn, [obj[curr], curr, obj], 2)
+      callWithParams(fn, [obj[curr], curr, obj], 2),
+      newObj
     ),
     thisArg || {}
   )

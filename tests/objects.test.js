@@ -6,8 +6,8 @@ test('setValue will update an item and return the item', () => {
     firstProp: null,
     secondProp: 'something here'
   }
-  const updateObject1 = helpers.setValue(someObject, 'firstProp', { newValue: 'some value' })
-  const updateObject2 = helpers.setValue(updateObject1, 'secondProp', 'a new thing here')
+  const updateObject1 = helpers.setValue('firstProp', { newValue: 'some value' }, someObject)
+  const updateObject2 = helpers.setValue('secondProp', 'a new thing here', updateObject1)
   expect(updateObject2).toEqual({ firstProp: { newValue: 'some value' }, secondProp: 'a new thing here' })
 })
 

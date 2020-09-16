@@ -291,7 +291,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
     descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
     if (descriptor.complete && !keepValues) {
       descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(
-        detail => setValue(detail, 'value', [])
+        detail => setValue('value', [], detail)
       )
     }
     return descriptorMap
@@ -441,9 +441,11 @@ export const assignNewReferences = (newReferenceMap = []) => {
      * @returns {Array|Object}
      */
   const assignReferences = reference => reference.references.reduce((newRef, key) => setValue(
-    newRef, key, reference.circular.includes(key)
+    key,
+    reference.circular.includes(key)
       ? newReferenceMap[newRef[key]].object
-      : assignReferences(newReferenceMap[newRef[key]])
+      : assignReferences(newReferenceMap[newRef[key]]),
+    newRef
   ), reference.object)
   return assignReferences
 }

@@ -455,7 +455,7 @@ var describeObjectMap = function describeObjectMap (object) {
 
     if (descriptor.complete && !keepValues) {
       descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(function (detail) {
-        return (0, _objects.setValue)(detail, 'value', [])
+        return (0, _objects.setValue)('value', [], detail)
       })
     }
 
@@ -648,7 +648,7 @@ var assignNewReferences = function assignNewReferences () {
      */
   var assignReferences = function assignReferences (reference) {
     return reference.references.reduce(function (newRef, key) {
-      return (0, _objects.setValue)(newRef, key, reference.circular.includes(key) ? newReferenceMap[newRef[key]].object : assignReferences(newReferenceMap[newRef[key]]))
+      return (0, _objects.setValue)(key, reference.circular.includes(key) ? newReferenceMap[newRef[key]].object : assignReferences(newReferenceMap[newRef[key]]), newRef)
     }, reference.object)
   }
 

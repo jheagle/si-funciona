@@ -38,12 +38,12 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
 /**
  * Set a value on an item, then return the item
  * @function
- * @param {Object|Array} item - An object or array to be updated
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
+ * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-var setValue = function setValue (item, key, value) {
+var setValue = function setValue (key, value, item) {
   item[key] = value
   return item
 }
@@ -87,7 +87,7 @@ exports.setAndReturnValue = setAndReturnValue
 var mapObject = function mapObject (obj, fn) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
   return Array.isArray(obj) ? obj.map(fn, thisArg) : Object.keys(obj).reduce(function (newObj, curr) {
-    return setValue(newObj, curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2))
+    return setValue(curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2), newObj)
   }, thisArg || {})
 }
 /**

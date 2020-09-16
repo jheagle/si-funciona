@@ -429,7 +429,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
-        * [.setValue(item, key, value)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.mapProperty(property, mapFunction, obj)](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
@@ -447,16 +447,17 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 <a name="module_objectHelpers.setValue"></a>
 
-### objectHelpers.setValue(item, key, value) ⇒ <code>Object</code> \| <code>Array</code>
-Set a value on an item, then return the item
+### objectHelpers.setValue(key, value, item) ⇒ <code>Object</code> \| <code>Array</code>
+Set a value on an item, then return the item.
+NOTE: Argument order designed for usage with pipe
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>Object</code> \| <code>Array</code> | An object or array to be updated |
 | key | <code>string</code> \| <code>number</code> | The key on the item which will have its value set |
 | value | <code>\*</code> | Any value to be applied to the key |
+| item | <code>Object</code> \| <code>Array</code> | An object or array to be updated |
 
 <a name="module_objectHelpers.setAndReturnValue"></a>
 
