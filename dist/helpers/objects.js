@@ -36,7 +36,8 @@ var _descriptors = require('./objects/descriptors')
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
 /**
- * Set a value on an item, then return the item
+ * Set a value on an item, then return the item.
+ * NOTE: Argument order designed for usage with pipe
  * @function
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key

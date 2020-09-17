@@ -51,6 +51,34 @@ export const jsonDom = {
 }
 
 /**
+ * Sample of domItem child with nested child and optional details
+ */
+export const domItem = [
+  {
+    attributes: { className: 'row', style: {} },
+    axis: 'y',
+    children: [
+      {
+        attributes: { style: {} },
+        axis: 'x',
+        children: [],
+        element: {},
+        eventListeners: {},
+        hasShip: false,
+        isHit: false,
+        parentItem: {},
+        point: {},
+        tagName: 'div'
+      }
+    ],
+    element: {},
+    eventListeners: {},
+    parentItem: {},
+    tagName: 'div'
+  }
+]
+
+/**
  * Sample of object containing multiple references.
  * @type {Object.<string, string|number|Object>}
  */

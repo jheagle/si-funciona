@@ -137,7 +137,7 @@ var mappedDescriptorMap = [{
     optional: false,
     circular: false,
     isReference: true,
-    arrayReference: 3,
+    arrayReference: 1,
     objectReference: null
   }, {
     index: 5,
@@ -175,11 +175,11 @@ var mappedDescriptorMap = [{
     type: ['object'],
     value: [],
     nullable: false,
-    optional: false,
+    optional: true,
     circular: false,
     isReference: true,
     arrayReference: null,
-    objectReference: 4
+    objectReference: 3
   }],
   length: 1,
   keys: [0],
@@ -207,14 +207,6 @@ var mappedDescriptorMap = [{
   complete: true
 }, {
   index: 3,
-  details: [],
-  length: 0,
-  keys: [],
-  references: [],
-  isArray: true,
-  complete: true
-}, {
-  index: 4,
   details: [{
     index: 0,
     key: 'index',

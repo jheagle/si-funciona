@@ -10,6 +10,18 @@ const uglify = require('gulp-uglify-es').default
 
 gulp.task('clean', () => del(['dist', 'browser']))
 
+gulp.task('dist:quick', () => gulp.src('src/**/*.js')
+  .pipe(babel())
+  .pipe(gulp.dest('dist'))
+)
+
+gulp.task('bundle:quick', () => browserify('dist/main.js')
+  .bundle()
+  .pipe(source('functionalHelpers.js'))
+  .pipe(buffer())
+  .pipe(gulp.dest('browser'))
+)
+
 gulp.task('dist', () => gulp.src('src/**/*.js')
   .pipe(babel())
   .pipe(eslint({ fix: true }))
@@ -32,6 +44,6 @@ gulp.task('bundle', () => browserify('dist/main.js')
   .pipe(gulp.dest('browser'))
 )
 
-gulp.task('default', gulp.series('dist'))
+gulp.task('default', gulp.series('dist:quick', 'bundle:quick'))
 
 gulp.task('build', gulp.series('clean', 'dist', 'bundle'))

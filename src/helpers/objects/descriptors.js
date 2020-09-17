@@ -188,11 +188,8 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
   if (descriptor1.isArray !== descriptor2.isArray) {
     return false
   }
-  if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
-    return false
-  }
-  if (descriptor1.length === 0) {
-    return descriptor2.length === 0
+  if (descriptor2.length === 0) {
+    return descriptor1.length === 0
   }
   const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
   const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
@@ -418,7 +415,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
         return newRef
       }
       const objectToRef = focusObject[key]
-      const descriptorRefIndex = (Array.isArray(objectToRef) && detail.arrayReference)
+      const descriptorRefIndex = (Array.isArray(objectToRef) && detail.arrayReference !== null)
         ? detail.arrayReference
         : detail.objectReference
       newReferenceMap[newRef.object[key]] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)

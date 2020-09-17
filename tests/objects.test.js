@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
+import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
@@ -95,6 +95,12 @@ describe('cloneObject', () => {
     const result = helpers.cloneObject(jsonDom)
     expect(result).not.toBe(jsonDom)
     expect(result).toEqual(jsonDom)
+  })
+
+  test('will clone DOM Item', () => {
+    const result = helpers.cloneObject(domItem)
+    expect(result).not.toBe(domItem)
+    expect(result).toEqual(domItem)
   })
 
   test('will successfully clone linked list', () => {

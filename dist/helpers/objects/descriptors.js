@@ -297,12 +297,8 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
     return false
   }
 
-  if (descriptor1.isArray && descriptor1.length !== descriptor2.length) {
-    return false
-  }
-
-  if (descriptor1.length === 0) {
-    return descriptor2.length === 0
+  if (descriptor2.length === 0) {
+    return descriptor1.length === 0
   }
 
   var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
@@ -621,7 +617,7 @@ var mapOriginalObject = function mapOriginalObject () {
       }
 
       var objectToRef = focusObject[key]
-      var descriptorRefIndex = Array.isArray(objectToRef) && detail.arrayReference ? detail.arrayReference : detail.objectReference
+      var descriptorRefIndex = Array.isArray(objectToRef) && detail.arrayReference !== null ? detail.arrayReference : detail.objectReference
       newReferenceMap[newRef.object[key]] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
       return newRef
     }, newReferenceMap[index])

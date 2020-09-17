@@ -1,6 +1,6 @@
 import * as helpers from '../../dist/helpers/objects/descriptors'
 import * as samples from '../../dist/helpers/objects/descriptorSamples'
-import { logObject, deepReferenceObject, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
+import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
 
 describe('describeObjectDetail generates detail for', () => {
   test('undefined type', () => {
@@ -410,10 +410,10 @@ describe('compareDescriptor; array-descriptors', () => {
     )).toBe(true)
   })
 
-  test('will return false for the same type but different length', () => {
+  test('will return false if second descriptor has length of 0 and first does not match', () => {
     expect(helpers.compareDescriptor(
-      helpers.describeObject(['', 1, 'string']),
-      helpers.describeObject([23, ''])
+      helpers.describeObject(['', 1]),
+      helpers.describeObject([])
     )).toBe(false)
   })
 
@@ -614,7 +614,7 @@ describe('describeObjectMap', () => {
             type: ['string'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: false,
             arrayReference: null,
@@ -626,7 +626,7 @@ describe('describeObjectMap', () => {
             type: ['object'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: true,
             arrayReference: null,
@@ -638,11 +638,11 @@ describe('describeObjectMap', () => {
             type: ['object'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 2
+            objectReference: 0
           },
           {
             index: 3,
@@ -650,11 +650,11 @@ describe('describeObjectMap', () => {
             type: ['object'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 2
+            objectReference: 0
           },
           {
             index: 4,
@@ -662,11 +662,11 @@ describe('describeObjectMap', () => {
             type: ['object'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 2
+            objectReference: 0
           },
           {
             index: 5,
@@ -674,10 +674,10 @@ describe('describeObjectMap', () => {
             type: ['object'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: true,
-            arrayReference: 3,
+            arrayReference: 2,
             objectReference: null
           },
           {
@@ -686,7 +686,7 @@ describe('describeObjectMap', () => {
             type: ['string'],
             value: [],
             nullable: false,
-            optional: false,
+            optional: true,
             circular: false,
             isReference: false,
             arrayReference: null,
@@ -720,7 +720,7 @@ describe('describeObjectMap', () => {
             circular: false,
             isReference: true,
             arrayReference: null,
-            objectReference: 2
+            objectReference: 0
           },
           {
             index: 1,
@@ -747,16 +747,209 @@ describe('describeObjectMap', () => {
         length: 0,
         keys: [],
         references: [],
+        isArray: true,
+        complete: true
+      }
+    ])
+  })
+
+  test('ensure domItem with child items can be mapped', () => {
+    expect(helpers.describeObjectMap(domItem)).toEqual([
+      {
+        index: 0,
+        details: [
+          {
+            index: 0,
+            key: 0,
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          }
+        ],
+        length: 1,
+        keys: [0],
+        references: [0],
+        isArray: true,
+        complete: true
+      },
+      {
+        index: 1,
+        details: [
+          {
+            index: 0,
+            key: 'attributes',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 2
+          },
+          {
+            index: 1,
+            key: 'axis',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 2,
+            key: 'children',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: 0,
+            objectReference: null
+          },
+          {
+            index: 3,
+            key: 'element',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          },
+          {
+            index: 4,
+            key: 'eventListeners',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          },
+          {
+            index: 5,
+            key: 'parentItem',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          },
+          {
+            index: 6,
+            key: 'tagName',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 7,
+            key: 'hasShip',
+            type: ['boolean'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 8,
+            key: 'isHit',
+            type: ['boolean'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 9,
+            key: 'point',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          }
+        ],
+        length: 10,
+        keys: [
+          'attributes',
+          'axis',
+          'children',
+          'element',
+          'eventListeners',
+          'parentItem',
+          'tagName',
+          'hasShip',
+          'isHit',
+          'point'
+        ],
+        references: [0, 2, 3, 4, 5, 9],
         isArray: false,
         complete: true
       },
       {
-        index: 3,
-        details: [],
-        length: 0,
-        keys: [],
-        references: [],
-        isArray: true,
+        index: 2,
+        details: [
+          {
+            index: 0,
+            key: 'className',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'style',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            arrayReference: null,
+            objectReference: 1
+          }
+        ],
+        length: 2,
+        keys: ['className', 'style'],
+        references: [1],
+        isArray: false,
         complete: true
       }
     ])
@@ -838,6 +1031,18 @@ describe('mapOriginalObject', () => {
     expect(newReferenceMap[3].object).toEqual({ name: 'child two', parent: 0, children: [] })
     expect(newReferenceMap[4].object).toEqual([5])
     expect(newReferenceMap[5].object).toEqual({ name: 'grandchild one', parent: 2, children: [] })
+  })
+
+  test.only('array of domItems with child domItmes can be mapped', () => {
+    const descriptorMap = helpers.describeObjectMap(domItem)
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(descriptorMap, newReferenceMap)(domItem, descriptorMap[0])
+    expect(newReferenceMap[0].object).toEqual([1])
+    expect(newReferenceMap[1].object).toEqual({ attributes: 2, axis: 'y', children: 3, element: {}, eventListeners: {}, parentItem: {}, tagName: 'div' })
+    expect(newReferenceMap[2].object).toEqual({ className: 'row', style: {} })
+    expect(newReferenceMap[3].object).toEqual([4])
+    expect(newReferenceMap[4].object).toEqual({ attributes: 5, axis: 'x', children: [], element: {}, eventListeners: {}, parentItem: {}, tagName: 'div', hasShip: false, isHit: false, point: {} })
+    expect(newReferenceMap[5].object).toEqual({ style: {} })
   })
 })
 
