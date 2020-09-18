@@ -1257,7 +1257,10 @@
             index = existingDescriptorIndex
 
             if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-              descriptor = descriptorMap[existingDescriptorIndex]
+              if (descriptor.index === existingDescriptorIndex) {
+                descriptor = descriptorMap[existingDescriptorIndex]
+              }
+
               descriptor.details[referenceId].circular = true
             }
           }
@@ -1554,6 +1557,8 @@
 
       var arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
 
+      var descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
+
       var functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
 
       var numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
@@ -1602,11 +1607,11 @@
 
       functionalHelpers.noConflict = noConflict
 
-      var _default = Object.assign(functionalHelpers, arrayHelpers, functionHelpers, numberHelpers, objectHelpers)
+      var _default = Object.assign(functionalHelpers, arrayHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
 
       exports.default = _default
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
-  }, { './helpers/arrays': 1, './helpers/functions': 2, './helpers/numbers': 3, './helpers/objects': 4, 'core-js/modules/es.object.assign': 239, 'core-js/stable': 379 }],
+  }, { './helpers/arrays': 1, './helpers/functions': 2, './helpers/numbers': 3, './helpers/objects': 4, './helpers/objects/descriptors': 5, 'core-js/modules/es.object.assign': 239, 'core-js/stable': 379 }],
   7: [function (require, module, exports) {
     require('../modules/es.symbol')
     require('../modules/es.symbol.async-iterator')

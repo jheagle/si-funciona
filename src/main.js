@@ -8,6 +8,7 @@
 
 import 'core-js/stable'
 import * as arrayHelpers from './helpers/arrays'
+import * as descriptors from './helpers/objects/descriptors'
 import * as functionHelpers from './helpers/functions'
 import * as numberHelpers from './helpers/numbers'
 import * as objectHelpers from './helpers/objects'
@@ -44,6 +45,7 @@ functionalHelpers.noConflict = noConflict
 export default Object.assign(
   functionalHelpers,
   arrayHelpers,
+  descriptors,
   functionHelpers,
   numberHelpers,
   objectHelpers

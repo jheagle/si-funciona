@@ -373,7 +373,10 @@ var describeObjectMap = function describeObjectMap (object) {
         index = existingDescriptorIndex
 
         if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-          descriptor = descriptorMap[existingDescriptorIndex]
+          if (descriptor.index === existingDescriptorIndex) {
+            descriptor = descriptorMap[existingDescriptorIndex]
+          }
+
           descriptor.details[referenceId].circular = true
         }
       }

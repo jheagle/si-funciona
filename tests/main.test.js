@@ -1,7 +1,7 @@
 import functionalHelpers from '../dist/main'
 
 test('Generated main browser file exports intended functions', () => {
-  expect(Object.keys(functionalHelpers).length).toEqual(27)
+  expect(Object.keys(functionalHelpers).length).toEqual(35)
   expect(typeof functionalHelpers.noConflict).toBe('function')
   expect(typeof functionalHelpers.buildArray).toBe('function')
   expect(typeof functionalHelpers.buildArrayOfReferences).toBe('function')

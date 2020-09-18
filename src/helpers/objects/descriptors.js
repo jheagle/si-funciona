@@ -230,7 +230,9 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
       if (existingDescriptorIndex >= 0) {
         index = existingDescriptorIndex
         if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-          descriptor = descriptorMap[existingDescriptorIndex]
+          if (descriptor.index === existingDescriptorIndex) {
+            descriptor = descriptorMap[existingDescriptorIndex]
+          }
           descriptor.details[referenceId].circular = true
         }
       }

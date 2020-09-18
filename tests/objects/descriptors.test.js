@@ -1033,7 +1033,7 @@ describe('mapOriginalObject', () => {
     expect(newReferenceMap[5].object).toEqual({ name: 'grandchild one', parent: 2, children: [] })
   })
 
-  test.only('array of domItems with child domItmes can be mapped', () => {
+  test('array of domItems with child domItmes can be mapped', () => {
     const descriptorMap = helpers.describeObjectMap(domItem)
     const newReferenceMap = []
     newReferenceMap[0] = helpers.mapOriginalObject(descriptorMap, newReferenceMap)(domItem, descriptorMap[0])
