@@ -7,7 +7,7 @@
 
 import 'core-js/stable'
 import { compareArrays, uniqueArray } from '../arrays'
-import { notEmptyObjectOrArray, reduceObject, setValue } from '../objects'
+import { isInstanceObject, notEmptyObjectOrArray, objectKeys, reduceObject, setValue } from '../objects'
 
 /**
  * Trace an object's attribute and provide details about it.
@@ -19,7 +19,6 @@ import { notEmptyObjectOrArray, reduceObject, setValue } from '../objects'
  */
 export const describeObjectDetail = (value, key = 0, index = 0) => {
   const type = (typeof value)
-  const isReference = (type === 'object' && value !== null)
   return {
     index: index,
     key: key,
@@ -28,7 +27,7 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: isReference,
+    isReference: (type === 'object' && value !== null) && !isInstanceObject(value),
     arrayReference: null,
     objectReference: null
   }
@@ -69,7 +68,7 @@ const cloneDescriptor = originalMap => {
   copyMap.index = originalMap.index || 0
   copyMap.details = originalMap.details.map(detail => {
     const copyDetail = {}
-    Object.keys(detail).forEach(key => {
+    objectKeys(detail).forEach(key => {
       copyDetail[key] = Array.isArray(detail[key])
         ? detail[key].map(value => value)
         : detail[key]
@@ -222,7 +221,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
     descriptor.references = descriptor.references.map(referenceId => {
       let index = descriptorMap.length
       const val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
-      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular) {
+      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || isInstanceObject(val)) {
         return referenceId
       }
       const tempDescriptor = describeObject(val)
@@ -367,7 +366,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
         if (!(detail.key in focusObject)) {
           return newRef
         }
-        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null) {
+        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null || isInstanceObject(focusObject[detail.key])) {
           newRef[detail.key] = focusObject[detail.key]
           return newRef
         }

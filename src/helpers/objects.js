@@ -38,6 +38,47 @@ export const setAndReturnValue = (item, key, value) => {
 }
 
 /**
+ * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
+ * Optional flag will include the inherited keys from prototype chain when set.
+ * @param {Object|Array} object
+ * @param {boolean} [includeInherited=false]
+ * @returns {Array.<string>}
+ */
+export const objectKeys = (object, includeInherited = false) => {
+  const keys = []
+  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+    return keys
+  }
+  for (const key in object) {
+    if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
+      keys.push(key)
+    }
+  }
+  return keys
+}
+
+/**
+ * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
+ * Optional flag will include the inherited values from prototype chain when set.
+ * @param {Object|Array} object
+ * @param {boolean} includeInherited
+ * @returns {Array}
+ */
+export const objectValues = (object, includeInherited) => objectKeys(object, includeInherited).map(key => object[key])
+
+/**
+ * Check if the current object has inherited properties.
+ * @param {Object|Array} object
+ */
+export const isInstanceObject = object => {
+  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
+    return true
+  }
+  const instanceLength = Object.getOwnPropertyNames(object).length || objectKeys(object, true).length
+  return object.constructor.name !== 'Array' && instanceLength > objectKeys(object).length
+}
+
+/**
  * Function that produces a property of the new Object, taking three arguments
  * @callback mapCallback
  * @param {*} currentProperty - The current property being processed in the object.
@@ -58,7 +99,7 @@ export const setAndReturnValue = (item, key, value) => {
  */
 export const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.map(fn, thisArg)
-  : Object.keys(obj).reduce(
+  : objectKeys(obj).reduce(
     (newObj, curr) => setValue(
       curr,
       callWithParams(fn, [obj[curr], curr, obj], 2),
@@ -102,7 +143,7 @@ export const mapProperty = (property, mapFunction, obj) => {
  */
 export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.filter(fn, thisArg)
-  : Object.keys(obj).reduce((newObj, curr) => {
+  : objectKeys(obj).reduce((newObj, curr) => {
     if (callWithParams(fn, [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {
@@ -135,9 +176,9 @@ export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-export const reduceObject = (obj, fn, initialValue = obj[Object.keys(obj)[0]] || obj[0]) => Array.isArray(obj)
+export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || obj[0]) => Array.isArray(obj)
   ? obj.reduce(fn, initialValue)
-  : Object.keys(obj).reduce(
+  : objectKeys(obj).reduce(
     (newObj, curr) => callWithParams(fn, [newObj, obj[curr], curr, obj], 2),
     initialValue
   )
@@ -155,7 +196,7 @@ export const notEmptyObjectOrArray = item => {
   if (Array.isArray(item)) {
     return !!item.length
   }
-  return !!Object.keys(item).length
+  return !!objectKeys(item).length
 }
 
 /**

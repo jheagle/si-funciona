@@ -8,13 +8,17 @@ require('core-js/modules/es.symbol.iterator')
 
 require('core-js/modules/es.array.filter')
 
+require('core-js/modules/es.array.includes')
+
 require('core-js/modules/es.array.iterator')
 
 require('core-js/modules/es.array.map')
 
 require('core-js/modules/es.array.reduce')
 
-require('core-js/modules/es.object.keys')
+require('core-js/modules/es.function.name')
+
+require('core-js/modules/es.object.get-own-property-names')
 
 require('core-js/modules/es.object.to-string')
 
@@ -25,7 +29,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
@@ -64,6 +68,62 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
   return value
 }
 /**
+ * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
+ * Optional flag will include the inherited keys from prototype chain when set.
+ * @param {Object|Array} object
+ * @param {boolean} [includeInherited=false]
+ * @returns {Array.<string>}
+ */
+
+exports.setAndReturnValue = setAndReturnValue
+
+var objectKeys = function objectKeys (object) {
+  var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+  var keys = []
+
+  if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
+    return keys
+  }
+
+  for (var key in object) {
+    if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
+      keys.push(key)
+    }
+  }
+
+  return keys
+}
+/**
+ * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
+ * Optional flag will include the inherited values from prototype chain when set.
+ * @param {Object|Array} object
+ * @param {boolean} includeInherited
+ * @returns {Array}
+ */
+
+exports.objectKeys = objectKeys
+
+var objectValues = function objectValues (object, includeInherited) {
+  return objectKeys(object, includeInherited).map(function (key) {
+    return object[key]
+  })
+}
+/**
+ * Check if the current object has inherited properties.
+ * @param {Object|Array} object
+ */
+
+exports.objectValues = objectValues
+
+var isInstanceObject = function isInstanceObject (object) {
+  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
+    return true
+  }
+
+  var instanceLength = Object.getOwnPropertyNames(object).length || objectKeys(object, true).length
+  return object.constructor.name !== 'Array' && instanceLength > objectKeys(object).length
+}
+/**
  * Function that produces a property of the new Object, taking three arguments
  * @callback mapCallback
  * @param {*} currentProperty - The current property being processed in the object.
@@ -83,11 +143,11 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
  * @returns {Object|Array}
  */
 
-exports.setAndReturnValue = setAndReturnValue
+exports.isInstanceObject = isInstanceObject
 
 var mapObject = function mapObject (obj, fn) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.map(fn, thisArg) : Object.keys(obj).reduce(function (newObj, curr) {
+  return Array.isArray(obj) ? obj.map(fn, thisArg) : objectKeys(obj).reduce(function (newObj, curr) {
     return setValue(curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2), newObj)
   }, thisArg || {})
 }
@@ -131,7 +191,7 @@ exports.mapProperty = mapProperty
 
 var filterObject = function filterObject (obj, fn) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.filter(fn, thisArg) : Object.keys(obj).reduce(function (newObj, curr) {
+  return Array.isArray(obj) ? obj.filter(fn, thisArg) : objectKeys(obj).reduce(function (newObj, curr) {
     if ((0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {
@@ -169,8 +229,8 @@ var filterObject = function filterObject (obj, fn) {
 exports.filterObject = filterObject
 
 var reduceObject = function reduceObject (obj, fn) {
-  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[Object.keys(obj)[0]] || obj[0]
-  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : Object.keys(obj).reduce(function (newObj, curr) {
+  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[objectKeys(obj)[0]] || obj[0]
+  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : objectKeys(obj).reduce(function (newObj, curr) {
     return (0, _functions.callWithParams)(fn, [newObj, obj[curr], curr, obj], 2)
   }, initialValue)
 }
@@ -192,7 +252,7 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
     return !!item.length
   }
 
-  return !!Object.keys(item).length
+  return !!objectKeys(item).length
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.

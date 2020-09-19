@@ -429,6 +429,9 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
+        * [.objectKeys](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;string&gt;</code>
+        * [.objectValues](#module_objectHelpers.objectValues) ⇒ <code>Array</code>
+        * [.isInstanceObject](#module_objectHelpers.isInstanceObject)
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
@@ -444,6 +447,43 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
+
+<a name="module_objectHelpers.objectKeys"></a>
+
+### objectHelpers.objectKeys ⇒ <code>Array.&lt;string&gt;</code>
+Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
+Optional flag will include the inherited keys from prototype chain when set.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| object | <code>Object</code> \| <code>Array</code> |  | 
+| [includeInherited] | <code>boolean</code> | <code>false</code> | 
+
+<a name="module_objectHelpers.objectValues"></a>
+
+### objectHelpers.objectValues ⇒ <code>Array</code>
+Get an array of values from any object or array. Will return empty array when invalid or there are no values.
+Optional flag will include the inherited values from prototype chain when set.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> \| <code>Array</code> | 
+| includeInherited | <code>boolean</code> | 
+
+<a name="module_objectHelpers.isInstanceObject"></a>
+
+### objectHelpers.isInstanceObject
+Check if the current object has inherited properties.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+
+| Param | Type |
+| --- | --- |
+| object | <code>Object</code> \| <code>Array</code> | 
 
 <a name="module_objectHelpers.setValue"></a>
 

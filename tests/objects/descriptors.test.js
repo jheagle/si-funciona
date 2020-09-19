@@ -132,21 +132,6 @@ describe('describeObjectDetail generates detail for', () => {
         objectReference: null
       })
 
-    const dateObject = new Date()
-    expect(helpers.describeObjectDetail(dateObject, 'aDate'))
-      .toEqual({
-        index: 0,
-        key: 'aDate',
-        type: ['object'],
-        value: [dateObject],
-        nullable: false,
-        optional: false,
-        circular: false,
-        isReference: true,
-        arrayReference: null,
-        objectReference: null
-      })
-
     const someArray = ['a', 'b', 'c']
     expect(helpers.describeObjectDetail(someArray, 'anArray'))
       .toEqual({
@@ -183,6 +168,41 @@ describe('describeObjectDetail generates detail for', () => {
   test('sample object detail with string', () => {
     expect(helpers.describeObjectDetail('', 'keyName'))
       .toEqual(samples.descriptorDetailSample)
+  })
+
+  test('sample object detail with class instance object', () => {
+    const dateObject = new Date()
+    expect(helpers.describeObjectDetail(dateObject, 'aDate'))
+      .toEqual({
+        index: 0,
+        key: 'aDate',
+        type: ['object'],
+        value: [dateObject],
+        nullable: false,
+        optional: false,
+        circular: false,
+        isReference: false,
+        arrayReference: null,
+        objectReference: null
+      })
+  })
+
+  test('sample object detail with created instance object', () => {
+    const someObject = { item: 'something' }
+    const newObject = Object.create(someObject)
+    expect(helpers.describeObjectDetail(newObject, 'anObject'))
+      .toEqual({
+        index: 0,
+        key: 'anObject',
+        type: ['object'],
+        value: [newObject],
+        nullable: false,
+        optional: false,
+        circular: false,
+        isReference: false,
+        arrayReference: null,
+        objectReference: null
+      })
   })
 })
 
@@ -954,6 +974,44 @@ describe('describeObjectMap', () => {
       }
     ])
   })
+
+  test('object with nested instance will not declare as reference', () => {
+    const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
+    expect(helpers.describeObjectMap(instanceObject)).toEqual([{
+      index: 0,
+      details: [
+        {
+          index: 0,
+          key: 'one',
+          type: ['string'],
+          value: [],
+          nullable: false,
+          optional: false,
+          circular: false,
+          isReference: false,
+          arrayReference: null,
+          objectReference: null
+        },
+        {
+          index: 1,
+          key: 'instance',
+          type: ['object'],
+          value: [],
+          nullable: false,
+          optional: false,
+          circular: false,
+          isReference: false,
+          arrayReference: null,
+          objectReference: null
+        }
+      ],
+      length: 2,
+      keys: ['one', 'instance'],
+      references: [],
+      isArray: false,
+      complete: true
+    }])
+  })
 })
 
 describe('describeObjectMap; with mapLimit', () => {
@@ -1043,6 +1101,14 @@ describe('mapOriginalObject', () => {
     expect(newReferenceMap[3].object).toEqual([4])
     expect(newReferenceMap[4].object).toEqual({ attributes: 5, axis: 'x', children: [], element: {}, eventListeners: {}, parentItem: {}, tagName: 'div', hasShip: false, isHit: false, point: {} })
     expect(newReferenceMap[5].object).toEqual({ style: {} })
+  })
+
+  test('object with nested instance object will just use instance', () => {
+    const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
+    const descriptorMap = helpers.describeObjectMap(instanceObject)
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(descriptorMap, newReferenceMap)(instanceObject, descriptorMap[0])
+    expect(newReferenceMap[0].object).toEqual(instanceObject)
   })
 })
 

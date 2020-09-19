@@ -22,6 +22,103 @@ test('setAndReturnValue will update an item and return the value', () => {
   expect(secondValue).toEqual('a new thing here')
 })
 
+describe('objectKeys', () => {
+  test('can get all keys from an object', () => {
+    const someObject = { one: 'first', two: 'second' }
+    expect(helpers.objectKeys(someObject)).toEqual(['one', 'two'])
+  })
+
+  test('can will skip inherited keys when flag not set', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.objectKeys(newObject).length).toBe(0)
+  })
+
+  test('can will include inherited keys when flag is set', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.objectKeys(newObject, true)).toEqual(['one', 'two'])
+  })
+
+  test('will get numeric string keys from array', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.objectKeys(someArray)).toEqual(['0', '1'])
+  })
+
+  test('will behave the same for any array even when inherited flag is set', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.objectKeys(someArray, true)).toEqual(['0', '1'])
+  })
+})
+
+describe('objectValues', () => {
+  test('can get all values from an object', () => {
+    const someObject = { one: 'first', two: 'second' }
+    expect(helpers.objectValues(someObject)).toEqual(['first', 'second'])
+  })
+
+  test('can will skip inherited values when flag not set', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.objectValues(newObject).length).toBe(0)
+  })
+
+  test('can will include inherited values when flag is set', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.objectValues(newObject, true)).toEqual(['first', 'second'])
+  })
+
+  test('will get values from array', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.objectValues(someArray)).toEqual(['first', 'second'])
+  })
+
+  test('will behave the same for any array even when inherited flag is set', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.objectValues(someArray, true)).toEqual(['first', 'second'])
+  })
+})
+
+describe('isInstanceObject', () => {
+  test('standard object has no inherited properties', () => {
+    const someObject = { one: 'first', two: 'second' }
+    expect(helpers.isInstanceObject(someObject)).toBe(false)
+  })
+
+  test('created object from another object will have inherited properties', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.isInstanceObject(newObject)).toBe(true)
+  })
+
+  test('declared class is an instance object', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    expect(helpers.isInstanceObject(SampleClass)).toBe(true)
+  })
+
+  test('instatiated object is an instance object', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    const newObject = new SampleClass()
+    expect(helpers.isInstanceObject(newObject)).toBe(true)
+  })
+
+  test('arrays are not instance objects', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.isInstanceObject(someArray)).toBe(false)
+  })
+})
+
 test('mapObject applies function to update each value of the object', () => {
   const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
   const testFunction = value => value + 3
@@ -123,6 +220,14 @@ describe('cloneObject', () => {
   test('can limit the number of references created to one with map of 1', () => {
     const result = helpers.cloneObject(multiReferenceObject, { mapLimit: 1 })
     expect(result).toEqual({ object1: {}, object2: {}, array1: [], array2: [], title: 'Some Title', item: 45 })
+  })
+
+  test('will use original nested instance in new clone', () => {
+    const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
+    const result = helpers.cloneObject(instanceObject)
+    expect(result).not.toBe(instanceObject)
+    expect(result).toEqual(instanceObject)
+    expect(result.instance).toBe(instanceObject.instance)
   })
 })
 

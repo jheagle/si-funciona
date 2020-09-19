@@ -36,8 +36,6 @@ require('core-js/modules/es.function.name')
 
 require('core-js/modules/es.object.assign')
 
-require('core-js/modules/es.object.keys')
-
 require('core-js/modules/es.object.to-string')
 
 require('core-js/modules/es.regexp.to-string')
@@ -89,7 +87,6 @@ var describeObjectDetail = function describeObjectDetail (value) {
 
   var type = _typeof(value)
 
-  var isReference = type === 'object' && value !== null
   return {
     index: index,
     key: key,
@@ -98,7 +95,7 @@ var describeObjectDetail = function describeObjectDetail (value) {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: isReference,
+    isReference: type === 'object' && value !== null && !(0, _objects.isInstanceObject)(value),
     arrayReference: null,
     objectReference: null
   }
@@ -154,8 +151,8 @@ var cloneDescriptor = function cloneDescriptor (originalMap) {
   var copyMap = {}
   copyMap.index = originalMap.index || 0
   copyMap.details = originalMap.details.map(function (detail) {
-    var copyDetail = {}
-    Object.keys(detail).forEach(function (key) {
+    var copyDetail = {};
+    (0, _objects.objectKeys)(detail).forEach(function (key) {
       copyDetail[key] = Array.isArray(detail[key]) ? detail[key].map(function (value) {
         return value
       }) : detail[key]
@@ -360,7 +357,7 @@ var describeObjectMap = function describeObjectMap (object) {
       var index = descriptorMap.length
       var val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
 
-      if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular) {
+      if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || (0, _objects.isInstanceObject)(val)) {
         return referenceId
       }
 
@@ -558,7 +555,7 @@ var mapOriginalObject = function mapOriginalObject () {
           return newRef
         }
 
-        if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null) {
+        if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || (0, _objects.isInstanceObject)(focusObject[detail.key])) {
           newRef[detail.key] = focusObject[detail.key]
           return newRef
         }
