@@ -87,6 +87,7 @@ var describeObjectDetail = function describeObjectDetail (value) {
 
   var type = _typeof(value)
 
+  var isInstance = (0, _objects.isInstanceObject)(value)
   return {
     index: index,
     key: key,
@@ -95,7 +96,8 @@ var describeObjectDetail = function describeObjectDetail (value) {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: type === 'object' && value !== null && !(0, _objects.isInstanceObject)(value),
+    isReference: type === 'object' && value !== null && !isInstance,
+    isInstance: isInstance,
     arrayReference: null,
     objectReference: null
   }
@@ -357,7 +359,7 @@ var describeObjectMap = function describeObjectMap (object) {
       var index = descriptorMap.length
       var val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
 
-      if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || (0, _objects.isInstanceObject)(val)) {
+      if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || descriptor.details[referenceId].isInstance) {
         return referenceId
       }
 
@@ -555,7 +557,7 @@ var mapOriginalObject = function mapOriginalObject () {
           return newRef
         }
 
-        if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || (0, _objects.isInstanceObject)(focusObject[detail.key])) {
+        if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || detail.isInstance) {
           newRef[detail.key] = focusObject[detail.key]
           return newRef
         }

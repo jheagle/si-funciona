@@ -19,6 +19,7 @@ import { isInstanceObject, notEmptyObjectOrArray, objectKeys, reduceObject, setV
  */
 export const describeObjectDetail = (value, key = 0, index = 0) => {
   const type = (typeof value)
+  const isInstance = isInstanceObject(value)
   return {
     index: index,
     key: key,
@@ -27,7 +28,8 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: (type === 'object' && value !== null) && !isInstanceObject(value),
+    isReference: (type === 'object' && value !== null && !isInstance),
+    isInstance: isInstance,
     arrayReference: null,
     objectReference: null
   }
@@ -221,7 +223,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
     descriptor.references = descriptor.references.map(referenceId => {
       let index = descriptorMap.length
       const val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
-      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || isInstanceObject(val)) {
+      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || descriptor.details[referenceId].isInstance) {
         return referenceId
       }
       const tempDescriptor = describeObject(val)
@@ -366,7 +368,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
         if (!(detail.key in focusObject)) {
           return newRef
         }
-        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null || isInstanceObject(focusObject[detail.key])) {
+        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null || detail.isInstance) {
           newRef[detail.key] = focusObject[detail.key]
           return newRef
         }

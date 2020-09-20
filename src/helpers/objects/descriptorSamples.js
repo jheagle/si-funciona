@@ -16,6 +16,7 @@
  * @property {boolean} optional
  * @property {boolean} circular
  * @property {boolean} isReference
+ * @property {boolean} isInstance
  * @property {null|number} arrayReference
  * @property {null|number} objectReference
  */
@@ -32,6 +33,7 @@ export const descriptorDetailSample = {
   optional: false,
   circular: false,
   isReference: false,
+  isInstance: false,
   arrayReference: null,
   objectReference: null
 }
@@ -87,6 +89,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -99,6 +102,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: 1,
         objectReference: null
       },
@@ -111,6 +115,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -123,6 +128,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: 2,
         objectReference: null
       },
@@ -135,6 +141,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: 1,
         objectReference: null
       },
@@ -147,6 +154,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -159,6 +167,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       }
@@ -189,6 +198,7 @@ export const mappedDescriptorMap = [
         optional: true,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: null,
         objectReference: 3
       }
@@ -211,6 +221,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       }
@@ -233,6 +244,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -245,6 +257,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -257,6 +270,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: 2,
         objectReference: null
       },
@@ -269,6 +283,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: 2,
         objectReference: null
       },
@@ -281,6 +296,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -293,6 +309,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -305,6 +322,7 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
@@ -317,11 +335,25 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
       {
         index: 8,
+        key: 'isInstance',
+        type: ['boolean'],
+        value: [],
+        nullable: false,
+        optional: false,
+        circular: false,
+        isReference: false,
+        isInstance: false,
+        arrayReference: null,
+        objectReference: null
+      },
+      {
+        index: 9,
         key: 'arrayReference',
         type: ['object'],
         value: [],
@@ -329,11 +361,12 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       },
       {
-        index: 9,
+        index: 10,
         key: 'objectReference',
         type: ['object'],
         value: [],
@@ -341,11 +374,12 @@ export const mappedDescriptorMap = [
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       }
     ],
-    length: 10,
+    length: 11,
     keys: [
       'index',
       'key',
@@ -355,6 +389,7 @@ export const mappedDescriptorMap = [
       'optional',
       'circular',
       'isReference',
+      'isInstance',
       'arrayReference',
       'objectReference'
     ],

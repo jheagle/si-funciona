@@ -45,10 +45,16 @@ export const setAndReturnValue = (item, key, value) => {
  * @returns {Array.<string>}
  */
 export const objectKeys = (object, includeInherited = false) => {
-  const keys = []
   if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
-    return keys
+    return []
   }
+  if (includeInherited) {
+    const propNames = Object.getOwnPropertyNames(object)
+    if (propNames.length) {
+      return propNames
+    }
+  }
+  const keys = []
   for (const key in object) {
     if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
       keys.push(key)
@@ -61,21 +67,23 @@ export const objectKeys = (object, includeInherited = false) => {
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
  * @param {Object|Array} object
- * @param {boolean} includeInherited
+ * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
-export const objectValues = (object, includeInherited) => objectKeys(object, includeInherited).map(key => object[key])
+export const objectValues = (object, includeInherited = false) => objectKeys(object, includeInherited).map(key => object[key])
 
 /**
  * Check if the current object has inherited properties.
  * @param {Object|Array} object
  */
 export const isInstanceObject = object => {
+  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+    return false
+  }
   if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
     return true
   }
-  const instanceLength = Object.getOwnPropertyNames(object).length || objectKeys(object, true).length
-  return object.constructor.name !== 'Array' && instanceLength > objectKeys(object).length
+  return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
 }
 
 /**
@@ -99,7 +107,7 @@ export const isInstanceObject = object => {
  */
 export const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.map(fn, thisArg)
-  : objectKeys(obj).reduce(
+  : objectKeys(obj, true).reduce(
     (newObj, curr) => setValue(
       curr,
       callWithParams(fn, [obj[curr], curr, obj], 2),
@@ -143,7 +151,7 @@ export const mapProperty = (property, mapFunction, obj) => {
  */
 export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.filter(fn, thisArg)
-  : objectKeys(obj).reduce((newObj, curr) => {
+  : objectKeys(obj, true).reduce((newObj, curr) => {
     if (callWithParams(fn, [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {
@@ -178,7 +186,7 @@ export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
  */
 export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || obj[0]) => Array.isArray(obj)
   ? obj.reduce(fn, initialValue)
-  : objectKeys(obj).reduce(
+  : objectKeys(obj, true).reduce(
     (newObj, curr) => callWithParams(fn, [newObj, obj[curr], curr, obj], 2),
     initialValue
   )
@@ -189,15 +197,7 @@ export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || 
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-export const notEmptyObjectOrArray = item => {
-  if (typeof item !== 'object' || item === null) {
-    return false
-  }
-  if (Array.isArray(item)) {
-    return !!item.length
-  }
-  return !!objectKeys(item).length
-}
+export const notEmptyObjectOrArray = item => !!objectKeys(item).length
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.

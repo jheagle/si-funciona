@@ -45,9 +45,9 @@ describe('objectKeys', () => {
     expect(helpers.objectKeys(someArray)).toEqual(['0', '1'])
   })
 
-  test('will behave the same for any array even when inherited flag is set', () => {
+  test('will also get length property when inherited flag is set', () => {
     const someArray = ['first', 'second']
-    expect(helpers.objectKeys(someArray, true)).toEqual(['0', '1'])
+    expect(helpers.objectKeys(someArray, true)).toEqual(['0', '1', 'length'])
   })
 })
 
@@ -74,9 +74,9 @@ describe('objectValues', () => {
     expect(helpers.objectValues(someArray)).toEqual(['first', 'second'])
   })
 
-  test('will behave the same for any array even when inherited flag is set', () => {
+  test('will also retrieve the length value from the array when inherited flag is set', () => {
     const someArray = ['first', 'second']
-    expect(helpers.objectValues(someArray, true)).toEqual(['first', 'second'])
+    expect(helpers.objectValues(someArray, true)).toEqual(['first', 'second', 2])
   })
 })
 
@@ -222,11 +222,25 @@ describe('cloneObject', () => {
     expect(result).toEqual({ object1: {}, object2: {}, array1: [], array2: [], title: 'Some Title', item: 45 })
   })
 
-  test('will use original nested instance in new clone', () => {
+  test('will be able to clone created object instance', () => {
     const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
     const result = helpers.cloneObject(instanceObject)
     expect(result).not.toBe(instanceObject)
-    expect(result).toEqual(instanceObject)
+    expect(result).toStrictEqual(instanceObject)
+    expect(result.instance).toBe(instanceObject.instance)
+  })
+
+  test('will use original nested instance in new clone', () => {
+    class SomeObject {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    const instanceObject = { string: 'aString', instance: new SomeObject() }
+    const result = helpers.cloneObject(instanceObject)
+    expect(result).not.toBe(instanceObject)
+    expect(result).toStrictEqual(instanceObject)
     expect(result.instance).toBe(instanceObject.instance)
   })
 })

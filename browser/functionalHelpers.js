@@ -665,11 +665,20 @@
 
     var objectKeys = function objectKeys (object) {
       var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-      var keys = []
 
       if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
-        return keys
+        return []
       }
+
+      if (includeInherited) {
+        var propNames = Object.getOwnPropertyNames(object)
+
+        if (propNames.length) {
+          return propNames
+        }
+      }
+
+      var keys = []
 
       for (var key in object) {
         if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
@@ -683,13 +692,14 @@
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
  * @param {Object|Array} object
- * @param {boolean} includeInherited
+ * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
 
     exports.objectKeys = objectKeys
 
-    var objectValues = function objectValues (object, includeInherited) {
+    var objectValues = function objectValues (object) {
+      var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
       return objectKeys(object, includeInherited).map(function (key) {
         return object[key]
       })
@@ -702,12 +712,15 @@
     exports.objectValues = objectValues
 
     var isInstanceObject = function isInstanceObject (object) {
+      if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
+        return false
+      }
+
       if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
         return true
       }
 
-      var instanceLength = Object.getOwnPropertyNames(object).length || objectKeys(object, true).length
-      return object.constructor.name !== 'Array' && instanceLength > objectKeys(object).length
+      return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
     }
     /**
  * Function that produces a property of the new Object, taking three arguments
@@ -733,7 +746,7 @@
 
     var mapObject = function mapObject (obj, fn) {
       var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.map(fn, thisArg) : objectKeys(obj).reduce(function (newObj, curr) {
+      return Array.isArray(obj) ? obj.map(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
         return setValue(curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2), newObj)
       }, thisArg || {})
     }
@@ -777,7 +790,7 @@
 
     var filterObject = function filterObject (obj, fn) {
       var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.filter(fn, thisArg) : objectKeys(obj).reduce(function (newObj, curr) {
+      return Array.isArray(obj) ? obj.filter(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
         if ((0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2)) {
           newObj[curr] = obj[curr]
         } else {
@@ -816,7 +829,7 @@
 
     var reduceObject = function reduceObject (obj, fn) {
       var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[objectKeys(obj)[0]] || obj[0]
-      return Array.isArray(obj) ? obj.reduce(fn, initialValue) : objectKeys(obj).reduce(function (newObj, curr) {
+      return Array.isArray(obj) ? obj.reduce(fn, initialValue) : objectKeys(obj, true).reduce(function (newObj, curr) {
         return (0, _functions.callWithParams)(fn, [newObj, obj[curr], curr, obj], 2)
       }, initialValue)
     }
@@ -830,14 +843,6 @@
     exports.reduceObject = reduceObject
 
     var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
-      if (_typeof(item) !== 'object' || item === null) {
-        return false
-      }
-
-      if (Array.isArray(item)) {
-        return !!item.length
-      }
-
       return !!objectKeys(item).length
     }
     /**
@@ -1031,6 +1036,7 @@
 
       var type = _typeof(value)
 
+      var isInstance = (0, _objects.isInstanceObject)(value)
       return {
         index: index,
         key: key,
@@ -1039,7 +1045,8 @@
         nullable: value === null,
         optional: false,
         circular: false,
-        isReference: type === 'object' && value !== null && !(0, _objects.isInstanceObject)(value),
+        isReference: type === 'object' && value !== null && !isInstance,
+        isInstance: isInstance,
         arrayReference: null,
         objectReference: null
       }
@@ -1301,7 +1308,7 @@
           var index = descriptorMap.length
           var val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
 
-          if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || (0, _objects.isInstanceObject)(val)) {
+          if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || descriptor.details[referenceId].isInstance) {
             return referenceId
           }
 
@@ -1499,7 +1506,7 @@
               return newRef
             }
 
-            if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || (0, _objects.isInstanceObject)(focusObject[detail.key])) {
+            if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || detail.isInstance) {
               newRef[detail.key] = focusObject[detail.key]
               return newRef
             }

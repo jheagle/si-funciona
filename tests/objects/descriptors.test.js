@@ -14,6 +14,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -30,6 +31,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -46,6 +48,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -62,6 +65,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -78,6 +82,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -95,6 +100,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -111,6 +117,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -128,6 +135,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -143,6 +151,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: true,
+        isInstance: false,
         arrayReference: null,
         objectReference: null
       })
@@ -160,6 +169,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: true,
         arrayReference: null,
         objectReference: null
       })
@@ -182,6 +192,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: true,
         arrayReference: null,
         objectReference: null
       })
@@ -200,6 +211,7 @@ describe('describeObjectDetail generates detail for', () => {
         optional: false,
         circular: false,
         isReference: false,
+        isInstance: true,
         arrayReference: null,
         objectReference: null
       })
@@ -292,6 +304,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -304,6 +317,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -316,6 +330,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -328,6 +343,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -340,6 +356,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -361,6 +378,7 @@ describe('describeObject', () => {
       optional: false,
       circular: false,
       isReference: false,
+      isInstance: false,
       arrayReference: null,
       objectReference: null
     })
@@ -474,6 +492,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -486,6 +505,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: true,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           }
@@ -513,6 +533,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -525,6 +546,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: true,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -537,6 +559,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           }
@@ -564,6 +587,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -576,6 +600,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: true,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -588,6 +613,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: 1,
             objectReference: null
           }
@@ -610,6 +636,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           }
@@ -637,6 +664,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -649,6 +677,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           },
@@ -661,6 +690,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -673,6 +703,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -685,6 +716,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -697,6 +729,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: 2,
             objectReference: null
           },
@@ -709,6 +742,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           }
@@ -739,6 +773,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 0
           },
@@ -751,6 +786,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           }
@@ -787,6 +823,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           }
@@ -809,6 +846,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 2
           },
@@ -821,6 +859,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -833,6 +872,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: 0,
             objectReference: null
           },
@@ -845,6 +885,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           },
@@ -857,6 +898,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           },
@@ -869,6 +911,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           },
@@ -881,6 +924,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -893,6 +937,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -905,6 +950,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -917,6 +963,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           }
@@ -950,6 +997,7 @@ describe('describeObjectMap', () => {
             optional: true,
             circular: false,
             isReference: false,
+            isInstance: false,
             arrayReference: null,
             objectReference: null
           },
@@ -962,6 +1010,7 @@ describe('describeObjectMap', () => {
             optional: false,
             circular: false,
             isReference: true,
+            isInstance: false,
             arrayReference: null,
             objectReference: 1
           }
@@ -989,6 +1038,7 @@ describe('describeObjectMap', () => {
           optional: false,
           circular: false,
           isReference: false,
+          isInstance: false,
           arrayReference: null,
           objectReference: null
         },
@@ -1001,6 +1051,7 @@ describe('describeObjectMap', () => {
           optional: false,
           circular: false,
           isReference: false,
+          isInstance: true,
           arrayReference: null,
           objectReference: null
         }
@@ -1011,6 +1062,84 @@ describe('describeObjectMap', () => {
       isArray: false,
       complete: true
     }])
+  })
+
+  test('object checked from middle instead of top of node tree', () => {
+    const childNode = nodeTree.children[0]
+    expect(helpers.describeObjectMap(childNode)).toEqual([
+      {
+        index: 0,
+        details: [
+          {
+            index: 0,
+            key: 'name',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: false,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'parent',
+            type: ['object'],
+            value: [],
+            nullable: true,
+            optional: false,
+            circular: true,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 2,
+            key: 'children',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: 1,
+            objectReference: null
+          }
+        ],
+        length: 3,
+        keys: ['name', 'parent', 'children'],
+        references: [1, 2],
+        isArray: false,
+        complete: true
+      },
+      {
+        index: 1,
+        details: [
+          {
+            index: 0,
+            key: 0,
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          }
+        ],
+        length: 1,
+        keys: [0],
+        references: [0],
+        isArray: true,
+        complete: true
+      }
+    ])
   })
 })
 
