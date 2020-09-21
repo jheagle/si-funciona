@@ -29,7 +29,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
@@ -248,7 +248,7 @@ var reduceObject = function reduceObject (obj, fn) {
   }, initialValue)
 }
 /**
- * Helper function for testing if the item is an Object or Array that contains properties or elements
+ * Helper function for testing if the item is an Object or Array that does not have any properties
  * @function
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
@@ -256,8 +256,8 @@ var reduceObject = function reduceObject (obj, fn) {
 
 exports.reduceObject = reduceObject
 
-var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
-  return !!objectKeys(item).length
+var emptyObject = function emptyObject (item) {
+  return !objectKeys(item).length
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -270,7 +270,7 @@ var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
  * @returns {Object}
  */
 
-exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+exports.emptyObject = emptyObject
 
 var cloneObject = function cloneObject (object) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
@@ -314,7 +314,7 @@ var cloneObject = function cloneObject (object) {
 exports.cloneObject = cloneObject
 
 var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
-  return notEmptyObjectOrArray(obj2) ? mapObject(obj2, function (prop, key) {
+  return !emptyObject(obj2) ? mapObject(obj2, function (prop, key) {
     return obj1[key] ? fn(obj1[key], prop) : prop
   }, isMutable ? obj1 : cloneObject(obj1)) : obj2
 }

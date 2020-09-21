@@ -438,7 +438,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.mapProperty(property, mapFunction, obj)](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.notEmptyObjectOrArray(item)](#module_objectHelpers.notEmptyObjectOrArray) ⇒ <code>boolean</code>
+        * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
@@ -469,10 +469,10 @@ Optional flag will include the inherited values from prototype chain when set.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type |
-| --- | --- |
-| object | <code>Object</code> \| <code>Array</code> | 
-| includeInherited | <code>boolean</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| object | <code>Object</code> \| <code>Array</code> |  | 
+| [includeInherited] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_objectHelpers.isInstanceObject"></a>
 
@@ -570,10 +570,10 @@ always use the standard reduce() function when it is known that the object is ac
 | fn | [<code>reduceCallback</code>](#module_objectHelpers..reduceCallback) \| <code>function</code> | The function to be processed for each filtered property |
 | [initialValue] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty array without an initial value is an error. |
 
-<a name="module_objectHelpers.notEmptyObjectOrArray"></a>
+<a name="module_objectHelpers.emptyObject"></a>
 
-### objectHelpers.notEmptyObjectOrArray(item) ⇒ <code>boolean</code>
-Helper function for testing if the item is an Object or Array that contains properties or elements
+### objectHelpers.emptyObject(item) ⇒ <code>boolean</code>
+Helper function for testing if the item is an Object or Array that does not have any properties
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -734,6 +734,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 | optional | <code>boolean</code> | 
 | circular | <code>boolean</code> | 
 | isReference | <code>boolean</code> | 
+| isInstance | <code>boolean</code> | 
 | arrayReference | <code>null</code> \| <code>number</code> | 
 | objectReference | <code>null</code> \| <code>number</code> | 
 

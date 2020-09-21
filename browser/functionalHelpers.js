@@ -615,7 +615,7 @@
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
-    exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.notEmptyObjectOrArray = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+    exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
     require('core-js/stable')
 
@@ -834,7 +834,7 @@
       }, initialValue)
     }
     /**
- * Helper function for testing if the item is an Object or Array that contains properties or elements
+ * Helper function for testing if the item is an Object or Array that does not have any properties
  * @function
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
@@ -842,8 +842,8 @@
 
     exports.reduceObject = reduceObject
 
-    var notEmptyObjectOrArray = function notEmptyObjectOrArray (item) {
-      return !!objectKeys(item).length
+    var emptyObject = function emptyObject (item) {
+      return !objectKeys(item).length
     }
     /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -856,7 +856,7 @@
  * @returns {Object}
  */
 
-    exports.notEmptyObjectOrArray = notEmptyObjectOrArray
+    exports.emptyObject = emptyObject
 
     var cloneObject = function cloneObject (object) {
       var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
@@ -900,7 +900,7 @@
     exports.cloneObject = cloneObject
 
     var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
-      return notEmptyObjectOrArray(obj2) ? mapObject(obj2, function (prop, key) {
+      return !emptyObject(obj2) ? mapObject(obj2, function (prop, key) {
         return obj1[key] ? fn(obj1[key], prop) : prop
       }, isMutable ? obj1 : cloneObject(obj1)) : obj2
     }
@@ -1045,7 +1045,7 @@
         nullable: value === null,
         optional: false,
         circular: false,
-        isReference: type === 'object' && value !== null && !isInstance,
+        isReference: type === 'object' && value !== null && !isInstance && !(0, _objects.emptyObject)(value),
         isInstance: isInstance,
         arrayReference: null,
         objectReference: null
@@ -1245,8 +1245,8 @@
         return false
       }
 
-      if (descriptor2.length === 0) {
-        return descriptor1.length === 0
+      if (descriptor1.length === 0 || descriptor2.length === 0) {
+        return descriptor1.length === descriptor2.length
       }
 
       var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
@@ -1313,6 +1313,11 @@
           }
 
           var tempDescriptor = describeObject(val)
+
+          if (!tempDescriptor.length) {
+            return referenceId
+          }
+
           var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
             return compareDescriptor(tempDescriptor, existingDescriptor)
           })
@@ -1493,7 +1498,7 @@
 
             skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-            if (detail.isReference && (0, _objects.notEmptyObjectOrArray)(item) && !skip) {
+            if (detail.isReference && !(0, _objects.emptyObject)(item) && !skip) {
               newReferenceMap[index].references.push(id)
               return null
             }
@@ -1513,7 +1518,7 @@
 
             skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-            if (detail.isReference && (0, _objects.notEmptyObjectOrArray)(focusObject[detail.key]) && !skip) {
+            if (detail.isReference && !(0, _objects.emptyObject)(focusObject[detail.key]) && !skip) {
               newReferenceMap[index].references.push(detail.key)
               newRef[detail.key] = null
               return newRef

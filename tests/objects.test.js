@@ -146,21 +146,21 @@ test('reduceObject applies function to create something new from the object', ()
   expect(helpers.reduceObject(testObject, testFunction, 0)).toEqual(15)
 })
 
-describe('notEmptyObjectorArray', () => {
+describe('emptyObject', () => {
   test('returns correct boolean for object and array check', () => {
     const testObjectEmpty = {}
-    expect(helpers.notEmptyObjectOrArray(testObjectEmpty)).toBe(false)
+    expect(helpers.emptyObject(testObjectEmpty)).toBe(true)
     const testObjectFull = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
-    expect(helpers.notEmptyObjectOrArray(testObjectFull)).toBe(true)
+    expect(helpers.emptyObject(testObjectFull)).toBe(false)
     const testArrayEmpty = []
-    expect(helpers.notEmptyObjectOrArray(testArrayEmpty)).toBe(false)
+    expect(helpers.emptyObject(testArrayEmpty)).toBe(true)
     const testArrayFull = ['first', 'second', 'third', 'fourth', 'fifth']
-    expect(helpers.notEmptyObjectOrArray(testArrayFull)).toBe(true)
+    expect(helpers.emptyObject(testArrayFull)).toBe(false)
   })
 
-  test('returns false for null', () => {
+  test('returns true for null', () => {
     const testNull = null
-    expect(helpers.notEmptyObjectOrArray(testNull)).toBe(false)
+    expect(helpers.emptyObject(testNull)).toBe(true)
   })
 })
 

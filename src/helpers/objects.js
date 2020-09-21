@@ -192,12 +192,12 @@ export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || 
   )
 
 /**
- * Helper function for testing if the item is an Object or Array that contains properties or elements
+ * Helper function for testing if the item is an Object or Array that does not have any properties
  * @function
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-export const notEmptyObjectOrArray = item => !!objectKeys(item).length
+export const emptyObject = item => !objectKeys(item).length
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -233,7 +233,7 @@ export const cloneObject = (object, { descriptorMap = [], mapLimit = 1000, depth
  * modify them
  * @returns {Object}
  */
-const mergeObjectsBase = (isMutable, fn, obj1, obj2) => notEmptyObjectOrArray(obj2)
+const mergeObjectsBase = (isMutable, fn, obj1, obj2) => !emptyObject(obj2)
   ? mapObject(
     obj2,
     (prop, key) => (obj1[key])

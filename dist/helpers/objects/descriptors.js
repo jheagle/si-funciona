@@ -96,7 +96,7 @@ var describeObjectDetail = function describeObjectDetail (value) {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: type === 'object' && value !== null && !isInstance,
+    isReference: type === 'object' && value !== null && !isInstance && !(0, _objects.emptyObject)(value),
     isInstance: isInstance,
     arrayReference: null,
     objectReference: null
@@ -296,8 +296,8 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
     return false
   }
 
-  if (descriptor2.length === 0) {
-    return descriptor1.length === 0
+  if (descriptor1.length === 0 || descriptor2.length === 0) {
+    return descriptor1.length === descriptor2.length
   }
 
   var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
@@ -364,6 +364,11 @@ var describeObjectMap = function describeObjectMap (object) {
       }
 
       var tempDescriptor = describeObject(val)
+
+      if (!tempDescriptor.length) {
+        return referenceId
+      }
+
       var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
         return compareDescriptor(tempDescriptor, existingDescriptor)
       })
@@ -544,7 +549,7 @@ var mapOriginalObject = function mapOriginalObject () {
 
         skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-        if (detail.isReference && (0, _objects.notEmptyObjectOrArray)(item) && !skip) {
+        if (detail.isReference && !(0, _objects.emptyObject)(item) && !skip) {
           newReferenceMap[index].references.push(id)
           return null
         }
@@ -564,7 +569,7 @@ var mapOriginalObject = function mapOriginalObject () {
 
         skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-        if (detail.isReference && (0, _objects.notEmptyObjectOrArray)(focusObject[detail.key]) && !skip) {
+        if (detail.isReference && !(0, _objects.emptyObject)(focusObject[detail.key]) && !skip) {
           newReferenceMap[index].references.push(detail.key)
           newRef[detail.key] = null
           return newRef

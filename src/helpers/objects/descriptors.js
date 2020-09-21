@@ -7,7 +7,7 @@
 
 import 'core-js/stable'
 import { compareArrays, uniqueArray } from '../arrays'
-import { isInstanceObject, notEmptyObjectOrArray, objectKeys, reduceObject, setValue } from '../objects'
+import { isInstanceObject, emptyObject, objectKeys, reduceObject, setValue } from '../objects'
 
 /**
  * Trace an object's attribute and provide details about it.
@@ -28,7 +28,7 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: (type === 'object' && value !== null && !isInstance),
+    isReference: (type === 'object' && value !== null && !isInstance && !emptyObject(value)),
     isInstance: isInstance,
     arrayReference: null,
     objectReference: null
@@ -189,8 +189,8 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
   if (descriptor1.isArray !== descriptor2.isArray) {
     return false
   }
-  if (descriptor2.length === 0) {
-    return descriptor1.length === 0
+  if (descriptor1.length === 0 || descriptor2.length === 0) {
+    return descriptor1.length === descriptor2.length
   }
   const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
   const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
@@ -227,6 +227,9 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
         return referenceId
       }
       const tempDescriptor = describeObject(val)
+      if (!tempDescriptor.length) {
+        return referenceId
+      }
       const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
       if (existingDescriptorIndex >= 0) {
         index = existingDescriptorIndex
@@ -357,7 +360,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
           return item
         }
         skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (detail.isReference && notEmptyObjectOrArray(item) && !skip) {
+        if (detail.isReference && !emptyObject(item) && !skip) {
           newReferenceMap[index].references.push(id)
           return null
         }
@@ -373,7 +376,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
           return newRef
         }
         skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (detail.isReference && notEmptyObjectOrArray(focusObject[detail.key]) && !skip) {
+        if (detail.isReference && !emptyObject(focusObject[detail.key]) && !skip) {
           newReferenceMap[index].references.push(detail.key)
           newRef[detail.key] = null
           return newRef
