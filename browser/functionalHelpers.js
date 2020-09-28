@@ -1151,7 +1151,10 @@
               type: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.type), _toConsumableArray(newDetail.type))),
               value: (0, _arrays.uniqueArray)([].concat(_toConsumableArray(existingDetail.value), _toConsumableArray(newDetail.value))),
               nullable: existingDetail.nullable || newDetail.nullable,
+              optional: existingDetail.optional || newDetail.optional,
+              circular: existingDetail.circular || newDetail.circular,
               isReference: existingDetail.isReference || newDetail.isReference,
+              isInstance: existingDetail.isInstance || newDetail.isInstance,
               arrayReference: [existingDetail.arrayReference, newDetail.arrayReference].find(function (ref) {
                 return typeof ref === 'number'
               }),
@@ -1271,14 +1274,55 @@
         })
       })
     }
+    /**
+ * Find the index of the next descriptorDetail to build a resource for.
+ * @param {descriptor} descriptor
+ * @param {number} currentReference
+ * @returns {number|undefined}
+ */
 
     exports.sameDescriptor = sameDescriptor
 
-    var tempDescriptorReference = function tempDescriptorReference (descriptor, mapIndex) {
-      return {
-        tempDescriptor: descriptor,
-        refIndex: mapIndex
-      }
+    var nextReference = function nextReference (descriptor, currentReference) {
+      return descriptor.references.find(function (nextRef) {
+        if (nextRef <= currentReference) {
+          return false
+        }
+
+        var val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
+
+        if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
+          return false
+        }
+
+        return !!(0, _objects.objectKeys)(val).length
+      })
+    }
+    /**
+ * Check if the descriptors references have all been built and set complete to true if they have.
+ * @param {descriptor} descriptor
+ * @returns {descriptor}
+ */
+
+    var checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
+      return (0, _objects.setValue)('complete', descriptor.references.every(function (refId) {
+        return [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(function (ref) {
+          return typeof ref === 'number'
+        })
+      }), descriptor)
+    }
+    /**
+ * Check if we should clear the values on this descriptor
+ * @param {descriptor} descriptor
+ * @param {boolean} [keepValues=false]
+ * @returns {descriptor}
+ */
+
+    var checkClearValues = function checkClearValues (descriptor) {
+      var keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+      return (0, _objects.setValue)('details', descriptor.complete && !keepValues ? descriptor.details.map(function (detail) {
+        return (0, _objects.setValue)('value', [], detail)
+      }) : descriptor.details, descriptor)
     }
     /**
  * Trace out the entire object including nested objects.
@@ -1303,118 +1347,85 @@
       var descriptorMap = [describeObject(object)]
       descriptorMap[0].index = 0
 
-      var describeReferences = function describeReferences (descriptor, limit) {
-        descriptor.references = descriptor.references.map(function (referenceId) {
-          var index = descriptorMap.length
-          var val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
+      var describeReferences = function describeReferences (descriptor, currentDetail) {
+        var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
+        var returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (returnMap) {
+          return returnMap
+        }
+        var index = descriptorMap.length
+        var nextRef = currentDetail ? nextReference(descriptor, currentDetail.index) : undefined
+        var nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
 
-          if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || descriptor.details[referenceId].isInstance) {
-            return referenceId
-          }
+        if (currentDetail) {
+          var vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+          vals.forEach(function (val) {
+            var tempDescriptor = describeObject(val)
+            var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
+              return compareDescriptor(tempDescriptor, existingDescriptor)
+            })
 
-          var tempDescriptor = describeObject(val)
+            if (existingDescriptorIndex >= 0) {
+              index = existingDescriptorIndex
 
-          if (!tempDescriptor.length) {
-            return referenceId
-          }
-
-          var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
-            return compareDescriptor(tempDescriptor, existingDescriptor)
-          })
-
-          if (existingDescriptorIndex >= 0) {
-            index = existingDescriptorIndex
-
-            if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-              if (descriptor.index === existingDescriptorIndex) {
-                descriptor = descriptorMap[existingDescriptorIndex]
+              if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
+                currentDetail.circular = true
+                descriptor.details[currentDetail.index] = currentDetail
               }
-
-              descriptor.details[referenceId].circular = true
             }
-          }
 
-          if (index >= mapLimit) {
-            return referenceId
-          }
+            if (index >= mapLimit) {
+              return descriptorMap
+            }
 
-          if (limit === 0) {
-            return referenceId
-          }
+            if (limit === 0) {
+              return descriptorMap
+            }
 
-          if (tempDescriptor.isArray) {
-            var _descriptor$details$r
+            if (tempDescriptor.isArray) {
+              var _currentDetail$arrayR
 
-            index = (_descriptor$details$r = descriptor.details[referenceId].arrayReference) !== null && _descriptor$details$r !== void 0 ? _descriptor$details$r : index
-            descriptor.details[referenceId].arrayReference = tempDescriptorReference(tempDescriptor, index)
-          } else {
-            var _descriptor$details$r2
+              index = (_currentDetail$arrayR = currentDetail.arrayReference) !== null && _currentDetail$arrayR !== void 0 ? _currentDetail$arrayR : index
+              descriptor.details[currentDetail.index].arrayReference = index
+            } else {
+              var _currentDetail$object
 
-            index = (_descriptor$details$r2 = descriptor.details[referenceId].objectReference) !== null && _descriptor$details$r2 !== void 0 ? _descriptor$details$r2 : index
-            descriptor.details[referenceId].objectReference = tempDescriptorReference(tempDescriptor, index)
-          }
+              index = (_currentDetail$object = currentDetail.objectReference) !== null && _currentDetail$object !== void 0 ? _currentDetail$object : index
+              descriptor.details[currentDetail.index].objectReference = index
+            }
 
-          tempDescriptor.index = index
+            tempDescriptor.index = index
 
-          if (existingDescriptorIndex < 0) {
-            descriptorMap[index] = descriptorMap[index] ? assignDescriptor(descriptorMap[index], tempDescriptor) : tempDescriptor
-          }
+            if (existingDescriptorIndex < 0) {
+              descriptorMap[index] = descriptorMap[index] ? assignDescriptor(descriptorMap[index], tempDescriptor) : tempDescriptor
+            }
 
-          return referenceId
-        })
-        descriptor.references = descriptor.references.map(function (referenceId) {
-          var tempDescriptor = null
-          var refIndex = -1
+            descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
 
-          if (descriptor.details[referenceId].arrayReference !== null) {
-            ;
-            var _descriptor$details$r3 = descriptor.details[referenceId].arrayReference
-            tempDescriptor = _descriptor$details$r3.tempDescriptor
-            refIndex = _descriptor$details$r3.refIndex
-            descriptor.details[referenceId].arrayReference = refIndex
-          }
-
-          if (descriptor.details[referenceId].objectReference !== null) {
-            ;
-            var _descriptor$details$r4 = descriptor.details[referenceId].objectReference
-            tempDescriptor = _descriptor$details$r4.tempDescriptor
-            refIndex = _descriptor$details$r4.refIndex
-            descriptor.details[referenceId].objectReference = refIndex
-          }
-
-          if (tempDescriptor === null) {
-            return referenceId
-          }
-
-          if (!descriptorMap[refIndex]) {
-            return referenceId
-          }
-
-          descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
-
-          if (!descriptor.details[referenceId].circular) {
-            describeReferences(tempDescriptor, --limit)
-          }
-
-          return referenceId
-        })
-        descriptor.complete = descriptor.references.every(function (refId) {
-          return [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(function (ref) {
-            return typeof ref === 'number'
-          })
-        })
-        descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
-
-        if (descriptor.complete && !keepValues) {
-          descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(function (detail) {
-            return (0, _objects.setValue)('value', [], detail)
+            if (!descriptorMap[descriptor.index].details[currentDetail.index].circular) {
+              var newReference = nextReference(tempDescriptor, -1)
+              var newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
+              return describeReferences(tempDescriptor, newDetail, --limit, function (returnMap) {
+                return describeReferences(descriptor, nextDetail, --limit)
+              })
+            }
           })
         }
 
+        descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], checkDescriptorComplete(descriptor))
+        descriptorMap[descriptor.index] = checkClearValues(descriptorMap[descriptor.index], keepValues)
+        return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap)
+      }
+
+      var descriptor = descriptorMap[0]
+      var currentReference = nextReference(descriptor, -1)
+
+      if (typeof currentReference === 'undefined') {
+        descriptorMap[0] = assignDescriptor(descriptorMap[0], checkDescriptorComplete(descriptor, keepValues))
+        descriptorMap[0] = checkClearValues(descriptorMap[0], keepValues)
         return descriptorMap
       }
 
-      return describeReferences(descriptorMap[0], depthLimit)
+      return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
     }
     /**
  * @typedef {Object.<string, number|Object|Array>} referenceIdentifier

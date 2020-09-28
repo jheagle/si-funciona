@@ -102,7 +102,10 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
         type: uniqueArray([...existingDetail.type, ...newDetail.type]),
         value: uniqueArray([...existingDetail.value, ...newDetail.value]),
         nullable: existingDetail.nullable || newDetail.nullable,
+        optional: existingDetail.optional || newDetail.optional,
+        circular: existingDetail.circular || newDetail.circular,
         isReference: existingDetail.isReference || newDetail.isReference,
+        isInstance: existingDetail.isInstance || newDetail.isInstance,
         arrayReference: [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number'),
         objectReference: [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
       })
@@ -201,10 +204,57 @@ export const compareDescriptor = (descriptor1, descriptor2) => {
 
 export const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
 
-const tempDescriptorReference = (descriptor, mapIndex) => ({
-  tempDescriptor: descriptor,
-  refIndex: mapIndex
-})
+/**
+ * Find the index of the next descriptorDetail to build a resource for.
+ * @param {descriptor} descriptor
+ * @param {number} currentReference
+ * @returns {number|undefined}
+ */
+const nextReference = (descriptor, currentReference) => descriptor.references.find(
+  nextRef => {
+    if (nextRef <= currentReference) {
+      return false
+    }
+    const val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
+    if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
+      return false
+    }
+    return !!objectKeys(val).length
+  }
+)
+
+/**
+ * Check if the descriptors references have all been built and set complete to true if they have.
+ * @param {descriptor} descriptor
+ * @returns {descriptor}
+ */
+const checkDescriptorComplete = (descriptor) => setValue(
+  'complete',
+  descriptor.references
+    .every(
+      refId => [
+        descriptor.details[refId].arrayReference,
+        descriptor.details[refId].objectReference
+      ].some(ref => typeof ref === 'number')
+    ),
+  descriptor
+)
+
+/**
+ * Check if we should clear the values on this descriptor
+ * @param {descriptor} descriptor
+ * @param {boolean} [keepValues=false]
+ * @returns {descriptor}
+ */
+const checkClearValues = (descriptor, keepValues = false) => setValue(
+  'details',
+  (descriptor.complete && !keepValues)
+    ? descriptor.details.map(
+      detail => setValue('value', [], detail)
+    )
+    : descriptor.details,
+  descriptor
+)
 
 /**
  * Trace out the entire object including nested objects.
@@ -219,87 +269,68 @@ const tempDescriptorReference = (descriptor, mapIndex) => ({
 export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, keepValues = false } = {}) => {
   const descriptorMap = [describeObject(object)]
   descriptorMap[0].index = 0
-  const describeReferences = (descriptor, limit) => {
-    descriptor.references = descriptor.references.map(referenceId => {
-      let index = descriptorMap.length
-      const val = descriptor.details[referenceId].value[descriptor.details[referenceId].value.length - 1]
-      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[referenceId].circular || descriptor.details[referenceId].isInstance) {
-        return referenceId
-      }
-      const tempDescriptor = describeObject(val)
-      if (!tempDescriptor.length) {
-        return referenceId
-      }
-      const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
-      if (existingDescriptorIndex >= 0) {
-        index = existingDescriptorIndex
-        if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-          if (descriptor.index === existingDescriptorIndex) {
-            descriptor = descriptorMap[existingDescriptorIndex]
+  const describeReferences = (descriptor, currentDetail, limit = -1, returnCallback = returnMap => returnMap) => {
+    let index = descriptorMap.length
+    const nextRef = currentDetail ? nextReference(descriptor, currentDetail.index) : undefined
+    const nextDetail = (typeof nextRef !== 'undefined') ? descriptor.details[nextRef] : null
+    if (currentDetail) {
+      const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+      vals.forEach(val => {
+        const tempDescriptor = describeObject(val)
+        const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => compareDescriptor(tempDescriptor, existingDescriptor))
+        if (existingDescriptorIndex >= 0) {
+          index = existingDescriptorIndex
+          if (tempDescriptor.length && sameDescriptor(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
+            currentDetail.circular = true
+            descriptor.details[currentDetail.index] = currentDetail
           }
-          descriptor.details[referenceId].circular = true
         }
-      }
-      if (index >= mapLimit) {
-        return referenceId
-      }
-      if (limit === 0) {
-        return referenceId
-      }
-      if (tempDescriptor.isArray) {
-        index = descriptor.details[referenceId].arrayReference ?? index
-        descriptor.details[referenceId].arrayReference = tempDescriptorReference(tempDescriptor, index)
-      } else {
-        index = descriptor.details[referenceId].objectReference ?? index
-        descriptor.details[referenceId].objectReference = tempDescriptorReference(tempDescriptor, index)
-      }
-      tempDescriptor.index = index
-      if (existingDescriptorIndex < 0) {
-        descriptorMap[index] = descriptorMap[index]
-          ? assignDescriptor(descriptorMap[index], tempDescriptor)
-          : tempDescriptor
-      }
-      return referenceId
-    })
-    descriptor.references = descriptor.references.map(referenceId => {
-      let tempDescriptor = null
-      let refIndex = -1
-      if (descriptor.details[referenceId].arrayReference !== null) {
-        ;({ tempDescriptor, refIndex } = descriptor.details[referenceId].arrayReference)
-        descriptor.details[referenceId].arrayReference = refIndex
-      }
-      if (descriptor.details[referenceId].objectReference !== null) {
-        ;({ tempDescriptor, refIndex } = descriptor.details[referenceId].objectReference)
-        descriptor.details[referenceId].objectReference = refIndex
-      }
-      if (tempDescriptor === null) {
-        return referenceId
-      }
-      if (!descriptorMap[refIndex]) {
-        return referenceId
-      }
-      descriptorMap[refIndex] = assignDescriptor(descriptorMap[refIndex], tempDescriptor)
-      if (!descriptor.details[referenceId].circular) {
-        describeReferences(tempDescriptor, --limit)
-      }
-      return referenceId
-    })
-    descriptor.complete = descriptor.references
-      .every(
-        refId => [
-          descriptor.details[refId].arrayReference,
-          descriptor.details[refId].objectReference
-        ].some(ref => typeof ref === 'number')
-      )
-    descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
-    if (descriptor.complete && !keepValues) {
-      descriptorMap[descriptor.index].details = descriptorMap[descriptor.index].details.map(
-        detail => setValue('value', [], detail)
-      )
+        if (index >= mapLimit) {
+          return descriptorMap
+        }
+        if (limit === 0) {
+          return descriptorMap
+        }
+        if (tempDescriptor.isArray) {
+          index = currentDetail.arrayReference ?? index
+          descriptor.details[currentDetail.index].arrayReference = index
+        } else {
+          index = currentDetail.objectReference ?? index
+          descriptor.details[currentDetail.index].objectReference = index
+        }
+        tempDescriptor.index = index
+        if (existingDescriptorIndex < 0) {
+          descriptorMap[index] = descriptorMap[index]
+            ? assignDescriptor(descriptorMap[index], tempDescriptor)
+            : tempDescriptor
+        }
+        descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
+
+        if (!descriptorMap[descriptor.index].details[currentDetail.index].circular) {
+          const newReference = nextReference(tempDescriptor, -1)
+          const newDetail = (typeof newReference !== 'undefined') ? tempDescriptor.details[newReference] : null
+          return describeReferences(tempDescriptor, newDetail, --limit, returnMap => describeReferences(descriptor, nextDetail, --limit)
+          )
+        }
+      })
     }
+    descriptorMap[descriptor.index] = assignDescriptor(
+      descriptorMap[descriptor.index],
+      checkDescriptorComplete(descriptor)
+    )
+    descriptorMap[descriptor.index] = checkClearValues(descriptorMap[descriptor.index], keepValues)
+    return nextDetail
+      ? describeReferences(descriptor, nextDetail, --limit)
+      : returnCallback(descriptorMap)
+  }
+  const descriptor = descriptorMap[0]
+  const currentReference = nextReference(descriptor, -1)
+  if (typeof currentReference === 'undefined') {
+    descriptorMap[0] = assignDescriptor(descriptorMap[0], checkDescriptorComplete(descriptor, keepValues))
+    descriptorMap[0] = checkClearValues(descriptorMap[0], keepValues)
     return descriptorMap
   }
-  return describeReferences(descriptorMap[0], depthLimit)
+  return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
 }
 
 /**

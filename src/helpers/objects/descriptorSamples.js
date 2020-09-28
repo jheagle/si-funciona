@@ -129,7 +129,7 @@ export const mappedDescriptorMap = [
         circular: false,
         isReference: true,
         isInstance: false,
-        arrayReference: 2,
+        arrayReference: 3,
         objectReference: null
       },
       {
@@ -200,7 +200,7 @@ export const mappedDescriptorMap = [
         isReference: true,
         isInstance: false,
         arrayReference: null,
-        objectReference: 3
+        objectReference: 2
       }
     ],
     length: 1,
@@ -211,29 +211,6 @@ export const mappedDescriptorMap = [
   },
   {
     index: 2,
-    details: [
-      {
-        index: 0,
-        key: 0,
-        type: ['string'],
-        value: [],
-        nullable: false,
-        optional: false,
-        circular: false,
-        isReference: false,
-        isInstance: false,
-        arrayReference: null,
-        objectReference: null
-      }
-    ],
-    length: 1,
-    keys: [0],
-    references: [],
-    isArray: true,
-    complete: true
-  },
-  {
-    index: 3,
     details: [
       {
         index: 0,
@@ -271,7 +248,7 @@ export const mappedDescriptorMap = [
         circular: false,
         isReference: true,
         isInstance: false,
-        arrayReference: 2,
+        arrayReference: 3,
         objectReference: null
       },
       {
@@ -284,7 +261,7 @@ export const mappedDescriptorMap = [
         circular: false,
         isReference: true,
         isInstance: false,
-        arrayReference: 2,
+        arrayReference: 3,
         objectReference: null
       },
       {
@@ -395,6 +372,29 @@ export const mappedDescriptorMap = [
     ],
     references: [2, 3],
     isArray: false,
+    complete: true
+  },
+  {
+    index: 3,
+    details: [
+      {
+        index: 0,
+        key: 0,
+        type: ['string'],
+        value: [],
+        nullable: false,
+        optional: false,
+        circular: false,
+        isReference: false,
+        isInstance: false,
+        arrayReference: null,
+        objectReference: null
+      }
+    ],
+    length: 1,
+    keys: [0],
+    references: [],
+    isArray: true,
     complete: true
   }
 ]

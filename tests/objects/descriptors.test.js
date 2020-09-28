@@ -1,6 +1,6 @@
 import * as helpers from '../../dist/helpers/objects/descriptors'
 import * as samples from '../../dist/helpers/objects/descriptorSamples'
-import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
+import { logObject, circularObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from '../testHelpers'
 
 describe('describeObjectDetail generates detail for', () => {
   test('undefined type', () => {
@@ -1081,7 +1081,7 @@ describe('describeObjectMap', () => {
             value: [],
             nullable: true,
             optional: false,
-            circular: true,
+            circular: false,
             isReference: true,
             isInstance: false,
             arrayReference: null,
@@ -1117,6 +1117,109 @@ describe('describeObjectMap', () => {
             value: [],
             nullable: false,
             optional: false,
+            circular: true,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          }
+        ],
+        length: 2,
+        keys: [0],
+        references: [0],
+        isArray: true,
+        complete: true
+      }
+    ])
+  })
+
+  test('node tree should mark parent as circular', () => {
+    expect(helpers.describeObjectMap(circularObject)).toEqual([
+      {
+        index: 0,
+        details: [
+          {
+            index: 0,
+            key: 'name',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: false,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'parent',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: true,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 2,
+            key: 'body',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 3,
+            key: 'head',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 4,
+            key: 'children',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: 1,
+            objectReference: null
+          }
+        ],
+        length: 5,
+        keys: ['name', 'parent', 'body', 'head', 'children'],
+        references: [1, 2, 3, 4],
+        isArray: false,
+        complete: true
+      },
+      {
+        index: 1,
+        details: [
+          {
+            index: 0,
+            key: 0,
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
             circular: false,
             isReference: true,
             isInstance: false,
@@ -1124,7 +1227,7 @@ describe('describeObjectMap', () => {
             objectReference: 0
           }
         ],
-        length: 1,
+        length: 2,
         keys: [0],
         references: [0],
         isArray: true,
@@ -1164,7 +1267,7 @@ describe('describeObjectMap; with depthLimit', () => {
   })
 
   test('with depth limit one will only include main descriptor and one nested object', () => {
-    expect(helpers.describeObjectMap(deepReferenceObject, { depthLimit: 1 }).length).toBe(2)
+    expect(helpers.describeObjectMap(deepReferenceObject, { depthLimit: 1 }).length).toBe(3)
   })
 
   test('with depth limit two will not include the array on depth of four', () => {

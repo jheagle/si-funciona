@@ -780,6 +780,9 @@ Create a format to standarize every object into a specific template.
         * [~descriptorReferences(descriptor)](#module_objectDescriptors..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
         * [~descriptorIsArray(descriptor)](#module_objectDescriptors..descriptorIsArray) ⇒ <code>boolean</code>
         * [~cloneDescriptor(originalMap)](#module_objectDescriptors..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
+        * [~nextReference(descriptor, currentReference)](#module_objectDescriptors..nextReference) ⇒ <code>number</code> \| <code>undefined</code>
+        * [~checkDescriptorComplete(descriptor)](#module_objectDescriptors..checkDescriptorComplete) ⇒ <code>descriptor</code>
+        * [~checkClearValues(descriptor, [keepValues])](#module_objectDescriptors..checkClearValues) ⇒ <code>descriptor</code>
         * [~createReferenceIdentifier([object], [index])](#module_objectDescriptors..createReferenceIdentifier) ⇒ <code>referenceIdentifier</code>
         * [~referenceIdentifier](#module_objectDescriptors..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
 
@@ -915,6 +918,41 @@ Make a copy of an object descriptor so that the original will not be mutated.
 | Param | Type |
 | --- | --- |
 | originalMap | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
+
+<a name="module_objectDescriptors..nextReference"></a>
+
+### objectDescriptors~nextReference(descriptor, currentReference) ⇒ <code>number</code> \| <code>undefined</code>
+Find the index of the next descriptorDetail to build a resource for.
+
+**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+
+| Param | Type |
+| --- | --- |
+| descriptor | <code>descriptor</code> | 
+| currentReference | <code>number</code> | 
+
+<a name="module_objectDescriptors..checkDescriptorComplete"></a>
+
+### objectDescriptors~checkDescriptorComplete(descriptor) ⇒ <code>descriptor</code>
+Check if the descriptors references have all been built and set complete to true if they have.
+
+**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+
+| Param | Type |
+| --- | --- |
+| descriptor | <code>descriptor</code> | 
+
+<a name="module_objectDescriptors..checkClearValues"></a>
+
+### objectDescriptors~checkClearValues(descriptor, [keepValues]) ⇒ <code>descriptor</code>
+Check if we should clear the values on this descriptor
+
+**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| descriptor | <code>descriptor</code> |  | 
+| [keepValues] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_objectDescriptors..createReferenceIdentifier"></a>
 

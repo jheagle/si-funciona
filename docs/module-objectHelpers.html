@@ -192,7 +192,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line73">line 73</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -318,7 +318,7 @@ Optional flag will include the inherited values from prototype chain when set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line67">line 67</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -699,6 +699,164 @@ Optional flag will include the inherited values from prototype chain when set.
     
 
     
+    <h4 class="name" id=".emptyObject"><span class="type-signature">(static) </span>emptyObject<span class="signature">(item)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Helper function for testing if the item is an Object or Array that does not have any properties
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Object or Array to test</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line200">line 200</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".filterObject"><span class="type-signature">(static) </span>filterObject<span class="signature">(obj, fn, thisArg<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object|Array}</span></h4>
     
 
@@ -885,7 +1043,7 @@ always use the standard filter() function when it is known that the object is ac
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line144">line 144</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line152">line 152</a>
     </li></ul></dd>
     
 
@@ -1128,7 +1286,7 @@ always use the standard map() function when it is known that the object is actua
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line100">line 100</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -1338,7 +1496,7 @@ always use the standard map() function when it is known that the object is actua
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line119">line 119</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line127">line 127</a>
     </li></ul></dd>
     
 
@@ -1735,164 +1893,6 @@ object</td>
     
 
     
-    <h4 class="name" id=".notEmptyObjectOrArray"><span class="type-signature">(static) </span>notEmptyObjectOrArray<span class="signature">(item)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Helper function for testing if the item is an Object or Array that contains properties or elements
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>item</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Object or Array to test</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line192">line 192</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id=".reduceObject"><span class="type-signature">(static) </span>reduceObject<span class="signature">(obj, fn, initialValue<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object|Array}</span></h4>
     
 
@@ -2081,7 +2081,7 @@ array without an initial value is an error.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line179">line 179</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -2979,7 +2979,7 @@ otherwise, taking three arguments
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line124">line 124</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -3213,7 +3213,7 @@ otherwise, taking three arguments
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line81">line 81</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line89">line 89</a>
     </li></ul></dd>
     
 
@@ -3510,7 +3510,7 @@ value previously returned in the last invocation of the callback, or initialValu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line155">line 155</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -3578,7 +3578,7 @@ value previously returned in the last invocation of the callback, or initialValu
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 18 2020 22:56:42 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Mon Sep 28 2020 09:42:11 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
