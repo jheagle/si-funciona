@@ -305,8 +305,10 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
             : tempDescriptor
         }
         descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
-
-        if (!descriptorMap[descriptor.index].details[currentDetail.index].circular) {
+        currentDetail = descriptorMap[descriptor.index].details.find(
+          detail => detail.key === currentDetail.key
+        )
+        if (!currentDetail.circular) {
           const newReference = nextReference(tempDescriptor, -1)
           const newDetail = (typeof newReference !== 'undefined') ? tempDescriptor.details[newReference] : null
           return describeReferences(tempDescriptor, newDetail, --limit, returnMap => describeReferences(descriptor, nextDetail, --limit)

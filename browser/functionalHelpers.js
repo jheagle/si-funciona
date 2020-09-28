@@ -1400,8 +1400,11 @@
             }
 
             descriptorMap[descriptor.index] = assignDescriptor(descriptorMap[descriptor.index], descriptor)
+            currentDetail = descriptorMap[descriptor.index].details.find(function (detail) {
+              return detail.key === currentDetail.key
+            })
 
-            if (!descriptorMap[descriptor.index].details[currentDetail.index].circular) {
+            if (!currentDetail.circular) {
               var newReference = nextReference(tempDescriptor, -1)
               var newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
               return describeReferences(tempDescriptor, newDetail, --limit, function (returnMap) {

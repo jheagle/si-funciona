@@ -1133,7 +1133,7 @@ describe('describeObjectMap', () => {
     ])
   })
 
-  test('node tree should mark parent as circular', () => {
+  test('multiple circular reference object will complete from top', () => {
     expect(helpers.describeObjectMap(circularObject)).toEqual([
       {
         index: 0,
@@ -1221,6 +1221,109 @@ describe('describeObjectMap', () => {
             nullable: false,
             optional: false,
             circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          }
+        ],
+        length: 2,
+        keys: [0],
+        references: [0],
+        isArray: true,
+        complete: true
+      }
+    ])
+  })
+
+  test('multiple circular reference object will complete from middle', () => {
+    expect(helpers.describeObjectMap(circularObject.body)).toEqual([
+      {
+        index: 0,
+        details: [
+          {
+            index: 0,
+            key: 'name',
+            type: ['string'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: false,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: null
+          },
+          {
+            index: 1,
+            key: 'parent',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 2,
+            key: 'children',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: false,
+            isReference: true,
+            isInstance: false,
+            arrayReference: 1,
+            objectReference: null
+          },
+          {
+            index: 3,
+            key: 'body',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          },
+          {
+            index: 4,
+            key: 'head',
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: true,
+            circular: true,
+            isReference: true,
+            isInstance: false,
+            arrayReference: null,
+            objectReference: 0
+          }
+        ],
+        length: 5,
+        keys: ['name', 'parent', 'children', 'body', 'head'],
+        references: [1, 2, 3, 4],
+        isArray: false,
+        complete: true
+      },
+      {
+        index: 1,
+        details: [
+          {
+            index: 0,
+            key: 0,
+            type: ['object'],
+            value: [],
+            nullable: false,
+            optional: false,
+            circular: true,
             isReference: true,
             isInstance: false,
             arrayReference: null,
