@@ -418,7 +418,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
         return newRef
       }, {})
     }
-    newReferenceMap[index] = newReferenceMap[index].references.reduce((newRef, key) => {
+    return newReferenceMap[index].references.reduce((newRef, key) => {
       const detail = descriptor.isArray
         ? descriptor.details[0]
         : descriptor.details.find(detail => detail.key === key)
@@ -427,9 +427,11 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
       if (detail.circular) {
         const tempDescriptor = describeObject(objectToRef)
         const existingIndex = newReferenceMap.findIndex(existing => sameDescriptor(tempDescriptor, existing.descriptor))
-        newRef.object[key] = existingIndex
-        newRef.circular.push(key)
-        return newRef
+        if (existingIndex >= 0) {
+          newRef.object[key] = existingIndex
+          newRef.circular.push(key)
+          return newRef
+        }
       }
       if (newRefIndex >= mapLimit) {
         newRef.object[key] = Array.isArray(focusObject[key]) ? [] : {}
@@ -440,24 +442,10 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
       }
       newReferenceMap[newRefIndex] = createReferenceIdentifier(focusObject[key], newRefIndex)
       newRef.object[key] = newRefIndex
-      return newRef
-    }, newReferenceMap[index])
-
-    return newReferenceMap[index].references.reduce((newRef, key) => {
-      if (typeof newRef.object[key] !== 'number') {
-        return newRef
-      }
-      const detail = descriptor.isArray
-        ? descriptor.details[0]
-        : descriptor.details.find(detail => detail.key === key)
-      if (detail.circular) {
-        return newRef
-      }
-      const objectToRef = focusObject[key]
       const descriptorRefIndex = (Array.isArray(objectToRef) && detail.arrayReference !== null)
         ? detail.arrayReference
         : detail.objectReference
-      newReferenceMap[newRef.object[key]] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
+      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
       return newRef
     }, newReferenceMap[index])
   }

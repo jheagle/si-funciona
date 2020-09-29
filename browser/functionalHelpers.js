@@ -1543,7 +1543,7 @@
           }, {})
         }
 
-        newReferenceMap[index] = newReferenceMap[index].references.reduce(function (newRef, key) {
+        return newReferenceMap[index].references.reduce(function (newRef, key) {
           var detail = descriptor.isArray ? descriptor.details[0] : descriptor.details.find(function (detail) {
             return detail.key === key
           })
@@ -1555,9 +1555,12 @@
             var existingIndex = newReferenceMap.findIndex(function (existing) {
               return sameDescriptor(tempDescriptor, existing.descriptor)
             })
-            newRef.object[key] = existingIndex
-            newRef.circular.push(key)
-            return newRef
+
+            if (existingIndex >= 0) {
+              newRef.object[key] = existingIndex
+              newRef.circular.push(key)
+              return newRef
+            }
           }
 
           if (newRefIndex >= mapLimit) {
@@ -1571,24 +1574,8 @@
 
           newReferenceMap[newRefIndex] = createReferenceIdentifier(focusObject[key], newRefIndex)
           newRef.object[key] = newRefIndex
-          return newRef
-        }, newReferenceMap[index])
-        return newReferenceMap[index].references.reduce(function (newRef, key) {
-          if (typeof newRef.object[key] !== 'number') {
-            return newRef
-          }
-
-          var detail = descriptor.isArray ? descriptor.details[0] : descriptor.details.find(function (detail) {
-            return detail.key === key
-          })
-
-          if (detail.circular) {
-            return newRef
-          }
-
-          var objectToRef = focusObject[key]
           var descriptorRefIndex = Array.isArray(objectToRef) && detail.arrayReference !== null ? detail.arrayReference : detail.objectReference
-          newReferenceMap[newRef.object[key]] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
+          newReferenceMap[newRefIndex] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
           return newRef
         }, newReferenceMap[index])
       }
