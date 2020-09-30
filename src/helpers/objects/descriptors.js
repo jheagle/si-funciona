@@ -36,28 +36,19 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
 }
 
 /**
- * Build an array of all keys from the details of this descriptor.
- * @function
- * @param {module:descriptorSamples~descriptor} descriptor
- * @returns {Array.<string>}
+ * Get a new copy of an existing Descriptor Detail
+ * @param {module:descriptorSamples~descriptorDetail} originalDetail
+ * @returns {module:descriptorSamples~descriptorDetail}
  */
-const descriptorKeys = descriptor => uniqueArray(descriptor.details.map(detail => detail.key))
-/**
- * Create an array of the indexes in the details that contain references.
- * @function
- * @param {module:descriptorSamples~descriptor} descriptor
- * @returns {Array.<number>}
- */
-const descriptorReferences = descriptor => uniqueArray(descriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
-/**
- * Check based on the detail keys if this descriptor represents an array.
- * @function
- * @param {module:descriptorSamples~descriptor} descriptor
- * @returns {boolean}
- */
-const descriptorIsArray = descriptor => descriptor.length
-  ? descriptor.details.every(detail => (typeof detail.key === 'number'))
-  : descriptor.isArray
+const cloneDescriptorDetail = originalDetail => {
+  const copyDetail = {}
+  objectKeys(originalDetail).forEach(key => {
+    copyDetail[key] = Array.isArray(originalDetail[key])
+      ? originalDetail[key].map(value => value)
+      : originalDetail[key]
+  })
+  return copyDetail
+}
 
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.
@@ -68,15 +59,7 @@ const descriptorIsArray = descriptor => descriptor.length
 const cloneDescriptor = originalMap => {
   const copyMap = {}
   copyMap.index = originalMap.index || 0
-  copyMap.details = originalMap.details.map(detail => {
-    const copyDetail = {}
-    objectKeys(detail).forEach(key => {
-      copyDetail[key] = Array.isArray(detail[key])
-        ? detail[key].map(value => value)
-        : detail[key]
-    })
-    return copyDetail
-  })
+  copyMap.details = originalMap.details.map(cloneDescriptorDetail)
   copyMap.length = originalMap.length
   copyMap.keys = originalMap.keys.map(key => key)
   copyMap.references = originalMap.references.map(reference => reference)
@@ -84,6 +67,32 @@ const cloneDescriptor = originalMap => {
   copyMap.complete = originalMap.complete
   return copyMap
 }
+
+/**
+ * Assign properties from other details onto an existing detail.
+ * @param {module:descriptorSamples~descriptorDetail} originalDetail
+ * @param  {...module:descriptorSamples~descriptorDetail} details
+ * @returns {module:descriptorSamples~descriptorDetail}
+ */
+const assignDescriptorDetail = (originalDetail, ...details) => details.reduce(
+  (existingDetail, newDetail) => {
+    existingDetail.type = uniqueArray([...existingDetail.type, ...newDetail.type])
+    existingDetail.value = uniqueArray([...existingDetail.value, ...newDetail.value])
+    existingDetail.nullable = existingDetail.nullable || newDetail.nullable
+    existingDetail.optional = existingDetail.optional || newDetail.optional
+    existingDetail.circular = existingDetail.circular || newDetail.circular
+    existingDetail.isReference = existingDetail.isReference || newDetail.isReference
+    existingDetail.isInstance = existingDetail.isInstance || newDetail.isInstance
+    existingDetail.arrayReference = [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number')
+    existingDetail.objectReference = [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
+    existingDetail.arrayReference = (typeof existingDetail.arrayReference === 'undefined')
+      ? null
+      : existingDetail.arrayReference
+    existingDetail.objectReference = (typeof existingDetail.objectReference === 'undefined')
+      ? null
+      : existingDetail.objectReference
+    return existingDetail
+  }, cloneDescriptorDetail(originalDetail))
 
 /**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
@@ -98,23 +107,7 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
     const existingDetail = assignedDescriptor.details.find(detail => detail.key === diff.value)
     const newDetail = descriptor.details.find(detail => detail.key === diff.value)
     if (diff.result.every(result => result === 0)) {
-      assignedDescriptor.details[existingDetail.index] = Object.assign({}, existingDetail, {
-        type: uniqueArray([...existingDetail.type, ...newDetail.type]),
-        value: uniqueArray([...existingDetail.value, ...newDetail.value]),
-        nullable: existingDetail.nullable || newDetail.nullable,
-        optional: existingDetail.optional || newDetail.optional,
-        circular: existingDetail.circular || newDetail.circular,
-        isReference: existingDetail.isReference || newDetail.isReference,
-        isInstance: existingDetail.isInstance || newDetail.isInstance,
-        arrayReference: [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number'),
-        objectReference: [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
-      })
-      assignedDescriptor.details[existingDetail.index].arrayReference = (typeof assignedDescriptor.details[existingDetail.index].arrayReference === 'undefined')
-        ? null
-        : assignedDescriptor.details[existingDetail.index].arrayReference
-      assignedDescriptor.details[existingDetail.index].objectReference = (typeof assignedDescriptor.details[existingDetail.index].objectReference === 'undefined')
-        ? null
-        : assignedDescriptor.details[existingDetail.index].objectReference
+      assignedDescriptor.details[existingDetail.index] = assignDescriptorDetail(existingDetail, newDetail)
       return assignedDescriptor
     }
     const useDetail = diff[0] > 0 ? existingDetail : newDetail
@@ -132,9 +125,11 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
       : assignedDescriptor.length
     return assignedDescriptor
   })
-  assignedDescriptor.keys = descriptorKeys(assignedDescriptor)
-  assignedDescriptor.references = descriptorReferences(assignedDescriptor)
-  assignedDescriptor.isArray = descriptorIsArray(assignedDescriptor)
+  assignedDescriptor.keys = uniqueArray(assignedDescriptor.details.map(detail => detail.key))
+  assignedDescriptor.references = uniqueArray(assignedDescriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
+  assignedDescriptor.isArray = assignedDescriptor.length
+    ? assignedDescriptor.details.every(detail => (typeof detail.key === 'number'))
+    : assignedDescriptor.isArray
   assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
   return assignedDescriptor
 }, cloneDescriptor(originalMap))
@@ -146,37 +141,34 @@ export const assignDescriptor = (originalMap, ...descriptors) => descriptors.red
  * @returns {module:descriptorSamples~descriptor}
  */
 export const describeObject = object => {
-  const descriptor = reduceObject(
-    object,
-    (descriptor, value, key) => {
-      if (typeof key === 'number' && descriptor.details.length) {
-        const type = (typeof value)
-        const isReference = (type === 'object' && value !== null)
-        if (value !== null) {
-          descriptor.details[0].type = uniqueArray([...descriptor.details[0].type, type])
-        }
-        descriptor.details[0].value = uniqueArray([...descriptor.details[0].value, value])
-        descriptor.details[0].nullable = descriptor.details[0].nullable || value === null
-        descriptor.details[0].isReference = descriptor.details[0].isReference || isReference
-        ++descriptor.length
-        return descriptor
+  const descriptor = {
+    index: 0,
+    details: [],
+    length: 0,
+    keys: [],
+    references: [],
+    isArray: false,
+    complete: false
+  }
+  const keys = objectKeys(object)
+  for (let i = 0; i < keys.length; ++i) {
+    const key = keys[i]
+    const newDetail = describeObjectDetail(object[key], key, descriptor.length++)
+    if (typeof key === 'number' && descriptor.details.length) {
+      descriptor.details[0] = assignDescriptorDetail(descriptor.details[0], newDetail)
+      descriptor.keys = [0]
+      if (newDetail.isReference) {
+        descriptor.references = [0]
       }
-      descriptor.details = [...descriptor.details, describeObjectDetail(value, key, descriptor.length++)]
-      return descriptor
-    },
-    {
-      index: 0,
-      details: [],
-      length: 0,
-      keys: [],
-      references: [],
-      isArray: false,
-      complete: false
+      continue
     }
-  )
-  descriptor.keys = descriptorKeys(descriptor)
-  descriptor.references = descriptorReferences(descriptor)
-  descriptor.isArray = Array.isArray(object) || descriptorIsArray(descriptor)
+    descriptor.details.push(newDetail)
+    descriptor.keys.push(newDetail.key)
+    if (newDetail.isReference) {
+      descriptor.references.push(newDetail.index)
+    }
+  }
+  descriptor.isArray = Array.isArray(object)
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
@@ -206,7 +198,7 @@ export const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.
 
 /**
  * Find the index of the next descriptorDetail to build a resource for.
- * @param {descriptor} descriptor
+ * @param {module:descriptorSamples~descriptor} descriptor
  * @param {number} currentReference
  * @returns {number|undefined}
  */
@@ -225,8 +217,8 @@ const nextReference = (descriptor, currentReference) => descriptor.references.fi
 
 /**
  * Check if the descriptors references have all been built and set complete to true if they have.
- * @param {descriptor} descriptor
- * @returns {descriptor}
+ * @param {module:descriptorSamples~descriptor} descriptor
+ * @returns {module:descriptorSamples~descriptor}
  */
 const checkDescriptorComplete = (descriptor) => setValue(
   'complete',
@@ -242,9 +234,9 @@ const checkDescriptorComplete = (descriptor) => setValue(
 
 /**
  * Check if we should clear the values on this descriptor
- * @param {descriptor} descriptor
+ * @param {module:descriptorSamples~descriptor} descriptor
  * @param {boolean} [keepValues=false]
- * @returns {descriptor}
+ * @returns {module:descriptorSamples~descriptor}
  */
 const checkClearValues = (descriptor, keepValues = false) => setValue(
   'details',
@@ -339,7 +331,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
  * @typedef {Object.<string, number|Object|Array>} referenceIdentifier
  * @property {number} index
  * @property {Array|Object} object
- * @property {descriptor} descriptor
+ * @property {module:descriptorSamples~descriptor} descriptor
  * @property {Array.<string|number>} references
  * @property {Array.<string|number>} circular
  */
@@ -361,7 +353,7 @@ const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}
 /**
  * Prepare to map over an object and return the callback that will be used for each reference.
  * @function
- * @param {descriptorMap} [descriptorMap=null]
+ * @param {module:descriptorSamples~descriptorMap} [descriptorMap=null]
  * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
@@ -373,7 +365,7 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
      * Map over the provided object and generate an array of cloned references.
      * @function
      * @param {Array|Object} focusObject
-     * @param {descriptor} descriptor
+     * @param {module:descriptorSamples~descriptor} descriptor
      * @param {number} index
      * @param {number|null} limit
      * @returns {Array.<referenceIdentifier>}

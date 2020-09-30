@@ -40,9 +40,9 @@ describe('objectKeys', () => {
     expect(helpers.objectKeys(newObject, true)).toEqual(['one', 'two'])
   })
 
-  test('will get numeric string keys from array', () => {
+  test('will get numeric keys from array', () => {
     const someArray = ['first', 'second']
-    expect(helpers.objectKeys(someArray)).toEqual(['0', '1'])
+    expect(helpers.objectKeys(someArray)).toEqual([0, 1])
   })
 
   test('will also get length property when inherited flag is set', () => {

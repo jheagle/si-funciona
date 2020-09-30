@@ -42,7 +42,7 @@ export const setAndReturnValue = (item, key, value) => {
  * Optional flag will include the inherited keys from prototype chain when set.
  * @param {Object|Array} object
  * @param {boolean} [includeInherited=false]
- * @returns {Array.<string>}
+ * @returns {Array.<string|number>}
  */
 export const objectKeys = (object, includeInherited = false) => {
   if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
@@ -57,6 +57,10 @@ export const objectKeys = (object, includeInherited = false) => {
   const keys = []
   for (const key in object) {
     if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
+      if (Array.isArray(object)) {
+        keys.push(parseInt(key))
+        continue
+      }
       keys.push(key)
     }
   }

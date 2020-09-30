@@ -372,7 +372,7 @@ describe('describeObject', () => {
     expect(descriptor.details[0]).toEqual({
       index: 0,
       key: 0,
-      type: ['string', 'number', 'boolean', 'undefined'],
+      type: ['string', 'number', 'boolean', 'object', 'undefined'],
       value: ['someString', 34, true, null, undefined],
       nullable: true,
       optional: false,

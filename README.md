@@ -429,7 +429,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
-        * [.objectKeys](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;string&gt;</code>
+        * [.objectKeys](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
         * [.objectValues](#module_objectHelpers.objectValues) ⇒ <code>Array</code>
         * [.isInstanceObject](#module_objectHelpers.isInstanceObject)
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
@@ -450,7 +450,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 <a name="module_objectHelpers.objectKeys"></a>
 
-### objectHelpers.objectKeys ⇒ <code>Array.&lt;string&gt;</code>
+### objectHelpers.objectKeys ⇒ <code>Array.&lt;(string\|number)&gt;</code>
 Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
 Optional flag will include the inherited keys from prototype chain when set.
 
@@ -776,13 +776,12 @@ Create a format to standarize every object into a specific template.
         * [.describeObjectMap(object, [options])](#module_objectDescriptors.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
         * [.mapOriginalObject([descriptorMap], [newReferenceMap], [options])](#module_objectDescriptors.mapOriginalObject) ⇒ <code>mapOriginal</code>
     * _inner_
-        * [~descriptorKeys(descriptor)](#module_objectDescriptors..descriptorKeys) ⇒ <code>Array.&lt;string&gt;</code>
-        * [~descriptorReferences(descriptor)](#module_objectDescriptors..descriptorReferences) ⇒ <code>Array.&lt;number&gt;</code>
-        * [~descriptorIsArray(descriptor)](#module_objectDescriptors..descriptorIsArray) ⇒ <code>boolean</code>
+        * [~cloneDescriptorDetail(originalDetail)](#module_objectDescriptors..cloneDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
         * [~cloneDescriptor(originalMap)](#module_objectDescriptors..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
+        * [~assignDescriptorDetail(originalDetail, ...details)](#module_objectDescriptors..assignDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
         * [~nextReference(descriptor, currentReference)](#module_objectDescriptors..nextReference) ⇒ <code>number</code> \| <code>undefined</code>
-        * [~checkDescriptorComplete(descriptor)](#module_objectDescriptors..checkDescriptorComplete) ⇒ <code>descriptor</code>
-        * [~checkClearValues(descriptor, [keepValues])](#module_objectDescriptors..checkClearValues) ⇒ <code>descriptor</code>
+        * [~checkDescriptorComplete(descriptor)](#module_objectDescriptors..checkDescriptorComplete) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
+        * [~checkClearValues(descriptor, [keepValues])](#module_objectDescriptors..checkClearValues) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [~createReferenceIdentifier([object], [index])](#module_objectDescriptors..createReferenceIdentifier) ⇒ <code>referenceIdentifier</code>
         * [~referenceIdentifier](#module_objectDescriptors..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
 
@@ -869,44 +868,22 @@ Prepare to map over an object and return the callback that will be used for each
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [descriptorMap] | <code>descriptorMap</code> | <code></code> | 
+| [descriptorMap] | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) | <code></code> | 
 | [newReferenceMap] | <code>Array.&lt;referenceIdentifier&gt;</code> | <code>[]</code> | 
 | [options] | <code>Object</code> | <code>{}</code> | 
 | [options.mapLimit] | <code>number</code> | <code>1000</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
-<a name="module_objectDescriptors..descriptorKeys"></a>
+<a name="module_objectDescriptors..cloneDescriptorDetail"></a>
 
-### objectDescriptors~descriptorKeys(descriptor) ⇒ <code>Array.&lt;string&gt;</code>
-Build an array of all keys from the details of this descriptor.
-
-**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
-
-| Param | Type |
-| --- | --- |
-| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
-
-<a name="module_objectDescriptors..descriptorReferences"></a>
-
-### objectDescriptors~descriptorReferences(descriptor) ⇒ <code>Array.&lt;number&gt;</code>
-Create an array of the indexes in the details that contain references.
+### objectDescriptors~cloneDescriptorDetail(originalDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
+Get a new copy of an existing Descriptor Detail
 
 **Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
-
-<a name="module_objectDescriptors..descriptorIsArray"></a>
-
-### objectDescriptors~descriptorIsArray(descriptor) ⇒ <code>boolean</code>
-Check based on the detail keys if this descriptor represents an array.
-
-**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
-
-| Param | Type |
-| --- | --- |
-| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
+| originalDetail | [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail) | 
 
 <a name="module_objectDescriptors..cloneDescriptor"></a>
 
@@ -919,6 +896,18 @@ Make a copy of an object descriptor so that the original will not be mutated.
 | --- | --- |
 | originalMap | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
+<a name="module_objectDescriptors..assignDescriptorDetail"></a>
+
+### objectDescriptors~assignDescriptorDetail(originalDetail, ...details) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
+Assign properties from other details onto an existing detail.
+
+**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+
+| Param | Type |
+| --- | --- |
+| originalDetail | [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail) | 
+| ...details | [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail) | 
+
 <a name="module_objectDescriptors..nextReference"></a>
 
 ### objectDescriptors~nextReference(descriptor, currentReference) ⇒ <code>number</code> \| <code>undefined</code>
@@ -928,30 +917,30 @@ Find the index of the next descriptorDetail to build a resource for.
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 | currentReference | <code>number</code> | 
 
 <a name="module_objectDescriptors..checkDescriptorComplete"></a>
 
-### objectDescriptors~checkDescriptorComplete(descriptor) ⇒ <code>descriptor</code>
+### objectDescriptors~checkDescriptorComplete(descriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
 Check if the descriptors references have all been built and set complete to true if they have.
 
 **Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| descriptor | <code>descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 
 <a name="module_objectDescriptors..checkClearValues"></a>
 
-### objectDescriptors~checkClearValues(descriptor, [keepValues]) ⇒ <code>descriptor</code>
+### objectDescriptors~checkClearValues(descriptor, [keepValues]) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
 Check if we should clear the values on this descriptor
 
 **Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| descriptor | <code>descriptor</code> |  | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) |  | 
 | [keepValues] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_objectDescriptors..createReferenceIdentifier"></a>
@@ -976,7 +965,7 @@ Create a referenceIdentifier for building the object clone.
 | --- | --- |
 | index | <code>number</code> | 
 | object | <code>Array</code> \| <code>Object</code> | 
-| descriptor | <code>descriptor</code> | 
+| descriptor | [<code>descriptor</code>](#module_descriptorSamples..descriptor) | 
 | references | <code>Array.&lt;(string\|number)&gt;</code> | 
 | circular | <code>Array.&lt;(string\|number)&gt;</code> | 
 
