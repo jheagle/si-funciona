@@ -353,30 +353,29 @@ const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}
 /**
  * Prepare to map over an object and return the callback that will be used for each reference.
  * @function
- * @param {module:descriptorSamples~descriptorMap} [descriptorMap=null]
  * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {mapOriginal}
  */
-export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { mapLimit = 1000, depthLimit = -1 } = {}) => {
+export const mapOriginalObject = (newReferenceMap = [], { mapLimit = 1000, depthLimit = -1 } = {}) => {
   /**
      * Map over the provided object and generate an array of cloned references.
      * @function
      * @param {Array|Object} focusObject
-     * @param {module:descriptorSamples~descriptor} descriptor
      * @param {number} index
      * @param {number|null} limit
      * @returns {Array.<referenceIdentifier>}
      */
-  const mapOriginal = (focusObject, descriptor, index = 0, limit = null) => {
+  const mapOriginal = (focusObject, index = 0, limit = null) => {
     if (limit === null) {
       limit = depthLimit
     }
     if (!newReferenceMap[index]) {
       newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
     }
+    const descriptor = describeObject(focusObject)
     let skip = limit === 0
     if (descriptor.isArray && Array.isArray(focusObject)) {
       const detail = descriptor.details[0]
@@ -411,19 +410,14 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
       }, {})
     }
     return newReferenceMap[index].references.reduce((newRef, key) => {
-      const detail = descriptor.isArray
-        ? descriptor.details[0]
-        : descriptor.details.find(detail => detail.key === key)
       const newRefIndex = newReferenceMap.length
       const objectToRef = focusObject[key]
-      if (detail.circular) {
-        const tempDescriptor = describeObject(objectToRef)
-        const existingIndex = newReferenceMap.findIndex(existing => sameDescriptor(tempDescriptor, existing.descriptor))
-        if (existingIndex >= 0) {
-          newRef.object[key] = existingIndex
-          newRef.circular.push(key)
-          return newRef
-        }
+      const tempDescriptor = describeObject(objectToRef)
+      const existingIndex = newReferenceMap.findIndex(existing => sameDescriptor(tempDescriptor, existing.descriptor))
+      if (existingIndex >= 0) {
+        newRef.object[key] = existingIndex
+        newRef.circular.push(key)
+        return newRef
       }
       if (newRefIndex >= mapLimit) {
         newRef.object[key] = Array.isArray(focusObject[key]) ? [] : {}
@@ -432,12 +426,8 @@ export const mapOriginalObject = (descriptorMap = null, newReferenceMap = [], { 
       if (limit === 0) {
         return newReferenceMap[index]
       }
-      newReferenceMap[newRefIndex] = createReferenceIdentifier(focusObject[key], newRefIndex)
       newRef.object[key] = newRefIndex
-      const descriptorRefIndex = (Array.isArray(objectToRef) && detail.arrayReference !== null)
-        ? detail.arrayReference
-        : detail.objectReference
-      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
+      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, newRef.object[key], --limit)
       return newRef
     }, newReferenceMap[index])
   }

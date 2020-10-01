@@ -279,25 +279,19 @@ exports.emptyObject = emptyObject
 
 var cloneObject = function cloneObject (object) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref$descriptorMap = _ref.descriptorMap
-  var descriptorMap = _ref$descriptorMap === void 0 ? [] : _ref$descriptorMap
   var _ref$mapLimit = _ref.mapLimit
   var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
 
-  if (!descriptorMap.length) {
-    descriptorMap = (0, _descriptors.describeObjectMap)(object, {
-      mapLimit: mapLimit,
-      depthLimit: depthLimit
-    })
-  }
-
+  // if (!descriptorMap.length) {
+  //   descriptorMap = describeObjectMap(object, { mapLimit, depthLimit })
+  // }
   var newReferenceMap = []
-  newReferenceMap[0] = (0, _descriptors.mapOriginalObject)(descriptorMap, newReferenceMap, {
+  newReferenceMap[0] = (0, _descriptors.mapOriginalObject)(newReferenceMap, {
     mapLimit: mapLimit,
     depthLimit: depthLimit
-  })(object, descriptorMap[0])
+  })(object)
   return (0, _descriptors.assignNewReferences)(newReferenceMap)(newReferenceMap[0])
 }
 /**

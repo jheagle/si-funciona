@@ -213,12 +213,12 @@ export const emptyObject = item => !objectKeys(item).length
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
-export const cloneObject = (object, { descriptorMap = [], mapLimit = 1000, depthLimit = -1 } = {}) => {
-  if (!descriptorMap.length) {
-    descriptorMap = describeObjectMap(object, { mapLimit, depthLimit })
-  }
+export const cloneObject = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
+  // if (!descriptorMap.length) {
+  //   descriptorMap = describeObjectMap(object, { mapLimit, depthLimit })
+  // }
   const newReferenceMap = []
-  newReferenceMap[0] = mapOriginalObject(descriptorMap, newReferenceMap, { mapLimit, depthLimit })(object, descriptorMap[0])
+  newReferenceMap[0] = mapOriginalObject(newReferenceMap, { mapLimit, depthLimit })(object)
   return assignNewReferences(newReferenceMap)(newReferenceMap[0])
 }
 

@@ -774,7 +774,7 @@ Create a format to standarize every object into a specific template.
         * [.describeObject(object)](#module_objectDescriptors.describeObject) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [.compareDescriptor(descriptor1, descriptor2)](#module_objectDescriptors.compareDescriptor) ⇒ <code>boolean</code>
         * [.describeObjectMap(object, [options])](#module_objectDescriptors.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
-        * [.mapOriginalObject([descriptorMap], [newReferenceMap], [options])](#module_objectDescriptors.mapOriginalObject) ⇒ <code>mapOriginal</code>
+        * [.mapOriginalObject([newReferenceMap], [options])](#module_objectDescriptors.mapOriginalObject) ⇒ <code>mapOriginal</code>
     * _inner_
         * [~cloneDescriptorDetail(originalDetail)](#module_objectDescriptors..cloneDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
         * [~cloneDescriptor(originalMap)](#module_objectDescriptors..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
@@ -861,14 +861,13 @@ Trace out the entire object including nested objects.
 
 <a name="module_objectDescriptors.mapOriginalObject"></a>
 
-### objectDescriptors.mapOriginalObject([descriptorMap], [newReferenceMap], [options]) ⇒ <code>mapOriginal</code>
+### objectDescriptors.mapOriginalObject([newReferenceMap], [options]) ⇒ <code>mapOriginal</code>
 Prepare to map over an object and return the callback that will be used for each reference.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [descriptorMap] | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) | <code></code> | 
 | [newReferenceMap] | <code>Array.&lt;referenceIdentifier&gt;</code> | <code>[]</code> | 
 | [options] | <code>Object</code> | <code>{}</code> | 
 | [options.mapLimit] | <code>number</code> | <code>1000</code> | 

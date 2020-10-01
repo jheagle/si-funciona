@@ -509,7 +509,6 @@ var createReferenceIdentifier = function createReferenceIdentifier () {
 /**
  * Prepare to map over an object and return the callback that will be used for each reference.
  * @function
- * @param {module:descriptorSamples~descriptorMap} [descriptorMap=null]
  * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
@@ -518,10 +517,9 @@ var createReferenceIdentifier = function createReferenceIdentifier () {
  */
 
 var mapOriginalObject = function mapOriginalObject () {
-  var descriptorMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
-  var newReferenceMap = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  var newReferenceMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
 
-  var _ref2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
   var _ref2$mapLimit = _ref2.mapLimit
   var mapLimit = _ref2$mapLimit === void 0 ? 1000 : _ref2$mapLimit
   var _ref2$depthLimit = _ref2.depthLimit
@@ -531,14 +529,13 @@ var mapOriginalObject = function mapOriginalObject () {
      * Map over the provided object and generate an array of cloned references.
      * @function
      * @param {Array|Object} focusObject
-     * @param {module:descriptorSamples~descriptor} descriptor
      * @param {number} index
      * @param {number|null} limit
      * @returns {Array.<referenceIdentifier>}
      */
-  var mapOriginal = function mapOriginal (focusObject, descriptor) {
-    var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
-    var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null
+  var mapOriginal = function mapOriginal (focusObject) {
+    var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
 
     if (limit === null) {
       limit = depthLimit
@@ -548,6 +545,7 @@ var mapOriginalObject = function mapOriginalObject () {
       newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
     }
 
+    var descriptor = describeObject(focusObject)
     var skip = limit === 0
 
     if (descriptor.isArray && Array.isArray(focusObject)) {
@@ -591,23 +589,17 @@ var mapOriginalObject = function mapOriginalObject () {
     }
 
     return newReferenceMap[index].references.reduce(function (newRef, key) {
-      var detail = descriptor.isArray ? descriptor.details[0] : descriptor.details.find(function (detail) {
-        return detail.key === key
-      })
       var newRefIndex = newReferenceMap.length
       var objectToRef = focusObject[key]
+      var tempDescriptor = describeObject(objectToRef)
+      var existingIndex = newReferenceMap.findIndex(function (existing) {
+        return sameDescriptor(tempDescriptor, existing.descriptor)
+      })
 
-      if (detail.circular) {
-        var tempDescriptor = describeObject(objectToRef)
-        var existingIndex = newReferenceMap.findIndex(function (existing) {
-          return sameDescriptor(tempDescriptor, existing.descriptor)
-        })
-
-        if (existingIndex >= 0) {
-          newRef.object[key] = existingIndex
-          newRef.circular.push(key)
-          return newRef
-        }
+      if (existingIndex >= 0) {
+        newRef.object[key] = existingIndex
+        newRef.circular.push(key)
+        return newRef
       }
 
       if (newRefIndex >= mapLimit) {
@@ -619,10 +611,8 @@ var mapOriginalObject = function mapOriginalObject () {
         return newReferenceMap[index]
       }
 
-      newReferenceMap[newRefIndex] = createReferenceIdentifier(focusObject[key], newRefIndex)
       newRef.object[key] = newRefIndex
-      var descriptorRefIndex = Array.isArray(objectToRef) && detail.arrayReference !== null ? detail.arrayReference : detail.objectReference
-      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, descriptorMap[descriptorRefIndex], newRef.object[key], --limit)
+      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, newRef.object[key], --limit)
       return newRef
     }, newReferenceMap[index])
   }
