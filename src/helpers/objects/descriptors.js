@@ -7,7 +7,14 @@
 
 import 'core-js/stable'
 import { compareArrays, uniqueArray } from '../arrays'
-import { isInstanceObject, emptyObject, objectKeys, reduceObject, setValue } from '../objects'
+import { isInstanceObject, emptyObject, objectKeys, setValue } from '../objects'
+
+/**
+ * Determine if the value is a reference instance
+ * @param {Array|Object|*} value
+ * @returns {boolean}
+ */
+const isReferenceObject = value => typeof value === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
 
 /**
  * Trace an object's attribute and provide details about it.
@@ -19,7 +26,6 @@ import { isInstanceObject, emptyObject, objectKeys, reduceObject, setValue } fro
  */
 export const describeObjectDetail = (value, key = 0, index = 0) => {
   const type = (typeof value)
-  const isInstance = isInstanceObject(value)
   return {
     index: index,
     key: key,
@@ -28,8 +34,8 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: (type === 'object' && value !== null && !isInstance && !emptyObject(value)),
-    isInstance: isInstance,
+    isReference: isReferenceObject(value),
+    isInstance: isInstanceObject(value),
     arrayReference: null,
     objectReference: null
   }
@@ -345,7 +351,7 @@ export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, ke
 const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}, {
   index: index,
   object: object,
-  descriptor: describeObject(object || {}),
+  original: object,
   references: [],
   circular: []
 })
@@ -375,45 +381,43 @@ export const mapOriginalObject = (newReferenceMap = [], { mapLimit = 1000, depth
     if (!newReferenceMap[index]) {
       newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
     }
-    const descriptor = describeObject(focusObject)
     let skip = limit === 0
-    if (descriptor.isArray && Array.isArray(focusObject)) {
-      const detail = descriptor.details[0]
+    if (Array.isArray(focusObject)) {
       newReferenceMap[index].object = focusObject.map((item, id) => {
-        if (!detail.isReference) {
+        const isReference = isReferenceObject(item)
+        if (!isReference) {
           return item
         }
         skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (detail.isReference && !emptyObject(item) && !skip) {
+        if (isReference && !emptyObject(item) && !skip) {
           newReferenceMap[index].references.push(id)
           return null
         }
         return Array.isArray(item) ? [] : {}
       }, [])
     } else {
-      newReferenceMap[index].object = descriptor.details.reduce((newRef, detail) => {
-        if (!(detail.key in focusObject)) {
+      newReferenceMap[index].object = objectKeys(focusObject).reduce((newRef, key) => {
+        if (!(key in focusObject)) {
           return newRef
         }
-        if (typeof focusObject[detail.key] !== 'object' || focusObject[detail.key] === null || detail.isInstance) {
-          newRef[detail.key] = focusObject[detail.key]
+        if (typeof focusObject[key] !== 'object' || focusObject[key] === null || isInstanceObject(focusObject[key])) {
+          newRef[key] = focusObject[key]
           return newRef
         }
         skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (detail.isReference && !emptyObject(focusObject[detail.key]) && !skip) {
-          newReferenceMap[index].references.push(detail.key)
-          newRef[detail.key] = null
+        if (isReferenceObject(focusObject[key]) && !emptyObject(focusObject[key]) && !skip) {
+          newReferenceMap[index].references.push(key)
+          newRef[key] = null
           return newRef
         }
-        newRef[detail.key] = Array.isArray(focusObject[detail.key]) ? [] : {}
+        newRef[key] = Array.isArray(focusObject[key]) ? [] : {}
         return newRef
       }, {})
     }
     return newReferenceMap[index].references.reduce((newRef, key) => {
       const newRefIndex = newReferenceMap.length
       const objectToRef = focusObject[key]
-      const tempDescriptor = describeObject(objectToRef)
-      const existingIndex = newReferenceMap.findIndex(existing => sameDescriptor(tempDescriptor, existing.descriptor))
+      const existingIndex = newReferenceMap.findIndex(existing => objectToRef === existing.original)
       if (existingIndex >= 0) {
         newRef.object[key] = existingIndex
         newRef.circular.push(key)

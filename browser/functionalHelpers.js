@@ -1022,6 +1022,14 @@
     function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
     /**
+ * Determine if the value is a reference instance
+ * @param {Array|Object|*} value
+ * @returns {boolean}
+ */
+    var isReferenceObject = function isReferenceObject (value) {
+      return _typeof(value) === 'object' && value !== null && !(0, _objects.isInstanceObject)(value) && !(0, _objects.emptyObject)(value)
+    }
+    /**
  * Trace an object's attribute and provide details about it.
  * @function
  * @param {*} value
@@ -1029,13 +1037,13 @@
  * @param {number} [index=0]
  * @returns {module:descriptorSamples~descriptorDetail}
  */
+
     var describeObjectDetail = function describeObjectDetail (value) {
       var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
       var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
 
       var type = _typeof(value)
 
-      var isInstance = (0, _objects.isInstanceObject)(value)
       return {
         index: index,
         key: key,
@@ -1044,8 +1052,8 @@
         nullable: value === null,
         optional: false,
         circular: false,
-        isReference: type === 'object' && value !== null && !isInstance && !(0, _objects.emptyObject)(value),
-        isInstance: isInstance,
+        isReference: isReferenceObject(value),
+        isInstance: (0, _objects.isInstanceObject)(value),
         arrayReference: null,
         objectReference: null
       }
@@ -1449,7 +1457,7 @@
       return Object.assign({}, {
         index: index,
         object: object,
-        descriptor: describeObject(object || {}),
+        original: object,
         references: [],
         circular: []
       })
@@ -1493,19 +1501,19 @@
           newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
         }
 
-        var descriptor = describeObject(focusObject)
         var skip = limit === 0
 
-        if (descriptor.isArray && Array.isArray(focusObject)) {
-          var detail = descriptor.details[0]
+        if (Array.isArray(focusObject)) {
           newReferenceMap[index].object = focusObject.map(function (item, id) {
-            if (!detail.isReference) {
+            var isReference = isReferenceObject(item)
+
+            if (!isReference) {
               return item
             }
 
             skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-            if (detail.isReference && !(0, _objects.emptyObject)(item) && !skip) {
+            if (isReference && !(0, _objects.emptyObject)(item) && !skip) {
               newReferenceMap[index].references.push(id)
               return null
             }
@@ -1513,25 +1521,25 @@
             return Array.isArray(item) ? [] : {}
           }, [])
         } else {
-          newReferenceMap[index].object = descriptor.details.reduce(function (newRef, detail) {
-            if (!(detail.key in focusObject)) {
+          newReferenceMap[index].object = (0, _objects.objectKeys)(focusObject).reduce(function (newRef, key) {
+            if (!(key in focusObject)) {
               return newRef
             }
 
-            if (_typeof(focusObject[detail.key]) !== 'object' || focusObject[detail.key] === null || detail.isInstance) {
-              newRef[detail.key] = focusObject[detail.key]
+            if (_typeof(focusObject[key]) !== 'object' || focusObject[key] === null || (0, _objects.isInstanceObject)(focusObject[key])) {
+              newRef[key] = focusObject[key]
               return newRef
             }
 
             skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
 
-            if (detail.isReference && !(0, _objects.emptyObject)(focusObject[detail.key]) && !skip) {
-              newReferenceMap[index].references.push(detail.key)
-              newRef[detail.key] = null
+            if (isReferenceObject(focusObject[key]) && !(0, _objects.emptyObject)(focusObject[key]) && !skip) {
+              newReferenceMap[index].references.push(key)
+              newRef[key] = null
               return newRef
             }
 
-            newRef[detail.key] = Array.isArray(focusObject[detail.key]) ? [] : {}
+            newRef[key] = Array.isArray(focusObject[key]) ? [] : {}
             return newRef
           }, {})
         }
@@ -1539,9 +1547,8 @@
         return newReferenceMap[index].references.reduce(function (newRef, key) {
           var newRefIndex = newReferenceMap.length
           var objectToRef = focusObject[key]
-          var tempDescriptor = describeObject(objectToRef)
           var existingIndex = newReferenceMap.findIndex(function (existing) {
-            return sameDescriptor(tempDescriptor, existing.descriptor)
+            return objectToRef === existing.original
           })
 
           if (existingIndex >= 0) {

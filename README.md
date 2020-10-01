@@ -776,6 +776,7 @@ Create a format to standarize every object into a specific template.
         * [.describeObjectMap(object, [options])](#module_objectDescriptors.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap)
         * [.mapOriginalObject([newReferenceMap], [options])](#module_objectDescriptors.mapOriginalObject) ⇒ <code>mapOriginal</code>
     * _inner_
+        * [~isReferenceObject(value)](#module_objectDescriptors..isReferenceObject) ⇒ <code>boolean</code>
         * [~cloneDescriptorDetail(originalDetail)](#module_objectDescriptors..cloneDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
         * [~cloneDescriptor(originalMap)](#module_objectDescriptors..cloneDescriptor) ⇒ [<code>descriptor</code>](#module_descriptorSamples..descriptor)
         * [~assignDescriptorDetail(originalDetail, ...details)](#module_objectDescriptors..assignDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_descriptorSamples..descriptorDetail)
@@ -872,6 +873,17 @@ Prepare to map over an object and return the callback that will be used for each
 | [options] | <code>Object</code> | <code>{}</code> | 
 | [options.mapLimit] | <code>number</code> | <code>1000</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
+
+<a name="module_objectDescriptors..isReferenceObject"></a>
+
+### objectDescriptors~isReferenceObject(value) ⇒ <code>boolean</code>
+Determine if the value is a reference instance
+
+**Kind**: inner method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+
+| Param | Type |
+| --- | --- |
+| value | <code>Array</code> \| <code>Object</code> \| <code>\*</code> | 
 
 <a name="module_objectDescriptors..cloneDescriptorDetail"></a>
 
