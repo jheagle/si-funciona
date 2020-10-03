@@ -244,11 +244,11 @@ const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}
  * @function
  * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {mapOriginal}
  */
-export const mapOriginalObject = (newReferenceMap = [], { mapLimit = 1000, depthLimit = -1 } = {}) => {
+export const mapOriginalObject = (newReferenceMap = [], { mapLimit = 1000000000, depthLimit = -1 } = {}) => {
   /**
      * Map over the provided object and generate an array of cloned references.
      * @function
@@ -343,14 +343,11 @@ export const assignNewReferences = (newReferenceMap = []) => {
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {module:descriptorSamples~descriptorMap} options.descriptorMap - The map of the object
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 1000, depthLimit = -1 } = {}) => {
-  // if (!descriptorMap.length) {
-  //   descriptorMap = describeObjectMap(object, { mapLimit, depthLimit })
-  // }
+export const cloneObject = (object, { mapLimit = 1000000000, depthLimit = -1 } = {}) => {
   const newReferenceMap = []
   newReferenceMap[0] = mapOriginalObject(newReferenceMap, { mapLimit, depthLimit })(object)
   return assignNewReferences(newReferenceMap)(newReferenceMap[0])

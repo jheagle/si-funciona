@@ -896,7 +896,7 @@
  * @function
  * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {mapOriginal}
  */
@@ -906,7 +906,7 @@
 
       var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
       var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+      var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
       var _ref$depthLimit = _ref.depthLimit
       var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
 
@@ -1026,7 +1026,7 @@
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {module:descriptorSamples~descriptorMap} options.descriptorMap - The map of the object
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
@@ -1036,13 +1036,10 @@
     var cloneObject = function cloneObject (object) {
       var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
       var _ref2$mapLimit = _ref2.mapLimit
-      var mapLimit = _ref2$mapLimit === void 0 ? 1000 : _ref2$mapLimit
+      var mapLimit = _ref2$mapLimit === void 0 ? 1000000000 : _ref2$mapLimit
       var _ref2$depthLimit = _ref2.depthLimit
       var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
 
-      // if (!descriptorMap.length) {
-      //   descriptorMap = describeObjectMap(object, { mapLimit, depthLimit })
-      // }
       var newReferenceMap = []
       newReferenceMap[0] = mapOriginalObject(newReferenceMap, {
         mapLimit: mapLimit,
@@ -1493,7 +1490,7 @@
  * @function
  * @param {Object|Array} object
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {number} [options.depthLimit=-1]
  * @param {boolean} [options.keepValues=false]
  * @returns {module:descriptorSamples~descriptorMap}
@@ -1502,7 +1499,7 @@
     var describeObjectMap = function describeObjectMap (object) {
       var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
       var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+      var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
       var _ref$depthLimit = _ref.depthLimit
       var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
       var _ref$keepValues = _ref.keepValues

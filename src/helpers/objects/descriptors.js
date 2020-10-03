@@ -252,12 +252,12 @@ const checkClearValues = (descriptor, keepValues = false) => setValue(
  * @function
  * @param {Object|Array} object
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {number} [options.depthLimit=-1]
  * @param {boolean} [options.keepValues=false]
  * @returns {module:descriptorSamples~descriptorMap}
  */
-export const describeObjectMap = (object, { mapLimit = 1000, depthLimit = -1, keepValues = false } = {}) => {
+export const describeObjectMap = (object, { mapLimit = 1000000000, depthLimit = -1, keepValues = false } = {}) => {
   const descriptorMap = [describeObject(object)]
   descriptorMap[0].index = 0
   const describeReferences = (descriptor, currentDetail, limit = -1, returnCallback = returnMap => returnMap) => {

@@ -375,7 +375,7 @@ var checkClearValues = function checkClearValues (descriptor) {
  * @function
  * @param {Object|Array} object
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.mapLimit=1000000000]
  * @param {number} [options.depthLimit=-1]
  * @param {boolean} [options.keepValues=false]
  * @returns {module:descriptorSamples~descriptorMap}
@@ -384,7 +384,7 @@ var checkClearValues = function checkClearValues (descriptor) {
 var describeObjectMap = function describeObjectMap (object) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
   var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
   var _ref$keepValues = _ref.keepValues
