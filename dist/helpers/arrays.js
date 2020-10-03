@@ -49,8 +49,6 @@ var _functions = require('./functions')
 
 var _objects = require('./objects')
 
-var _descriptors = require('./objects/descriptors')
-
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
@@ -74,19 +72,9 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @returns {Array.<*>}
  */
 var buildArrayBase = (function () {
-  var currentItem = null
-  var descriptorMap = []
   return function (useReference, item, length) {
     var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
-
-    if (currentItem !== item) {
-      currentItem = item
-      descriptorMap = useReference ? [] : (0, _descriptors.describeObjectMap)(item)
-    }
-
-    item = useReference ? item : (0, _objects.cloneObject)(item, {
-      descriptorMap: descriptorMap
-    })
+    item = useReference ? item : (0, _objects.cloneObject)(item)
     return --length > 0 ? buildArrayBase(useReference, item, length, [].concat(_toConsumableArray(arr), [item])) : [].concat(_toConsumableArray(arr), [item])
   }
 }())

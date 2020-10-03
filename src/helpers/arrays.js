@@ -9,7 +9,6 @@
 import 'core-js/stable'
 import { curry } from './functions'
 import { cloneObject } from './objects'
-import { describeObjectMap } from './objects/descriptors'
 
 /**
  * Generate an array filled with a copy of the provided item or references to the provided item.
@@ -21,20 +20,13 @@ import { describeObjectMap } from './objects/descriptors'
  * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-const buildArrayBase = (() => {
-  let currentItem = null
-  let descriptorMap = []
-  return (useReference, item, length, arr = []) => {
-    if (currentItem !== item) {
-      currentItem = item
-      descriptorMap = useReference ? [] : describeObjectMap(item)
-    }
-    item = useReference ? item : cloneObject(item, { descriptorMap: descriptorMap })
-    return --length > 0
-      ? buildArrayBase(useReference, item, length, [...arr, item])
-      : [...arr, item]
-  }
-})()
+const buildArrayBase = (() => (useReference, item, length, arr = []) => {
+  item = useReference ? item : cloneObject(item)
+  return --length > 0
+    ? buildArrayBase(useReference, item, length, [...arr, item])
+    : [...arr, item]
+}
+)()
 
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.

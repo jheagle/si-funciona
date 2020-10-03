@@ -148,6 +148,68 @@
 
         
             
+<h4 class="name" id=".assignNewReferences"><span class="type-signature">(static, constant) </span>assignNewReferences<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Take an array for reference identifiers and return a callback to build the final reference
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line323">line 323</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id=".isInstanceObject"><span class="type-signature">(static, constant) </span>isInstanceObject<span class="type-signature"></span></h4>
 
 
@@ -192,7 +254,69 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line79">line 79</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".isReferenceObject"><span class="type-signature">(static, constant) </span>isReferenceObject<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Determine if the value is a reference instance
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line210">line 210</a>
     </li></ul></dd>
     
 
@@ -255,7 +379,7 @@ Optional flag will include the inherited keys from prototype chain when set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line47">line 47</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -318,7 +442,7 @@ Optional flag will include the inherited values from prototype chain when set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line73">line 73</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -645,7 +769,7 @@ Optional flag will include the inherited values from prototype chain when set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line212">line 212</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -803,7 +927,7 @@ Optional flag will include the inherited values from prototype chain when set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line200">line 200</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -1043,7 +1167,7 @@ always use the standard filter() function when it is known that the object is ac
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line152">line 152</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -1286,7 +1410,7 @@ always use the standard map() function when it is known that the object is actua
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line108">line 108</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -1326,6 +1450,328 @@ always use the standard map() function when it is known that the object is actua
 |
 
 <span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".mapOriginalObject"><span class="type-signature">(static) </span>mapOriginalObject<span class="signature">(newReferenceMap<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {mapOriginal}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Prepare to map over an object and return the callback that will be used for each reference.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newReferenceMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;referenceIdentifier></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>mapLimit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>depthLimit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">depthLimit</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    -1
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line251">line 251</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">mapOriginal</span>
 
 
     </dd>
@@ -1496,7 +1942,7 @@ always use the standard map() function when it is known that the object is actua
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line127">line 127</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line130">line 130</a>
     </li></ul></dd>
     
 
@@ -1667,7 +2113,7 @@ object</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line256">line 256</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line394">line 394</a>
     </li></ul></dd>
     
 
@@ -1839,7 +2285,7 @@ object</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line273">line 273</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line411">line 411</a>
     </li></ul></dd>
     
 
@@ -2081,7 +2527,7 @@ array without an initial value is an error.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line187">line 187</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -2291,7 +2737,7 @@ array without an initial value is an error.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line35">line 35</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -2499,7 +2945,7 @@ NOTE: Argument order designed for usage with pipe
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line22">line 22</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2539,6 +2985,223 @@ NOTE: Argument order designed for usage with pipe
 |
 
 <span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~createReferenceIdentifier"><span class="type-signature">(inner) </span>createReferenceIdentifier<span class="signature">(object<span class="signature-attributes">opt</span>, index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {referenceIdentifier}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Create a referenceIdentifier for building the object clone.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line234">line 234</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">referenceIdentifier</span>
 
 
     </dd>
@@ -2738,7 +3401,7 @@ modify them</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line236">line 236</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line374">line 374</a>
     </li></ul></dd>
     
 
@@ -2775,6 +3438,161 @@ modify them</td>
     <dd>
         
 <span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~nonReference"><span class="type-signature">(inner) </span>nonReference<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if this value represents an object that needs to be used as a reference.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line217">line 217</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
     </dd>
@@ -2979,7 +3797,7 @@ otherwise, taking three arguments
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line132">line 132</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -3213,7 +4031,7 @@ otherwise, taking three arguments
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line89">line 89</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -3510,7 +4328,7 @@ value previously returned in the last invocation of the callback, or initialValu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line163">line 163</a>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line166">line 166</a>
     </li></ul></dd>
     
 
@@ -3559,6 +4377,224 @@ value previously returned in the last invocation of the callback, or initialValu
 
 
             
+                
+<h4 class="name" id="~referenceIdentifier">referenceIdentifier</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object.&lt;string, (number|Object|Array)></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>original</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>references</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;(string|number)></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>circular</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;(string|number)></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_objects.js.html">helpers/objects.js</a>, <a href="helpers_objects.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -3578,7 +4614,7 @@ value previously returned in the last invocation of the callback, or initialValu
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Mon Sep 28 2020 09:42:11 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 02 2020 22:43:08 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

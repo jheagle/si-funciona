@@ -144,72 +144,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".assignNewReferences"><span class="type-signature">(static, constant) </span>assignNewReferences<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Take an array for reference identifiers and return a callback to build the final reference
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line470">line 470</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -364,7 +298,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line95">line 95</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -542,7 +476,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line191">line 191</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line182">line 182</a>
     </li></ul></dd>
     
 
@@ -697,7 +631,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line148">line 148</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -1309,7 +1243,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line269">line 269</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -1363,7 +1297,7 @@
     
 
     
-    <h4 class="name" id=".mapOriginalObject"><span class="type-signature">(static) </span>mapOriginalObject<span class="signature">(descriptorMap<span class="signature-attributes">opt</span>, newReferenceMap<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {mapOriginal}</span></h4>
+    <h4 class="name" id="~assignDescriptorDetail"><span class="type-signature">(inner) </span>assignDescriptorDetail<span class="signature">(originalDetail, &hellip;details)</span><span class="type-signature"> &rarr; {<a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a>}</span></h4>
     
 
     
@@ -1371,7 +1305,7 @@
 
 
 <div class="description">
-    Prepare to map over an object and return the callback that will be used for each reference.
+    Assign properties from other details onto an existing detail.
 </div>
 
 
@@ -1399,8 +1333,6 @@
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -1411,13 +1343,13 @@
 
         <tr>
             
-                <td class="name"><code>descriptorMap</code></td>
+                <td class="name"><code>originalDetail</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">descriptorMap</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a></span>
 
 
             
@@ -1426,8 +1358,6 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
 
@@ -1435,12 +1365,6 @@
                 </td>
             
 
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
             
 
             <td class="description last"></td>
@@ -1450,13 +1374,13 @@
 
         <tr>
             
-                <td class="name"><code>newReferenceMap</code></td>
+                <td class="name"><code>details</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;referenceIdentifier></span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a></span>
 
 
             
@@ -1465,171 +1389,18 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
 
+                
+                    &lt;repeatable><br>
                 
                 </td>
             
 
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
             
 
             <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>mapLimit</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    1000
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>depthLimit</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">depthLimit</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    -1
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
         </tr>
 
     
@@ -1670,7 +1441,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line369">line 369</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -1706,7 +1477,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mapOriginal</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a></span>
 
 
     </dd>
@@ -1724,7 +1495,7 @@
     
 
     
-    <h4 class="name" id="~checkClearValues"><span class="type-signature">(inner) </span>checkClearValues<span class="signature">(descriptor, keepValues<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {descriptor}</span></h4>
+    <h4 class="name" id="~checkClearValues"><span class="type-signature">(inner) </span>checkClearValues<span class="signature">(descriptor, keepValues<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a>}</span></h4>
     
 
     
@@ -1778,7 +1549,7 @@
             <td class="type">
             
                 
-<span class="param-type">descriptor</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
             
@@ -1880,7 +1651,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line249">line 249</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -1916,7 +1687,7 @@
     </dt>
     <dd>
         
-<span class="param-type">descriptor</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
     </dd>
@@ -1934,7 +1705,7 @@
     
 
     
-    <h4 class="name" id="~checkDescriptorComplete"><span class="type-signature">(inner) </span>checkDescriptorComplete<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {descriptor}</span></h4>
+    <h4 class="name" id="~checkDescriptorComplete"><span class="type-signature">(inner) </span>checkDescriptorComplete<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {<a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a>}</span></h4>
     
 
     
@@ -1984,7 +1755,7 @@
             <td class="type">
             
                 
-<span class="param-type">descriptor</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
             
@@ -2035,7 +1806,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line231">line 231</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line222">line 222</a>
     </li></ul></dd>
     
 
@@ -2071,7 +1842,7 @@
     </dt>
     <dd>
         
-<span class="param-type">descriptor</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
     </dd>
@@ -2190,378 +1961,6 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line68">line 68</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~createReferenceIdentifier"><span class="type-signature">(inner) </span>createReferenceIdentifier<span class="signature">(object<span class="signature-attributes">opt</span>, index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {referenceIdentifier}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Create a referenceIdentifier for building the object clone.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line351">line 351</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">referenceIdentifier</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~descriptorIsArray"><span class="type-signature">(inner) </span>descriptorIsArray<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Check based on the detail keys if this descriptor represents an array.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>descriptor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
         <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line58">line 58</a>
     </li></ul></dd>
     
@@ -2598,7 +1997,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
     </dd>
@@ -2616,7 +2015,7 @@
     
 
     
-    <h4 class="name" id="~descriptorKeys"><span class="type-signature">(inner) </span>descriptorKeys<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    <h4 class="name" id="~cloneDescriptorDetail"><span class="type-signature">(inner) </span>cloneDescriptorDetail<span class="signature">(originalDetail)</span><span class="type-signature"> &rarr; {<a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a>}</span></h4>
     
 
     
@@ -2624,7 +2023,7 @@
 
 
 <div class="description">
-    Build an array of all keys from the details of this descriptor.
+    Get a new copy of an existing Descriptor Detail
 </div>
 
 
@@ -2660,13 +2059,13 @@
 
         <tr>
             
-                <td class="name"><code>descriptor</code></td>
+                <td class="name"><code>originalDetail</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a></span>
 
 
             
@@ -2717,7 +2116,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line44">line 44</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -2753,162 +2152,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;string></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~descriptorReferences"><span class="type-signature">(inner) </span>descriptorReferences<span class="signature">(descriptor)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Create an array of the indexes in the details that contain references.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>descriptor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;number></span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptorDetail">module:descriptorSamples~descriptorDetail</a></span>
 
 
     </dd>
@@ -2976,7 +2220,7 @@
             <td class="type">
             
                 
-<span class="param-type">descriptor</span>
+<span class="param-type"><a href="module-descriptorSamples.html#~descriptor">module:descriptorSamples~descriptor</a></span>
 
 
             
@@ -3050,7 +2294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line213">line 213</a>
+        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -3105,225 +2349,6 @@
     
 
     
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id="~referenceIdentifier">referenceIdentifier</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object.&lt;string, (number|Object|Array)></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>descriptor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">descriptor</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>references</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;(string|number)></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>circular</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;(string|number)></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_objects_descriptors.js.html">helpers/objects/descriptors.js</a>, <a href="helpers_objects_descriptors.js.html#line336">line 336</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-    
 
     
 </article>
@@ -3342,7 +2367,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Mon Sep 28 2020 09:42:11 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 02 2020 22:43:08 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

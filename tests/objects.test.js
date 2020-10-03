@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
+import { circularObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
@@ -94,7 +94,7 @@ describe('isInstanceObject', () => {
 
   test('declared class is an instance object', () => {
     class SampleClass {
-      construct () {
+      construct() {
         this.one = 'first'
         this.two = 'second'
       }
@@ -104,7 +104,7 @@ describe('isInstanceObject', () => {
 
   test('instatiated object is an instance object', () => {
     class SampleClass {
-      construct () {
+      construct() {
         this.one = 'first'
         this.two = 'second'
       }
@@ -161,6 +161,169 @@ describe('emptyObject', () => {
   test('returns true for null', () => {
     const testNull = null
     expect(helpers.emptyObject(testNull)).toBe(true)
+  })
+})
+
+describe('mapOriginalObject', () => {
+  test('builds simple array of reference identifiers', () => {
+    const someItem = { name: 'something', nested: { value: 'aValue' }, nested2: { nestedDeep: { nestedValue: 'bValue' } } }
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(someItem)
+    expect(newReferenceMap[0].object).toEqual({ name: 'something', nested: 1, nested2: 2 })
+    expect(newReferenceMap[1].object).toEqual({ value: 'aValue' })
+    expect(newReferenceMap[2].object).toEqual({ nestedDeep: 3 })
+    expect(newReferenceMap[3].object).toEqual({ nestedValue: 'bValue' })
+  })
+
+  test('builds circular reference array of identifiers for linked list', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(linkedList)
+    expect(newReferenceMap[0].object).toEqual({ name: 'one', prev: null, next: 1 })
+    expect(newReferenceMap[1].object).toEqual({ name: 'two', prev: 0, next: 2 })
+    expect(newReferenceMap[2].object).toEqual({ name: 'three', prev: 1, next: null })
+  })
+
+  test('builds circular reference array of identifiers for node tree', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(nodeTree)
+    expect(newReferenceMap[0].object).toEqual({ name: 'one', parent: null, children: 1 })
+    expect(newReferenceMap[1].object).toEqual([2, 5])
+    expect(newReferenceMap[2].object).toEqual({ name: 'child one', parent: 0, children: 3 })
+    expect(newReferenceMap[3].object).toEqual([4])
+    expect(newReferenceMap[4].object).toEqual({ name: 'grandchild one', parent: 2, children: [] })
+    expect(newReferenceMap[5].object).toEqual({ name: 'child two', parent: 0, children: [] })
+  })
+
+  test('array of domItems with child domItmes can be mapped', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(domItem)
+    expect(newReferenceMap[0].object).toEqual([1])
+    expect(newReferenceMap[1].object).toEqual({ attributes: 2, axis: 'y', children: 3, element: {}, eventListeners: {}, parentItem: {}, tagName: 'div' })
+    expect(newReferenceMap[2].object).toEqual({ className: 'row', style: {} })
+    expect(newReferenceMap[3].object).toEqual([4])
+    expect(newReferenceMap[4].object).toEqual({ attributes: 5, axis: 'x', children: [], element: {}, eventListeners: {}, parentItem: {}, tagName: 'div', hasShip: false, isHit: false, point: {} })
+    expect(newReferenceMap[5].object).toEqual({ style: {} })
+  })
+
+  test('object with nested instance object will just use instance', () => {
+    const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(instanceObject)
+    expect(newReferenceMap[0].object).toEqual(instanceObject)
+  })
+
+  test('multiple circular reference will be able to create reference map', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(circularObject)
+    expect(newReferenceMap[0].object).toEqual({ name: 'root', parent: {}, body: 1, head: 5, children: 9 })
+    expect(newReferenceMap[1].object).toEqual({ name: 'body', parent: 0, children: 2 })
+    expect(newReferenceMap[2].object).toEqual([3, 4])
+    expect(newReferenceMap[3].object).toEqual({ name: 'body child one', parent: 1, children: [] })
+    expect(newReferenceMap[4].object).toEqual({ name: 'body child two', parent: 1, children: [] })
+    expect(newReferenceMap[5].object).toEqual({ name: 'head', parent: 0, children: 6 })
+    expect(newReferenceMap[6].object).toEqual([7, 8])
+    expect(newReferenceMap[7].object).toEqual({ name: 'head child one', parent: 5, children: [] })
+    expect(newReferenceMap[8].object).toEqual({ name: 'head child two', parent: 5, children: [] })
+    expect(newReferenceMap[9].object).toEqual([1, 5])
+  })
+
+  test('multiple circuar reference with optional will skip when not found', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(circularObject.body)
+    expect(newReferenceMap[0].object).toEqual({ name: 'body', parent: 1, children: 7 })
+    expect(newReferenceMap[1].object).toEqual({ name: 'root', parent: {}, body: 0, head: 2, children: 6 })
+    expect(newReferenceMap[2].object).toEqual({ name: 'head', parent: 1, children: 3 })
+    expect(newReferenceMap[3].object).toEqual([4, 5])
+    expect(newReferenceMap[4].object).toEqual({ name: 'head child one', parent: 2, children: [] })
+    expect(newReferenceMap[5].object).toEqual({ name: 'head child two', parent: 2, children: [] })
+    expect(newReferenceMap[6].object).toEqual([0, 2])
+    expect(newReferenceMap[7].object).toEqual([8, 9])
+    expect(newReferenceMap[8].object).toEqual({ name: 'body child one', parent: 0, children: [] })
+    expect(newReferenceMap[9].object).toEqual({ name: 'body child two', parent: 0, children: [] })
+  })
+})
+
+describe('mapOriginalObject; with mapLimit', () => {
+  test('will limit a map to one', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 1 })(multiReferenceObject)
+    expect(newReferenceMap.length).toBe(1)
+  })
+
+  test('will limit a map to two', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 2 })(multiReferenceObject)
+    expect(newReferenceMap.length).toBe(2)
+  })
+
+  test('will limit a map to four, capturing three of the references', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 4 })(multiReferenceObject)
+    expect(newReferenceMap.length).toBe(4)
+  })
+
+  test('will limit a map by five which is the same as all references', () => {
+    const fullReferenceMap = []
+    fullReferenceMap[0] = helpers.mapOriginalObject(fullReferenceMap)(multiReferenceObject)
+    const limitFiveMap = []
+    limitFiveMap[0] = helpers.mapOriginalObject(limitFiveMap, { mapLimit: 5 })(multiReferenceObject)
+    expect(fullReferenceMap).toEqual(limitFiveMap)
+  })
+})
+
+describe('mapOriginalObject; with depthLimit', () => {
+  test('with depth limit zero will be the same as single descriptor within an array', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 0 })(deepReferenceObject)
+    expect(newReferenceMap.length).toBe(1)
+  })
+
+  test('with depth limit one will only include main descriptor and one nested object', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 1 })(deepReferenceObject)
+    expect(newReferenceMap.length).toBe(2)
+  })
+
+  test('with depth limit two will not include the array or object on depth of three', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 2 })(deepReferenceObject)
+    expect(newReferenceMap.length).toBe(3)
+  })
+
+  test('with depth limit three is the max depth of this object so it should result in the same as no limit', () => {
+    const fullReferenceMap = []
+    fullReferenceMap[0] = helpers.mapOriginalObject(fullReferenceMap)(deepReferenceObject)
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 3 })(deepReferenceObject)
+    expect(newReferenceMap.length).toBe(5)
+    expect(newReferenceMap).toEqual(fullReferenceMap)
+  })
+})
+
+describe('assignNewReferences', () => {
+  test('creates a new simple reference based on array of reference identifiers', () => {
+    const someItem = { name: 'something', nested: { value: 'aValue' }, nested2: { nestedDeep: { nestedValue: 'bValue' } } }
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(someItem)
+    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
+    expect(result).not.toBe(someItem)
+    expect(result).toEqual(someItem)
+  })
+
+  test('takes circular reference linked list identifiers and creates new reference', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(linkedList)
+    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
+    expect(result).not.toBe(linkedList)
+    expect(result).toEqual(linkedList)
+  })
+
+  test('takes circular reference node tree identifiers and creates new reference', () => {
+    const newReferenceMap = []
+    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(nodeTree)
+    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
+    expect(result).not.toBe(nodeTree)
+    expect(result).toEqual(nodeTree)
   })
 })
 
@@ -232,7 +395,7 @@ describe('cloneObject', () => {
 
   test('will use original nested instance in new clone', () => {
     class SomeObject {
-      construct () {
+      construct() {
         this.one = 'first'
         this.two = 'second'
       }
