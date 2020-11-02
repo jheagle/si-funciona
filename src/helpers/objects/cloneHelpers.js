@@ -84,7 +84,7 @@ export const findObjectReferences = referenceIdentifier => setValue(
 export const findReferenceKeys = (referenceMap = [], index = 0, maxDepth = false) => referenceMap[index].references.reduce(
   (newRef, key, i) => {
     const objectToRef = newRef.original[key]
-    const existingIndex = referenceMap.findIndex(existing => objectToRef === existing.original)
+    const existingIndex = referenceMap.findIndex(existing => existing && objectToRef === existing.original)
     if (existingIndex >= 0) {
       newRef.object[key] = existingIndex
       newRef.circular.push(key)

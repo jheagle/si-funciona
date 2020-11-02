@@ -155,7 +155,7 @@ var findReferenceKeys = function findReferenceKeys () {
   return referenceMap[index].references.reduce(function (newRef, key, i) {
     var objectToRef = newRef.original[key]
     var existingIndex = referenceMap.findIndex(function (existing) {
-      return objectToRef === existing.original
+      return existing && objectToRef === existing.original
     })
 
     if (existingIndex >= 0) {
