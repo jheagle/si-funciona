@@ -1918,36 +1918,37 @@
   }, { '../arrays': 1, '../objects': 4, 'core-js/modules/es.array.concat': 168, 'core-js/modules/es.array.every': 170, 'core-js/modules/es.array.filter': 172, 'core-js/modules/es.array.find': 174, 'core-js/modules/es.array.find-index': 173, 'core-js/modules/es.array.for-each': 177, 'core-js/modules/es.array.from': 178, 'core-js/modules/es.array.includes': 179, 'core-js/modules/es.array.iterator': 182, 'core-js/modules/es.array.map': 185, 'core-js/modules/es.array.reduce': 188, 'core-js/modules/es.array.slice': 190, 'core-js/modules/es.array.some': 191, 'core-js/modules/es.function.name': 205, 'core-js/modules/es.object.assign': 240, 'core-js/modules/es.object.to-string': 263, 'core-js/modules/es.regexp.to-string': 288, 'core-js/modules/es.string.includes': 300, 'core-js/modules/es.string.iterator': 302, 'core-js/modules/es.symbol': 326, 'core-js/modules/es.symbol.description': 322, 'core-js/modules/es.symbol.iterator': 325, 'core-js/modules/web.dom-collections.for-each': 372, 'core-js/modules/web.dom-collections.iterator': 373, 'core-js/stable': 380 }],
   7: [function (require, module, exports) {
     (function (global) {
-      'use strict'
+      (function () {
+        'use strict'
 
-      function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+        function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
-      require('core-js/modules/es.object.assign')
+        require('core-js/modules/es.object.assign')
 
-      Object.defineProperty(exports, '__esModule', {
-        value: true
-      })
-      exports.default = void 0
+        Object.defineProperty(exports, '__esModule', {
+          value: true
+        })
+        exports.default = void 0
 
-      require('core-js/stable')
+        require('core-js/stable')
 
-      var arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
+        var arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
 
-      var cloneHelpers = _interopRequireWildcard(require('./helpers/objects/cloneHelpers'))
+        var cloneHelpers = _interopRequireWildcard(require('./helpers/objects/cloneHelpers'))
 
-      var descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
+        var descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
 
-      var functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
+        var functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
 
-      var numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
+        var numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
 
-      var objectHelpers = _interopRequireWildcard(require('./helpers/objects'))
+        var objectHelpers = _interopRequireWildcard(require('./helpers/objects'))
 
-      function _getRequireWildcardCache () { if (typeof WeakMap !== 'function') return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache () { return cache }; return cache }
+        function _getRequireWildcardCache () { if (typeof WeakMap !== 'function') return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache () { return cache }; return cache }
 
-      function _interopRequireWildcard (obj) { if (obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj) } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
+        function _interopRequireWildcard (obj) { if (obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj) } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
 
-      /**
+        /**
  * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
@@ -1955,39 +1956,40 @@
  * @module functionalHelpers
  */
 
-      /**
+        /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-      var root = void 0 || window || global || {}
-      /**
+        var root = void 0 || window || global || {}
+        /**
    * Store reference to any pre-existing module of the same name
    * @type {module|*}
    */
 
-      var previousFunctionalHelpers = root.functionalHelpers || {}
-      /**
+        var previousFunctionalHelpers = root.functionalHelpers || {}
+        /**
    * All methods exported from this module are encapsulated within functionalHelpers.
    * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
    */
 
-      var functionalHelpers = {}
-      root.functionalHelpers = functionalHelpers
-      /**
+        var functionalHelpers = {}
+        root.functionalHelpers = functionalHelpers
+        /**
    * Return a reference to this library while preserving the original same-named library
    * @function
    * @returns {module:functionalHelpers~functionalHelpers}
    */
 
-      var noConflict = function noConflict () {
-        root.functionalHelpers = previousFunctionalHelpers
-        return functionalHelpers
-      }
+        var noConflict = function noConflict () {
+          root.functionalHelpers = previousFunctionalHelpers
+          return functionalHelpers
+        }
 
-      functionalHelpers.noConflict = noConflict
+        functionalHelpers.noConflict = noConflict
 
-      var _default = Object.assign(functionalHelpers, arrayHelpers, cloneHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
+        var _default = Object.assign(functionalHelpers, arrayHelpers, cloneHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
 
-      exports.default = _default
+        exports.default = _default
+      }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, { './helpers/arrays': 1, './helpers/functions': 2, './helpers/numbers': 3, './helpers/objects': 4, './helpers/objects/cloneHelpers': 5, './helpers/objects/descriptors': 6, 'core-js/modules/es.object.assign': 240, 'core-js/stable': 380 }],
   8: [function (require, module, exports) {
@@ -4247,12 +4249,13 @@
   }, { '../internals/an-object': 14, '../internals/get-iterator-method': 64 }],
   66: [function (require, module, exports) {
     (function (global) {
-      var check = function (it) {
-        return it && it.Math == Math && it
-      }
+      (function () {
+        var check = function (it) {
+          return it && it.Math == Math && it
+        }
 
-      // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-      module.exports =
+        // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+        module.exports =
   // eslint-disable-next-line no-undef
   check(typeof globalThis === 'object' && globalThis) ||
   check(typeof window === 'object' && window) ||
@@ -4260,6 +4263,7 @@
   check(typeof global === 'object' && global) ||
   // eslint-disable-next-line no-new-func
   Function('return this')()
+      }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, {}],
   67: [function (require, module, exports) {
