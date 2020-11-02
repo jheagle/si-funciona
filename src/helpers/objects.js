@@ -8,6 +8,7 @@
 
 import 'core-js/stable'
 import { curry, callWithParams } from './functions'
+import { createReferenceIdentifier, findReferenceIndex, findObjectReferences, findReferenceKeys, getIdentifierDepth, linkReferences } from './objects/cloneHelpers'
 
 /**
  * Set a value on an item, then return the item.
@@ -76,20 +77,6 @@ export const objectKeys = (object, includeInherited = false) => {
 export const objectValues = (object, includeInherited = false) => objectKeys(object, includeInherited).map(key => object[key])
 
 /**
- * Check if the current object has inherited properties.
- * @param {Object|Array} object
- */
-export const isInstanceObject = object => {
-  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
-    return false
-  }
-  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
-    return true
-  }
-  return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
-}
-
-/**
  * Function that produces a property of the new Object, taking three arguments
  * @callback mapCallback
  * @param {*} currentProperty - The current property being processed in the object.
@@ -113,24 +100,11 @@ export const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   : objectKeys(obj, true).reduce(
     (newObj, curr) => setValue(
       curr,
-      callWithParams(fn, [obj[curr], curr, obj], 2),
+      callWithParams(fn.bind(thisArg), [obj[curr], curr, obj], 2),
       newObj
     ),
-    thisArg || {}
+    {}
   )
-
-/**
- * Perform map on an array property of an object, then return the object
- * @function
- * @param {string} property - The string key for the array property to be mapped
- * @param {module:objectHelpers~mapCallback|Function} mapFunction - A function suitable to be passed to map
- * @param {Object|Array} obj - An object having an array property
- * @returns {object}
- */
-export const mapProperty = (property, mapFunction, obj) => {
-  obj[property] = mapObject(obj[property] || [], mapFunction)
-  return obj
-}
 
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
@@ -155,13 +129,13 @@ export const mapProperty = (property, mapFunction, obj) => {
 export const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.filter(fn, thisArg)
   : objectKeys(obj, true).reduce((newObj, curr) => {
-    if (callWithParams(fn, [obj[curr], curr, obj], 2)) {
+    if (callWithParams(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {
       delete newObj[curr]
     }
     return newObj
-  }, thisArg || {})
+  }, {})
 
 /**
  * Function to execute on each property in the object, taking four arguments
@@ -203,139 +177,27 @@ export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || 
 export const emptyObject = item => !objectKeys(item).length
 
 /**
+ * Check if the current object has inherited properties.
+ * @param {Object|Array} object
+ * @returns {boolean}
+ */
+export const isInstanceObject = object => {
+  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+    return false
+  }
+  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
+    return true
+  }
+  return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
+}
+
+/**
  * Determine if the value is a reference instance
+ * @function
  * @param {Array|Object|*} value
  * @returns {boolean}
  */
-export const isReferenceObject = value => typeof value === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
-
-/**
- * Check if this value represents an object that needs to be used as a reference.
- * @param {*} value
- * @returns {boolean}
- */
-const nonReference = value => (typeof value !== 'object' || !isReferenceObject(value) || emptyObject(value) || isInstanceObject(value))
-
-/**
- * @typedef {Object.<string, number|Object|Array>} referenceIdentifier
- * @property {number} index
- * @property {Array|Object} object
- * @property {Array|Object} original
- * @property {Array.<string|number>} references
- * @property {Array.<string|number>} circular
- */
-
-/**
- * Create a referenceIdentifier for building the object clone.
- * @param {Array|Object} [object=null]
- * @param {number} [index=0]
- * @returns {referenceIdentifier}
- */
-const createReferenceIdentifier = (object = null, index = 0) => Object.assign({}, {
-  index: index,
-  object: object,
-  original: object,
-  references: [],
-  circular: []
-})
-
-/**
- * Prepare to map over an object and return the callback that will be used for each reference.
- * @function
- * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000000000]
- * @param {depthLimit} [options.depthLimit=-1]
- * @returns {mapOriginal}
- */
-export const mapOriginalObject = (newReferenceMap = [], { mapLimit = 1000000000, depthLimit = -1 } = {}) => {
-  /**
-     * Map over the provided object and generate an array of cloned references.
-     * @function
-     * @param {Array|Object} focusObject
-     * @param {number} index
-     * @param {number|null} limit
-     * @returns {Array.<referenceIdentifier>}
-     */
-  const mapOriginal = (focusObject, index = 0, limit = null) => {
-    if (limit === null) {
-      limit = depthLimit
-    }
-    if (!newReferenceMap[index]) {
-      newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
-    }
-    let skip = limit === 0
-    if (Array.isArray(focusObject)) {
-      newReferenceMap[index].object = focusObject.map((item, id) => {
-        if (nonReference(item)) {
-          return item
-        }
-        skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (!skip) {
-          newReferenceMap[index].references.push(id)
-          return null
-        }
-        return Array.isArray(item) ? [] : {}
-      }, [])
-    } else {
-      newReferenceMap[index].object = objectKeys(focusObject).reduce((newRef, key) => {
-        if (nonReference(focusObject[key])) {
-          return setValue(key, focusObject[key], newRef)
-        }
-        skip = skip || (index + newReferenceMap[index].references.length + 1) >= mapLimit
-        if (!skip) {
-          newReferenceMap[index].references.push(key)
-          newRef[key] = null
-          return setValue(key, null, newRef)
-        }
-        return setValue(key, Array.isArray(focusObject[key]) ? [] : {}, newRef)
-      }, {})
-    }
-    return newReferenceMap[index].references.reduce((newRef, key) => {
-      const newRefIndex = newReferenceMap.length
-      const objectToRef = focusObject[key]
-      const existingIndex = newReferenceMap.findIndex(existing => objectToRef === existing.original)
-      if (existingIndex >= 0) {
-        newRef.object[key] = existingIndex
-        newRef.circular.push(key)
-        return newRef
-      }
-      if (newRefIndex >= mapLimit) {
-        newRef.object[key] = Array.isArray(focusObject[key]) ? [] : {}
-        return newRef
-      }
-      if (limit === 0) {
-        return newReferenceMap[index]
-      }
-      newRef.object[key] = newRefIndex
-      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, newRef.object[key], --limit)
-      return newRef
-    }, newReferenceMap[index])
-  }
-  return mapOriginal
-}
-
-/**
- * Take an array for reference identifiers and return a callback to build the final reference
- * @param {Array.<referenceIdentifier>} newReferenceMap
- * @returns {assignReferences}
- */
-export const assignNewReferences = (newReferenceMap = []) => {
-  /**
-     * Take a reference identifier and return a new reference.
-     * @function
-     * @param {referenceIdentifier} reference
-     * @returns {Array|Object}
-     */
-  const assignReferences = reference => reference.references.reduce((newRef, key) => setValue(
-    key,
-    reference.circular.includes(key)
-      ? newReferenceMap[newRef[key]].object
-      : assignReferences(newReferenceMap[newRef[key]]),
-    newRef
-  ), reference.object)
-  return assignReferences
-}
+export const isCloneable = value => typeof value === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -343,14 +205,30 @@ export const assignNewReferences = (newReferenceMap = []) => {
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {module:descriptorSamples~descriptorMap} options.descriptorMap - The map of the object
- * @param {number} [options.mapLimit=1000000000]
+ * @param {number} [options.mapLimit=100]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 1000000000, depthLimit = -1 } = {}) => {
-  const newReferenceMap = []
-  newReferenceMap[0] = mapOriginalObject(newReferenceMap, { mapLimit, depthLimit })(object)
-  return assignNewReferences(newReferenceMap)(newReferenceMap[0])
+export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) => {
+  let referenceMap = [createReferenceIdentifier(object, 0)]
+  let moreReferences = [referenceMap[0]]
+  do {
+    const currentIdentifier = moreReferences.shift()
+    const index = findReferenceIndex(referenceMap, currentIdentifier.index)
+    referenceMap[index] = findObjectReferences(referenceMap[index])
+    const maxDepth = getIdentifierDepth(referenceMap, referenceMap[index]) === depthLimit
+    referenceMap[index] = findReferenceKeys(referenceMap, index, maxDepth)
+    if (maxDepth) {
+      referenceMap[index].references = referenceMap[index].circular
+    }
+    referenceMap[index].complete = true
+    const references = referenceMap[index].references.filter(refKey => !referenceMap[index].circular.includes(refKey))
+    moreReferences = [...moreReferences, ...references.map(key => referenceMap[referenceMap[index].object[key]])]
+    if (referenceMap.length >= mapLimit) {
+      referenceMap = linkReferences(referenceMap)
+    }
+  } while (moreReferences.length > 0)
+  return linkReferences(referenceMap)[0].object
 }
 
 /**
@@ -369,11 +247,9 @@ export const cloneObject = (object, { mapLimit = 1000000000, depthLimit = -1 } =
  * @returns {Object}
  */
 const mergeObjectsBase = (isMutable, fn, obj1, obj2) => !emptyObject(obj2)
-  ? mapObject(
+  ? reduceObject(
     obj2,
-    (prop, key) => (obj1[key])
-      ? fn(obj1[key], prop)
-      : prop,
+    (newObj, prop, key) => setValue(key, obj1[key] ? fn(obj1[key], prop) : prop, newObj),
     isMutable ? obj1 : cloneObject(obj1)
   )
   : obj2

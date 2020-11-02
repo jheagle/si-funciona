@@ -6,9 +6,11 @@ require('core-js/modules/es.symbol.description')
 
 require('core-js/modules/es.symbol.iterator')
 
+require('core-js/modules/es.array.concat')
+
 require('core-js/modules/es.array.filter')
 
-require('core-js/modules/es.array.find-index')
+require('core-js/modules/es.array.from')
 
 require('core-js/modules/es.array.includes')
 
@@ -18,13 +20,15 @@ require('core-js/modules/es.array.map')
 
 require('core-js/modules/es.array.reduce')
 
-require('core-js/modules/es.function.name')
+require('core-js/modules/es.array.slice')
 
-require('core-js/modules/es.object.assign')
+require('core-js/modules/es.function.name')
 
 require('core-js/modules/es.object.get-own-property-names')
 
 require('core-js/modules/es.object.to-string')
+
+require('core-js/modules/es.regexp.to-string')
 
 require('core-js/modules/es.string.includes')
 
@@ -35,11 +39,25 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.assignNewReferences = exports.mapOriginalObject = exports.isReferenceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapProperty = exports.mapObject = exports.isInstanceObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
 var _functions = require('./functions')
+
+var _cloneHelpers = require('./objects/cloneHelpers')
+
+function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+
+function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+
+function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
+
+function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
+
+function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -128,24 +146,6 @@ var objectValues = function objectValues (object) {
   })
 }
 /**
- * Check if the current object has inherited properties.
- * @param {Object|Array} object
- */
-
-exports.objectValues = objectValues
-
-var isInstanceObject = function isInstanceObject (object) {
-  if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
-    return false
-  }
-
-  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
-    return true
-  }
-
-  return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
-}
-/**
  * Function that produces a property of the new Object, taking three arguments
  * @callback mapCallback
  * @param {*} currentProperty - The current property being processed in the object.
@@ -165,28 +165,13 @@ var isInstanceObject = function isInstanceObject (object) {
  * @returns {Object|Array}
  */
 
-exports.isInstanceObject = isInstanceObject
+exports.objectValues = objectValues
 
 var mapObject = function mapObject (obj, fn) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
   return Array.isArray(obj) ? obj.map(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
-    return setValue(curr, (0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2), newObj)
-  }, thisArg || {})
-}
-/**
- * Perform map on an array property of an object, then return the object
- * @function
- * @param {string} property - The string key for the array property to be mapped
- * @param {module:objectHelpers~mapCallback|Function} mapFunction - A function suitable to be passed to map
- * @param {Object|Array} obj - An object having an array property
- * @returns {object}
- */
-
-exports.mapObject = mapObject
-
-var mapProperty = function mapProperty (property, mapFunction, obj) {
-  obj[property] = mapObject(obj[property] || [], mapFunction)
-  return obj
+    return setValue(curr, (0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj)
+  }, {})
 }
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
@@ -209,19 +194,19 @@ var mapProperty = function mapProperty (property, mapFunction, obj) {
  * @returns {Object|Array}
  */
 
-exports.mapProperty = mapProperty
+exports.mapObject = mapObject
 
 var filterObject = function filterObject (obj, fn) {
   var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
   return Array.isArray(obj) ? obj.filter(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
-    if ((0, _functions.callWithParams)(fn, [obj[curr], curr, obj], 2)) {
+    if ((0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {
       delete newObj[curr]
     }
 
     return newObj
-  }, thisArg || {})
+  }, {})
 }
 /**
  * Function to execute on each property in the object, taking four arguments
@@ -269,182 +254,35 @@ var emptyObject = function emptyObject (item) {
   return !objectKeys(item).length
 }
 /**
- * Determine if the value is a reference instance
- * @param {Array|Object|*} value
+ * Check if the current object has inherited properties.
+ * @param {Object|Array} object
  * @returns {boolean}
  */
 
 exports.emptyObject = emptyObject
 
-var isReferenceObject = function isReferenceObject (value) {
-  return _typeof(value) === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
+var isInstanceObject = function isInstanceObject (object) {
+  if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
+    return false
+  }
+
+  if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
+    return true
+  }
+
+  return object.constructor.name !== 'Array' && objectKeys(object, true).length > objectKeys(object).length
 }
 /**
- * Check if this value represents an object that needs to be used as a reference.
- * @param {*} value
+ * Determine if the value is a reference instance
+ * @function
+ * @param {Array|Object|*} value
  * @returns {boolean}
  */
 
-exports.isReferenceObject = isReferenceObject
+exports.isInstanceObject = isInstanceObject
 
-var nonReference = function nonReference (value) {
-  return _typeof(value) !== 'object' || !isReferenceObject(value) || emptyObject(value) || isInstanceObject(value)
-}
-/**
- * @typedef {Object.<string, number|Object|Array>} referenceIdentifier
- * @property {number} index
- * @property {Array|Object} object
- * @property {Array|Object} original
- * @property {Array.<string|number>} references
- * @property {Array.<string|number>} circular
- */
-
-/**
- * Create a referenceIdentifier for building the object clone.
- * @param {Array|Object} [object=null]
- * @param {number} [index=0]
- * @returns {referenceIdentifier}
- */
-
-var createReferenceIdentifier = function createReferenceIdentifier () {
-  var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
-  var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  return Object.assign({}, {
-    index: index,
-    object: object,
-    original: object,
-    references: [],
-    circular: []
-  })
-}
-/**
- * Prepare to map over an object and return the callback that will be used for each reference.
- * @function
- * @param {Array.<referenceIdentifier>} [newReferenceMap=[]]
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000000000]
- * @param {depthLimit} [options.depthLimit=-1]
- * @returns {mapOriginal}
- */
-
-var mapOriginalObject = function mapOriginalObject () {
-  var newReferenceMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
-  var _ref$depthLimit = _ref.depthLimit
-  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-
-  /**
-     * Map over the provided object and generate an array of cloned references.
-     * @function
-     * @param {Array|Object} focusObject
-     * @param {number} index
-     * @param {number|null} limit
-     * @returns {Array.<referenceIdentifier>}
-     */
-  var mapOriginal = function mapOriginal (focusObject) {
-    var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-    var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
-
-    if (limit === null) {
-      limit = depthLimit
-    }
-
-    if (!newReferenceMap[index]) {
-      newReferenceMap[index] = createReferenceIdentifier(focusObject, index)
-    }
-
-    var skip = limit === 0
-
-    if (Array.isArray(focusObject)) {
-      newReferenceMap[index].object = focusObject.map(function (item, id) {
-        if (nonReference(item)) {
-          return item
-        }
-
-        skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
-
-        if (!skip) {
-          newReferenceMap[index].references.push(id)
-          return null
-        }
-
-        return Array.isArray(item) ? [] : {}
-      }, [])
-    } else {
-      newReferenceMap[index].object = objectKeys(focusObject).reduce(function (newRef, key) {
-        if (nonReference(focusObject[key])) {
-          return setValue(key, focusObject[key], newRef)
-        }
-
-        skip = skip || index + newReferenceMap[index].references.length + 1 >= mapLimit
-
-        if (!skip) {
-          newReferenceMap[index].references.push(key)
-          newRef[key] = null
-          return setValue(key, null, newRef)
-        }
-
-        return setValue(key, Array.isArray(focusObject[key]) ? [] : {}, newRef)
-      }, {})
-    }
-
-    return newReferenceMap[index].references.reduce(function (newRef, key) {
-      var newRefIndex = newReferenceMap.length
-      var objectToRef = focusObject[key]
-      var existingIndex = newReferenceMap.findIndex(function (existing) {
-        return objectToRef === existing.original
-      })
-
-      if (existingIndex >= 0) {
-        newRef.object[key] = existingIndex
-        newRef.circular.push(key)
-        return newRef
-      }
-
-      if (newRefIndex >= mapLimit) {
-        newRef.object[key] = Array.isArray(focusObject[key]) ? [] : {}
-        return newRef
-      }
-
-      if (limit === 0) {
-        return newReferenceMap[index]
-      }
-
-      newRef.object[key] = newRefIndex
-      newReferenceMap[newRefIndex] = mapOriginal(objectToRef, newRef.object[key], --limit)
-      return newRef
-    }, newReferenceMap[index])
-  }
-
-  return mapOriginal
-}
-/**
- * Take an array for reference identifiers and return a callback to build the final reference
- * @param {Array.<referenceIdentifier>} newReferenceMap
- * @returns {assignReferences}
- */
-
-exports.mapOriginalObject = mapOriginalObject
-
-var assignNewReferences = function assignNewReferences () {
-  var newReferenceMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-
-  /**
-     * Take a reference identifier and return a new reference.
-     * @function
-     * @param {referenceIdentifier} reference
-     * @returns {Array|Object}
-     */
-  var assignReferences = function assignReferences (reference) {
-    return reference.references.reduce(function (newRef, key) {
-      return setValue(key, reference.circular.includes(key) ? newReferenceMap[newRef[key]].object : assignReferences(newReferenceMap[newRef[key]]), newRef)
-    }, reference.object)
-  }
-
-  return assignReferences
+var isCloneable = function isCloneable (value) {
+  return _typeof(value) === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
 }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -452,26 +290,52 @@ var assignNewReferences = function assignNewReferences () {
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {module:descriptorSamples~descriptorMap} options.descriptorMap - The map of the object
- * @param {number} [options.mapLimit=1000000000]
+ * @param {number} [options.mapLimit=100]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
 
-exports.assignNewReferences = assignNewReferences
+exports.isCloneable = isCloneable
 
 var cloneObject = function cloneObject (object) {
-  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref2$mapLimit = _ref2.mapLimit
-  var mapLimit = _ref2$mapLimit === void 0 ? 1000000000 : _ref2$mapLimit
-  var _ref2$depthLimit = _ref2.depthLimit
-  var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  var _ref$mapLimit = _ref.mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
+  var _ref$depthLimit = _ref.depthLimit
+  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
 
-  var newReferenceMap = []
-  newReferenceMap[0] = mapOriginalObject(newReferenceMap, {
-    mapLimit: mapLimit,
-    depthLimit: depthLimit
-  })(object)
-  return assignNewReferences(newReferenceMap)(newReferenceMap[0])
+  var referenceMap = [(0, _cloneHelpers.createReferenceIdentifier)(object, 0)]
+  var moreReferences = [referenceMap[0]]
+
+  var _loop = function _loop () {
+    var currentIdentifier = moreReferences.shift()
+    var index = (0, _cloneHelpers.findReferenceIndex)(referenceMap, currentIdentifier.index)
+    referenceMap[index] = (0, _cloneHelpers.findObjectReferences)(referenceMap[index])
+    var maxDepth = (0, _cloneHelpers.getIdentifierDepth)(referenceMap, referenceMap[index]) === depthLimit
+    referenceMap[index] = (0, _cloneHelpers.findReferenceKeys)(referenceMap, index, maxDepth)
+
+    if (maxDepth) {
+      referenceMap[index].references = referenceMap[index].circular
+    }
+
+    referenceMap[index].complete = true
+    var references = referenceMap[index].references.filter(function (refKey) {
+      return !referenceMap[index].circular.includes(refKey)
+    })
+    moreReferences = [].concat(_toConsumableArray(moreReferences), _toConsumableArray(references.map(function (key) {
+      return referenceMap[referenceMap[index].object[key]]
+    })))
+
+    if (referenceMap.length >= mapLimit) {
+      referenceMap = (0, _cloneHelpers.linkReferences)(referenceMap)
+    }
+  }
+
+  do {
+    _loop()
+  } while (moreReferences.length > 0)
+
+  return (0, _cloneHelpers.linkReferences)(referenceMap)[0].object
 }
 /**
  * Merge two objects and provide clone or original on the provided function.
@@ -492,8 +356,8 @@ var cloneObject = function cloneObject (object) {
 exports.cloneObject = cloneObject
 
 var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
-  return !emptyObject(obj2) ? mapObject(obj2, function (prop, key) {
-    return obj1[key] ? fn(obj1[key], prop) : prop
+  return !emptyObject(obj2) ? reduceObject(obj2, function (newObj, prop, key) {
+    return setValue(key, obj1[key] ? fn(obj1[key], prop) : prop, newObj)
   }, isMutable ? obj1 : cloneObject(obj1)) : obj2
 }
 /**

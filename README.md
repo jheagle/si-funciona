@@ -20,6 +20,9 @@
 <dt><a href="#module_objectHelpers">objectHelpers</a></dt>
 <dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
 </dd>
+<dt><a href="#module_cloneHelpers">cloneHelpers</a></dt>
+<dd><p>Utility functions used by cloneObject.</p>
+</dd>
 <dt><a href="#module_descriptorSamples">descriptorSamples</a></dt>
 <dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
 </dd>
@@ -220,10 +223,12 @@ Manage how functions are called with these utilities.
         * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
         * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
         * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
+        * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
         * [.delay(time)](#module_functionHelpers.delay) ⇒ <code>delayHandler</code>
         * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
         * [.queueTimeout([queue])](#module_functionHelpers.queueTimeout) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
     * _inner_
+        * [~callWithMissing](#module_functionHelpers..callWithMissing) ⇒ <code>\*</code>
         * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
         * [~queueManagerHandle](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
         * [~queueTimeoutHandle](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
@@ -266,6 +271,20 @@ Given a function, call with the correct number of paramters from an array of pos
 | params | <code>Array</code> |  | Array of possible function parameters |
 | [minimum] | <code>number</code> | <code>2</code> | Minimumn number of parameters to use in the function |
 
+<a name="module_functionHelpers.preloadParams"></a>
+
+### functionHelpers.preloadParams(fn, params, [unassignedParam]) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
+Provide an array of parameters to be used with a function, allow the function to be called later
+with the missing parameter.
+
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| fn | <code>function</code> |  | The function to be called |
+| params | <code>Array</code> |  | The parameters to preload |
+| [unassignedParam] | <code>number</code> | <code>0</code> | Position of missing parameter (zero indexed) |
+
 <a name="module_functionHelpers.delay"></a>
 
 ### functionHelpers.delay(time) ⇒ <code>delayHandler</code>
@@ -298,6 +317,17 @@ Manage functions to run sequentially with delays.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [queue] | <code>Iterable</code> | <code>[]</code> | The iterable that can be used to store queued functions |
+
+<a name="module_functionHelpers..callWithMissing"></a>
+
+### functionHelpers~callWithMissing ⇒ <code>\*</code>
+The return function which takes the missing parameter in order to call the preloaded function.
+
+**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| missing | <code>\*</code> | The missing parameter to be applied |
 
 <a name="module_functionHelpers..delayHandler"></a>
 
@@ -431,28 +461,22 @@ Simplify working with object by providing array-like parsing. Also, provides clo
     * _static_
         * [.objectKeys](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
         * [.objectValues](#module_objectHelpers.objectValues) ⇒ <code>Array</code>
-        * [.isInstanceObject](#module_objectHelpers.isInstanceObject)
-        * [.isReferenceObject](#module_objectHelpers.isReferenceObject) ⇒ <code>boolean</code>
-        * [.assignNewReferences](#module_objectHelpers.assignNewReferences) ⇒ <code>assignReferences</code>
+        * [.isInstanceObject](#module_objectHelpers.isInstanceObject) ⇒ <code>boolean</code>
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
-        * [.mapProperty(property, mapFunction, obj)](#module_objectHelpers.mapProperty) ⇒ <code>object</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
-        * [.mapOriginalObject([newReferenceMap], [options])](#module_objectHelpers.mapOriginalObject) ⇒ <code>mapOriginal</code>
+        * [.isCloneable(value)](#module_objectHelpers.isCloneable) ⇒ <code>boolean</code>
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.mergeObjects(...args)](#module_objectHelpers.mergeObjects) ⇒ <code>Object</code>
         * [.mergeObjectsMutable(...args)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>Object</code>
     * _inner_
-        * [~nonReference(value)](#module_objectHelpers..nonReference) ⇒ <code>boolean</code>
-        * [~createReferenceIdentifier([object], [index])](#module_objectHelpers..createReferenceIdentifier) ⇒ <code>referenceIdentifier</code>
         * [~mergeObjectsBase(isMutable, fn, obj1, obj2)](#module_objectHelpers..mergeObjectsBase) ⇒ <code>Object</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
-        * [~referenceIdentifier](#module_objectHelpers..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
 
 <a name="module_objectHelpers.objectKeys"></a>
 
@@ -482,7 +506,7 @@ Optional flag will include the inherited values from prototype chain when set.
 
 <a name="module_objectHelpers.isInstanceObject"></a>
 
-### objectHelpers.isInstanceObject
+### objectHelpers.isInstanceObject ⇒ <code>boolean</code>
 Check if the current object has inherited properties.
 
 **Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -490,28 +514,6 @@ Check if the current object has inherited properties.
 | Param | Type |
 | --- | --- |
 | object | <code>Object</code> \| <code>Array</code> | 
-
-<a name="module_objectHelpers.isReferenceObject"></a>
-
-### objectHelpers.isReferenceObject ⇒ <code>boolean</code>
-Determine if the value is a reference instance
-
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type |
-| --- | --- |
-| value | <code>Array</code> \| <code>Object</code> \| <code>\*</code> | 
-
-<a name="module_objectHelpers.assignNewReferences"></a>
-
-### objectHelpers.assignNewReferences ⇒ <code>assignReferences</code>
-Take an array for reference identifiers and return a callback to build the final reference
-
-**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type |
-| --- | --- |
-| newReferenceMap | <code>Array.&lt;referenceIdentifier&gt;</code> | 
 
 <a name="module_objectHelpers.setValue"></a>
 
@@ -555,19 +557,6 @@ always use the standard map() function when it is known that the object is actua
 | fn | [<code>mapCallback</code>](#module_objectHelpers..mapCallback) \| <code>function</code> | The function to be processed for each mapped property |
 | [thisArg] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as this when executing callback. |
 
-<a name="module_objectHelpers.mapProperty"></a>
-
-### objectHelpers.mapProperty(property, mapFunction, obj) ⇒ <code>object</code>
-Perform map on an array property of an object, then return the object
-
-**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| property | <code>string</code> | The string key for the array property to be mapped |
-| mapFunction | [<code>mapCallback</code>](#module_objectHelpers..mapCallback) \| <code>function</code> | A function suitable to be passed to map |
-| obj | <code>Object</code> \| <code>Array</code> | An object having an array property |
-
 <a name="module_objectHelpers.filterObject"></a>
 
 ### objectHelpers.filterObject(obj, fn, [thisArg]) ⇒ <code>Object</code> \| <code>Array</code>
@@ -609,19 +598,16 @@ Helper function for testing if the item is an Object or Array that does not have
 | --- | --- | --- |
 | item | <code>Object</code> \| <code>Array</code> | Object or Array to test |
 
-<a name="module_objectHelpers.mapOriginalObject"></a>
+<a name="module_objectHelpers.isCloneable"></a>
 
-### objectHelpers.mapOriginalObject([newReferenceMap], [options]) ⇒ <code>mapOriginal</code>
-Prepare to map over an object and return the callback that will be used for each reference.
+### objectHelpers.isCloneable(value) ⇒ <code>boolean</code>
+Determine if the value is a reference instance
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| [newReferenceMap] | <code>Array.&lt;referenceIdentifier&gt;</code> | <code>[]</code> | 
-| [options] | <code>Object</code> | <code>{}</code> | 
-| [options.mapLimit] | <code>number</code> | <code>1000</code> | 
-| [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
+| Param | Type |
+| --- | --- |
+| value | <code>Array</code> \| <code>Object</code> \| <code>\*</code> | 
 
 <a name="module_objectHelpers.cloneObject"></a>
 
@@ -635,7 +621,7 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 | object | <code>Object</code> |  | The original object that is being cloned |
 | [options] | <code>Object</code> | <code>{}</code> |  |
 | options.descriptorMap | [<code>descriptorMap</code>](#module_descriptorSamples..descriptorMap) |  | The map of the object |
-| [options.mapLimit] | <code>number</code> | <code>1000</code> |  |
+| [options.mapLimit] | <code>number</code> | <code>100</code> |  |
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> |  |
 
 <a name="module_objectHelpers.mergeObjects"></a>
@@ -666,29 +652,6 @@ WARNING: This will mutate the first object passed in as input
 | Param | Type | Description |
 | --- | --- | --- |
 | ...args | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first object |
-
-<a name="module_objectHelpers..nonReference"></a>
-
-### objectHelpers~nonReference(value) ⇒ <code>boolean</code>
-Check if this value represents an object that needs to be used as a reference.
-
-**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type |
-| --- | --- |
-| value | <code>\*</code> | 
-
-<a name="module_objectHelpers..createReferenceIdentifier"></a>
-
-### objectHelpers~createReferenceIdentifier([object], [index]) ⇒ <code>referenceIdentifier</code>
-Create a referenceIdentifier for building the object clone.
-
-**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| [object] | <code>Array</code> \| <code>Object</code> | <code></code> | 
-| [index] | <code>number</code> | <code>0</code> | 
 
 <a name="module_objectHelpers..mergeObjectsBase"></a>
 
@@ -748,19 +711,230 @@ Function to execute on each property in the object, taking four arguments
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
 
-<a name="module_objectHelpers..referenceIdentifier"></a>
+<a name="module_cloneHelpers"></a>
 
-### objectHelpers~referenceIdentifier : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
+## cloneHelpers
+Utility functions used by cloneObject.
+
+**Version**: 1.0.0  
+**Author**: Joshua Heagle <joshuaheagle@gmail.com>  
+
+* [cloneHelpers](#module_cloneHelpers)
+    * _static_
+        * [.createReferenceIdentifier([object], [index], [referers])](#module_cloneHelpers.createReferenceIdentifier) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+        * [.findObjectReferences(referenceIdentifier)](#module_cloneHelpers.findObjectReferences) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+        * [.findReferenceKeys([referenceMap], [index], [maxDepth])](#module_cloneHelpers.findReferenceKeys) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+        * [.findReferenceIndex(referenceMap, [index])](#module_cloneHelpers.findReferenceIndex) ⇒ <code>number</code>
+        * [.findReference(referenceMap, [index])](#module_cloneHelpers.findReference) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+        * [.objectAndReferences(object, [references])](#module_cloneHelpers.objectAndReferences) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+        * [.linkReferenceObject(referenceMap)](#module_cloneHelpers.linkReferenceObject) ⇒ <code>module:objectHelpers~referencesReduce</code>
+        * [.removeFromReferenceMap(referenceMap)](#module_cloneHelpers.removeFromReferenceMap) ⇒ <code>module:objectHelpers~removeReferenceIdentifier</code>
+        * [.linkReferences(referenceMap)](#module_cloneHelpers.linkReferences) ⇒ <code>module:objectHelpers~referenceMap</code>
+    * _inner_
+        * [~nonReference(value)](#module_cloneHelpers..nonReference) ⇒ <code>boolean</code>
+        * [~hasCompletedReferences(referenceMap)](#module_cloneHelpers..hasCompletedReferences) ⇒ <code>boolean</code>
+        * [~referenceIdentifier](#module_cloneHelpers..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+        * [~referenceMap](#module_cloneHelpers..referenceMap) : <code>Array.&lt;module:objectHelpers~referenceMap&gt;</code>
+        * [~objectReferencesRemove](#module_cloneHelpers..objectReferencesRemove) : <code>Object</code>
+        * [~referencesReduce](#module_cloneHelpers..referencesReduce) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+        * [~removeReferenceIdentifier](#module_cloneHelpers..removeReferenceIdentifier) ⇒ <code>boolean</code>
+
+<a name="module_cloneHelpers.createReferenceIdentifier"></a>
+
+### cloneHelpers.createReferenceIdentifier([object], [index], [referers]) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+Create a referenceIdentifier for building the object clone.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [object] | <code>Array</code> \| <code>Object</code> | <code></code> | 
+| [index] | <code>number</code> | <code>0</code> | 
+| [referers] | <code>Array.&lt;number&gt;</code> | <code>[]</code> | 
+
+<a name="module_cloneHelpers.findObjectReferences"></a>
+
+### cloneHelpers.findObjectReferences(referenceIdentifier) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+Update the object of this reference identifier by cloning the object or array and setting child references to null.
+Every reference that is found has it's key added to the array array of references.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| referenceIdentifier | <code>module:objectHelpers~referenceIdentifier</code> | 
+
+<a name="module_cloneHelpers.findReferenceKeys"></a>
+
+### cloneHelpers.findReferenceKeys([referenceMap], [index], [maxDepth]) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+For all of the identified references, find the index of the corresponding referenceIdentifier
+or create a new one and set the index instead of null.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [referenceMap] | <code>module:objectHelpers~referenceMap</code> | <code>[]</code> | 
+| [index] | <code>number</code> | <code>0</code> | 
+| [maxDepth] | <code>boolean</code> | <code>false</code> | 
+
+<a name="module_cloneHelpers.findReferenceIndex"></a>
+
+### cloneHelpers.findReferenceIndex(referenceMap, [index]) ⇒ <code>number</code>
+Find the array index of the provided reference identifier within the reference map.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> |  | 
+| [index] | <code>number</code> | <code>0</code> | 
+
+<a name="module_cloneHelpers.findReference"></a>
+
+### cloneHelpers.findReference(referenceMap, [index]) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
+Find a referenced identifier by index form the reference map.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> |  | 
+| [index] | <code>number</code> | <code>0</code> | 
+
+<a name="module_cloneHelpers.objectAndReferences"></a>
+
+### cloneHelpers.objectAndReferences(object, [references]) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+Create a return type package containing an object, references to find, and array of items to remove.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| object | <code>Array</code> \| <code>Object</code> |  | 
+| [references] | <code>Array.&lt;(string\|number)&gt;</code> | <code>[]</code> | 
+
+<a name="module_cloneHelpers.linkReferenceObject"></a>
+
+### cloneHelpers.linkReferenceObject(referenceMap) ⇒ <code>module:objectHelpers~referencesReduce</code>
+Return the referencesReduce callback.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> | 
+
+<a name="module_cloneHelpers.removeFromReferenceMap"></a>
+
+### cloneHelpers.removeFromReferenceMap(referenceMap) ⇒ <code>module:objectHelpers~removeReferenceIdentifier</code>
+Return the remove reference identifier callback.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> | 
+
+<a name="module_cloneHelpers.linkReferences"></a>
+
+### cloneHelpers.linkReferences(referenceMap) ⇒ <code>module:objectHelpers~referenceMap</code>
+Find each of the unlinked references and assign the newly cloned reference for each.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> | 
+
+<a name="module_cloneHelpers..nonReference"></a>
+
+### cloneHelpers~nonReference(value) ⇒ <code>boolean</code>
+Check if this value represents an object that needs to be used as a reference.
+
+**Kind**: inner method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| value | <code>\*</code> | 
+
+<a name="module_cloneHelpers..hasCompletedReferences"></a>
+
+### cloneHelpers~hasCompletedReferences(referenceMap) ⇒ <code>boolean</code>
+Check if there are any remaining reference identifiers which are complete, excluded first in map.
+
+**Kind**: inner method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| referenceMap | <code>module:objectHelpers~referenceMap</code> | 
+
+<a name="module_cloneHelpers..referenceIdentifier"></a>
+
+### cloneHelpers~referenceIdentifier : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+Store information about a reference, including pointing to linked references and storing original reference.
+
+**Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
 **Properties**
 
 | Name | Type |
 | --- | --- |
+| circular | <code>Array.&lt;(string\|number)&gt;</code> | 
+| complete | <code>boolean</code> | 
 | index | <code>number</code> | 
+| clone | <code>Array</code> \| <code>Object</code> | 
 | object | <code>Array</code> \| <code>Object</code> | 
 | original | <code>Array</code> \| <code>Object</code> | 
 | references | <code>Array.&lt;(string\|number)&gt;</code> | 
-| circular | <code>Array.&lt;(string\|number)&gt;</code> | 
+| referers | <code>Array.&lt;number&gt;</code> | 
+
+<a name="module_cloneHelpers..referenceMap"></a>
+
+### cloneHelpers~referenceMap : <code>Array.&lt;module:objectHelpers~referenceMap&gt;</code>
+An array of reference identifiers linked together.
+
+**Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+<a name="module_cloneHelpers..objectReferencesRemove"></a>
+
+### cloneHelpers~objectReferencesRemove : <code>Object</code>
+Store a bundle containing an object, references array, and remove array.
+
+**Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| object | <code>Array</code> \| <code>Object</code> | 
+| references | <code>Array.&lt;(string\|number)&gt;</code> | 
+| remove | <code>module:objectHelpers~referenceMap</code> | 
+
+<a name="module_cloneHelpers..referencesReduce"></a>
+
+### cloneHelpers~referencesReduce ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+Used as callback for reduce, this function will find reference identifier associated with a number
+then link the key on the object with the object of the reference identifier. The return is a bundle
+containing the linked object, updated references array, and an array of identifiers to be deleted
+since these are no longer required in the reference map.
+
+**Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| results | <code>module:objectHelpers~objectReferencesRemove</code> | 
+| key | <code>number</code> \| <code>string</code> | 
+| i | <code>number</code> | 
+
+<a name="module_cloneHelpers..removeReferenceIdentifier"></a>
+
+### cloneHelpers~removeReferenceIdentifier ⇒ <code>boolean</code>
+Given a referenceIdentifier, find it in the referenceMap and remove it, return true. If unable
+to remove then return false.
+
+**Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type |
+| --- | --- |
+| results | <code>module:objectHelpers~referenceIdentifier</code> | 
 
 <a name="module_descriptorSamples"></a>
 
@@ -919,7 +1093,7 @@ Trace out the entire object including nested objects.
 | --- | --- | --- |
 | object | <code>Object</code> \| <code>Array</code> |  | 
 | [options] | <code>Object</code> | <code>{}</code> | 
-| [options.mapLimit] | <code>number</code> | <code>1000</code> | 
+| [options.mapLimit] | <code>number</code> | <code>1000000000</code> | 
 | [options.depthLimit] | <code>number</code> | <code>-1</code> | 
 | [options.keepValues] | <code>boolean</code> | <code>false</code> | 
 

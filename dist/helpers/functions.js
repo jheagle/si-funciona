@@ -16,6 +16,8 @@ require('core-js/modules/es.array.reduce')
 
 require('core-js/modules/es.array.slice')
 
+require('core-js/modules/es.array.splice')
+
 require('core-js/modules/es.function.name')
 
 require('core-js/modules/es.object.to-string')
@@ -31,7 +33,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.queueTimeout = exports.queueManager = exports.delay = exports.callWithParams = exports.pipe = exports.curry = void 0
+exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
 
 require('regenerator-runtime/runtime')
 
@@ -110,6 +112,33 @@ var callWithParams = function callWithParams (fn) {
   return fn.apply(void 0, _toConsumableArray(params.slice(0, fn.length || minimum)))
 }
 /**
+ * The return function which takes the missing parameter in order to call the preloaded function.
+ * @typedef {Function} callWithMissing
+ * @param {*} missing - The missing parameter to be applied
+ * @returns {*}
+ */
+
+/**
+ * Provide an array of parameters to be used with a function, allow the function to be called later
+ * with the missing parameter.
+ * @function
+ * @param {Function} fn - The function to be called
+ * @param {Array} params - The parameters to preload
+ * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
+ * @returns {module:functionHelpers~callWithMissing}
+ */
+
+exports.callWithParams = callWithParams
+
+var preloadParams = function preloadParams (fn) {
+  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  var unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+  return function (missing) {
+    params.splice(unassignedParam, 0, missing)
+    return fn.apply(void 0, _toConsumableArray(params))
+  }
+}
+/**
  * Provide a way to cancel a request or attach a resolve event.
  * @typedef {Object} delayHandler
  * @property {Promise} resolver
@@ -123,7 +152,7 @@ var callWithParams = function callWithParams (fn) {
  * @returns {delayHandler}
  */
 
-exports.callWithParams = callWithParams
+exports.preloadParams = preloadParams
 
 var delay = function delay () {
   var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0

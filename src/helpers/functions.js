@@ -41,6 +41,27 @@ export const callWithParams = (fn, params = [], minimum = 2) =>
   fn(...params.slice(0, fn.length || minimum))
 
 /**
+ * The return function which takes the missing parameter in order to call the preloaded function.
+ * @typedef {Function} callWithMissing
+ * @param {*} missing - The missing parameter to be applied
+ * @returns {*}
+ */
+
+/**
+ * Provide an array of parameters to be used with a function, allow the function to be called later
+ * with the missing parameter.
+ * @function
+ * @param {Function} fn - The function to be called
+ * @param {Array} params - The parameters to preload
+ * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
+ * @returns {module:functionHelpers~callWithMissing}
+ */
+export const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
+  params.splice(unassignedParam, 0, missing)
+  return fn(...params)
+}
+
+/**
  * Provide a way to cancel a request or attach a resolve event.
  * @typedef {Object} delayHandler
  * @property {Promise} resolver

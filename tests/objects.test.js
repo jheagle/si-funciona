@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { circularObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree } from './testHelpers'
+import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
 test('setValue will update an item and return the item', () => {
   const someObject = {
@@ -80,70 +80,64 @@ describe('objectValues', () => {
   })
 })
 
-describe('isInstanceObject', () => {
-  test('standard object has no inherited properties', () => {
-    const someObject = { one: 'first', two: 'second' }
-    expect(helpers.isInstanceObject(someObject)).toBe(false)
+describe('mapObject', () => {
+  const mapNameToNumber = name => ({ zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5 })[name]
+  test('Behaves exactly as Array.map when the input is an array', () => {
+    const testArray = ['zero', 'one', 'two', 'three', 'four', 'five']
+    expect(helpers.mapObject(testArray, mapNameToNumber)).toEqual(testArray.map(mapNameToNumber))
   })
 
-  test('created object from another object will have inherited properties', () => {
-    const someObject = { one: 'first', two: 'second' }
-    const newObject = Object.create(someObject)
-    expect(helpers.isInstanceObject(newObject)).toBe(true)
+  test('Will apply the callback to each of the object values', () => {
+    const testObject = { zeroth: 'zero', first: 'one', second: 'two', third: 'three', fourth: 'four', fifth: 'five' }
+    expect(helpers.mapObject(testObject, mapNameToNumber)).toEqual({ zeroth: 0, first: 1, second: 2, third: 3, fourth: 4, fifth: 5 })
   })
 
-  test('declared class is an instance object', () => {
-    class SampleClass {
-      construct() {
-        this.one = 'first'
-        this.two = 'second'
+  test('Will use this argument for callback', () => {
+    class NumberClass {
+      constructor (add, subtract) {
+        this.add = add
+        this.subtract = subtract
+      }
+
+      applyToNumber (number) {
+        return number + this.add - this.subtract
       }
     }
-    expect(helpers.isInstanceObject(SampleClass)).toBe(true)
-  })
-
-  test('instatiated object is an instance object', () => {
-    class SampleClass {
-      construct() {
-        this.one = 'first'
-        this.two = 'second'
-      }
-    }
-    const newObject = new SampleClass()
-    expect(helpers.isInstanceObject(newObject)).toBe(true)
-  })
-
-  test('arrays are not instance objects', () => {
-    const someArray = ['first', 'second']
-    expect(helpers.isInstanceObject(someArray)).toBe(false)
+    const numberInstance = new NumberClass(5, 2)
+    expect(helpers.mapObject(
+      { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 },
+      numberInstance.applyToNumber,
+      numberInstance
+    )).toEqual({ first: 4, second: 5, third: 6, fourth: 7, fifth: 8 })
   })
 })
 
-test('mapObject applies function to update each value of the object', () => {
-  const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
-  const testFunction = value => value + 3
-  expect(helpers.mapObject(testObject, testFunction))
-    .toEqual({ first: 4, second: 5, third: 6, fourth: 7, fifth: 8 })
-})
-
-test('mapProperty returns the original object with mapped property', () => {
-  const testObject = { nestedObject: { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 } }
-  const testFunction = value => value + 3
-  expect(helpers.mapProperty('nestedObject', testFunction, testObject))
-    .toEqual({ nestedObject: { first: 4, second: 5, third: 6, fourth: 7, fifth: 8 } })
-})
-
-test('filterObject applies function to exclude some values', () => {
-  const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+describe('filterObject', () => {
   const testFunction = value => (value % 2) === 0
-  expect(helpers.filterObject(testObject, testFunction))
-    .toEqual({ second: 2, fourth: 4 })
+  test('will use Array.filter when input is array', () => {
+    const testArray = [1, 2, 3, 4, 5]
+    expect(helpers.filterObject(testArray, testFunction))
+      .toEqual(testArray.filter(testFunction))
+  })
+
+  test('applies function to exclude some values', () => {
+    const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+    expect(helpers.filterObject(testObject, testFunction))
+      .toEqual({ second: 2, fourth: 4 })
+  })
 })
 
-test('reduceObject applies function to create something new from the object', () => {
-  const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+describe('reduceObject', () => {
   const testFunction = (summation, value) => summation + value
-  expect(helpers.reduceObject(testObject, testFunction, 0)).toEqual(15)
+  test('will use Array.reduce when input is array', () => {
+    const testArray = [1, 2, 3, 4, 5]
+    expect(helpers.reduceObject(testArray, testFunction, 0)).toEqual(testArray.reduce(testFunction))
+  })
+
+  test('applies function to create something new from the object', () => {
+    const testObject = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+    expect(helpers.reduceObject(testObject, testFunction, 0)).toEqual(15)
+  })
 })
 
 describe('emptyObject', () => {
@@ -164,166 +158,91 @@ describe('emptyObject', () => {
   })
 })
 
-describe('mapOriginalObject', () => {
-  test('builds simple array of reference identifiers', () => {
-    const someItem = { name: 'something', nested: { value: 'aValue' }, nested2: { nestedDeep: { nestedValue: 'bValue' } } }
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(someItem)
-    expect(newReferenceMap[0].object).toEqual({ name: 'something', nested: 1, nested2: 2 })
-    expect(newReferenceMap[1].object).toEqual({ value: 'aValue' })
-    expect(newReferenceMap[2].object).toEqual({ nestedDeep: 3 })
-    expect(newReferenceMap[3].object).toEqual({ nestedValue: 'bValue' })
+describe('isInstanceObject', () => {
+  test('standard object has no inherited properties', () => {
+    const someObject = { one: 'first', two: 'second' }
+    expect(helpers.isInstanceObject(someObject)).toBe(false)
   })
 
-  test('builds circular reference array of identifiers for linked list', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(linkedList)
-    expect(newReferenceMap[0].object).toEqual({ name: 'one', prev: null, next: 1 })
-    expect(newReferenceMap[1].object).toEqual({ name: 'two', prev: 0, next: 2 })
-    expect(newReferenceMap[2].object).toEqual({ name: 'three', prev: 1, next: null })
+  test('created object from another object will have inherited properties', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.isInstanceObject(newObject)).toBe(true)
   })
 
-  test('builds circular reference array of identifiers for node tree', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(nodeTree)
-    expect(newReferenceMap[0].object).toEqual({ name: 'one', parent: null, children: 1 })
-    expect(newReferenceMap[1].object).toEqual([2, 5])
-    expect(newReferenceMap[2].object).toEqual({ name: 'child one', parent: 0, children: 3 })
-    expect(newReferenceMap[3].object).toEqual([4])
-    expect(newReferenceMap[4].object).toEqual({ name: 'grandchild one', parent: 2, children: [] })
-    expect(newReferenceMap[5].object).toEqual({ name: 'child two', parent: 0, children: [] })
+  test('declared class is an instance object', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    expect(helpers.isInstanceObject(SampleClass)).toBe(true)
   })
 
-  test('array of domItems with child domItmes can be mapped', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(domItem)
-    expect(newReferenceMap[0].object).toEqual([1])
-    expect(newReferenceMap[1].object).toEqual({ attributes: 2, axis: 'y', children: 3, element: {}, eventListeners: {}, parentItem: {}, tagName: 'div' })
-    expect(newReferenceMap[2].object).toEqual({ className: 'row', style: {} })
-    expect(newReferenceMap[3].object).toEqual([4])
-    expect(newReferenceMap[4].object).toEqual({ attributes: 5, axis: 'x', children: [], element: {}, eventListeners: {}, parentItem: {}, tagName: 'div', hasShip: false, isHit: false, point: {} })
-    expect(newReferenceMap[5].object).toEqual({ style: {} })
+  test('instatiated object is an instance object', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    const newObject = new SampleClass()
+    expect(helpers.isInstanceObject(newObject)).toBe(true)
   })
 
-  test('object with nested instance object will just use instance', () => {
-    const instanceObject = { one: 'first', instance: Object.create({ two: 'second' }) }
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(instanceObject)
-    expect(newReferenceMap[0].object).toEqual(instanceObject)
-  })
-
-  test('multiple circular reference will be able to create reference map', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(circularObject)
-    expect(newReferenceMap[0].object).toEqual({ name: 'root', parent: {}, body: 1, head: 5, children: 9 })
-    expect(newReferenceMap[1].object).toEqual({ name: 'body', parent: 0, children: 2 })
-    expect(newReferenceMap[2].object).toEqual([3, 4])
-    expect(newReferenceMap[3].object).toEqual({ name: 'body child one', parent: 1, children: [] })
-    expect(newReferenceMap[4].object).toEqual({ name: 'body child two', parent: 1, children: [] })
-    expect(newReferenceMap[5].object).toEqual({ name: 'head', parent: 0, children: 6 })
-    expect(newReferenceMap[6].object).toEqual([7, 8])
-    expect(newReferenceMap[7].object).toEqual({ name: 'head child one', parent: 5, children: [] })
-    expect(newReferenceMap[8].object).toEqual({ name: 'head child two', parent: 5, children: [] })
-    expect(newReferenceMap[9].object).toEqual([1, 5])
-  })
-
-  test('multiple circuar reference with optional will skip when not found', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(circularObject.body)
-    expect(newReferenceMap[0].object).toEqual({ name: 'body', parent: 1, children: 7 })
-    expect(newReferenceMap[1].object).toEqual({ name: 'root', parent: {}, body: 0, head: 2, children: 6 })
-    expect(newReferenceMap[2].object).toEqual({ name: 'head', parent: 1, children: 3 })
-    expect(newReferenceMap[3].object).toEqual([4, 5])
-    expect(newReferenceMap[4].object).toEqual({ name: 'head child one', parent: 2, children: [] })
-    expect(newReferenceMap[5].object).toEqual({ name: 'head child two', parent: 2, children: [] })
-    expect(newReferenceMap[6].object).toEqual([0, 2])
-    expect(newReferenceMap[7].object).toEqual([8, 9])
-    expect(newReferenceMap[8].object).toEqual({ name: 'body child one', parent: 0, children: [] })
-    expect(newReferenceMap[9].object).toEqual({ name: 'body child two', parent: 0, children: [] })
+  test('arrays are not instance objects', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.isInstanceObject(someArray)).toBe(false)
   })
 })
 
-describe('mapOriginalObject; with mapLimit', () => {
-  test('will limit a map to one', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 1 })(multiReferenceObject)
-    expect(newReferenceMap.length).toBe(1)
+describe('isCloneable', () => {
+  test('a string is not a reference, no need to clone', () => {
+    const someString = 'some string'
+    expect(helpers.isCloneable(someString)).toBe(false)
   })
 
-  test('will limit a map to two', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 2 })(multiReferenceObject)
-    expect(newReferenceMap.length).toBe(2)
+  test('a number is not a reference, no need to clone', () => {
+    const someNumber = 1234
+    expect(helpers.isCloneable(someNumber)).toBe(false)
   })
 
-  test('will limit a map to four, capturing three of the references', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { mapLimit: 4 })(multiReferenceObject)
-    expect(newReferenceMap.length).toBe(4)
+  test('standard object can be cloned', () => {
+    const someObject = { one: 'first', two: 'second' }
+    expect(helpers.isCloneable(someObject)).toBe(true)
   })
 
-  test('will limit a map by five which is the same as all references', () => {
-    const fullReferenceMap = []
-    fullReferenceMap[0] = helpers.mapOriginalObject(fullReferenceMap)(multiReferenceObject)
-    const limitFiveMap = []
-    limitFiveMap[0] = helpers.mapOriginalObject(limitFiveMap, { mapLimit: 5 })(multiReferenceObject)
-    expect(fullReferenceMap).toEqual(limitFiveMap)
-  })
-})
-
-describe('mapOriginalObject; with depthLimit', () => {
-  test('with depth limit zero will be the same as single descriptor within an array', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 0 })(deepReferenceObject)
-    expect(newReferenceMap.length).toBe(1)
+  test('created object cannot be cloned', () => {
+    const someObject = { one: 'first', two: 'second' }
+    const newObject = Object.create(someObject)
+    expect(helpers.isCloneable(newObject)).toBe(false)
   })
 
-  test('with depth limit one will only include main descriptor and one nested object', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 1 })(deepReferenceObject)
-    expect(newReferenceMap.length).toBe(2)
+  test('declared class cannot be cloned', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    expect(helpers.isCloneable(SampleClass)).toBe(false)
   })
 
-  test('with depth limit two will not include the array or object on depth of three', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 2 })(deepReferenceObject)
-    expect(newReferenceMap.length).toBe(3)
+  test('instatiated object cannot be cloned', () => {
+    class SampleClass {
+      construct () {
+        this.one = 'first'
+        this.two = 'second'
+      }
+    }
+    const newObject = new SampleClass()
+    expect(helpers.isCloneable(newObject)).toBe(false)
   })
 
-  test('with depth limit three is the max depth of this object so it should result in the same as no limit', () => {
-    const fullReferenceMap = []
-    fullReferenceMap[0] = helpers.mapOriginalObject(fullReferenceMap)(deepReferenceObject)
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap, { depthLimit: 3 })(deepReferenceObject)
-    expect(newReferenceMap.length).toBe(5)
-    expect(newReferenceMap).toEqual(fullReferenceMap)
-  })
-})
-
-describe('assignNewReferences', () => {
-  test('creates a new simple reference based on array of reference identifiers', () => {
-    const someItem = { name: 'something', nested: { value: 'aValue' }, nested2: { nestedDeep: { nestedValue: 'bValue' } } }
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(someItem)
-    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
-    expect(result).not.toBe(someItem)
-    expect(result).toEqual(someItem)
-  })
-
-  test('takes circular reference linked list identifiers and creates new reference', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(linkedList)
-    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
-    expect(result).not.toBe(linkedList)
-    expect(result).toEqual(linkedList)
-  })
-
-  test('takes circular reference node tree identifiers and creates new reference', () => {
-    const newReferenceMap = []
-    newReferenceMap[0] = helpers.mapOriginalObject(newReferenceMap)(nodeTree)
-    const result = helpers.assignNewReferences(newReferenceMap)(newReferenceMap[0])
-    expect(result).not.toBe(nodeTree)
-    expect(result).toEqual(nodeTree)
+  test('arrays are cloneable', () => {
+    const someArray = ['first', 'second']
+    expect(helpers.isCloneable(someArray)).toBe(true)
   })
 })
 
@@ -375,14 +294,106 @@ describe('cloneObject', () => {
     expect(result).toEqual(nodeTree)
   })
 
-  test('can remove deep references with 0 depth option', () => {
-    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 0 })
-    expect(result).toEqual({ object1: {}, title: 'Some Title', item: 45 })
+  test('will successfully clone deep reference object', () => {
+    const result = helpers.cloneObject(deepReferenceObject)
+    expect(result).not.toBe(deepReferenceObject)
+    expect(result).toEqual(deepReferenceObject)
   })
 
-  test('can limit the number of references created to one with map of 1', () => {
+  test('can remove deep references with 0 depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 0 })
+    expect(result).toMatchObject({
+      object1: {},
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 1 with depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 1 })
+    expect(result).toMatchObject({
+      object1: { name: 'someName', object2: {}, array2: [] },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 2 with depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 2 })
+    expect(result).toMatchObject({
+      object1: {
+        name: 'someName',
+        object2: { age: 12, array1: [] },
+        array2: [89, 32]
+      },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 3 with depth option, this is the max depth', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 3 })
+    expect(result).toMatchObject({
+      object1: {
+        name: 'someName',
+        object2: { age: 12, array1: ['someString', 'anotherString'] },
+        array2: [89, 32]
+      },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can limit depth of circular references, using 0', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 0 })
+    expect(result).toMatchObject({ name: 'root', parent: {}, body: {}, head: {}, children: [] })
+  })
+
+  test('can limit depth of circular references, using 1', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 1 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expect(result).toEqual(expectResult)
+  })
+
+  test('can limit depth of circular references, using 2', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 2 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [{}, {}] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [{}, {}] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expect(result).toEqual(expectResult)
+  })
+
+  test('can limit depth of circular references, using 3', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 3 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expectResult.body.children = [
+      { name: 'body child one', parent: expectResult.body, children: [] },
+      { name: 'body child two', parent: expectResult.body, children: [] }
+    ]
+    expectResult.head.children = [
+      { name: 'head child one', parent: expectResult.head, children: [] },
+      { name: 'head child two', parent: expectResult.head, children: [] }
+    ]
+    expect(result).toEqual(expectResult)
+  })
+
+  test('can reduce length of map when it exceeds mapLimit', () => {
     const result = helpers.cloneObject(multiReferenceObject, { mapLimit: 1 })
-    expect(result).toEqual({ object1: {}, object2: {}, array1: [], array2: [], title: 'Some Title', item: 45 })
+    expect(result).not.toBe(multiReferenceObject)
+    expect(result).toStrictEqual(multiReferenceObject)
+  })
+
+  test('can limit length of map for deep references', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { mapLimit: 1 })
+    expect(result).not.toBe(deepReferenceObject)
+    expect(result).toStrictEqual(deepReferenceObject)
   })
 
   test('will be able to clone created object instance', () => {
@@ -395,7 +406,7 @@ describe('cloneObject', () => {
 
   test('will use original nested instance in new clone', () => {
     class SomeObject {
-      construct() {
+      construct () {
         this.one = 'first'
         this.two = 'second'
       }

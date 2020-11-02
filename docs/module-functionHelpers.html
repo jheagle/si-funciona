@@ -660,7 +660,7 @@ fn is the name of the function being curried.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line56">line 56</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -882,6 +882,252 @@ Pass a paramter and the value will be transformed by each function then returned
     
 
     
+    <h4 class="name" id=".preloadParams"><span class="type-signature">(static) </span>preloadParams<span class="signature">(fn, params, unassignedParam<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-functionHelpers.html#~callWithMissing">module:functionHelpers~callWithMissing</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Provide an array of parameters to be used with a function, allow the function to be called later
+with the missing parameter.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The function to be called</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The parameters to preload</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>unassignedParam</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Position of missing parameter (zero indexed)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-functionHelpers.html#~callWithMissing">module:functionHelpers~callWithMissing</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".queueManager"><span class="type-signature">(static) </span>queueManager<span class="signature">(queue<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-functionHelpers.html#~queueManagerHandle">module:functionHelpers~queueManagerHandle</a>}</span></h4>
     
 
@@ -1003,7 +1249,7 @@ Pass a paramter and the value will be transformed by each function then returned
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line90">line 90</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -1178,7 +1424,7 @@ Pass a paramter and the value will be transformed by each function then returned
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line135">line 135</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -1233,6 +1479,161 @@ Pass a paramter and the value will be transformed by each function then returned
         <h3 class="subsection-title">Type Definitions</h3>
 
         
+                
+
+    
+
+    
+    <h4 class="name" id="~callWithMissing"><span class="type-signature"></span>callWithMissing<span class="signature">(missing)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    The return function which takes the missing parameter in order to call the preloaded function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>missing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The missing parameter to be applied</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
                 
 <h4 class="name" id="~delayHandler">delayHandler</h4>
 
@@ -1363,7 +1764,7 @@ Pass a paramter and the value will be transformed by each function then returned
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line43">line 43</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -1529,7 +1930,7 @@ Pass a paramter and the value will be transformed by each function then returned
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line76">line 76</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -1758,7 +2159,7 @@ Pass a paramter and the value will be transformed by each function then returned
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line120">line 120</a>
+        <a href="helpers_functions.js.html">helpers/functions.js</a>, <a href="helpers_functions.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -1820,13 +2221,13 @@ Pass a paramter and the value will be transformed by each function then returned
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-cloneHelpers.html">cloneHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 02 2020 22:43:08 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Nov 01 2020 22:45:07 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

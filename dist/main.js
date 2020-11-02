@@ -13,6 +13,8 @@ require('core-js/stable')
 
 var arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
 
+var cloneHelpers = _interopRequireWildcard(require('./helpers/objects/cloneHelpers'))
+
 var descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
 
 var functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
@@ -63,6 +65,6 @@ var noConflict = function noConflict () {
 
 functionalHelpers.noConflict = noConflict
 
-var _default = Object.assign(functionalHelpers, arrayHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
+var _default = Object.assign(functionalHelpers, arrayHelpers, cloneHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
 
 exports.default = _default
