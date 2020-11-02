@@ -163,6 +163,7 @@ const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRe
 /**
  * Store a bundle containing an object, references array, and remove array.
  * @typedef {Object} objectReferencesRemove
+ * @property {number} index
  * @property {Array|Object} object
  * @property {Array.<string|number>} references
  * @property {module:objectHelpers~referenceMap} remove
@@ -173,11 +174,13 @@ const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRe
  * @function
  * @param {Array|Object} object
  * @param {Array.<string|number>} [references=[]]
+ * @param {number} [index=0]
  * @returns {module:objectHelpers~objectReferencesRemove}
  */
-export const objectAndReferences = (object, references = []) => Object.assign({}, {
+export const objectAndReferences = (object, references = [], index = 0) => Object.assign({}, {
+  index: index,
   object: object || {},
-  references: references || [],
+  references: references,
   remove: []
 })
 
@@ -211,10 +214,14 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
   }
   if (Array.isArray(key)) {
     let remove = []
-            ; (
+    const nextObject = results.object[keyArray[0]]
+    if (typeof nextObject === 'number') {
+      results.index = nextObject
+    }
+    ;(
       { object: results.object[keyArray[0]], remove } = keyArray[1].reduce(
         linkReferenceObject(referenceMap),
-        objectAndReferences(results.object[keyArray[0]], keyArray[1])
+        objectAndReferences(nextObject, keyArray[1], results.index)
       )
     )
     results.remove = [...results.remove, ...remove]
@@ -225,6 +232,7 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
     return results
   }
   results.object[key] = nextRef.object
+  nextRef.referers.splice(nextRef.referers.findIndex(i => i === results.index), 1)
   const nextReferences = nextRef.references.map(ref => nextRef.circular.includes(ref) ? [ref, null] : ref)
   results.remove.push(nextRef)
   if (nextReferences.length && !isCircular) {
@@ -250,14 +258,8 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
  * @returns {module:objectHelpers~removeReferenceIdentifier}
  */
 export const removeFromReferenceMap = referenceMap => referenceIdentifier => {
-  const withoutReferer = referenceIdentifier.referers.every(referer => {
-    if (referer >= referenceIdentifier.index) {
-      return findReferenceIndex(referenceMap, referer) < 0
-    }
-    return true
-  })
   const removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
-  if (removeIndex <= 0 || !withoutReferer) {
+  if (removeIndex <= 0 || referenceIdentifier.referers.length) {
     return false
   }
   referenceMap.splice(removeIndex, 1)
@@ -284,7 +286,7 @@ export const linkReferences = referenceMap => {
       .references
       .reduce(
         linkReferenceObject(referenceMap),
-        objectAndReferences(referenceMap[0].object, referenceMap[0].references)
+        objectAndReferences(referenceMap[0].object, referenceMap[0].references, 0)
       )
   )
   remove.forEach(removeFromReferenceMap(referenceMap))

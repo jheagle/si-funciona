@@ -8,8 +8,6 @@ require('core-js/modules/es.symbol.iterator')
 
 require('core-js/modules/es.array.concat')
 
-require('core-js/modules/es.array.every')
-
 require('core-js/modules/es.array.find-index')
 
 require('core-js/modules/es.array.for-each')
@@ -264,6 +262,7 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
 /**
  * Store a bundle containing an object, references array, and remove array.
  * @typedef {Object} objectReferencesRemove
+ * @property {number} index
  * @property {Array|Object} object
  * @property {Array.<string|number>} references
  * @property {module:objectHelpers~referenceMap} remove
@@ -274,14 +273,17 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
  * @function
  * @param {Array|Object} object
  * @param {Array.<string|number>} [references=[]]
+ * @param {number} [index=0]
  * @returns {module:objectHelpers~objectReferencesRemove}
  */
 
 var objectAndReferences = function objectAndReferences (object) {
   var references = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
   return Object.assign({}, {
+    index: index,
     object: object || {},
-    references: references || [],
+    references: references,
     remove: []
   })
 }
@@ -322,8 +324,15 @@ var linkReferenceObject = function linkReferenceObject (referenceMap) {
 
     if (Array.isArray(key)) {
       var remove = []
+      var nextObject = results.object[keyArray[0]]
 
-      var _keyArray$1$reduce = keyArray[1].reduce(linkReferenceObject(referenceMap), objectAndReferences(results.object[keyArray[0]], keyArray[1]))
+      if (typeof nextObject === 'number') {
+        results.index = nextObject
+      }
+
+      ;
+
+      var _keyArray$1$reduce = keyArray[1].reduce(linkReferenceObject(referenceMap), objectAndReferences(nextObject, keyArray[1], results.index))
 
       results.object[keyArray[0]] = _keyArray$1$reduce.object
       remove = _keyArray$1$reduce.remove
@@ -338,6 +347,9 @@ var linkReferenceObject = function linkReferenceObject (referenceMap) {
     }
 
     results.object[key] = nextRef.object
+    nextRef.referers.splice(nextRef.referers.findIndex(function (i) {
+      return i === results.index
+    }), 1)
     var nextReferences = nextRef.references.map(function (ref) {
       return nextRef.circular.includes(ref) ? [ref, null] : ref
     })
@@ -371,16 +383,9 @@ exports.linkReferenceObject = linkReferenceObject
 
 var removeFromReferenceMap = function removeFromReferenceMap (referenceMap) {
   return function (referenceIdentifier) {
-    var withoutReferer = referenceIdentifier.referers.every(function (referer) {
-      if (referer >= referenceIdentifier.index) {
-        return findReferenceIndex(referenceMap, referer) < 0
-      }
-
-      return true
-    })
     var removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
 
-    if (removeIndex <= 0 || !withoutReferer) {
+    if (removeIndex <= 0 || referenceIdentifier.referers.length) {
       return false
     }
 
@@ -410,7 +415,7 @@ var linkReferences = function linkReferences (referenceMap) {
 
   var remove = []
 
-  var _referenceMap$0$refer = referenceMap[0].references.reduce(linkReferenceObject(referenceMap), objectAndReferences(referenceMap[0].object, referenceMap[0].references))
+  var _referenceMap$0$refer = referenceMap[0].references.reduce(linkReferenceObject(referenceMap), objectAndReferences(referenceMap[0].object, referenceMap[0].references, 0))
 
   referenceMap[0].object = _referenceMap$0$refer.object
   referenceMap[0].references = _referenceMap$0$refer.references

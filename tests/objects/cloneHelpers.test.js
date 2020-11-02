@@ -207,6 +207,12 @@ describe('removeFromReferenceMap', () => {
     return referenceMap
   }
 
+  const removeReferer = (nextRef, index) => {
+    const refererPosition = nextRef.referers.findIndex(i => i === index)
+    nextRef.referers.splice(refererPosition, 1)
+    return nextRef
+  }
+
   test('will not remove the 0 index of the reference map', () => {
     const referenceMap = buildReferenceMap(1)
     expect(helpers.removeFromReferenceMap(referenceMap)(referenceMap[0])).toBe(false)
@@ -225,13 +231,17 @@ describe('removeFromReferenceMap', () => {
 
   test('will remove identifier if it has higher index referer that no longer exists', () => {
     const referenceMap = buildReferenceMap(4)
+    referenceMap[1] = removeReferer(referenceMap[1], 0)
+    referenceMap[3] = removeReferer(referenceMap[3], 0)
     helpers.removeFromReferenceMap(referenceMap)(referenceMap[3])
+    referenceMap[1] = removeReferer(referenceMap[1], 3)
     expect(helpers.removeFromReferenceMap(referenceMap)(referenceMap[1])).toBe(true)
   })
 
   test('will successfully remove an identifier and remove the index from referers on zero indexed identifier', () => {
     const referenceMap = buildReferenceMap(2)
     expect(referenceMap[0].referers).toEqual([1])
+    referenceMap[1] = removeReferer(referenceMap[1], 0)
     expect(helpers.removeFromReferenceMap(referenceMap)(referenceMap[1])).toBe(true)
     expect(referenceMap[0].referers).toEqual([])
   })

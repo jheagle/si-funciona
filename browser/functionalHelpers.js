@@ -1016,8 +1016,6 @@
 
     require('core-js/modules/es.array.concat')
 
-    require('core-js/modules/es.array.every')
-
     require('core-js/modules/es.array.find-index')
 
     require('core-js/modules/es.array.for-each')
@@ -1272,6 +1270,7 @@
     /**
  * Store a bundle containing an object, references array, and remove array.
  * @typedef {Object} objectReferencesRemove
+ * @property {number} index
  * @property {Array|Object} object
  * @property {Array.<string|number>} references
  * @property {module:objectHelpers~referenceMap} remove
@@ -1282,14 +1281,17 @@
  * @function
  * @param {Array|Object} object
  * @param {Array.<string|number>} [references=[]]
+ * @param {number} [index=0]
  * @returns {module:objectHelpers~objectReferencesRemove}
  */
 
     var objectAndReferences = function objectAndReferences (object) {
       var references = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+      var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
       return Object.assign({}, {
+        index: index,
         object: object || {},
-        references: references || [],
+        references: references,
         remove: []
       })
     }
@@ -1330,8 +1332,15 @@
 
         if (Array.isArray(key)) {
           var remove = []
+          var nextObject = results.object[keyArray[0]]
 
-          var _keyArray$1$reduce = keyArray[1].reduce(linkReferenceObject(referenceMap), objectAndReferences(results.object[keyArray[0]], keyArray[1]))
+          if (typeof nextObject === 'number') {
+            results.index = nextObject
+          }
+
+          ;
+
+          var _keyArray$1$reduce = keyArray[1].reduce(linkReferenceObject(referenceMap), objectAndReferences(nextObject, keyArray[1], results.index))
 
           results.object[keyArray[0]] = _keyArray$1$reduce.object
           remove = _keyArray$1$reduce.remove
@@ -1346,6 +1355,9 @@
         }
 
         results.object[key] = nextRef.object
+        nextRef.referers.splice(nextRef.referers.findIndex(function (i) {
+          return i === results.index
+        }), 1)
         var nextReferences = nextRef.references.map(function (ref) {
           return nextRef.circular.includes(ref) ? [ref, null] : ref
         })
@@ -1379,16 +1391,9 @@
 
     var removeFromReferenceMap = function removeFromReferenceMap (referenceMap) {
       return function (referenceIdentifier) {
-        var withoutReferer = referenceIdentifier.referers.every(function (referer) {
-          if (referer >= referenceIdentifier.index) {
-            return findReferenceIndex(referenceMap, referer) < 0
-          }
-
-          return true
-        })
         var removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
 
-        if (removeIndex <= 0 || !withoutReferer) {
+        if (removeIndex <= 0 || referenceIdentifier.referers.length) {
           return false
         }
 
@@ -1418,7 +1423,7 @@
 
       var remove = []
 
-      var _referenceMap$0$refer = referenceMap[0].references.reduce(linkReferenceObject(referenceMap), objectAndReferences(referenceMap[0].object, referenceMap[0].references))
+      var _referenceMap$0$refer = referenceMap[0].references.reduce(linkReferenceObject(referenceMap), objectAndReferences(referenceMap[0].object, referenceMap[0].references, 0))
 
       referenceMap[0].object = _referenceMap$0$refer.object
       referenceMap[0].references = _referenceMap$0$refer.references
@@ -1428,7 +1433,7 @@
     }
 
     exports.linkReferences = linkReferences
-  }, { '../objects': 4, 'core-js/modules/es.array.concat': 168, 'core-js/modules/es.array.every': 170, 'core-js/modules/es.array.find-index': 173, 'core-js/modules/es.array.for-each': 177, 'core-js/modules/es.array.from': 178, 'core-js/modules/es.array.includes': 179, 'core-js/modules/es.array.index-of': 180, 'core-js/modules/es.array.iterator': 182, 'core-js/modules/es.array.map': 185, 'core-js/modules/es.array.reduce': 188, 'core-js/modules/es.array.slice': 190, 'core-js/modules/es.array.some': 191, 'core-js/modules/es.array.splice': 194, 'core-js/modules/es.function.name': 205, 'core-js/modules/es.object.assign': 240, 'core-js/modules/es.object.to-string': 263, 'core-js/modules/es.regexp.to-string': 288, 'core-js/modules/es.string.includes': 300, 'core-js/modules/es.string.iterator': 302, 'core-js/modules/es.symbol': 326, 'core-js/modules/es.symbol.description': 322, 'core-js/modules/es.symbol.iterator': 325, 'core-js/modules/web.dom-collections.for-each': 372, 'core-js/modules/web.dom-collections.iterator': 373 }],
+  }, { '../objects': 4, 'core-js/modules/es.array.concat': 168, 'core-js/modules/es.array.find-index': 173, 'core-js/modules/es.array.for-each': 177, 'core-js/modules/es.array.from': 178, 'core-js/modules/es.array.includes': 179, 'core-js/modules/es.array.index-of': 180, 'core-js/modules/es.array.iterator': 182, 'core-js/modules/es.array.map': 185, 'core-js/modules/es.array.reduce': 188, 'core-js/modules/es.array.slice': 190, 'core-js/modules/es.array.some': 191, 'core-js/modules/es.array.splice': 194, 'core-js/modules/es.function.name': 205, 'core-js/modules/es.object.assign': 240, 'core-js/modules/es.object.to-string': 263, 'core-js/modules/es.regexp.to-string': 288, 'core-js/modules/es.string.includes': 300, 'core-js/modules/es.string.iterator': 302, 'core-js/modules/es.symbol': 326, 'core-js/modules/es.symbol.description': 322, 'core-js/modules/es.symbol.iterator': 325, 'core-js/modules/web.dom-collections.for-each': 372, 'core-js/modules/web.dom-collections.iterator': 373 }],
   6: [function (require, module, exports) {
     'use strict'
 

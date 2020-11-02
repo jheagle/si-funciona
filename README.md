@@ -726,7 +726,7 @@ Utility functions used by cloneObject.
         * [.findReferenceKeys([referenceMap], [index], [maxDepth])](#module_cloneHelpers.findReferenceKeys) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
         * [.findReferenceIndex(referenceMap, [index])](#module_cloneHelpers.findReferenceIndex) ⇒ <code>number</code>
         * [.findReference(referenceMap, [index])](#module_cloneHelpers.findReference) ⇒ <code>module:objectHelpers~referenceIdentifier</code>
-        * [.objectAndReferences(object, [references])](#module_cloneHelpers.objectAndReferences) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+        * [.objectAndReferences(object, [references], [index])](#module_cloneHelpers.objectAndReferences) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
         * [.linkReferenceObject(referenceMap)](#module_cloneHelpers.linkReferenceObject) ⇒ <code>module:objectHelpers~referencesReduce</code>
         * [.removeFromReferenceMap(referenceMap)](#module_cloneHelpers.removeFromReferenceMap) ⇒ <code>module:objectHelpers~removeReferenceIdentifier</code>
         * [.linkReferences(referenceMap)](#module_cloneHelpers.linkReferences) ⇒ <code>module:objectHelpers~referenceMap</code>
@@ -804,7 +804,7 @@ Find a referenced identifier by index form the reference map.
 
 <a name="module_cloneHelpers.objectAndReferences"></a>
 
-### cloneHelpers.objectAndReferences(object, [references]) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
+### cloneHelpers.objectAndReferences(object, [references], [index]) ⇒ <code>module:objectHelpers~objectReferencesRemove</code>
 Create a return type package containing an object, references to find, and array of items to remove.
 
 **Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
@@ -813,6 +813,7 @@ Create a return type package containing an object, references to find, and array
 | --- | --- | --- |
 | object | <code>Array</code> \| <code>Object</code> |  | 
 | [references] | <code>Array.&lt;(string\|number)&gt;</code> | <code>[]</code> | 
+| [index] | <code>number</code> | <code>0</code> | 
 
 <a name="module_cloneHelpers.linkReferenceObject"></a>
 
@@ -904,6 +905,7 @@ Store a bundle containing an object, references array, and remove array.
 
 | Name | Type |
 | --- | --- |
+| index | <code>number</code> | 
 | object | <code>Array</code> \| <code>Object</code> | 
 | references | <code>Array.&lt;(string\|number)&gt;</code> | 
 | remove | <code>module:objectHelpers~referenceMap</code> | 
