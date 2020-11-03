@@ -8,6 +8,8 @@ require('core-js/modules/es.symbol.iterator')
 
 require('core-js/modules/es.array.concat')
 
+require('core-js/modules/es.array.filter')
+
 require('core-js/modules/es.array.find-index')
 
 require('core-js/modules/es.array.for-each')
@@ -49,7 +51,9 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
+exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
+
+var _functions = require('../functions')
 
 var _objects = require('../objects')
 
@@ -92,7 +96,7 @@ var nonReference = function nonReference (value) {
  * @param {Array|Object} [object=null]
  * @param {number} [index=0]
  * @param {Array.<number>} [referers=[]]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 
 var createReferenceIdentifier = function createReferenceIdentifier () {
@@ -113,8 +117,8 @@ var createReferenceIdentifier = function createReferenceIdentifier () {
  * Update the object of this reference identifier by cloning the object or array and setting child references to null.
  * Every reference that is found has it's key added to the array array of references.
  * @function
- * @param {module:objectHelpers~referenceIdentifier} referenceIdentifier
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @param {module:cloneHelpers~referenceIdentifier} referenceIdentifier
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 
 exports.createReferenceIdentifier = createReferenceIdentifier
@@ -131,17 +135,17 @@ var findObjectReferences = function findObjectReferences (referenceIdentifier) {
 }
 /**
  * An array of reference identifiers linked together.
- * @typedef {Array.<module:objectHelpers~referenceMap>} referenceMap
+ * @typedef {Array.<module:cloneHelpers~referenceMap>} referenceMap
  */
 
 /**
  * For all of the identified references, find the index of the corresponding referenceIdentifier
  * or create a new one and set the index instead of null.
  * @function
- * @param {module:objectHelpers~referenceMap} [referenceMap=[]]
+ * @param {module:cloneHelpers~referenceMap} [referenceMap=[]]
  * @param {number} [index=0]
  * @param {boolean} [maxDepth=false]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 
 exports.findObjectReferences = findObjectReferences
@@ -177,7 +181,7 @@ var findReferenceKeys = function findReferenceKeys () {
 /**
  * Find the array index of the provided reference identifier within the reference map.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {number} [index=0]
  * @returns {number}
  */
@@ -209,9 +213,9 @@ var findReferenceIndex = function findReferenceIndex (referenceMap) {
 /**
  * Find a referenced identifier by index form the reference map.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {number} [index=0]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 
 exports.findReferenceIndex = findReferenceIndex
@@ -248,7 +252,7 @@ var getIdentifierDepth = function getIdentifierDepth (referenceMap, identifier) 
 }
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
 
@@ -265,7 +269,7 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
  * @property {number} index
  * @property {Array|Object} object
  * @property {Array.<string|number>} references
- * @property {module:objectHelpers~referenceMap} remove
+ * @property {module:cloneHelpers~referenceMap} remove
  */
 
 /**
@@ -274,7 +278,7 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
  * @param {Array|Object} object
  * @param {Array.<string|number>} [references=[]]
  * @param {number} [index=0]
- * @returns {module:objectHelpers~objectReferencesRemove}
+ * @returns {module:cloneHelpers~objectReferencesRemove}
  */
 
 var objectAndReferences = function objectAndReferences (object) {
@@ -293,17 +297,17 @@ var objectAndReferences = function objectAndReferences (object) {
  * containing the linked object, updated references array, and an array of identifiers to be deleted
  * since these are no longer required in the reference map.
  * @typedef {Function} referencesReduce
- * @param {module:objectHelpers~objectReferencesRemove} results
+ * @param {module:cloneHelpers~objectReferencesRemove} results
  * @param {number|string} key
  * @param {number} i
- * @returns {module:objectHelpers~objectReferencesRemove}
+ * @returns {module:cloneHelpers~objectReferencesRemove}
  */
 
 /**
  * Return the referencesReduce callback.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~referencesReduce}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~referencesReduce}
  */
 
 exports.objectAndReferences = objectAndReferences
@@ -368,15 +372,15 @@ var linkReferenceObject = function linkReferenceObject (referenceMap) {
  * Given a referenceIdentifier, find it in the referenceMap and remove it, return true. If unable
  * to remove then return false.
  * @typedef {Function} removeReferenceIdentifier
- * @param {module:objectHelpers~referenceIdentifier} results
+ * @param {module:cloneHelpers~referenceIdentifier} results
  * @returns {boolean}
  */
 
 /**
  * Return the remove reference identifier callback.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~removeReferenceIdentifier}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~removeReferenceIdentifier}
  */
 
 exports.linkReferenceObject = linkReferenceObject
@@ -402,8 +406,8 @@ var removeFromReferenceMap = function removeFromReferenceMap (referenceMap) {
 /**
  * Find each of the unlinked references and assign the newly cloned reference for each.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~referenceMap}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~referenceMap}
  */
 
 exports.removeFromReferenceMap = removeFromReferenceMap
@@ -423,5 +427,56 @@ var linkReferences = function linkReferences (referenceMap) {
   remove.forEach(removeFromReferenceMap(referenceMap))
   return hasCompletedReferences(referenceMap) ? linkReferences(referenceMap) : referenceMap
 }
+/**
+ * Bundle all of the functions needed for processing an identifier in the reference map
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @param {Array.<module:cloneHelpers~referenceIdentifier>} moreReferences
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {depthLimit} [options.depthLimit=-1]
+ * @returns {Array.<module:cloneHelpers~referenceIdentifier>}
+ */
 
 exports.linkReferences = linkReferences
+
+var processIdentifier = function processIdentifier (referenceMap, moreReferences) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+  var _ref$mapLimit = _ref.mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
+  var _ref$depthLimit = _ref.depthLimit
+  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+
+  var currentIndex = 0
+  var isMaxDepth = false
+  referenceMap = (0, _functions.pipe)(function (identifier) {
+    return findReferenceIndex(referenceMap, identifier.index)
+  }, function (index) {
+    currentIndex = index
+    return findObjectReferences(referenceMap[currentIndex])
+  }, function (identifier) {
+    return getIdentifierDepth(referenceMap, identifier)
+  }, function (currentDepth) {
+    return currentDepth === depthLimit
+  }, function (maxDepth) {
+    isMaxDepth = maxDepth
+    return findReferenceKeys(referenceMap, currentIndex, isMaxDepth)
+  }, function (identifier) {
+    if (isMaxDepth) {
+      referenceMap[currentIndex].references = identifier.circular
+    }
+
+    referenceMap[currentIndex].complete = true
+    var references = referenceMap[currentIndex].references.filter(function (refKey) {
+      return !identifier.circular.includes(refKey)
+    })
+    moreReferences = [].concat(_toConsumableArray(moreReferences), _toConsumableArray(references.map(function (key) {
+      return referenceMap[identifier.object[key]]
+    })))
+    return referenceMap.length >= mapLimit
+  }, function (maxLimit) {
+    return maxLimit ? linkReferences(referenceMap) : referenceMap
+  })(moreReferences.shift())
+  return moreReferences
+}
+
+exports.processIdentifier = processIdentifier

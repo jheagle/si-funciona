@@ -45,8 +45,6 @@ exports.compareArrays = exports.mergeArrays = exports.uniqueArray = exports.buil
 
 require('core-js/stable')
 
-var _functions = require('./functions')
-
 var _objects = require('./objects')
 
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
@@ -62,45 +60,43 @@ function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToA
 function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 /**
- * Generate an array filled with a copy of the provided item or references to the provided item.
- * The length defines how long the array should be.
- * @function
- * @param {boolean} useReference - Choose to multiply by clone or reference, true is by reference
- * @param {*} item - The item to be used for each array element
- * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
- * @returns {Array.<*>}
- */
-var buildArrayBase = (function () {
-  return function (useReference, item, length) {
-    var arr = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : []
-    item = useReference ? item : (0, _objects.cloneObject)(item)
-    return --length > 0 ? buildArrayBase(useReference, item, length, [].concat(_toConsumableArray(arr), [item])) : [].concat(_toConsumableArray(arr), [item])
-  }
-}())
-/**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
  * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
+var buildArray = function buildArray (item, length) {
+  var arr = []
 
-var buildArray = (0, _functions.curry)(buildArrayBase)(false)
+  while (arr.length < length) {
+    var cloned = (0, _objects.cloneObject)(item)
+    arr.push(cloned)
+  }
+
+  return arr
+}
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
  * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
 
 exports.buildArray = buildArray
-var buildArrayOfReferences = (0, _functions.curry)(buildArrayBase)(true)
+
+var buildArrayOfReferences = function buildArrayOfReferences (item, length) {
+  var arr = []
+
+  while (arr.length < length) {
+    arr.push(item)
+  }
+
+  return arr
+}
 /**
  * Remove duplicate values from an array.
  * @function uniqueArray

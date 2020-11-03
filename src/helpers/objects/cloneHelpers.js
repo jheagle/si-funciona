@@ -6,6 +6,7 @@
  * @module cloneHelpers
  */
 
+import { pipe } from '../functions'
 import { mapObject, isCloneable, setValue } from '../objects'
 /**
  * Check if this value represents an object that needs to be used as a reference.
@@ -33,7 +34,7 @@ const nonReference = value => !isCloneable(value)
  * @param {Array|Object} [object=null]
  * @param {number} [index=0]
  * @param {Array.<number>} [referers=[]]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 export const createReferenceIdentifier = (object = null, index = 0, referers = []) => Object.assign({}, {
   circular: [],
@@ -49,8 +50,8 @@ export const createReferenceIdentifier = (object = null, index = 0, referers = [
  * Update the object of this reference identifier by cloning the object or array and setting child references to null.
  * Every reference that is found has it's key added to the array array of references.
  * @function
- * @param {module:objectHelpers~referenceIdentifier} referenceIdentifier
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @param {module:cloneHelpers~referenceIdentifier} referenceIdentifier
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 export const findObjectReferences = referenceIdentifier => setValue(
   'object',
@@ -69,17 +70,17 @@ export const findObjectReferences = referenceIdentifier => setValue(
 
 /**
  * An array of reference identifiers linked together.
- * @typedef {Array.<module:objectHelpers~referenceMap>} referenceMap
+ * @typedef {Array.<module:cloneHelpers~referenceMap>} referenceMap
  */
 
 /**
  * For all of the identified references, find the index of the corresponding referenceIdentifier
  * or create a new one and set the index instead of null.
  * @function
- * @param {module:objectHelpers~referenceMap} [referenceMap=[]]
+ * @param {module:cloneHelpers~referenceMap} [referenceMap=[]]
  * @param {number} [index=0]
  * @param {boolean} [maxDepth=false]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 export const findReferenceKeys = (referenceMap = [], index = 0, maxDepth = false) => referenceMap[index].references.reduce(
   (newRef, key, i) => {
@@ -106,7 +107,7 @@ export const findReferenceKeys = (referenceMap = [], index = 0, maxDepth = false
 /**
  * Find the array index of the provided reference identifier within the reference map.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {number} [index=0]
  * @returns {number}
  */
@@ -129,9 +130,9 @@ export const findReferenceIndex = (referenceMap, index = 0) => {
 /**
  * Find a referenced identifier by index form the reference map.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {number} [index=0]
- * @returns {module:objectHelpers~referenceIdentifier}
+ * @returns {module:cloneHelpers~referenceIdentifier}
  */
 export const findReference = (referenceMap, index = 0) => referenceMap[findReferenceIndex(referenceMap, index)]
 
@@ -155,7 +156,7 @@ export const getIdentifierDepth = (referenceMap, identifier) => {
 
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
- * @param {module:objectHelpers~referenceMap} referenceMap
+ * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
 const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
@@ -166,7 +167,7 @@ const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRe
  * @property {number} index
  * @property {Array|Object} object
  * @property {Array.<string|number>} references
- * @property {module:objectHelpers~referenceMap} remove
+ * @property {module:cloneHelpers~referenceMap} remove
  */
 
 /**
@@ -175,7 +176,7 @@ const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRe
  * @param {Array|Object} object
  * @param {Array.<string|number>} [references=[]]
  * @param {number} [index=0]
- * @returns {module:objectHelpers~objectReferencesRemove}
+ * @returns {module:cloneHelpers~objectReferencesRemove}
  */
 export const objectAndReferences = (object, references = [], index = 0) => Object.assign({}, {
   index: index,
@@ -190,17 +191,17 @@ export const objectAndReferences = (object, references = [], index = 0) => Objec
  * containing the linked object, updated references array, and an array of identifiers to be deleted
  * since these are no longer required in the reference map.
  * @typedef {Function} referencesReduce
- * @param {module:objectHelpers~objectReferencesRemove} results
+ * @param {module:cloneHelpers~objectReferencesRemove} results
  * @param {number|string} key
  * @param {number} i
- * @returns {module:objectHelpers~objectReferencesRemove}
+ * @returns {module:cloneHelpers~objectReferencesRemove}
  */
 
 /**
  * Return the referencesReduce callback.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~referencesReduce}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~referencesReduce}
  */
 export const linkReferenceObject = referenceMap => (results, key, i) => {
   let isCircular = false
@@ -247,15 +248,15 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
  * Given a referenceIdentifier, find it in the referenceMap and remove it, return true. If unable
  * to remove then return false.
  * @typedef {Function} removeReferenceIdentifier
- * @param {module:objectHelpers~referenceIdentifier} results
+ * @param {module:cloneHelpers~referenceIdentifier} results
  * @returns {boolean}
  */
 
 /**
  * Return the remove reference identifier callback.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~removeReferenceIdentifier}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~removeReferenceIdentifier}
  */
 export const removeFromReferenceMap = referenceMap => referenceIdentifier => {
   const removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
@@ -273,8 +274,8 @@ export const removeFromReferenceMap = referenceMap => referenceIdentifier => {
 /**
  * Find each of the unlinked references and assign the newly cloned reference for each.
  * @function
- * @param {module:objectHelpers~referenceMap} referenceMap
- * @returns {module:objectHelpers~referenceMap}
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @returns {module:cloneHelpers~referenceMap}
  */
 export const linkReferences = referenceMap => {
   if (!referenceMap[0].complete) {
@@ -291,4 +292,43 @@ export const linkReferences = referenceMap => {
   )
   remove.forEach(removeFromReferenceMap(referenceMap))
   return hasCompletedReferences(referenceMap) ? linkReferences(referenceMap) : referenceMap
+}
+
+/**
+ * Bundle all of the functions needed for processing an identifier in the reference map
+ * @function
+ * @param {module:cloneHelpers~referenceMap} referenceMap
+ * @param {Array.<module:cloneHelpers~referenceIdentifier>} moreReferences
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {depthLimit} [options.depthLimit=-1]
+ * @returns {Array.<module:cloneHelpers~referenceIdentifier>}
+ */
+export const processIdentifier = (referenceMap, moreReferences, { mapLimit = 100, depthLimit = -1 } = {}) => {
+  let currentIndex = 0
+  let isMaxDepth = false
+  referenceMap = pipe(
+    identifier => findReferenceIndex(referenceMap, identifier.index),
+    index => {
+      currentIndex = index
+      return findObjectReferences(referenceMap[currentIndex])
+    },
+    identifier => getIdentifierDepth(referenceMap, identifier),
+    currentDepth => currentDepth === depthLimit,
+    maxDepth => {
+      isMaxDepth = maxDepth
+      return findReferenceKeys(referenceMap, currentIndex, isMaxDepth)
+    },
+    identifier => {
+      if (isMaxDepth) {
+        referenceMap[currentIndex].references = identifier.circular
+      }
+      referenceMap[currentIndex].complete = true
+      const references = referenceMap[currentIndex].references.filter(refKey => !identifier.circular.includes(refKey))
+      moreReferences = [...moreReferences, ...references.map(key => referenceMap[identifier.object[key]])]
+      return referenceMap.length >= mapLimit
+    },
+    maxLimit => maxLimit ? linkReferences(referenceMap) : referenceMap
+  )(moreReferences.shift())
+  return moreReferences
 }

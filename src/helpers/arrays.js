@@ -7,26 +7,7 @@
  */
 
 import 'core-js/stable'
-import { curry } from './functions'
 import { cloneObject } from './objects'
-
-/**
- * Generate an array filled with a copy of the provided item or references to the provided item.
- * The length defines how long the array should be.
- * @function
- * @param {boolean} useReference - Choose to multiply by clone or reference, true is by reference
- * @param {*} item - The item to be used for each array element
- * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
- * @returns {Array.<*>}
- */
-const buildArrayBase = (() => (useReference, item, length, arr = []) => {
-  item = useReference ? item : cloneObject(item)
-  return --length > 0
-    ? buildArrayBase(useReference, item, length, [...arr, item])
-    : [...arr, item]
-}
-)()
 
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
@@ -34,10 +15,16 @@ const buildArrayBase = (() => (useReference, item, length, arr = []) => {
  * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-export const buildArray = curry(buildArrayBase)(false)
+export const buildArray = (item, length) => {
+  const arr = []
+  while (arr.length < length) {
+    const cloned = cloneObject(item)
+    arr.push(cloned)
+  }
+  return arr
+}
 
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
@@ -45,10 +32,15 @@ export const buildArray = curry(buildArrayBase)(false)
  * @function
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
- * @param {Array} [arr=[]] - The in-progress array of elements to be built and returned, will be used internally
  * @returns {Array.<*>}
  */
-export const buildArrayOfReferences = curry(buildArrayBase)(true)
+export const buildArrayOfReferences = (item, length) => {
+  const arr = []
+  while (arr.length < length) {
+    arr.push(item)
+  }
+  return arr
+}
 
 /**
  * Remove duplicate values from an array.

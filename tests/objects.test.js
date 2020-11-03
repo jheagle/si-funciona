@@ -1,25 +1,29 @@
 import * as helpers from '../dist/helpers/objects'
 import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
-test('setValue will update an item and return the item', () => {
-  const someObject = {
-    firstProp: null,
-    secondProp: 'something here'
-  }
-  const updateObject1 = helpers.setValue('firstProp', { newValue: 'some value' }, someObject)
-  const updateObject2 = helpers.setValue('secondProp', 'a new thing here', updateObject1)
-  expect(updateObject2).toEqual({ firstProp: { newValue: 'some value' }, secondProp: 'a new thing here' })
+describe('setValue', () => {
+  test('will update an item and return the item', () => {
+    const someObject = {
+      firstProp: null,
+      secondProp: 'something here'
+    }
+    const updateObject1 = helpers.setValue('firstProp', { newValue: 'some value' }, someObject)
+    const updateObject2 = helpers.setValue('secondProp', 'a new thing here', updateObject1)
+    expect(updateObject2).toEqual({ firstProp: { newValue: 'some value' }, secondProp: 'a new thing here' })
+  })
 })
 
-test('setAndReturnValue will update an item and return the value', () => {
-  const someObject = {
-    firstProp: null,
-    secondProp: 'something here'
-  }
-  const firstValue = helpers.setAndReturnValue(someObject, 'firstProp', { newValue: 'some value' })
-  expect(firstValue).toEqual({ newValue: 'some value' })
-  const secondValue = helpers.setAndReturnValue(someObject, 'secondProp', 'a new thing here')
-  expect(secondValue).toEqual('a new thing here')
+describe('setAndReturnValue', () => {
+  test('will update an item and return the value', () => {
+    const someObject = {
+      firstProp: null,
+      secondProp: 'something here'
+    }
+    const firstValue = helpers.setAndReturnValue(someObject, 'firstProp', { newValue: 'some value' })
+    expect(firstValue).toEqual({ newValue: 'some value' })
+    const secondValue = helpers.setAndReturnValue(someObject, 'secondProp', 'a new thing here')
+    expect(secondValue).toEqual('a new thing here')
+  })
 })
 
 describe('objectKeys', () => {
@@ -423,7 +427,7 @@ describe('mergeObjects', () => {
   test('combines two objects into one new object', () => {
     const someItem = { name: 'something', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3] }
     const secondItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjects(someItem, secondItem)
+    const newItem = helpers.mergeObjects({}, someItem, secondItem)
     expect(newItem).not.toBe(someItem)
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3], key: 'someKey' })
   })
@@ -433,18 +437,20 @@ describe('mergeObjects', () => {
     const secondItem = { number: 10, nested: { value: 'aValue' } }
     const thirdItem = { number: 5, anArray: [2, 3, 4, 5, 6, 7] }
     const fourthItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjects(someItem, secondItem, thirdItem, fourthItem)
+    const newItem = helpers.cloneObject(
+      helpers.mergeObjects({}, someItem, secondItem, thirdItem, fourthItem)
+    )
     expect(newItem).not.toBe(someItem)
     expect(newItem.nested).not.toBe(secondItem.nested)
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [2, 3, 4, 5, 6, 7], key: 'someKey' })
   })
 })
 
-describe('mergeObjectsMutable', () => {
+describe('mergeObjects: mutable', () => {
   test('combines two objects into the first object', () => {
     const someItem = { name: 'something', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3] }
     const secondItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjectsMutable(someItem, secondItem)
+    const newItem = helpers.mergeObjects(someItem, secondItem)
     expect(newItem).toBe(someItem)
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3], key: 'someKey' })
   })
@@ -454,7 +460,7 @@ describe('mergeObjectsMutable', () => {
     const secondItem = { number: 10, nested: { value: 'aValue' } }
     const thirdItem = { number: 5, anArray: [2, 3, 4, 5, 6, 7] }
     const fourthItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjectsMutable(someItem, secondItem, thirdItem, fourthItem)
+    const newItem = helpers.mergeObjects(someItem, secondItem, thirdItem, fourthItem)
     expect(newItem.nested).toBe(secondItem.nested)
     expect(newItem.anArray).toStrictEqual(thirdItem.anArray)
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [2, 3, 4, 5, 6, 7], key: 'someKey' })

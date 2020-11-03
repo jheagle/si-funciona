@@ -6,11 +6,7 @@ require('core-js/modules/es.symbol.description')
 
 require('core-js/modules/es.symbol.iterator')
 
-require('core-js/modules/es.array.concat')
-
 require('core-js/modules/es.array.filter')
-
-require('core-js/modules/es.array.from')
 
 require('core-js/modules/es.array.includes')
 
@@ -20,17 +16,11 @@ require('core-js/modules/es.array.map')
 
 require('core-js/modules/es.array.reduce')
 
-require('core-js/modules/es.array.slice')
-
 require('core-js/modules/es.function.name')
 
 require('core-js/modules/es.object.get-own-property-names')
 
 require('core-js/modules/es.object.to-string')
-
-require('core-js/modules/es.regexp.to-string')
-
-require('core-js/modules/es.string.includes')
 
 require('core-js/modules/es.string.iterator')
 
@@ -39,25 +29,13 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjectsMutable = exports.mergeObjects = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjects = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
 var _functions = require('./functions')
 
 var _cloneHelpers = require('./objects/cloneHelpers')
-
-function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-
-function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-
-function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
-
-function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-
-function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -289,7 +267,6 @@ var isCloneable = function isCloneable (value) {
  * @function
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
- * @param {module:descriptorSamples~descriptorMap} options.descriptorMap - The map of the object
  * @param {number} [options.mapLimit=100]
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
@@ -307,58 +284,14 @@ var cloneObject = function cloneObject (object) {
   var referenceMap = [(0, _cloneHelpers.createReferenceIdentifier)(object, 0)]
   var moreReferences = [referenceMap[0]]
 
-  var _loop = function _loop () {
-    var currentIdentifier = moreReferences.shift()
-    var index = (0, _cloneHelpers.findReferenceIndex)(referenceMap, currentIdentifier.index)
-    referenceMap[index] = (0, _cloneHelpers.findObjectReferences)(referenceMap[index])
-    var maxDepth = (0, _cloneHelpers.getIdentifierDepth)(referenceMap, referenceMap[index]) === depthLimit
-    referenceMap[index] = (0, _cloneHelpers.findReferenceKeys)(referenceMap, index, maxDepth)
-
-    if (maxDepth) {
-      referenceMap[index].references = referenceMap[index].circular
-    }
-
-    referenceMap[index].complete = true
-    var references = referenceMap[index].references.filter(function (refKey) {
-      return !referenceMap[index].circular.includes(refKey)
-    })
-    moreReferences = [].concat(_toConsumableArray(moreReferences), _toConsumableArray(references.map(function (key) {
-      return referenceMap[referenceMap[index].object[key]]
-    })))
-
-    if (referenceMap.length >= mapLimit) {
-      referenceMap = (0, _cloneHelpers.linkReferences)(referenceMap)
-    }
-  }
-
   do {
-    _loop()
+    moreReferences = (0, _cloneHelpers.processIdentifier)(referenceMap, moreReferences, {
+      mapLimit: mapLimit,
+      depthLimit: depthLimit
+    })
   } while (moreReferences.length > 0)
 
   return (0, _cloneHelpers.linkReferences)(referenceMap)[0].object
-}
-/**
- * Merge two objects and provide clone or original on the provided function.
- * The passed function should accept a minimum of two objects to be merged.
- * If the desire is to mutate the input objects, then the function name should
- * have the word 'mutable' in the name (case-insensitive).
- * @function
- * @param {boolean} isMutable - An optional flag which indicates whether we will clone objects or directly
- * @param {module:objectHelpers.mergeObjects|module:objectHelpers.mergeObjectsMutable|Function} fn - Pass one of
- * the mergeObjects functions to be used
- * @param {Object} obj1 - The receiving object; this is the object which will have it's properties overridden
- * @param {Object} obj2 - The contributing object; this is the object which will contribute new properties and
- * override existing ones
- * modify them
- * @returns {Object}
- */
-
-exports.cloneObject = cloneObject
-
-var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
-  return !emptyObject(obj2) ? reduceObject(obj2, function (newObj, prop, key) {
-    return setValue(key, obj1[key] ? fn(obj1[key], prop) : prop, newObj)
-  }, isMutable ? obj1 : cloneObject(obj1)) : obj2
 }
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
@@ -371,33 +304,22 @@ var mergeObjectsBase = function mergeObjectsBase (isMutable, fn, obj1, obj2) {
  * @returns {Object}
  */
 
+exports.cloneObject = cloneObject
+
 var mergeObjects = function mergeObjects () {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key]
   }
 
-  return args.length === 2 ? mergeObjectsBase(false, mergeObjects, args[0], args[1]) : args.length === 1 ? cloneObject(args[0]) : args.reduce((0, _functions.curry)(mergeObjectsBase)(false, mergeObjects), {})
+  return args.reduce(function (newObj, arg) {
+    return reduceObject(arg, function (returnObj, value, key) {
+      if (isCloneable(value) && isCloneable(newObj[key])) {
+        return setValue(key, mergeObjects(newObj[key], value), newObj)
+      }
+
+      return setValue(key, value, newObj)
+    }, newObj)
+  }, args[0])
 }
-/**
- * Perform a deep merge of objects. This will combine all objects and sub-objects,
- * objects having the same attributes will overwrite starting from the end of the argument
- * list and bubbling up to return the overwritten first object.
- * WARNING: This is a recursive function.
- * WARNING: This will mutate the first object passed in as input
- * @function
- * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
- * object
- * @returns {Object}
- */
 
 exports.mergeObjects = mergeObjects
-
-var mergeObjectsMutable = function mergeObjectsMutable () {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2]
-  }
-
-  return args.length === 2 ? mergeObjectsBase(true, mergeObjectsMutable, args[0], args[1]) : args.length === 1 ? args[0] : args.reduce((0, _functions.curry)(mergeObjectsBase)(true, mergeObjectsMutable), {})
-}
-
-exports.mergeObjectsMutable = mergeObjectsMutable

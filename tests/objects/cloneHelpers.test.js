@@ -303,3 +303,24 @@ describe('linkReferences', () => {
     })
   })
 })
+
+describe('processIdentifer', () => {
+  const buildReferenceMap = () => [
+    helpers.createReferenceIdentifier(circularObject, 0)
+  ]
+
+  test('will process the first identifier in more references', () => {
+    const referenceMap = buildReferenceMap()
+    expect(referenceMap[0].object).toBe(null)
+    const moreReferences = helpers.processIdentifier(referenceMap, [referenceMap[0]])
+    expect(moreReferences.length).toBe(3)
+    expect(moreReferences[0]).not.toEqual(referenceMap[0])
+    expect(referenceMap[0].object).toMatchObject({
+      body: 1,
+      children: 3,
+      head: 2,
+      name: 'root',
+      parent: {}
+    })
+  })
+})
