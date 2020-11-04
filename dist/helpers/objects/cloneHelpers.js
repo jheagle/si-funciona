@@ -429,6 +429,7 @@ var linkReferences = function linkReferences (referenceMap) {
 }
 /**
  * Bundle all of the functions needed for processing an identifier in the reference map
+ * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {Array.<module:cloneHelpers~referenceIdentifier>} moreReferences
  * @param {Object} [options={}]

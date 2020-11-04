@@ -312,14 +312,18 @@ var mergeObjects = function mergeObjects () {
   }
 
   return args.reduce(function (newObj, arg) {
+    if (!arg) {
+      return newObj
+    }
+
     return reduceObject(arg, function (returnObj, value, key) {
       if (isCloneable(value) && isCloneable(newObj[key])) {
-        return setValue(key, mergeObjects(newObj[key], value), newObj)
+        return setValue(key, mergeObjects(newObj[key], value), returnObj)
       }
 
-      return setValue(key, value, newObj)
+      return setValue(key, value, returnObj)
     }, newObj)
-  }, args[0])
+  }, args[0] || {})
 }
 
 exports.mergeObjects = mergeObjects

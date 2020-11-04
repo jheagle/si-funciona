@@ -911,14 +911,18 @@
       }
 
       return args.reduce(function (newObj, arg) {
+        if (!arg) {
+          return newObj
+        }
+
         return reduceObject(arg, function (returnObj, value, key) {
           if (isCloneable(value) && isCloneable(newObj[key])) {
-            return setValue(key, mergeObjects(newObj[key], value), newObj)
+            return setValue(key, mergeObjects(newObj[key], value), returnObj)
           }
 
-          return setValue(key, value, newObj)
+          return setValue(key, value, returnObj)
         }, newObj)
-      }, args[0])
+      }, args[0] || {})
     }
 
     exports.mergeObjects = mergeObjects
@@ -1355,6 +1359,7 @@
     }
     /**
  * Bundle all of the functions needed for processing an identifier in the reference map
+ * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @param {Array.<module:cloneHelpers~referenceIdentifier>} moreReferences
  * @param {Object} [options={}]

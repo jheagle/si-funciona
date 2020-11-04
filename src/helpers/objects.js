@@ -228,10 +228,13 @@ export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
  * @returns {Object}
  */
 export const mergeObjects = (...args) => args.reduce((newObj, arg) => {
+  if (!arg) {
+    return newObj
+  }
   return reduceObject(arg, (returnObj, value, key) => {
     if (isCloneable(value) && isCloneable(newObj[key])) {
-      return setValue(key, mergeObjects(newObj[key], value), newObj)
+      return setValue(key, mergeObjects(newObj[key], value), returnObj)
     }
-    return setValue(key, value, newObj)
+    return setValue(key, value, returnObj)
   }, newObj)
-}, args[0])
+}, args[0] || {})
