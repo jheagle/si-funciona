@@ -156,10 +156,11 @@ export const getIdentifierDepth = (referenceMap, identifier) => {
 
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
+ * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
-const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
+export const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
 
 /**
  * Store a bundle containing an object, references array, and remove array.
@@ -173,14 +174,14 @@ const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRe
 /**
  * Create a return type package containing an object, references to find, and array of items to remove.
  * @function
- * @param {Array|Object} object
+ * @param {Array|Object} [object={}]
  * @param {Array.<string|number>} [references=[]]
  * @param {number} [index=0]
  * @returns {module:cloneHelpers~objectReferencesRemove}
  */
-export const objectAndReferences = (object, references = [], index = 0) => Object.assign({}, {
+export const objectAndReferences = (object = {}, references = [], index = 0) => Object.assign({}, {
   index: index,
-  object: object || {},
+  object: object,
   references: references,
   remove: []
 })
@@ -225,6 +226,9 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
         objectAndReferences(nextObject, keyArray[1], results.index)
       )
     )
+    if (!results.references[i][1].length) {
+      results.references.splice(i, 1)
+    }
     results.remove = [...results.remove, ...remove]
     return results
   }
@@ -261,7 +265,7 @@ export const linkReferenceObject = referenceMap => (results, key, i) => {
 export const removeFromReferenceMap = referenceMap => referenceIdentifier => {
   const removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
   if (removeIndex <= 0 || referenceIdentifier.referers.length) {
-    return false
+    return removeIndex === 0
   }
   referenceMap.splice(removeIndex, 1)
   const removeReferer = referenceMap[0].referers.indexOf(referenceIdentifier.index)
@@ -331,4 +335,21 @@ export const processIdentifier = (referenceMap, moreReferences, { mapLimit = 100
     maxLimit => maxLimit ? linkReferences(referenceMap) : referenceMap
   )(moreReferences.shift())
   return moreReferences
+}
+
+/**
+ * Loop over every identifier and process, then return the reference map.
+ * @param {Array|Object} object
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {depthLimit} [options.depthLimit=-1]
+ * @returns {module:cloneHelpers~referenceMap}
+ */
+export const processIdentifiers = (object, { mapLimit = 100, depthLimit = -1 } = {}) => {
+  const referenceMap = [createReferenceIdentifier(object, 0)]
+  let moreReferences = [referenceMap[0]]
+  do {
+    moreReferences = processIdentifier(referenceMap, moreReferences, { mapLimit, depthLimit })
+  } while (moreReferences.length > 0)
+  return referenceMap
 }

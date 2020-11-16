@@ -1,5 +1,6 @@
-import * as helpers from '../dist/helpers/objects'
-import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
+import * as helpers from '../src/helpers/objects'
+import { logObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
+import { processIdentifiers } from '../src/helpers/objects/cloneHelpers'
 
 describe('setValue', () => {
   test('will update an item and return the item', () => {
@@ -437,32 +438,34 @@ describe('mergeObjects', () => {
     const secondItem = { number: 10, nested: { value: 'aValue' } }
     const thirdItem = { number: 5, anArray: [2, 3, 4, 5, 6, 7] }
     const fourthItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.cloneObject(
-      helpers.mergeObjects({}, someItem, secondItem, thirdItem, fourthItem)
-    )
+    const newItem = helpers.mergeObjects({}, someItem, secondItem, thirdItem, fourthItem)
     expect(newItem).not.toBe(someItem)
     expect(newItem.nested).not.toBe(secondItem.nested)
-    expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [2, 3, 4, 5, 6, 7], key: 'someKey' })
-  })
-})
-
-describe('mergeObjects: mutable', () => {
-  test('combines two objects into the first object', () => {
-    const someItem = { name: 'something', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3] }
-    const secondItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjects(someItem, secondItem)
-    expect(newItem).toBe(someItem)
-    expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3], key: 'someKey' })
+    expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3, 4, 5, 6, 7], key: 'someKey' })
   })
 
-  test('combines multiple objects into the first object', () => {
-    const someItem = { name: 'something', anArray: [1, 2, 3] }
-    const secondItem = { number: 10, nested: { value: 'aValue' } }
-    const thirdItem = { number: 5, anArray: [2, 3, 4, 5, 6, 7] }
-    const fourthItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjects(someItem, secondItem, thirdItem, fourthItem)
-    expect(newItem.nested).toBe(secondItem.nested)
-    expect(newItem.anArray).toStrictEqual(thirdItem.anArray)
-    expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [2, 3, 4, 5, 6, 7], key: 'someKey' })
+  test.skip('combine objects with circular references', () => {
+    const anotherCircular = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    anotherCircular.children = [
+      { name: 'body: first', parent: {}, children: [] },
+      { name: 'head: first', parent: {}, children: [] }
+    ]
+    anotherCircular.body = anotherCircular.children[0]
+    anotherCircular.head = anotherCircular.children[1]
+    anotherCircular.body.parent = anotherCircular
+    anotherCircular.head.parent = anotherCircular
+    anotherCircular.body.children = [
+      { name: 'body child one', parent: {}, children: [] }
+    ]
+    anotherCircular.body.children[0].parent = anotherCircular.body
+    anotherCircular.head.children = []
+    const anotherMap = processIdentifiers(anotherCircular)
+    const circularMap = processIdentifiers(circularObject)
+    const index = 6
+    logObject(anotherMap[index].object)
+    logObject(circularMap[index].object)
+    expect(anotherMap[index].object).toEqual(circularMap[index].object)
+    // const newItem = helpers.mergeObjects(anotherCircular, circularObject)
+    // logObject(newItem)
   })
 })

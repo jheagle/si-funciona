@@ -8,7 +8,8 @@
 
 import 'core-js/stable'
 import { callWithParams } from './functions'
-import { createReferenceIdentifier, processIdentifier, linkReferences } from './objects/cloneHelpers'
+import { processIdentifiers, linkReferences } from './objects/cloneHelpers'
+import { processMergeIdentifiers, mergeReferences } from './objects/mergeHelpers'
 
 /**
  * Set a value on an item, then return the item.
@@ -208,33 +209,25 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * @param {depthLimit} [options.depthLimit=-1]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) => {
-  const referenceMap = [createReferenceIdentifier(object, 0)]
-  let moreReferences = [referenceMap[0]]
-  do {
-    moreReferences = processIdentifier(referenceMap, moreReferences, { mapLimit, depthLimit })
-  } while (moreReferences.length > 0)
-  return linkReferences(referenceMap)[0].object
-}
+export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
+  linkReferences(processIdentifiers(object, { mapLimit, depthLimit }))[0].object
 
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
  * objects having the same attributes will overwrite starting from the end of the argument
  * list and bubbling up to return a merged version of the first object.
- * WARNING: This is a recursive function.
  * @function
  * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
  * object
  * @returns {Object}
  */
-export const mergeObjects = (...args) => args.reduce((newObj, arg) => {
-  if (!arg) {
-    return newObj
-  }
-  return reduceObject(arg, (returnObj, value, key) => {
-    if (isCloneable(value) && isCloneable(newObj[key])) {
-      return setValue(key, mergeObjects(newObj[key], value), returnObj)
-    }
-    return setValue(key, value, returnObj)
-  }, newObj)
-}, args[0] || {})
+export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => args.reduce(
+  (newObj, arg) => arg
+    ? mergeReferences(
+        processMergeIdentifiers(newObj, { mapLimit, depthLimit }),
+        processMergeIdentifiers(arg, { mapLimit, depthLimit })
+      )[0].object
+    : newObj,
+  args[0] || {})
+
+export const mergeObjects = mergeObjectsSettings()

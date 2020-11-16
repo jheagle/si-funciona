@@ -51,7 +51,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
+exports.processIdentifiers = exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.hasCompletedReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
 
 var _functions = require('../functions')
 
@@ -252,6 +252,7 @@ var getIdentifierDepth = function getIdentifierDepth (referenceMap, identifier) 
 }
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
+ * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
@@ -275,18 +276,21 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
 /**
  * Create a return type package containing an object, references to find, and array of items to remove.
  * @function
- * @param {Array|Object} object
+ * @param {Array|Object} [object={}]
  * @param {Array.<string|number>} [references=[]]
  * @param {number} [index=0]
  * @returns {module:cloneHelpers~objectReferencesRemove}
  */
 
-var objectAndReferences = function objectAndReferences (object) {
+exports.hasCompletedReferences = hasCompletedReferences
+
+var objectAndReferences = function objectAndReferences () {
+  var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
   var references = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
   var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
   return Object.assign({}, {
     index: index,
-    object: object || {},
+    object: object,
     references: references,
     remove: []
   })
@@ -340,6 +344,11 @@ var linkReferenceObject = function linkReferenceObject (referenceMap) {
 
       results.object[keyArray[0]] = _keyArray$1$reduce.object
       remove = _keyArray$1$reduce.remove
+
+      if (!results.references[i][1].length) {
+        results.references.splice(i, 1)
+      }
+
       results.remove = [].concat(_toConsumableArray(results.remove), _toConsumableArray(remove))
       return results
     }
@@ -390,7 +399,7 @@ var removeFromReferenceMap = function removeFromReferenceMap (referenceMap) {
     var removeIndex = findReferenceIndex(referenceMap, referenceIdentifier.index)
 
     if (removeIndex <= 0 || referenceIdentifier.referers.length) {
-      return false
+      return removeIndex === 0
     }
 
     referenceMap.splice(removeIndex, 1)
@@ -479,5 +488,35 @@ var processIdentifier = function processIdentifier (referenceMap, moreReferences
   })(moreReferences.shift())
   return moreReferences
 }
+/**
+ * Loop over every identifier and process, then return the reference map.
+ * @param {Array|Object} object
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {depthLimit} [options.depthLimit=-1]
+ * @returns {module:cloneHelpers~referenceMap}
+ */
 
 exports.processIdentifier = processIdentifier
+
+var processIdentifiers = function processIdentifiers (object) {
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  var _ref2$mapLimit = _ref2.mapLimit
+  var mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
+  var _ref2$depthLimit = _ref2.depthLimit
+  var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
+
+  var referenceMap = [createReferenceIdentifier(object, 0)]
+  var moreReferences = [referenceMap[0]]
+
+  do {
+    moreReferences = processIdentifier(referenceMap, moreReferences, {
+      mapLimit: mapLimit,
+      depthLimit: depthLimit
+    })
+  } while (moreReferences.length > 0)
+
+  return referenceMap
+}
+
+exports.processIdentifiers = processIdentifiers

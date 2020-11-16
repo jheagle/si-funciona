@@ -29,13 +29,15 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjects = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjects = exports.mergeObjectsSettings = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
 var _functions = require('./functions')
 
 var _cloneHelpers = require('./objects/cloneHelpers')
+
+var _mergeHelpers = require('./objects/mergeHelpers')
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -281,23 +283,15 @@ var cloneObject = function cloneObject (object) {
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
 
-  var referenceMap = [(0, _cloneHelpers.createReferenceIdentifier)(object, 0)]
-  var moreReferences = [referenceMap[0]]
-
-  do {
-    moreReferences = (0, _cloneHelpers.processIdentifier)(referenceMap, moreReferences, {
-      mapLimit: mapLimit,
-      depthLimit: depthLimit
-    })
-  } while (moreReferences.length > 0)
-
-  return (0, _cloneHelpers.linkReferences)(referenceMap)[0].object
+  return (0, _cloneHelpers.linkReferences)((0, _cloneHelpers.processIdentifiers)(object, {
+    mapLimit: mapLimit,
+    depthLimit: depthLimit
+  }))[0].object
 }
 /**
  * Perform a deep merge of objects. This will combine all objects and sub-objects,
  * objects having the same attributes will overwrite starting from the end of the argument
  * list and bubbling up to return a merged version of the first object.
- * WARNING: This is a recursive function.
  * @function
  * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
  * object
@@ -306,24 +300,30 @@ var cloneObject = function cloneObject (object) {
 
 exports.cloneObject = cloneObject
 
-var mergeObjects = function mergeObjects () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key]
-  }
+var mergeObjectsSettings = function mergeObjectsSettings () {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  var _ref2$mapLimit = _ref2.mapLimit
+  var mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
+  var _ref2$depthLimit = _ref2.depthLimit
+  var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
 
-  return args.reduce(function (newObj, arg) {
-    if (!arg) {
-      return newObj
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key]
     }
 
-    return reduceObject(arg, function (returnObj, value, key) {
-      if (isCloneable(value) && isCloneable(newObj[key])) {
-        return setValue(key, mergeObjects(newObj[key], value), returnObj)
-      }
-
-      return setValue(key, value, returnObj)
-    }, newObj)
-  }, args[0] || {})
+    return args.reduce(function (newObj, arg) {
+      return arg ? (0, _mergeHelpers.mergeReferences)((0, _mergeHelpers.processMergeIdentifiers)(newObj, {
+        mapLimit: mapLimit,
+        depthLimit: depthLimit
+      }), (0, _mergeHelpers.processMergeIdentifiers)(arg, {
+        mapLimit: mapLimit,
+        depthLimit: depthLimit
+      }))[0].object : newObj
+    }, args[0] || {})
+  }
 }
 
+exports.mergeObjectsSettings = mergeObjectsSettings
+var mergeObjects = mergeObjectsSettings()
 exports.mergeObjects = mergeObjects

@@ -2,7 +2,11 @@
  * Log out an object in a nicely formatted way.
  * @param {Object} object
  */
-export const logObject = object => {
+export const logObject = (object, label = '') => {
+  if (label) {
+    console.log(label, require('util').inspect(object, false, null, true))
+    return
+  }
   console.log(require('util').inspect(object, false, null, true))
 }
 
