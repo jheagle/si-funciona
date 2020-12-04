@@ -156,11 +156,10 @@ export const getIdentifierDepth = (referenceMap, identifier) => {
 
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
- * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
-export const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
+const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
 
 /**
  * Store a bundle containing an object, references array, and remove array.

@@ -51,7 +51,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.processIdentifiers = exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.hasCompletedReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
+exports.processIdentifiers = exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
 
 var _functions = require('../functions')
 
@@ -252,7 +252,6 @@ var getIdentifierDepth = function getIdentifierDepth (referenceMap, identifier) 
 }
 /**
  * Check if there are any remaining reference identifiers which are complete, excluded first in map.
- * @function
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
@@ -281,8 +280,6 @@ var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
  * @param {number} [index=0]
  * @returns {module:cloneHelpers~objectReferencesRemove}
  */
-
-exports.hasCompletedReferences = hasCompletedReferences
 
 var objectAndReferences = function objectAndReferences () {
   var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}

@@ -43,7 +43,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.processMergeIdentifiers = exports.processMergeIdentifer = exports.mergeReferences = exports.mergeReferenceObject = exports.mergeReferenceArrays = exports.mergeNonReferences = exports.hasUnmergedReferences = void 0
+exports.processMergeIdentifiers = exports.processMergeIdentifer = exports.mergeReferences = exports.mergeReferenceObject = exports.mergeReferenceArrays = exports.mergeNonReferences = void 0
 
 var _arrays = require('../arrays')
 
@@ -65,13 +65,25 @@ function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToA
 
 function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
+/**
+ * Check if there are still references having a merged status of false.
+ * @param {*} referenceMap
+ * @returns {boolean}
+ */
 var hasUnmergedReferences = function hasUnmergedReferences (referenceMap) {
   return referenceMap.some(function (newRef) {
     return newRef.merged === false
   })
 }
-
-exports.hasUnmergedReferences = hasUnmergedReferences
+/**
+ * Take two reference identifiers and merge the non references together, identify overwritten references.
+ * @param {module:cloneHelpers~referenceMap} firstMap
+ * @param {number} firstIndex
+ * @param {module:cloneHelpers~referenceMap} secondMap
+ * @param {number} secondIndex
+ * @param {Array.<module:cloneHelpers~referenceIdentifier>} remove
+ * @returns {module:cloneHelpers~referenceMap}
+ */
 
 var mergeNonReferences = function mergeNonReferences (firstMap, firstIndex, secondMap, secondIndex) {
   var remove = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : []
@@ -105,85 +117,82 @@ var mergeNonReferences = function mergeNonReferences (firstMap, firstIndex, seco
     return (0, _arrays.mergeArrays)(firstMap[firstRefIndex].object, secondMap[secondRefIndex].object)
   }
 
-  var keys = (0, _arrays.mergeArrays)((0, _objects.objectKeys)(firstMap[firstRefIndex].object), (0, _objects.objectKeys)(secondMap[secondRefIndex].object))
-  firstMap[firstRefIndex].object = keys.reduce(function (newObject, key) {
-    if (secondMap[secondRefIndex].references.includes(key)) {
-      var nextFirstIndex = firstMap[firstRefIndex].object[key]
-
-      if (typeof nextFirstIndex !== 'number') {
-        var mapIndex = (0, _cloneHelpers.findReferenceIndex)(secondMap, secondMap[secondRefIndex].object[key])
-
-        if (secondMap[mapIndex].merged === false) {
-          secondMap[mapIndex].complete = true
-          secondMap[mapIndex].merged = true
-        }
-
-        nextFirstIndex = firstMap[firstMap.length - 1].index + 1
-        var nextSecondRef = (0, _cloneHelpers.findReference)(secondMap, secondMap[secondRefIndex].object[key])
-        var nextFirstRef = (0, _cloneHelpers.createReferenceIdentifier)(nextSecondRef.original, nextFirstIndex, [firstRefIndex])
-        nextFirstRef.circular = nextSecondRef.circular
-        nextFirstRef.complete = nextSecondRef.complete
-        nextFirstRef.merged = nextSecondRef.merged
-        nextFirstRef.object = (0, _objects.mapObject)(nextSecondRef.object, function (value) {
-          return value
-        })
-        nextFirstRef.references = nextSecondRef.references.map(function (value) {
-          return value
-        })
-        firstMap.push(nextFirstRef)
-        firstMap[firstRefIndex].references.push(key)
-        return (0, _objects.setValue)(key, nextFirstIndex, newObject)
-      }
-
-      return (0, _objects.setValue)(key, nextFirstIndex, newObject)
-    }
-
-    var refIndex = firstMap[firstRefIndex].references.findIndex(function (refKey) {
-      return refKey === key
+  var keys = (0, _arrays.compareArrays)((0, _objects.objectKeys)(firstMap[firstRefIndex].object), (0, _objects.objectKeys)(secondMap[secondRefIndex].object))
+  firstMap[firstRefIndex].object = keys.reduce(function (newObject, compareResult) {
+    var refIndexFirst = firstMap[firstRefIndex].references.findIndex(function (refKey) {
+      return refKey === compareResult.value
     })
 
-    if (refIndex >= 0) {
-      var refUnchanged = (0, _cloneHelpers.findReferenceIndex)(firstMap, firstMap[firstRefIndex].object[key])
+    if (compareResult.result[0] === 1) {
+      if (refIndexFirst >= 0) {
+        var refUnchanged = (0, _cloneHelpers.findReferenceIndex)(firstMap, firstMap[firstRefIndex].object[compareResult.value])
 
-      if (firstMap[refUnchanged].merged === false) {
-        firstMap[refUnchanged].complete = true
-        firstMap[refUnchanged].merged = true
-      }
-    }
-
-    if (typeof secondMap[secondRefIndex].object[key] === 'undefined') {
-      return (0, _objects.setValue)(key, firstMap[firstRefIndex].object[key], newObject)
-    }
-
-    if (refIndex >= 0) {
-      var removedRef = (0, _cloneHelpers.findReference)(firstMap, newObject[key])
-      var refererIndex = removedRef.referers.findIndex(function (referer) {
-        return referer === firstIndex
-      })
-
-      if (refererIndex >= 0) {
-        removedRef.referers.splice(refererIndex, 1)
+        if (firstMap[refUnchanged].merged === false) {
+          firstMap[refUnchanged].complete = true
+          firstMap[refUnchanged].merged = true
+        }
       }
 
-      remove.push(removedRef)
-      firstMap[firstRefIndex].references.splice(refIndex, 1)
+      return (0, _objects.setValue)(compareResult.value, firstMap[firstRefIndex].object[compareResult.value], newObject)
     }
 
-    return (0, _objects.setValue)(key, secondMap[secondRefIndex].object[key], newObject)
+    var refIndexSecond = secondMap[secondRefIndex].references.findIndex(function (refKey) {
+      return refKey === compareResult.value
+    })
+    var newValue = secondMap[secondRefIndex].object[compareResult.value]
+
+    if (refIndexSecond >= 0 && refIndexFirst < 0) {
+      var nextSecondRef = (0, _cloneHelpers.findReference)(secondMap, secondMap[secondRefIndex].object[compareResult.value])
+      newValue = firstMap[firstMap.length - 1].index + 1
+      var nextFirstRef = (0, _cloneHelpers.createReferenceIdentifier)(nextSecondRef.original, newValue, [firstIndex])
+      nextFirstRef.complete = false
+      nextFirstRef.merged = false
+      nextFirstRef.object = Array.isArray(nextSecondRef.original) ? [] : {}
+      firstMap.push(nextFirstRef)
+      firstMap[firstRefIndex].references.push(compareResult.value)
+      firstMap[firstRefIndex].object[compareResult.value] = newValue
+    }
+
+    if (compareResult.result[0] === -1) {
+      return (0, _objects.setValue)(compareResult.value, newValue, newObject)
+    }
+
+    if (refIndexFirst < 0) {
+      return refIndexSecond < 0 ? (0, _objects.setValue)(compareResult.value, secondMap[secondRefIndex].object[compareResult.value], newObject) : (0, _objects.setValue)(compareResult.value, firstMap[firstRefIndex].object[compareResult.value], newObject)
+    }
+
+    if (refIndexSecond >= 0) {
+      return (0, _objects.setValue)(compareResult.value, firstMap[firstRefIndex].object[compareResult.value], newObject)
+    }
+
+    var removedRef = (0, _cloneHelpers.findReference)(firstMap, firstMap[firstRefIndex].object[compareResult.value])
+    var refererIndex = removedRef.referers.findIndex(function (referer) {
+      return referer === firstIndex
+    })
+
+    if (refererIndex >= 0) {
+      removedRef.referers.splice(refererIndex, 1)
+    }
+
+    remove.push(removedRef)
+    firstMap[firstRefIndex].references.splice(refIndexFirst, 1)
+    return (0, _objects.setValue)(compareResult.value, secondMap[secondRefIndex].object[compareResult.value], newObject)
   }, {})
   return firstMap[firstRefIndex].object
 }
+/**
+ * Remove duplicate references from and array of references
+ * @param {Array.<string|number|Array>} newRefs
+ * @param {string|number|Array} ref
+ * @returns {Array.<string|number|Array>}
+ */
 
 exports.mergeNonReferences = mergeNonReferences
 
 var mergeReferenceArrays = function mergeReferenceArrays (newRefs, ref) {
   if (!Array.isArray(ref)) {
     var _existingRefKey = newRefs.findIndex(function (r) {
-      if (Array.isArray(r)) {
-        return r[0] === ref
-      }
-
-      return false
+      return Array.isArray(r) ? r[0] === ref : r === ref
     })
 
     if (_existingRefKey < 0) {
@@ -194,11 +203,7 @@ var mergeReferenceArrays = function mergeReferenceArrays (newRefs, ref) {
   }
 
   var existingRefKey = newRefs.findIndex(function (r) {
-    if (Array.isArray(r)) {
-      return r[0] === ref[0]
-    }
-
-    return r === ref[0]
+    return Array.isArray(r) ? r[0] === ref[0] : r === ref[0]
   })
 
   if (Array.isArray(ref[1])) {
@@ -206,20 +211,21 @@ var mergeReferenceArrays = function mergeReferenceArrays (newRefs, ref) {
   }
 
   if (existingRefKey < 0) {
-    newRefs.push(ref)
-    return newRefs
+    return [].concat(_toConsumableArray(newRefs), [ref])
   }
 
   if (!Array.isArray(newRefs[existingRefKey])) {
-    newRefs[existingRefKey] = ref
-    return newRefs
+    return (0, _objects.setValue)(existingRefKey, ref, newRefs)
+  }
+
+  if (newRefs[existingRefKey].length === 1) {
+    return (0, _objects.setValue)(existingRefKey, ref, newRefs)
   }
 
   var newPart = newRefs[existingRefKey][1]
 
   if (!Array.isArray(newPart)) {
-    newRefs[existingRefKey] = [ref[0], newPart]
-    return newRefs
+    return (0, _objects.setValue)(existingRefKey, [ref[0], newPart], newRefs)
   }
 
   if (Array.isArray(ref[1])) {
@@ -230,15 +236,31 @@ var mergeReferenceArrays = function mergeReferenceArrays (newRefs, ref) {
     newPart.push(ref[1])
   }
 
-  newPart = newPart.reduce(mergeReferenceArrays, [])
-  newRefs[existingRefKey] = [ref[0], newPart]
-  return newRefs
+  return (0, _objects.setValue)(existingRefKey, [ref[0], newPart.reduce(mergeReferenceArrays, [])], newRefs)
 }
+/**
+ * Used as callback for reduce-like for-loop, this function will find each reference identifier
+ * in object1 and merge object2 similar reference onto object1. object1 will then be returned.
+ * @typedef {Function} mergeReferencesReduce
+ * @param {module:cloneHelpers~objectReferencesRemove} object1
+ * @param {number|string} key
+ * @param {number} i
+ * @returns {module:cloneHelpers~objectReferencesRemove}
+ */
+
+/**
+ * Return the mergeReferencesReduce callback.
+ * @function
+ * @param {module:cloneHelpers~referenceMap} firstMap
+ * @param {module:cloneHelpers~referenceMap} secondMap
+ * @param {module:cloneHelpers~objectReferencesRemove} object2
+ * @returns {module:mergeHelpers~mergeReferencesReduce}
+ */
 
 exports.mergeReferenceArrays = mergeReferenceArrays
 
-var mergeReferenceObject = function mergeReferenceObject (firstMap, secondMap) {
-  return function (object1, object2, key, i) {
+var mergeReferenceObject = function mergeReferenceObject (firstMap, secondMap, object2) {
+  return function (object1, key, i) {
     var isCircular = false
     var keyArray = key
 
@@ -280,7 +302,7 @@ var mergeReferenceObject = function mergeReferenceObject (firstMap, secondMap) {
         var position = keyArray[1].findIndex(function (ref) {
           return ref === nextKey
         })
-        newObj1 = mergeReferenceObject(firstMap, secondMap)(newObj1, newObj2, nextKey, position)
+        mergeReferenceObject(firstMap, secondMap, newObj2)(newObj1, nextKey, position)
         key[1] = newObj1.references
       }
 
@@ -314,21 +336,6 @@ var mergeReferenceObject = function mergeReferenceObject (firstMap, secondMap) {
     var nextFirstRef = (0, _cloneHelpers.findReference)(firstMap, nextFirstIndex)
     nextSecondRef.complete = true
     nextSecondRef.merged = true
-
-    if (typeof nextFirstIndex !== 'number') {
-      nextFirstIndex = firstMap[firstMap.length - 1].index + 1
-      nextFirstRef = (0, _cloneHelpers.createReferenceIdentifier)(nextSecondRef.original, nextFirstIndex, [object1.index])
-      nextFirstRef.circular = nextSecondRef.circular
-      nextFirstRef.complete = nextSecondRef.complete
-      nextFirstRef.merged = nextSecondRef.merged
-      nextFirstRef.object = (0, _objects.mapObject)(nextSecondRef.object, function (value) {
-        return value
-      })
-      nextFirstRef.references = nextSecondRef.references.map(function (value) {
-        return value
-      })
-      firstMap.push(nextFirstRef)
-    }
 
     if (typeof nextFirstRef.merged === 'undefined') {
       return object1
@@ -386,11 +393,8 @@ var mergeReferences = function mergeReferences (firstMap, secondMap) {
     var position = firstMap[0].references.findIndex(function (ref) {
       return ref === key
     })
-    object1 = mergeReferenceObject(firstMap, secondMap)(object1, object2, key, position)
-    firstMap[0].object = object1.object
+    mergeReferenceObject(firstMap, secondMap, object2)(object1, key, position)
     firstMap[0].references = object1.references
-    secondMap[0].object = object2.object
-    secondMap[0].references = object2.references
   }
 
   for (var i in references) {

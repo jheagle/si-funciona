@@ -215,7 +215,8 @@ describe('removeFromReferenceMap', () => {
 
   test('will not remove the 0 index of the reference map', () => {
     const referenceMap = buildReferenceMap(1)
-    expect(helpers.removeFromReferenceMap(referenceMap)(referenceMap[0])).toBe(false)
+    expect(helpers.removeFromReferenceMap(referenceMap)(referenceMap[0])).toBe(true)
+    expect(referenceMap[0].index).toBe(0)
   })
 
   test('will be unable to remove non-existant identifier and return false', () => {
