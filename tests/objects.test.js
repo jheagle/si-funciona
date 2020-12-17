@@ -1,6 +1,5 @@
-import * as helpers from '../src/helpers/objects'
+import * as helpers from '../dist/helpers/objects'
 import { logObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
-import { processIdentifiers } from '../src/helpers/objects/cloneHelpers'
 
 describe('setValue', () => {
   test('will update an item and return the item', () => {
@@ -444,11 +443,11 @@ describe('mergeObjects', () => {
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3, 4, 5, 6, 7], key: 'someKey' })
   })
 
-  test.skip('combine objects with circular references', () => {
+  test('combine objects with circular references', () => {
     const anotherCircular = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
     anotherCircular.children = [
-      { name: 'body: first', parent: {}, children: [] },
-      { name: 'head: first', parent: {}, children: [] }
+      { name: 'body', parent: {}, children: [] },
+      { name: 'head', parent: {}, children: [] }
     ]
     anotherCircular.body = anotherCircular.children[0]
     anotherCircular.head = anotherCircular.children[1]
@@ -459,13 +458,7 @@ describe('mergeObjects', () => {
     ]
     anotherCircular.body.children[0].parent = anotherCircular.body
     anotherCircular.head.children = []
-    const anotherMap = processIdentifiers(anotherCircular)
-    const circularMap = processIdentifiers(circularObject)
-    const index = 6
-    logObject(anotherMap[index].object)
-    logObject(circularMap[index].object)
-    expect(anotherMap[index].object).toEqual(circularMap[index].object)
-    // const newItem = helpers.mergeObjects(anotherCircular, circularObject)
-    // logObject(newItem)
+    const newItem = helpers.mergeObjects(anotherCircular, circularObject)
+    expect(newItem).toEqual(circularObject)
   })
 })

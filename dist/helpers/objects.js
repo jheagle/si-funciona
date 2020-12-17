@@ -8,6 +8,8 @@ require('core-js/modules/es.symbol.iterator')
 
 require('core-js/modules/es.array.filter')
 
+require('core-js/modules/es.array.from')
+
 require('core-js/modules/es.array.includes')
 
 require('core-js/modules/es.array.iterator')
@@ -16,11 +18,15 @@ require('core-js/modules/es.array.map')
 
 require('core-js/modules/es.array.reduce')
 
+require('core-js/modules/es.array.slice')
+
 require('core-js/modules/es.function.name')
 
 require('core-js/modules/es.object.get-own-property-names')
 
 require('core-js/modules/es.object.to-string')
+
+require('core-js/modules/es.regexp.to-string')
 
 require('core-js/modules/es.string.iterator')
 
@@ -29,7 +35,7 @@ require('core-js/modules/web.dom-collections.iterator')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjects = exports.mergeObjectsSettings = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.setAndReturnValue = exports.setValue = void 0
+exports.mergeObjects = exports.mergeObjectsSettings = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/stable')
 
@@ -38,6 +44,18 @@ var _functions = require('./functions')
 var _cloneHelpers = require('./objects/cloneHelpers')
 
 var _mergeHelpers = require('./objects/mergeHelpers')
+
+function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
+
+function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
+
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+
+function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
+
+function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
+
+function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -69,6 +87,12 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
   item[key] = value
   return value
 }
+
+exports.setAndReturnValue = setAndReturnValue
+
+var isObject = function isObject (object) {
+  return _typeof(object) === 'object' && object !== null
+}
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
@@ -77,12 +101,12 @@ var setAndReturnValue = function setAndReturnValue (item, key, value) {
  * @returns {Array.<string|number>}
  */
 
-exports.setAndReturnValue = setAndReturnValue
+exports.isObject = isObject
 
 var objectKeys = function objectKeys (object) {
   var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
 
-  if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
+  if (typeof object !== 'function' && !isObject(object)) {
     return []
   }
 
@@ -242,7 +266,7 @@ var emptyObject = function emptyObject (item) {
 exports.emptyObject = emptyObject
 
 var isInstanceObject = function isInstanceObject (object) {
-  if (typeof object !== 'function' && (_typeof(object) !== 'object' || object === null)) {
+  if (typeof object !== 'function' && !isObject(object)) {
     return false
   }
 
@@ -313,13 +337,10 @@ var mergeObjectsSettings = function mergeObjectsSettings () {
     }
 
     return args.reduce(function (newObj, arg) {
-      return arg ? (0, _mergeHelpers.mergeReferences)((0, _mergeHelpers.processMergeIdentifiers)(newObj, {
+      return arg ? _mergeHelpers.mergeReferences.apply(void 0, _toConsumableArray((0, _mergeHelpers.processMergeIdentifiers)(newObj, arg, {
         mapLimit: mapLimit,
         depthLimit: depthLimit
-      }), (0, _mergeHelpers.processMergeIdentifiers)(arg, {
-        mapLimit: mapLimit,
-        depthLimit: depthLimit
-      }))[0].object : newObj
+      })))[0].object : newObj
     }, args[0] || {})
   }
 }

@@ -38,6 +38,8 @@ export const setAndReturnValue = (item, key, value) => {
   return value
 }
 
+export const isObject = object => typeof object === 'object' && object !== null
+
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
@@ -46,7 +48,7 @@ export const setAndReturnValue = (item, key, value) => {
  * @returns {Array.<string|number>}
  */
 export const objectKeys = (object, includeInherited = false) => {
-  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+  if (typeof object !== 'function' && !isObject(object)) {
     return []
   }
   if (includeInherited) {
@@ -183,7 +185,7 @@ export const emptyObject = item => !objectKeys(item).length
  * @returns {boolean}
  */
 export const isInstanceObject = object => {
-  if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+  if (typeof object !== 'function' && !isObject(object)) {
     return false
   }
   if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
@@ -223,10 +225,7 @@ export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
  */
 export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => args.reduce(
   (newObj, arg) => arg
-    ? mergeReferences(
-        processMergeIdentifiers(newObj, { mapLimit, depthLimit }),
-        processMergeIdentifiers(arg, { mapLimit, depthLimit })
-      )[0].object
+    ? mergeReferences(...processMergeIdentifiers(newObj, arg, { mapLimit, depthLimit }))[0].object
     : newObj,
   args[0] || {})
 

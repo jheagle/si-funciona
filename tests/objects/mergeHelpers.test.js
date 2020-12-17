@@ -396,3 +396,110 @@ describe('mergeReferences', () => {
     })
   })
 })
+
+describe('processMergeIdentifer', () => {
+  test('will process the first identifier in more references', () => {
+    const firstMap = [createReferenceIdentifier(circularObject, 0)]
+    const secondMap = [createReferenceIdentifier(circularObject, 0)]
+    const mapDetails = [
+      {
+        referenceMap: firstMap,
+        moreReferences: [firstMap[0]]
+      },
+      {
+        referenceMap: secondMap,
+        moreReferences: [secondMap[0]]
+      }
+    ]
+    const moreReferences = helpers.processMergeIdentifer(mapDetails)(0)
+    expect(moreReferences.length).toBe(3)
+    expect(moreReferences[0]).not.toEqual(firstMap[0])
+    expect(firstMap[0].object).toMatchObject({
+      body: 1,
+      children: 3,
+      head: 2,
+      name: 'root',
+      parent: {}
+    })
+  })
+})
+
+describe('processMergeIdentifiers', () => {
+  test('will process the first identifier in more references', () => {
+    let firstMap = []
+    let secondMap = []
+    ;([firstMap, secondMap] = helpers.processMergeIdentifiers(circularObject))
+    expect(secondMap.length).toBe(1)
+    expect(firstMap.length).toBe(10)
+    expect(firstMap[0]).toMatchObject({
+      circular: [],
+      index: 0,
+      object: { name: 'root', parent: {}, body: 1, head: 2, children: 3 },
+      references: ['body', 'head', 'children'],
+      referers: [1, 2]
+    })
+    expect(firstMap[1]).toMatchObject({
+      circular: ['parent'],
+      index: 1,
+      object: { name: 'body', parent: 0, children: 4 },
+      references: ['parent', 'children'],
+      referers: [0, 3, 6, 7]
+    })
+    expect(firstMap[2]).toMatchObject({
+      circular: ['parent'],
+      index: 2,
+      object: { name: 'head', parent: 0, children: 5 },
+      references: ['parent', 'children'],
+      referers: [0, 3, 8, 9]
+    })
+    expect(firstMap[3]).toMatchObject({
+      circular: [0, 1],
+      index: 3,
+      object: [1, 2],
+      references: [0, 1],
+      referers: [0]
+    })
+    expect(firstMap[4]).toMatchObject({
+      circular: [],
+      index: 4,
+      object: [6, 7],
+      references: [0, 1],
+      referers: [1]
+    })
+    expect(firstMap[5]).toMatchObject({
+      circular: [],
+      index: 5,
+      object: [8, 9],
+      references: [0, 1],
+      referers: [2]
+    })
+    expect(firstMap[6]).toMatchObject({
+      circular: ['parent'],
+      index: 6,
+      object: { name: 'body child one', parent: 1, children: [] },
+      references: ['parent'],
+      referers: [4]
+    })
+    expect(firstMap[7]).toMatchObject({
+      circular: ['parent'],
+      index: 7,
+      object: { name: 'body child two', parent: 1, children: [] },
+      references: ['parent'],
+      referers: [4]
+    })
+    expect(firstMap[8]).toMatchObject({
+      circular: ['parent'],
+      index: 8,
+      object: { name: 'head child one', parent: 2, children: [] },
+      references: ['parent'],
+      referers: [5]
+    })
+    expect(firstMap[9]).toMatchObject({
+      circular: ['parent'],
+      index: 9,
+      object: { name: 'head child two', parent: 2, children: [] },
+      references: ['parent'],
+      referers: [5]
+    })
+  })
+})

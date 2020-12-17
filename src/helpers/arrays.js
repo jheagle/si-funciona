@@ -7,7 +7,7 @@
  */
 
 import 'core-js/stable'
-import { cloneObject } from './objects'
+import { cloneObject, isObject, objectKeys } from './objects'
 
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
@@ -68,6 +68,7 @@ export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
  *   and the second index (1) will be the result for the second compared array
  * @typedef {Object.<string, string|Array.<number>>} compareArrayResult
  * @property {string} value - The element value being compared
+ * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
  * @property {Array.<number>} result - The results in the order of the compared arrays
  * @example
  * // example of input and resulting output
@@ -114,26 +115,32 @@ export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
  * [
  *   {
  *     value: 'match1',
+ *     keys: [[0], [0]],
  *     result: [0, 0]
  *   },
  *   {
  *     value: 'firstMismatch1',
+ *     keys: [[1], []],
  *     result: [1, -1]
  *   },
  *   {
  *     value: 'match2',
+ *     keys: [[2], [1]],
  *     result: [0, 0]
  *   },
  *   {
  *     value: 'firstMismatch2',
+ *     keys: [[3], []],
  *     result: [1, -1]
  *   },
  *   {
  *     value: 'badMatch1',
+ *     keys: [[4], [3, 4]],
  *     result: [0, 0]
  *   },
  *   {
  *     value: 'secondMismatch1',
+ *     keys: [[], [2]],
  *     result: [-1, 1]
  *   }
  * ]
@@ -145,9 +152,28 @@ export const mergeArrays = (...arrays) => arrays.map(uniqueArray).reduce(
 export const compareArrays = (...arrays) => mergeArrays(...arrays)
   .reduce(
     (results, attr) => {
-      const arrayResults = arrays.map(array => array.includes(attr) ? 1 : -1)
+      const attrType = typeof attr
+      const useArray = Array.isArray(attr)
+      const keys = arrays.map(array => array.reduce((results, current, key) => {
+        const currentType = typeof current
+        if (attrType !== currentType) {
+          return results
+        }
+        if (!isObject(attr)) {
+          return current === attr ? [...results, key] : results
+        }
+        if (useArray !== Array.isArray(current)) {
+          return results
+        }
+        const compareKeys = useArray
+          ? compareArrays(attr, current)
+          : compareArrays(objectKeys(attr), objectKeys(current))
+        return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
+      }, []))
+      const arrayResults = keys.map(array => array.length ? 1 : -1)
       return [...results, {
         value: attr,
+        keys: keys,
         result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
       }]
     },
