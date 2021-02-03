@@ -10,7 +10,7 @@ import { pipe } from '../functions'
 import { mapObject, isCloneable, setValue } from '../objects'
 /**
  * Check if this value represents an object that needs to be used as a reference.
- * @param {*} value
+ * @param {*} value - Some value to test if it is a reference.
  * @returns {boolean}
  */
 const nonReference = value => !isCloneable(value)
