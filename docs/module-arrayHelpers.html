@@ -512,231 +512,6 @@ The length defines how long the array should be.
     
 
     
-    <h4 class="name" id=".compareArrays"><span class="type-signature">(static) </span>compareArrays<span class="signature">(arr1, arr2)</span><span class="type-signature"> &rarr; {Object.&lt;string, number>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Compare two Arrays and return the Object where the value for each property is as follows:
--1 to indicate val1 is less than val2
-0 to indicate both values are the equal
-1 to indicate val1 is greater than val2
-The returned Object uses the element values as the property names
-This functions works by first creating a concatenated array of all unique values. Then for each unique values,
-convert to a string and use it as a new property name. Array filter each array checking if it has the unique value.
-Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
-the first length will be one or more and the second will be zero, if the both have the value then both will be one
-or more.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>arr1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The first array to compare</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>arr2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The second array to compare</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_arrays.js.html">helpers/arrays.js</a>, <a href="helpers_arrays.js.html#line116">line 116</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object.&lt;string, number></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>// example of input and resulting output
-compareArrays(
-  ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],
-  ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
-)
-// unique array
-['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1', 'secondMismatch1']
-// result object
-[
-  {
-    value: 'match1',
-    result: [0, 0]
-  },
-  {
-    value: 'firstMismatch1',
-    result: [1, -1]
-  },
-  {
-    value: 'match2',
-    result: [0, 0]
-  },
-  {
-    value: 'firstMismatch2',
-    result: [1, -1]
-  },
-  {
-    value: 'badMatch1',
-    result: [0, 0]
-  },
-  {
-    value: 'secondMismatch1',
-    result: [-1, 1]
-  }
-]</code></pre>
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id=".mergeArrays"><span class="type-signature">(static) </span>mergeArrays<span class="signature">(&hellip;arrays)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
@@ -895,6 +670,361 @@ compareArrays(
     
 
 
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~compareArrayResult"><span class="type-signature">(inner) </span>compareArrayResult<span class="signature">(arr1, arr2)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="module-arrayHelpers.html#~compareArrayResult">module:arrayHelpers~compareArrayResult</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Store the comparison result for an element that may exist in either of compared arrays.
+- value stores the element value from the arrays being compared
+- results has the comparison results where first index (0) is result for first compared array
+  and the second index (1) will be the result for the second compared array
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arr1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The first array to compare</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arr2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The second array to compare</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The element value being compared</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Array.&lt;(string|number)>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Keys in arrays associated with this value</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The results in the order of the compared arrays</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_arrays.js.html">helpers/arrays.js</a>, <a href="helpers_arrays.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="module-arrayHelpers.html#~compareArrayResult">module:arrayHelpers~compareArrayResult</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// example of input and resulting output
+
+const arr1 = ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1']
+const arr2 = ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
+
+// Taking the first element in both, then the value: 'match1' exists in both arrays
+// compareArrayResult will be { value: 'match1', result: [0, 0] }
+// First index of 0 indicates this value in the first array exists in the second array
+// Second index of 0 indicates this value in the second array exists in the first array
+
+// Taking the second element in the first array, then the value: 'firstMismatch1' exists in only the first array
+// compareArrayResult will be { value: 'firstMismatch1', result: [1, -1] }
+// First index of 1 indicates this value in the first array might need to be added to the second array
+// Second index of -1 indicates this value only exists in the first array
+
+// Taking the third element in the second array, then the value: 'secondMismatch1' exists in only the second array
+// compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }
+// First index of -1 indicates this value only exists in the second array
+// Second index of 1 indicates this value in the second array might need to be added to the first array
+
+/**
+Compare two Arrays and return the Object where the value for each property is as follows:
+-1 to indicate val1 is less than val2
+0 to indicate both values are the equal
+1 to indicate val1 is greater than val2
+The returned Object uses the element values as the property names
+This functions works by first creating a concatenated array of all unique values. Then for each unique values,
+convert to a string and use it as a new property name. Array filter each array checking if it has the unique value.
+Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
+the first length will be one or more and the second will be zero, if the both have the value then both will be one
+or more.</code></pre>
+
+    <pre class="prettyprint"><code>// example of input and resulting output
+compareArrays(
+  ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],
+  ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
+)
+// unique array
+['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1', 'secondMismatch1']
+// result object
+[
+  {
+    value: 'match1',
+    keys: [[0], [0]],
+    result: [0, 0]
+  },
+  {
+    value: 'firstMismatch1',
+    keys: [[1], []],
+    result: [1, -1]
+  },
+  {
+    value: 'match2',
+    keys: [[2], [1]],
+    result: [0, 0]
+  },
+  {
+    value: 'firstMismatch2',
+    keys: [[3], []],
+    result: [1, -1]
+  },
+  {
+    value: 'badMatch1',
+    keys: [[4], [3, 4]],
+    result: [0, 0]
+  },
+  {
+    value: 'secondMismatch1',
+    keys: [[], [2]],
+    result: [-1, 1]
+  }
+]</code></pre>
 
 
 
@@ -1069,13 +1199,13 @@ compareArrays(
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-cloneHelpers.html">cloneHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-cloneHelpers.html">cloneHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-mergeHelpers.html">mergeHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Nov 03 2020 12:43:27 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Feb 03 2021 22:21:54 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

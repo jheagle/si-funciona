@@ -1,43 +1,27 @@
 'use strict'
 
-require('core-js/modules/es.symbol')
+require('core-js/modules/es.array.concat.js')
 
-require('core-js/modules/es.symbol.description')
+require('core-js/modules/es.array.reduce.js')
 
-require('core-js/modules/es.symbol.iterator')
+require('core-js/modules/es.array.slice.js')
 
-require('core-js/modules/es.array.concat')
+require('core-js/modules/es.array.splice.js')
 
-require('core-js/modules/es.array.from')
+require('core-js/modules/es.object.to-string.js')
 
-require('core-js/modules/es.array.iterator')
-
-require('core-js/modules/es.array.reduce')
-
-require('core-js/modules/es.array.slice')
-
-require('core-js/modules/es.array.splice')
-
-require('core-js/modules/es.function.name')
-
-require('core-js/modules/es.object.to-string')
-
-require('core-js/modules/es.promise')
-
-require('core-js/modules/es.regexp.to-string')
-
-require('core-js/modules/es.string.iterator')
-
-require('core-js/modules/web.dom-collections.iterator')
+require('core-js/modules/es.promise.js')
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
 
-require('regenerator-runtime/runtime')
+require('regenerator-runtime/runtime.js')
 
 require('core-js/stable')
+
+require('regenerator-runtime/runtime')
 
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
