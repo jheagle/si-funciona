@@ -2640,20 +2640,20 @@
         /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-        var rootFunctionalHelpers = void 0 || window || global || {}
+        var root = void 0 || window || global || {}
         /**
    * Store reference to any pre-existing module of the same name
    * @type {module|*}
    */
 
-        var previousFunctionalHelpers = rootFunctionalHelpers.functionalHelpers || {}
+        var previousFunctionalHelpers = root.functionalHelpers || {}
         /**
    * All methods exported from this module are encapsulated within functionalHelpers.
    * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
    */
 
         var functionalHelpers = {}
-        rootFunctionalHelpers.functionalHelpers = functionalHelpers
+        root.functionalHelpers = functionalHelpers
         /**
    * Return a reference to this library while preserving the original same-named library
    * @function
@@ -2661,7 +2661,7 @@
    */
 
         var noConflict = function noConflict () {
-          rootFunctionalHelpers.functionalHelpers = previousFunctionalHelpers
+          root.functionalHelpers = previousFunctionalHelpers
           return functionalHelpers
         }
 

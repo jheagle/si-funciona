@@ -17,20 +17,20 @@ import * as objectHelpers from './helpers/objects'
 /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-const rootFunctionalHelpers = this || window || global || {}
+const root = this || window || global || {}
 
 /**
    * Store reference to any pre-existing module of the same name
    * @type {module|*}
    */
-const previousFunctionalHelpers = rootFunctionalHelpers.functionalHelpers || {}
+const previousFunctionalHelpers = root.functionalHelpers || {}
 
 /**
    * All methods exported from this module are encapsulated within functionalHelpers.
    * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
    */
 const functionalHelpers = {}
-rootFunctionalHelpers.functionalHelpers = functionalHelpers
+root.functionalHelpers = functionalHelpers
 
 /**
    * Return a reference to this library while preserving the original same-named library
@@ -38,7 +38,7 @@ rootFunctionalHelpers.functionalHelpers = functionalHelpers
    * @returns {module:functionalHelpers~functionalHelpers}
    */
 const noConflict = () => {
-  rootFunctionalHelpers.functionalHelpers = previousFunctionalHelpers
+  root.functionalHelpers = previousFunctionalHelpers
   return functionalHelpers
 }
 functionalHelpers.noConflict = noConflict
