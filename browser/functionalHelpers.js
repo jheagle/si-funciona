@@ -1956,6 +1956,8 @@
 
     require('core-js/modules/es.array.find-index.js')
 
+    require('core-js/modules/es.array.for-each.js')
+
     require('core-js/modules/es.array.includes.js')
 
     require('core-js/modules/es.array.iterator.js')
@@ -1971,6 +1973,8 @@
     require('core-js/modules/es.object.to-string.js')
 
     require('core-js/modules/es.string.includes.js')
+
+    require('core-js/modules/web.dom-collections.for-each.js')
 
     require('core-js/modules/web.dom-collections.iterator.js')
 
@@ -2011,6 +2015,10 @@
     }
 
     var getSimilarObject = function getSimilarObject (referenceMap, origin) {
+      if (origin.index === 0) {
+        return referenceMap[0]
+      }
+
       var useArray = Array.isArray(origin.original)
       var originKeys = (0, _objects.objectKeys)(origin.object).filter(function (key) {
         return !origin.references.includes(key) && !(0, _objects.isObject)(origin.object[key])
@@ -2018,14 +2026,17 @@
       var originValues = originKeys.map(function (key) {
         return origin.object[key]
       })
-
-      if (!originKeys.length) {
-        return undefined
-      }
-
       return referenceMap.find(function (existing) {
         if (Array.isArray(existing.original) !== useArray) {
           return false
+        }
+
+        if (existing.original === origin.original) {
+          return true
+        }
+
+        if (!originKeys.length) {
+          return existing.index === origin.index
         }
 
         var existingKeys = (0, _objects.objectKeys)(existing.object).filter(function (key) {
@@ -2054,10 +2065,11 @@
         nextFirstRef.merged = origin.merged
         nextFirstRef.object = defaultObject
         nextFirstRef.circular = origin.circular
+        nextFirstRef.original = origin.original
         var refLocation = firstMap.length
         firstMap.push(nextFirstRef)
         nextFirstRef.object = (0, _objects.objectKeys)(origin.object).reduce(function (newObj, key) {
-          if (origin.references.includes(key)) {
+          if (origin.references.includes(key) && !nextFirstRef.references.includes(key)) {
             nextFirstRef.references.push(key)
           }
 
@@ -2074,7 +2086,10 @@
             matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
           }
 
-          matchedReference.referers.push(newIndex)
+          if (!matchedReference.referers.includes(newIndex)) {
+            matchedReference.referers.push(newIndex)
+          }
+
           return (0, _objects.setValue)(key, nextNewIndex, newObj)
         }, nextFirstRef.object)
         nextFirstRef.object = nextFirstRef.references.reduce(function (newObj, key) {
@@ -2091,10 +2106,44 @@
             matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
           }
 
-          matchedReference.referers.push(newIndex)
+          if (!matchedReference.referers.includes(newIndex)) {
+            matchedReference.referers.push(newIndex)
+          }
+
           newObj[key] = nextNewIndex
           return newObj
         }, nextFirstRef.object)
+
+        if (origin.referers.length !== nextFirstRef.referers.length) {
+          var newReferers = origin.referers.map(function (index) {
+            var nextOrigin = (0, _cloneHelpers.findReference)(secondMap, index)
+            var testMap = nextFirstRef.referers.map(function (refererIndex) {
+              return (0, _cloneHelpers.findReference)(firstMap, refererIndex)
+            })
+            var matchedReference = getSimilarObject(testMap, nextOrigin)
+
+            if (typeof matchedReference !== 'undefined') {
+              return matchedReference.index
+            }
+
+            matchedReference = getSimilarObject(firstMap, nextOrigin)
+            var exists = typeof matchedReference !== 'undefined'
+            var nextNewIndex = exists ? matchedReference.index : firstMap[firstMap.length - 1].index + 1
+
+            if (!exists) {
+              matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
+            }
+
+            return matchedReference.index
+          })
+          var removeFunc = (0, _cloneHelpers.removeFromReferenceMap)(firstMap)
+          nextFirstRef.referers.forEach(function (refererIndex) {
+            return removeFunc((0, _cloneHelpers.findReference)(firstMap, refererIndex))
+          })
+          nextFirstRef.referers = newReferers
+        }
+
+        nextFirstRef.referers = (0, _arrays.uniqueArray)(nextFirstRef.referers)
         return firstMap[refLocation]
       }
     }
@@ -2179,7 +2228,7 @@
             matchedReference = createReferenceReplica(firstMap, secondMap)(newValue, nextSecondRef, [firstIndex])
           }
 
-          if (!useArray) {
+          if (!useArray && !firstMap[firstRefIndex].references.includes(nextKey)) {
             firstMap[firstRefIndex].references.push(nextKey)
             firstMap[firstRefIndex].object[nextKey] = newValue
           }
@@ -2398,8 +2447,10 @@
             nextFirstRef = createReferenceReplica(firstMap, secondMap)(nextFirstIndex, nextSecondRef, [object1.index])
           }
 
-          object1.references.push(key)
-          object1.object[key] = nextFirstIndex
+          if (!object1.references.includes(key)) {
+            object1.references.push(key)
+            object1.object[key] = nextFirstIndex
+          }
         }
 
         nextSecondRef.complete = true
@@ -2488,8 +2539,18 @@
             return ref
           })
         }
+      }
 
+      if (secondMap.every(function (ref) {
+        return ref.merged
+      })) {
         secondMap = (0, _cloneHelpers.linkReferences)(secondMap)
+      }
+
+      if (firstMap.every(function (ref) {
+        return ref.merged
+      }) && firstMap[0].references.length) {
+        return mergeReferences(firstMap, secondMap)
       }
 
       return hasUnmergedReferences(firstMap) || hasUnmergedReferences(secondMap) ? mergeReferences(firstMap, secondMap) : firstMap
@@ -2596,7 +2657,7 @@
     }
 
     exports.processMergeIdentifiers = processMergeIdentifiers
-  }, { '../arrays': 1, '../functions': 2, '../objects': 4, './cloneHelpers': 5, 'core-js/modules/es.array.concat.js': 174, 'core-js/modules/es.array.every.js': 176, 'core-js/modules/es.array.filter.js': 178, 'core-js/modules/es.array.find-index.js': 179, 'core-js/modules/es.array.find.js': 180, 'core-js/modules/es.array.includes.js': 185, 'core-js/modules/es.array.iterator.js': 188, 'core-js/modules/es.array.map.js': 191, 'core-js/modules/es.array.reduce.js': 194, 'core-js/modules/es.array.some.js': 197, 'core-js/modules/es.array.splice.js': 200, 'core-js/modules/es.object.to-string.js': 269, 'core-js/modules/es.string.includes.js': 308, 'core-js/modules/web.dom-collections.iterator.js': 382 }],
+  }, { '../arrays': 1, '../functions': 2, '../objects': 4, './cloneHelpers': 5, 'core-js/modules/es.array.concat.js': 174, 'core-js/modules/es.array.every.js': 176, 'core-js/modules/es.array.filter.js': 178, 'core-js/modules/es.array.find-index.js': 179, 'core-js/modules/es.array.find.js': 180, 'core-js/modules/es.array.for-each.js': 183, 'core-js/modules/es.array.includes.js': 185, 'core-js/modules/es.array.iterator.js': 188, 'core-js/modules/es.array.map.js': 191, 'core-js/modules/es.array.reduce.js': 194, 'core-js/modules/es.array.some.js': 197, 'core-js/modules/es.array.splice.js': 200, 'core-js/modules/es.object.to-string.js': 269, 'core-js/modules/es.string.includes.js': 308, 'core-js/modules/web.dom-collections.for-each.js': 381, 'core-js/modules/web.dom-collections.iterator.js': 382 }],
   8: [function (require, module, exports) {
     (function (global) {
       (function () {

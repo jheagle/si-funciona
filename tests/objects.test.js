@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { logObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
+import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
 describe('setValue', () => {
   test('will update an item and return the item', () => {
@@ -460,5 +460,36 @@ describe('mergeObjects', () => {
     anotherCircular.head.children = []
     const newItem = helpers.mergeObjects(anotherCircular, circularObject)
     expect(newItem).toEqual(circularObject)
+  })
+
+  test('combining dom items', () => {
+    const children = [{ tagName: 'body' }, { tagName: 'head' }]
+    const template = {
+      tagName: 'div',
+      attributes: {
+        style: {}
+      },
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      children: []
+    }
+    const newAttributes = {
+      body: children[0],
+      children: children,
+      head: children[1],
+      tagName: 'html'
+    }
+    const result = helpers.mergeObjects(template, newAttributes)
+    expect(result).toEqual({
+      tagName: 'html',
+      attributes: { style: {} },
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      children: [{ tagName: 'body' }, { tagName: 'head' }],
+      body: { tagName: 'body' },
+      head: { tagName: 'head' }
+    })
   })
 })

@@ -1,7 +1,7 @@
 import * as helpers from '../../dist/helpers/objects/mergeHelpers'
 import { mergeArrays } from '../../dist/helpers/arrays'
 import { createReferenceIdentifier, findObjectReferences, findReferenceKeys, objectAndReferences } from '../../dist/helpers/objects/cloneHelpers'
-import { logObject, circularObject, linkedList } from '../testHelpers'
+import { circularObject, linkedList } from '../testHelpers'
 
 const buildReferenceMap = (object, limit) => {
   const referenceMap = [

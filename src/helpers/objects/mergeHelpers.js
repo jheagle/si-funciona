@@ -6,7 +6,7 @@
  * @module mergeHelpers
  */
 
-import { compareArrays, mergeArrays } from '../arrays'
+import { compareArrays, mergeArrays, uniqueArray } from '../arrays'
 import { pipe } from '../functions'
 import { isObject, mapObject, objectKeys, setValue } from '../objects'
 import { createReferenceIdentifier, findObjectReferences, findReference, findReferenceIndex, findReferenceKeys, getIdentifierDepth, linkReferences, objectAndReferences, removeFromReferenceMap } from './cloneHelpers'
@@ -19,16 +19,22 @@ import { createReferenceIdentifier, findObjectReferences, findReference, findRef
 const hasUnmergedReferences = referenceMap => referenceMap.some(newRef => newRef.merged === false)
 
 export const getSimilarObject = (referenceMap, origin) => {
+  if (origin.index === 0) {
+    return referenceMap[0]
+  }
   const useArray = Array.isArray(origin.original)
   const originKeys = objectKeys(origin.object).filter(key => !origin.references.includes(key) && !isObject(origin.object[key]))
   const originValues = originKeys.map(key => origin.object[key])
-  if (!originKeys.length) {
-    return undefined
-  }
   return referenceMap.find(
     existing => {
       if (Array.isArray(existing.original) !== useArray) {
         return false
+      }
+      if (existing.original === origin.original) {
+        return true
+      }
+      if (!originKeys.length) {
+        return existing.index === origin.index
       }
       const existingKeys = objectKeys(existing.object).filter(key => !existing.references.includes(key) && !isObject(existing.object[key]))
       const existingValues = existingKeys.map(key => existing.object[key])
@@ -45,10 +51,11 @@ export const createReferenceReplica = (firstMap, secondMap) => (newIndex, origin
   nextFirstRef.merged = origin.merged
   nextFirstRef.object = defaultObject
   nextFirstRef.circular = origin.circular
+  nextFirstRef.original = origin.original
   const refLocation = firstMap.length
   firstMap.push(nextFirstRef)
   nextFirstRef.object = objectKeys(origin.object).reduce((newObj, key) => {
-    if (origin.references.includes(key)) {
+    if (origin.references.includes(key) && !nextFirstRef.references.includes(key)) {
       nextFirstRef.references.push(key)
     }
     if (!origin.circular.includes(key)) {
@@ -61,7 +68,9 @@ export const createReferenceReplica = (firstMap, secondMap) => (newIndex, origin
     if (!exists) {
       matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
     }
-    matchedReference.referers.push(newIndex)
+    if (!matchedReference.referers.includes(newIndex)) {
+      matchedReference.referers.push(newIndex)
+    }
     return setValue(key, nextNewIndex, newObj)
   }, nextFirstRef.object)
   nextFirstRef.object = nextFirstRef.references.reduce((newObj, key) => {
@@ -75,10 +84,33 @@ export const createReferenceReplica = (firstMap, secondMap) => (newIndex, origin
     if (!exists) {
       matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
     }
-    matchedReference.referers.push(newIndex)
+    if (!matchedReference.referers.includes(newIndex)) {
+      matchedReference.referers.push(newIndex)
+    }
     newObj[key] = nextNewIndex
     return newObj
   }, nextFirstRef.object)
+  if (origin.referers.length !== nextFirstRef.referers.length) {
+    const newReferers = origin.referers.map(index => {
+      const nextOrigin = findReference(secondMap, index)
+      const testMap = nextFirstRef.referers.map(refererIndex => findReference(firstMap, refererIndex))
+      let matchedReference = getSimilarObject(testMap, nextOrigin)
+      if (typeof matchedReference !== 'undefined') {
+        return matchedReference.index
+      }
+      matchedReference = getSimilarObject(firstMap, nextOrigin)
+      const exists = typeof matchedReference !== 'undefined'
+      const nextNewIndex = exists ? matchedReference.index : firstMap[firstMap.length - 1].index + 1
+      if (!exists) {
+        matchedReference = createReferenceReplica(firstMap, secondMap)(nextNewIndex, nextOrigin)
+      }
+      return matchedReference.index
+    })
+    const removeFunc = removeFromReferenceMap(firstMap)
+    nextFirstRef.referers.forEach(refererIndex => removeFunc(findReference(firstMap, refererIndex)))
+    nextFirstRef.referers = newReferers
+  }
+  nextFirstRef.referers = uniqueArray(nextFirstRef.referers)
   return firstMap[refLocation]
 }
 
@@ -148,7 +180,7 @@ export const mergeNonReferences = (firstMap, firstIndex, secondMap, secondIndex,
       if (!exists) {
         matchedReference = createReferenceReplica(firstMap, secondMap)(newValue, nextSecondRef, [firstIndex])
       }
-      if (!useArray) {
+      if (!useArray && !firstMap[firstRefIndex].references.includes(nextKey)) {
         firstMap[firstRefIndex].references.push(nextKey)
         firstMap[firstRefIndex].object[nextKey] = newValue
       }
@@ -308,8 +340,10 @@ export const mergeReferenceObject = (firstMap, secondMap, object2) => (object1, 
     if (!exists) {
       nextFirstRef = createReferenceReplica(firstMap, secondMap)(nextFirstIndex, nextSecondRef, [object1.index])
     }
-    object1.references.push(key)
-    object1.object[key] = nextFirstIndex
+    if (!object1.references.includes(key)) {
+      object1.references.push(key)
+      object1.object[key] = nextFirstIndex
+    }
   }
   nextSecondRef.complete = true
   nextSecondRef.merged = true
@@ -373,7 +407,12 @@ export const mergeReferences = (firstMap, secondMap) => {
         return ref
       })
     }
+  }
+  if (secondMap.every(ref => ref.merged)) {
     secondMap = linkReferences(secondMap)
+  }
+  if (firstMap.every(ref => ref.merged) && firstMap[0].references.length) {
+    return mergeReferences(firstMap, secondMap)
   }
   return (hasUnmergedReferences(firstMap) || hasUnmergedReferences(secondMap))
     ? mergeReferences(firstMap, secondMap)
