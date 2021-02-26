@@ -2,15 +2,11 @@
 
 require('core-js/modules/es.array.concat.js')
 
-require('core-js/modules/es.array.every.js')
-
 require('core-js/modules/es.array.filter.js')
 
 require('core-js/modules/es.array.find.js')
 
 require('core-js/modules/es.array.find-index.js')
-
-require('core-js/modules/es.array.for-each.js')
 
 require('core-js/modules/es.array.includes.js')
 
@@ -19,8 +15,6 @@ require('core-js/modules/es.array.iterator.js')
 require('core-js/modules/es.array.map.js')
 
 require('core-js/modules/es.array.reduce.js')
-
-require('core-js/modules/es.array.some.js')
 
 require('core-js/modules/es.array.splice.js')
 
@@ -118,7 +112,9 @@ var createReferenceReplica = function createReferenceReplica (firstMap, secondMa
     nextFirstRef.complete = origin.complete
     nextFirstRef.merged = origin.merged
     nextFirstRef.object = defaultObject
-    nextFirstRef.circular = origin.circular
+    nextFirstRef.circular = origin.circular.map(function (key) {
+      return key
+    })
     nextFirstRef.original = origin.original
     var refLocation = firstMap.length
     firstMap.push(nextFirstRef)
@@ -165,6 +161,11 @@ var createReferenceReplica = function createReferenceReplica (firstMap, secondMa
       }
 
       newObj[key] = nextNewIndex
+
+      if (nextNewIndex <= nextFirstRef.index) {
+        nextFirstRef.circular.push(key)
+      }
+
       return newObj
     }, nextFirstRef.object)
 

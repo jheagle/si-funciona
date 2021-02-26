@@ -6,17 +6,11 @@ require('core-js/modules/es.array.filter.js')
 
 require('core-js/modules/es.array.find-index.js')
 
-require('core-js/modules/es.array.for-each.js')
-
 require('core-js/modules/es.array.includes.js')
-
-require('core-js/modules/es.array.index-of.js')
 
 require('core-js/modules/es.array.map.js')
 
 require('core-js/modules/es.array.reduce.js')
-
-require('core-js/modules/es.array.some.js')
 
 require('core-js/modules/es.array.splice.js')
 

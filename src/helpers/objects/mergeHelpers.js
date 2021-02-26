@@ -50,7 +50,7 @@ export const createReferenceReplica = (firstMap, secondMap) => (newIndex, origin
   nextFirstRef.complete = origin.complete
   nextFirstRef.merged = origin.merged
   nextFirstRef.object = defaultObject
-  nextFirstRef.circular = origin.circular
+  nextFirstRef.circular = origin.circular.map(key => key)
   nextFirstRef.original = origin.original
   const refLocation = firstMap.length
   firstMap.push(nextFirstRef)
@@ -88,6 +88,9 @@ export const createReferenceReplica = (firstMap, secondMap) => (newIndex, origin
       matchedReference.referers.push(newIndex)
     }
     newObj[key] = nextNewIndex
+    if (nextNewIndex <= nextFirstRef.index) {
+      nextFirstRef.circular.push(key)
+    }
     return newObj
   }, nextFirstRef.object)
   if (origin.referers.length !== nextFirstRef.referers.length) {

@@ -8,15 +8,11 @@ require('core-js/modules/es.symbol.iterator.js')
 
 require('core-js/modules/es.array.concat.js')
 
-require('core-js/modules/es.array.every.js')
-
 require('core-js/modules/es.array.filter.js')
 
 require('core-js/modules/es.array.find.js')
 
 require('core-js/modules/es.array.find-index.js')
-
-require('core-js/modules/es.array.for-each.js')
 
 require('core-js/modules/es.array.includes.js')
 
@@ -25,8 +21,6 @@ require('core-js/modules/es.array.iterator.js')
 require('core-js/modules/es.array.map.js')
 
 require('core-js/modules/es.array.reduce.js')
-
-require('core-js/modules/es.array.some.js')
 
 require('core-js/modules/es.object.assign.js')
 

@@ -463,13 +463,26 @@ describe('mergeObjects', () => {
   })
 
   test('combining dom items', () => {
-    const children = [{ tagName: 'body' }, { tagName: 'head' }]
+    const children = [
+      {
+        tagName: 'body',
+        attributes: {},
+        element: document.body,
+        children: []
+      },
+      {
+        tagName: 'head',
+        attributes: {},
+        element: document.head,
+        children: []
+      }
+    ]
     const template = {
       tagName: 'div',
       attributes: {
         style: {}
       },
-      element: {},
+      element: document,
       eventListeners: {},
       parentItem: {},
       children: []
@@ -481,15 +494,71 @@ describe('mergeObjects', () => {
       tagName: 'html'
     }
     const result = helpers.mergeObjects(template, newAttributes)
-    expect(result).toEqual({
+    const expectedResult = {
       tagName: 'html',
       attributes: { style: {} },
-      element: {},
+      element: document,
       eventListeners: {},
       parentItem: {},
-      children: [{ tagName: 'body' }, { tagName: 'head' }],
-      body: { tagName: 'body' },
-      head: { tagName: 'head' }
-    })
+      children: [],
+      body: {
+        tagName: 'body',
+        attributes: {},
+        element: document.body,
+        children: []
+      },
+      head: {
+        tagName: 'head',
+        attributes: {},
+        element: document.head,
+        children: []
+      }
+    }
+    expectedResult.children[0] = expectedResult.body
+    expectedResult.children[1] = expectedResult.head
+    expect(result).toEqual(expectedResult)
+  })
+
+  test('combining multiple dom items', () => {
+    const children = [
+      {
+        tagName: 'body',
+        parentItem: {},
+        children: []
+      },
+      {
+        tagName: 'head',
+        parentItem: {},
+        children: []
+      }
+    ]
+    const newAttributes = {
+      parentItem: {
+        tagName: 'html',
+        body: children[0],
+        head: children[1],
+        parentItem: {},
+        children: children
+      }
+    }
+    const result = helpers.mergeObjects(children[1], newAttributes)
+    const expectedResult = {
+      tagName: 'head',
+      parentItem: {
+        tagName: 'html',
+        body: {
+          tagName: 'body',
+          parentItem: {},
+          children: []
+        },
+        parentItem: {},
+        children: []
+      },
+      children: []
+    }
+    expectedResult.parentItem.head = expectedResult
+    expectedResult.parentItem.children[0] = expectedResult.parentItem.body
+    expectedResult.parentItem.children[1] = expectedResult.parentItem.head
+    expect(result).toEqual(expectedResult)
   })
 })

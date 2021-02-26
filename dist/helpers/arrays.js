@@ -2,13 +2,9 @@
 
 require('core-js/modules/es.array.concat.js')
 
-require('core-js/modules/es.array.every.js')
-
 require('core-js/modules/es.array.filter.js')
 
 require('core-js/modules/es.array.includes.js')
-
-require('core-js/modules/es.array.index-of.js')
 
 require('core-js/modules/es.array.map.js')
 
