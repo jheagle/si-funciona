@@ -2094,13 +2094,14 @@
           return true
         }
 
-        if (!originKeys.length) {
-          return existing.index === origin.index
-        }
-
         var existingKeys = (0, _objects.objectKeys)(existing.object).filter(function (key) {
           return !existing.references.includes(key) && !(0, _objects.isObject)(existing.object[key])
         })
+
+        if (!originKeys.length && !existingKeys.length) {
+          return existing.index === origin.index
+        }
+
         var existingValues = existingKeys.map(function (key) {
           return existing.object[key]
         })

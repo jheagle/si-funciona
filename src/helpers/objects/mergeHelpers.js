@@ -33,10 +33,10 @@ export const getSimilarObject = (referenceMap, origin) => {
       if (existing.original === origin.original) {
         return true
       }
-      if (!originKeys.length) {
+      const existingKeys = objectKeys(existing.object).filter(key => !existing.references.includes(key) && !isObject(existing.object[key]))
+      if (!originKeys.length && !existingKeys.length) {
         return existing.index === origin.index
       }
-      const existingKeys = objectKeys(existing.object).filter(key => !existing.references.includes(key) && !isObject(existing.object[key]))
       const existingValues = existingKeys.map(key => existing.object[key])
       const compareResults = compareArrays(existingValues, originValues)
       return compareResults.every(compare => compare.result.every(result => result === 0))

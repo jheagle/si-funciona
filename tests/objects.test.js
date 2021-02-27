@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { logObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
+import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
 describe('setValue', () => {
   test('will update an item and return the item', () => {
@@ -519,7 +519,7 @@ describe('mergeObjects', () => {
     expect(result).toEqual(expectedResult)
   })
 
-  test('combining multiple dom items', () => {
+  test('add large reference onto attribute of first object, with circular references', () => {
     const children = [
       {
         tagName: 'body',
@@ -612,7 +612,16 @@ describe('mergeObjects', () => {
     expect(result).toEqual(expectedResult)
   })
 
-  test.skip('more fun with circular references', () => {
+  test('merge multiple objects', () => {
+    const baseItem = {
+      attributes: { style: {} },
+      children: [],
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      tagName: 'div'
+    }
+
     const children = [
       {
         attributes: {},
@@ -631,35 +640,49 @@ describe('mergeObjects', () => {
         tagName: 'body'
       }
     ]
-    const rootItem = {
-      attributes: {},
-      body: children[1],
-      children: children,
-      element: document,
-      eventListeners: [],
-      head: children[0],
-      parentItem: {},
-      tagName: 'html'
-    }
-
-    rootItem.body.parentItem = rootItem
-    rootItem.head.parentItem = rootItem
-    rootItem.children[0].parentItem = rootItem
-    rootItem.children[1].parentItem = rootItem
-
-    const baseItem = {
+    const attributes = []
+    attributes[0] = {
       attributes: { style: {} },
       children: [],
-      element: {},
+      element: document.head,
       eventListeners: {},
       parentItem: {},
-      tagName: 'div'
+      tagName: 'head'
     }
 
-    const result = helpers.mergeObjects(baseItem, rootItem)
-    logObject(result, 'result')
-    const expectedResult = rootItem
-    expectedResult.attributes = baseItem.attributes
+    attributes[1] = {
+      parentItem: {
+        attributes: { style: {} },
+        body: children[1],
+        children: children,
+        element: document,
+        eventListeners: [],
+        head: children[0],
+        parentItem: {},
+        tagName: 'html'
+      }
+    }
+
+    const result = helpers.mergeObjects(baseItem, attributes[0], attributes[1])
+    const expectedResult = {
+      attributes: { style: {} },
+      children: [],
+      element: document.head,
+      eventListeners: {},
+      parentItem: {
+        attributes: { style: {} },
+        body: children[1],
+        children: children,
+        element: document,
+        eventListeners: [],
+        head: children[0],
+        parentItem: {},
+        tagName: 'html'
+      },
+      tagName: 'head'
+    }
+    expectedResult.parentItem.children[0] = expectedResult
+    expectedResult.parentItem.head = expectedResult
     expect(result).toEqual(expectedResult)
   })
 })
