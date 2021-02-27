@@ -177,7 +177,7 @@ export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || 
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-export const emptyObject = item => !objectKeys(item).length
+export const emptyObject = item => (typeof item === 'function' || isObject(item)) && !objectKeys(item).length
 
 /**
  * Check if the current object has inherited properties.
@@ -223,10 +223,13 @@ export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
  * object
  * @returns {Object}
  */
-export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => args.reduce(
-  (newObj, arg) => arg
-    ? mergeReferences(...processMergeIdentifiers(newObj, arg, { mapLimit, depthLimit }))[0].object
-    : newObj,
-  args[0] || {})
+export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => {
+  const base = args.shift()
+  return args.reduce(
+    (newObj, arg) => arg
+      ? mergeReferences(...processMergeIdentifiers(newObj, arg, { mapLimit, depthLimit }))[0].object
+      : newObj,
+    base || {})
+}
 
 export const mergeObjects = mergeObjectsSettings()

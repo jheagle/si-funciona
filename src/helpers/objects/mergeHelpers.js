@@ -8,7 +8,7 @@
 
 import { compareArrays, mergeArrays, uniqueArray } from '../arrays'
 import { pipe } from '../functions'
-import { isObject, mapObject, objectKeys, setValue } from '../objects'
+import { emptyObject, isObject, mapObject, objectKeys, setValue } from '../objects'
 import { createReferenceIdentifier, findObjectReferences, findReference, findReferenceIndex, findReferenceKeys, getIdentifierDepth, linkReferences, objectAndReferences, removeFromReferenceMap } from './cloneHelpers'
 
 /**
@@ -211,6 +211,9 @@ export const mergeNonReferences = (firstMap, firstIndex, secondMap, secondIndex,
         : setValue(nextKey, nextFirstValue, newObject)
     }
     if (refIndexSecond >= 0) {
+      return setValue(nextKey, nextFirstValue, newObject)
+    }
+    if (compareResult.result[0] === 0 && refIndexSecond < 0 && emptyObject(nextSecondValue)) {
       return setValue(nextKey, nextFirstValue, newObject)
     }
     const removedRef = findReference(firstMap, nextFirstValue)

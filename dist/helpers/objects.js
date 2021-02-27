@@ -1,35 +1,39 @@
 'use strict'
 
-require('core-js/modules/es.symbol.js')
+require('core-js/modules/es.array.from.js')
 
-require('core-js/modules/es.symbol.description.js')
-
-require('core-js/modules/es.symbol.iterator.js')
-
-require('core-js/modules/es.array.filter.js')
-
-require('core-js/modules/es.array.includes.js')
-
-require('core-js/modules/es.array.iterator.js')
-
-require('core-js/modules/es.array.map.js')
-
-require('core-js/modules/es.array.reduce.js')
-
-require('core-js/modules/es.function.name.js')
-
-require('core-js/modules/es.object.get-own-property-names.js')
-
-require('core-js/modules/es.object.to-string.js')
-
-require('core-js/modules/es.string.iterator.js')
-
-require('core-js/modules/web.dom-collections.iterator.js')
+require('core-js/modules/es.array.slice.js')
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.mergeObjects = exports.mergeObjectsSettings = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
+
+require('core-js/modules/es.object.get-own-property-names.js')
+
+require('core-js/modules/es.array.map.js')
+
+require('core-js/modules/es.array.reduce.js')
+
+require('core-js/modules/es.array.filter.js')
+
+require('core-js/modules/es.array.includes.js')
+
+require('core-js/modules/es.function.name.js')
+
+require('core-js/modules/es.symbol.js')
+
+require('core-js/modules/es.symbol.description.js')
+
+require('core-js/modules/es.object.to-string.js')
+
+require('core-js/modules/es.symbol.iterator.js')
+
+require('core-js/modules/es.string.iterator.js')
+
+require('core-js/modules/es.array.iterator.js')
+
+require('core-js/modules/web.dom-collections.iterator.js')
 
 require('core-js/stable')
 
@@ -249,7 +253,7 @@ var reduceObject = function reduceObject (obj, fn) {
 exports.reduceObject = reduceObject
 
 var emptyObject = function emptyObject (item) {
-  return !objectKeys(item).length
+  return (typeof item === 'function' || isObject(item)) && !objectKeys(item).length
 }
 /**
  * Check if the current object has inherited properties.
@@ -330,12 +334,13 @@ var mergeObjectsSettings = function mergeObjectsSettings () {
       args[_key] = arguments[_key]
     }
 
+    var base = args.shift()
     return args.reduce(function (newObj, arg) {
       return arg ? _mergeHelpers.mergeReferences.apply(void 0, _toConsumableArray((0, _mergeHelpers.processMergeIdentifiers)(newObj, arg, {
         mapLimit: mapLimit,
         depthLimit: depthLimit
       })))[0].object : newObj
-    }, args[0] || {})
+    }, base || {})
   }
 }
 

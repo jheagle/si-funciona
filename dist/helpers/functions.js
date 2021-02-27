@@ -1,5 +1,28 @@
 'use strict'
 
+require('core-js/modules/es.symbol.js')
+
+require('core-js/modules/es.symbol.description.js')
+
+require('core-js/modules/es.symbol.iterator.js')
+
+require('core-js/modules/es.string.iterator.js')
+
+require('core-js/modules/es.array.iterator.js')
+
+require('core-js/modules/web.dom-collections.iterator.js')
+
+require('core-js/modules/es.array.from.js')
+
+require('core-js/modules/es.function.name.js')
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+})
+exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
+
+require('regenerator-runtime/runtime.js')
+
 require('core-js/modules/es.array.concat.js')
 
 require('core-js/modules/es.array.reduce.js')
@@ -8,16 +31,9 @@ require('core-js/modules/es.array.slice.js')
 
 require('core-js/modules/es.array.splice.js')
 
-require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/es.promise.js')
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-})
-exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
-
-require('regenerator-runtime/runtime.js')
+require('core-js/modules/es.object.to-string.js')
 
 require('core-js/stable')
 

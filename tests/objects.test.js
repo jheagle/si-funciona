@@ -1,5 +1,5 @@
 import * as helpers from '../dist/helpers/objects'
-import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
+import { logObject, deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
 describe('setValue', () => {
   test('will update an item and return the item', () => {
@@ -156,9 +156,9 @@ describe('emptyObject', () => {
     expect(helpers.emptyObject(testArrayFull)).toBe(false)
   })
 
-  test('returns true for null', () => {
+  test('returns false for null', () => {
     const testNull = null
-    expect(helpers.emptyObject(testNull)).toBe(true)
+    expect(helpers.emptyObject(testNull)).toBe(false)
   })
 })
 
@@ -559,6 +559,107 @@ describe('mergeObjects', () => {
     expectedResult.parentItem.head = expectedResult
     expectedResult.parentItem.children[0] = expectedResult.parentItem.body
     expectedResult.parentItem.children[1] = expectedResult.parentItem.head
+    expect(result).toEqual(expectedResult)
+  })
+
+  test('maintains first object when second matching object is empty', () => {
+    const children = [
+      {
+        attributes: {},
+        children: [],
+        element: document.head,
+        eventListeners: {},
+        parentItem: {},
+        tagName: 'head'
+      },
+      {
+        attributes: {},
+        children: [],
+        element: document.body,
+        eventListeners: {},
+        parentItem: {},
+        tagName: 'body'
+      }
+    ]
+    const rootItem = {
+      attributes: {},
+      body: children[1],
+      children: children,
+      element: document,
+      eventListeners: [],
+      head: children[0],
+      parentItem: {},
+      tagName: 'html'
+    }
+
+    rootItem.body.parentItem = rootItem
+    rootItem.head.parentItem = rootItem
+    rootItem.children[0].parentItem = rootItem
+    rootItem.children[1].parentItem = rootItem
+
+    const baseItem = {
+      attributes: { style: {} },
+      children: [],
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      tagName: 'div'
+    }
+
+    const result = helpers.mergeObjects(baseItem, rootItem)
+    const expectedResult = rootItem
+    expectedResult.attributes = baseItem.attributes
+    expect(result).toEqual(expectedResult)
+  })
+
+  test.skip('more fun with circular references', () => {
+    const children = [
+      {
+        attributes: {},
+        children: [],
+        element: document.head,
+        eventListeners: {},
+        parentItem: {},
+        tagName: 'head'
+      },
+      {
+        attributes: {},
+        children: [],
+        element: document.body,
+        eventListeners: {},
+        parentItem: {},
+        tagName: 'body'
+      }
+    ]
+    const rootItem = {
+      attributes: {},
+      body: children[1],
+      children: children,
+      element: document,
+      eventListeners: [],
+      head: children[0],
+      parentItem: {},
+      tagName: 'html'
+    }
+
+    rootItem.body.parentItem = rootItem
+    rootItem.head.parentItem = rootItem
+    rootItem.children[0].parentItem = rootItem
+    rootItem.children[1].parentItem = rootItem
+
+    const baseItem = {
+      attributes: { style: {} },
+      children: [],
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      tagName: 'div'
+    }
+
+    const result = helpers.mergeObjects(baseItem, rootItem)
+    logObject(result, 'result')
+    const expectedResult = rootItem
+    expectedResult.attributes = baseItem.attributes
     expect(result).toEqual(expectedResult)
   })
 })
