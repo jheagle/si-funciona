@@ -346,7 +346,7 @@ export const mergeReferenceObject = (firstMap, secondMap, object2) => (object1, 
     if (!exists) {
       nextFirstRef = createReferenceReplica(firstMap, secondMap)(nextFirstIndex, nextSecondRef, [object1.index])
     }
-    if (!object1.references.includes(key)) {
+    if (!object1.references.includes(key) && object1.object[key] === null) {
       object1.references.push(key)
       object1.object[key] = nextFirstIndex
     }

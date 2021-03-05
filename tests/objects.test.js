@@ -685,4 +685,59 @@ describe('mergeObjects', () => {
     expectedResult.parentItem.head = expectedResult
     expect(result).toEqual(expectedResult)
   })
+
+  test('domItem test can merge even with different property order', () => {
+    const baseItem = {
+      tagName: 'div',
+      attributes: {
+        style: {}
+      },
+      element: {},
+      eventListeners: {},
+      parentItem: {},
+      children: []
+    }
+
+    const children = [
+      {
+        tagName: 'head',
+        attributes: {
+          style: {}
+        },
+        element: document.head,
+        eventListeners: {},
+        parentItem: {},
+        children: []
+      },
+      {
+        tagName: 'body',
+        attributes: {
+          style: {}
+        },
+        element: document.body,
+        eventListeners: {},
+        parentItem: {},
+        children: []
+      }
+    ]
+    const domItem =
+    {
+      tagName: 'html',
+      attributes: {
+        style: {}
+      },
+      element: document,
+      eventListeners: [],
+      parentItem: {},
+      children: children
+    }
+    domItem.children[0].parentItem = domItem
+    domItem.children[1].parentItem = domItem
+    domItem.head = domItem.children[0]
+    domItem.body = domItem.children[1]
+
+    const result = helpers.mergeObjects(baseItem, domItem)
+    const expectedResult = domItem
+    expect(result).toEqual(expectedResult)
+  })
 })
