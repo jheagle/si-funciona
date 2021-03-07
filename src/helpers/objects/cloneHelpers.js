@@ -10,10 +10,11 @@ import { pipe } from '../functions'
 import { mapObject, isCloneable, setValue } from '../objects'
 /**
  * Check if this value represents an object that needs to be used as a reference.
+ * @function
  * @param {*} value - Some value to test if it is a reference.
  * @returns {boolean}
  */
-const nonReference = value => !isCloneable(value)
+export const nonReference = value => !isCloneable(value)
 
 /**
  * Store information about a reference, including pointing to linked references and storing original reference.
@@ -48,7 +49,7 @@ export const createReferenceIdentifier = (object = null, index = 0, referers = [
 
 /**
  * Update the object of this reference identifier by cloning the object or array and setting child references to null.
- * Every reference that is found has it's key added to the array array of references.
+ * Every reference that is found has it's key added to the array of references.
  * @function
  * @param {module:cloneHelpers~referenceIdentifier} referenceIdentifier
  * @returns {module:cloneHelpers~referenceIdentifier}
@@ -70,7 +71,7 @@ export const findObjectReferences = referenceIdentifier => setValue(
 
 /**
  * An array of reference identifiers linked together.
- * @typedef {Array.<module:cloneHelpers~referenceMap>} referenceMap
+ * @typedef {Array.<module:cloneHelpers~referenceIdentifier>} referenceMap
  */
 
 /**
@@ -97,8 +98,8 @@ export const findReferenceKeys = (referenceMap = [], index = 0, maxDepth = false
       return newRef
     }
     const newRefIndex = referenceMap[referenceMap.length - 1].index + 1
-    newRef.object[key] = referenceMap[referenceMap.length - 1].index + 1
-    referenceMap[newRefIndex] = createReferenceIdentifier(objectToRef, newRef.object[key], [index])
+    newRef.object[key] = newRefIndex
+    referenceMap[newRefIndex] = createReferenceIdentifier(objectToRef, newRefIndex, [index])
     return newRef
   },
   referenceMap[index]
@@ -159,7 +160,8 @@ export const getIdentifierDepth = (referenceMap, identifier) => {
  * @param {module:cloneHelpers~referenceMap} referenceMap
  * @returns {boolean}
  */
-const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete)
+const hasCompletedReferences = referenceMap => referenceMap.some(newRef => newRef.index > 0 && newRef.complete) ||
+   (referenceMap.length === 1 && referenceMap[0].references.length)
 
 /**
  * Store a bundle containing an object, references array, and remove array.

@@ -1,9 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.array.from.js')
-
-require('core-js/modules/es.array.slice.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -42,18 +38,6 @@ var _functions = require('./functions')
 var _cloneHelpers = require('./objects/cloneHelpers')
 
 var _mergeHelpers = require('./objects/mergeHelpers')
-
-function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-
-function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-
-function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && Symbol.iterator in Object(iter)) return Array.from(iter) }
-
-function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-
-function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -330,17 +314,14 @@ var mergeObjectsSettings = function mergeObjectsSettings () {
   var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
 
   return function () {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key]
+    for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
+      objects[_key] = arguments[_key]
     }
 
-    var base = args.shift()
-    return args.reduce(function (newObj, arg) {
-      return arg ? _mergeHelpers.mergeReferences.apply(void 0, _toConsumableArray((0, _mergeHelpers.processMergeIdentifiers)(newObj, arg, {
-        mapLimit: mapLimit,
-        depthLimit: depthLimit
-      })))[0].object : newObj
-    }, base || {})
+    return (0, _cloneHelpers.linkReferences)((0, _mergeHelpers.processMergeIdentifiers)(objects, {
+      mapLimit: mapLimit,
+      depthLimit: depthLimit
+    }))[0].object
   }
 }
 

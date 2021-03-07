@@ -23,7 +23,7 @@ require('core-js/modules/es.function.name.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.processIdentifiers = exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = void 0
+exports.processIdentifiers = exports.processIdentifier = exports.linkReferences = exports.removeFromReferenceMap = exports.linkReferenceObject = exports.objectAndReferences = exports.getIdentifierDepth = exports.findReference = exports.findReferenceIndex = exports.findReferenceKeys = exports.findObjectReferences = exports.createReferenceIdentifier = exports.nonReference = void 0
 
 require('core-js/modules/es.object.assign.js')
 
@@ -63,6 +63,7 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
 
 /**
  * Check if this value represents an object that needs to be used as a reference.
+ * @function
  * @param {*} value - Some value to test if it is a reference.
  * @returns {boolean}
  */
@@ -91,6 +92,8 @@ var nonReference = function nonReference (value) {
  * @returns {module:cloneHelpers~referenceIdentifier}
  */
 
+exports.nonReference = nonReference
+
 var createReferenceIdentifier = function createReferenceIdentifier () {
   var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
   var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
@@ -107,7 +110,7 @@ var createReferenceIdentifier = function createReferenceIdentifier () {
 }
 /**
  * Update the object of this reference identifier by cloning the object or array and setting child references to null.
- * Every reference that is found has it's key added to the array array of references.
+ * Every reference that is found has it's key added to the array of references.
  * @function
  * @param {module:cloneHelpers~referenceIdentifier} referenceIdentifier
  * @returns {module:cloneHelpers~referenceIdentifier}
@@ -127,7 +130,7 @@ var findObjectReferences = function findObjectReferences (referenceIdentifier) {
 }
 /**
  * An array of reference identifiers linked together.
- * @typedef {Array.<module:cloneHelpers~referenceMap>} referenceMap
+ * @typedef {Array.<module:cloneHelpers~referenceIdentifier>} referenceMap
  */
 
 /**
@@ -165,8 +168,8 @@ var findReferenceKeys = function findReferenceKeys () {
     }
 
     var newRefIndex = referenceMap[referenceMap.length - 1].index + 1
-    newRef.object[key] = referenceMap[referenceMap.length - 1].index + 1
-    referenceMap[newRefIndex] = createReferenceIdentifier(objectToRef, newRef.object[key], [index])
+    newRef.object[key] = newRefIndex
+    referenceMap[newRefIndex] = createReferenceIdentifier(objectToRef, newRefIndex, [index])
     return newRef
   }, referenceMap[index])
 }
@@ -253,7 +256,7 @@ exports.getIdentifierDepth = getIdentifierDepth
 var hasCompletedReferences = function hasCompletedReferences (referenceMap) {
   return referenceMap.some(function (newRef) {
     return newRef.index > 0 && newRef.complete
-  })
+  }) || referenceMap.length === 1 && referenceMap[0].references.length
 }
 /**
  * Store a bundle containing an object, references array, and remove array.

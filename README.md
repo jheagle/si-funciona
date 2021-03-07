@@ -713,6 +713,7 @@ Utility functions used by cloneObject.
 * [cloneHelpers](#module_cloneHelpers)
     * _static_
         * [.processIdentifiers](#module_cloneHelpers.processIdentifiers) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
+        * [.nonReference(value)](#module_cloneHelpers.nonReference) ⇒ <code>boolean</code>
         * [.createReferenceIdentifier([object], [index], [referers])](#module_cloneHelpers.createReferenceIdentifier) ⇒ [<code>referenceIdentifier</code>](#module_cloneHelpers..referenceIdentifier)
         * [.findObjectReferences(referenceIdentifier)](#module_cloneHelpers.findObjectReferences) ⇒ [<code>referenceIdentifier</code>](#module_cloneHelpers..referenceIdentifier)
         * [.findReferenceKeys([referenceMap], [index], [maxDepth])](#module_cloneHelpers.findReferenceKeys) ⇒ [<code>referenceIdentifier</code>](#module_cloneHelpers..referenceIdentifier)
@@ -724,10 +725,9 @@ Utility functions used by cloneObject.
         * [.linkReferences(referenceMap)](#module_cloneHelpers.linkReferences) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
         * [.processIdentifier(referenceMap, moreReferences, [options])](#module_cloneHelpers.processIdentifier) ⇒ [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier)
     * _inner_
-        * [~nonReference(value)](#module_cloneHelpers..nonReference) ⇒ <code>boolean</code>
         * [~hasCompletedReferences(referenceMap)](#module_cloneHelpers..hasCompletedReferences) ⇒ <code>boolean</code>
         * [~referenceIdentifier](#module_cloneHelpers..referenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
-        * [~referenceMap](#module_cloneHelpers..referenceMap) : [<code>Array.&lt;referenceMap&gt;</code>](#module_cloneHelpers..referenceMap)
+        * [~referenceMap](#module_cloneHelpers..referenceMap) : [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier)
         * [~objectReferencesRemove](#module_cloneHelpers..objectReferencesRemove) : <code>Object</code>
         * [~referencesReduce](#module_cloneHelpers..referencesReduce) ⇒ [<code>objectReferencesRemove</code>](#module_cloneHelpers..objectReferencesRemove)
         * [~removeReferenceIdentifier](#module_cloneHelpers..removeReferenceIdentifier) ⇒ <code>boolean</code>
@@ -746,6 +746,17 @@ Loop over every identifier and process, then return the reference map.
 | [options.mapLimit] | <code>number</code> | <code>100</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
+<a name="module_cloneHelpers.nonReference"></a>
+
+### cloneHelpers.nonReference(value) ⇒ <code>boolean</code>
+Check if this value represents an object that needs to be used as a reference.
+
+**Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>\*</code> | Some value to test if it is a reference. |
+
 <a name="module_cloneHelpers.createReferenceIdentifier"></a>
 
 ### cloneHelpers.createReferenceIdentifier([object], [index], [referers]) ⇒ [<code>referenceIdentifier</code>](#module_cloneHelpers..referenceIdentifier)
@@ -763,7 +774,7 @@ Create a referenceIdentifier for building the object clone.
 
 ### cloneHelpers.findObjectReferences(referenceIdentifier) ⇒ [<code>referenceIdentifier</code>](#module_cloneHelpers..referenceIdentifier)
 Update the object of this reference identifier by cloning the object or array and setting child references to null.
-Every reference that is found has it's key added to the array array of references.
+Every reference that is found has it's key added to the array of references.
 
 **Kind**: static method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
 
@@ -870,17 +881,6 @@ Bundle all of the functions needed for processing an identifier in the reference
 | [options.mapLimit] | <code>number</code> | <code>100</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
-<a name="module_cloneHelpers..nonReference"></a>
-
-### cloneHelpers~nonReference(value) ⇒ <code>boolean</code>
-Check if this value represents an object that needs to be used as a reference.
-
-**Kind**: inner method of [<code>cloneHelpers</code>](#module_cloneHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>\*</code> | Some value to test if it is a reference. |
-
 <a name="module_cloneHelpers..hasCompletedReferences"></a>
 
 ### cloneHelpers~hasCompletedReferences(referenceMap) ⇒ <code>boolean</code>
@@ -913,7 +913,7 @@ Store information about a reference, including pointing to linked references and
 
 <a name="module_cloneHelpers..referenceMap"></a>
 
-### cloneHelpers~referenceMap : [<code>Array.&lt;referenceMap&gt;</code>](#module_cloneHelpers..referenceMap)
+### cloneHelpers~referenceMap : [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier)
 An array of reference identifiers linked together.
 
 **Kind**: inner typedef of [<code>cloneHelpers</code>](#module_cloneHelpers)  
@@ -1200,35 +1200,20 @@ Utility functions used by mergeObjects.
 
 * [mergeHelpers](#module_mergeHelpers)
     * _static_
-        * [.mergeNonReferences](#module_mergeHelpers.mergeNonReferences) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
         * [.mergeReferenceArrays](#module_mergeHelpers.mergeReferenceArrays) ⇒ <code>Array.&lt;(string\|number\|Array)&gt;</code>
-        * [.processMergeIdentifiers](#module_mergeHelpers.processMergeIdentifiers) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
-        * [.mergeReferenceObject(firstMap, secondMap, object2)](#module_mergeHelpers.mergeReferenceObject) ⇒ [<code>mergeReferencesReduce</code>](#module_mergeHelpers..mergeReferencesReduce)
-        * [.mergeReferences(firstMap, secondMap)](#module_mergeHelpers.mergeReferences) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
-        * [.processMergeIdentifer(firstMap, secondMap, moreReferences, [options])](#module_mergeHelpers.processMergeIdentifer) ⇒ [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier)
+        * [.processMergeIdentifiers](#module_mergeHelpers.processMergeIdentifiers) ⇒ [<code>mergeReferenceMap</code>](#module_mergeHelpers..mergeReferenceMap)
+        * [.createMergeReferenceIdentifier([objects], [index], [referers])](#module_mergeHelpers.createMergeReferenceIdentifier) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+        * [.findMergeReferenceKeys([referenceMap], [index], [maxDepth])](#module_mergeHelpers.findMergeReferenceKeys) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+        * [.zipper(referenceIdentifier)](#module_mergeHelpers.zipper) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+        * [.processMergeIdentifier(referenceMap, moreReferences, [options])](#module_mergeHelpers.processMergeIdentifier) ⇒ <code>Array.&lt;{module:mergeHelpers~mergeReferenceIdentifier}&gt;</code>
     * _inner_
-        * [~hasUnmergedReferences(referenceMap)](#module_mergeHelpers..hasUnmergedReferences) ⇒ <code>boolean</code>
-        * [~mergeReferencesReduce](#module_mergeHelpers..mergeReferencesReduce) ⇒ [<code>objectReferencesRemove</code>](#module_cloneHelpers..objectReferencesRemove)
-
-<a name="module_mergeHelpers.mergeNonReferences"></a>
-
-### mergeHelpers.mergeNonReferences ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
-Take two reference identifiers and merge the non references together, identify overwritten references.
-
-**Kind**: static constant of [<code>mergeHelpers</code>](#module_mergeHelpers)  
-
-| Param | Type |
-| --- | --- |
-| firstMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-| firstIndex | <code>number</code> | 
-| secondMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-| secondIndex | <code>number</code> | 
-| remove | [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier) | 
+        * [~mergeReferenceIdentifier](#module_mergeHelpers..mergeReferenceIdentifier) : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+        * [~mergeReferenceMap](#module_mergeHelpers..mergeReferenceMap) : [<code>Array.&lt;mergeReferenceIdentifier&gt;</code>](#module_mergeHelpers..mergeReferenceIdentifier)
 
 <a name="module_mergeHelpers.mergeReferenceArrays"></a>
 
 ### mergeHelpers.mergeReferenceArrays ⇒ <code>Array.&lt;(string\|number\|Array)&gt;</code>
-Remove duplicate references from and array of references
+Remove duplicate references from an array of references
 
 **Kind**: static constant of [<code>mergeHelpers</code>](#module_mergeHelpers)  
 
@@ -1239,7 +1224,7 @@ Remove duplicate references from and array of references
 
 <a name="module_mergeHelpers.processMergeIdentifiers"></a>
 
-### mergeHelpers.processMergeIdentifiers ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
+### mergeHelpers.processMergeIdentifiers ⇒ [<code>mergeReferenceMap</code>](#module_mergeHelpers..mergeReferenceMap)
 Loop over every identifier and process, then return the reference map.
 
 **Kind**: static constant of [<code>mergeHelpers</code>](#module_mergeHelpers)  
@@ -1251,69 +1236,82 @@ Loop over every identifier and process, then return the reference map.
 | [options.mapLimit] | <code>number</code> | <code>100</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
-<a name="module_mergeHelpers.mergeReferenceObject"></a>
+<a name="module_mergeHelpers.createMergeReferenceIdentifier"></a>
 
-### mergeHelpers.mergeReferenceObject(firstMap, secondMap, object2) ⇒ [<code>mergeReferencesReduce</code>](#module_mergeHelpers..mergeReferencesReduce)
-Return the mergeReferencesReduce callback.
+### mergeHelpers.createMergeReferenceIdentifier([objects], [index], [referers]) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+Create a mergeReferenceIdentifier for building the object clone.
+
+**Kind**: static method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [objects] | <code>Array.&lt;(Array\|Object)&gt;</code> | <code>[]</code> | 
+| [index] | <code>number</code> | <code>0</code> | 
+| [referers] | <code>Array.&lt;number&gt;</code> | <code>[]</code> | 
+
+<a name="module_mergeHelpers.findMergeReferenceKeys"></a>
+
+### mergeHelpers.findMergeReferenceKeys([referenceMap], [index], [maxDepth]) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+For all of the identified references, find the index of the corresponding referenceIdentifier
+or create a new one and set the index instead of null.
+
+**Kind**: static method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [referenceMap] | [<code>mergeReferenceMap</code>](#module_mergeHelpers..mergeReferenceMap) | <code>[]</code> | 
+| [index] | <code>number</code> | <code>0</code> | 
+| [maxDepth] | <code>boolean</code> | <code>false</code> | 
+
+<a name="module_mergeHelpers.zipper"></a>
+
+### mergeHelpers.zipper(referenceIdentifier) ⇒ [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+Use the mergeReferenceIdentifiers identifiers list to zip objects together
 
 **Kind**: static method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
 
 | Param | Type |
 | --- | --- |
-| firstMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-| secondMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-| object2 | [<code>objectReferencesRemove</code>](#module_cloneHelpers..objectReferencesRemove) | 
+| referenceIdentifier | [<code>mergeReferenceIdentifier</code>](#module_mergeHelpers..mergeReferenceIdentifier) | 
 
-<a name="module_mergeHelpers.mergeReferences"></a>
+<a name="module_mergeHelpers.processMergeIdentifier"></a>
 
-### mergeHelpers.mergeReferences(firstMap, secondMap) ⇒ [<code>referenceMap</code>](#module_cloneHelpers..referenceMap)
-Find each of the unlinked references and assign the newly cloned reference for each.
-
-**Kind**: static method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
-
-| Param | Type |
-| --- | --- |
-| firstMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-| secondMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) | 
-
-<a name="module_mergeHelpers.processMergeIdentifer"></a>
-
-### mergeHelpers.processMergeIdentifer(firstMap, secondMap, moreReferences, [options]) ⇒ [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier)
+### mergeHelpers.processMergeIdentifier(referenceMap, moreReferences, [options]) ⇒ <code>Array.&lt;{module:mergeHelpers~mergeReferenceIdentifier}&gt;</code>
 Bundle all of the functions needed for processing an identifier in the reference map
 
 **Kind**: static method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| firstMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) |  | 
-| secondMap | [<code>referenceMap</code>](#module_cloneHelpers..referenceMap) |  | 
-| moreReferences | [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier) |  | 
+| referenceMap | [<code>mergeReferenceMap</code>](#module_mergeHelpers..mergeReferenceMap) |  | 
+| moreReferences | [<code>Array.&lt;mergeReferenceIdentifier&gt;</code>](#module_mergeHelpers..mergeReferenceIdentifier) |  | 
 | [options] | <code>Object</code> | <code>{}</code> | 
 | [options.mapLimit] | <code>number</code> | <code>100</code> | 
 | [options.depthLimit] | <code>depthLimit</code> | <code>-1</code> | 
 
-<a name="module_mergeHelpers..hasUnmergedReferences"></a>
+<a name="module_mergeHelpers..mergeReferenceIdentifier"></a>
 
-### mergeHelpers~hasUnmergedReferences(referenceMap) ⇒ <code>boolean</code>
-Check if there are still references having a merged status of false.
-
-**Kind**: inner method of [<code>mergeHelpers</code>](#module_mergeHelpers)  
-
-| Param | Type |
-| --- | --- |
-| referenceMap | <code>\*</code> | 
-
-<a name="module_mergeHelpers..mergeReferencesReduce"></a>
-
-### mergeHelpers~mergeReferencesReduce ⇒ [<code>objectReferencesRemove</code>](#module_cloneHelpers..objectReferencesRemove)
-Used as callback for reduce-like for-loop, this function will find each reference identifier
-in object1 and merge object2 similar reference onto object1. object1 will then be returned.
+### mergeHelpers~mergeReferenceIdentifier : <code>Object.&lt;string, (number\|Object\|Array)&gt;</code>
+Store information about a reference, including pointing to linked references and storing original reference.
 
 **Kind**: inner typedef of [<code>mergeHelpers</code>](#module_mergeHelpers)  
+**Properties**
 
-| Param | Type |
+| Name | Type |
 | --- | --- |
-| object1 | [<code>objectReferencesRemove</code>](#module_cloneHelpers..objectReferencesRemove) | 
-| key | <code>number</code> \| <code>string</code> | 
-| i | <code>number</code> | 
+| circular | <code>Array.&lt;(string\|number)&gt;</code> | 
+| complete | <code>boolean</code> | 
+| index | <code>number</code> | 
+| clone | <code>Array</code> \| <code>Object</code> | 
+| object | <code>Array</code> \| <code>Object</code> | 
+| original | <code>Array</code> \| <code>Object</code> | 
+| references | <code>Array.&lt;(string\|number)&gt;</code> | 
+| referers | <code>Array.&lt;number&gt;</code> | 
+| identifiers | [<code>Array.&lt;referenceIdentifier&gt;</code>](#module_cloneHelpers..referenceIdentifier) | 
 
+<a name="module_mergeHelpers..mergeReferenceMap"></a>
+
+### mergeHelpers~mergeReferenceMap : [<code>Array.&lt;mergeReferenceIdentifier&gt;</code>](#module_mergeHelpers..mergeReferenceIdentifier)
+An array of reference identifiers linked together.
+
+**Kind**: inner typedef of [<code>mergeHelpers</code>](#module_mergeHelpers)  

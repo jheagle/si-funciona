@@ -223,13 +223,7 @@ export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
  * object
  * @returns {Object}
  */
-export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => {
-  const base = args.shift()
-  return args.reduce(
-    (newObj, arg) => arg
-      ? mergeReferences(...processMergeIdentifiers(newObj, arg, { mapLimit, depthLimit }))[0].object
-      : newObj,
-    base || {})
-}
+export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...objects) =>
+  linkReferences(processMergeIdentifiers(objects, { mapLimit, depthLimit }))[0].object
 
 export const mergeObjects = mergeObjectsSettings()
