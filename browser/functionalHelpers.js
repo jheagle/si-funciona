@@ -662,7 +662,7 @@
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
-    exports.cloneObject = exports.mergeObjects = exports.mergeObjectsBase = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
+    exports.cloneObject = exports.mergeObjectsMutable = exports.mergeObjects = exports.mergeObjectsBase = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
 
     require('core-js/modules/es.object.get-own-property-names.js')
 
@@ -929,7 +929,7 @@
     }
     /**
  * Function that takes one or more objects and combines them into one.
- * @typedef {Function} mergeObjectsCallback
+ * @typedef {Function} module:objects~mergeObjectsCallback
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -950,7 +950,7 @@
     var mergeObjectsBase = function mergeObjectsBase () {
       var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
       var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
+      var mapLimit = _ref$mapLimit === void 0 ? 50000 : _ref$mapLimit
       var _ref$map = _ref.map
       var map = _ref$map === void 0 ? [] : _ref$map
       var _ref$useClone = _ref.useClone
@@ -1020,7 +1020,7 @@
       }
     }
     /**
- * Uses mergeObjectsBase deep merge objects and arrays
+ * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
  * @function
  * @see {@link module:objects~mergeObjectsCallback}
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
@@ -1028,7 +1028,19 @@
  */
 
     exports.mergeObjectsBase = mergeObjectsBase
-    var mergeObjects = mergeObjectsBase()
+    var mergeObjects = mergeObjectsBase({
+      useClone: true
+    })
+    /**
+ * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+
+    exports.mergeObjects = mergeObjects
+    var mergeObjectsMutable = mergeObjectsBase()
     /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function
@@ -1039,7 +1051,7 @@
  * @returns {Object}
  */
 
-    exports.mergeObjects = mergeObjects
+    exports.mergeObjectsMutable = mergeObjectsMutable
 
     var cloneObject = function cloneObject (object) {
       var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}

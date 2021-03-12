@@ -490,14 +490,14 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
         * [.isCloneable(value)](#module_objectHelpers.isCloneable) ⇒ <code>boolean</code>
-        * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ <code>module:objects~mergeObjectsCallback</code>
+        * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ [<code>mergeObjectsCallback</code>](#module_objects..mergeObjectsCallback)
         * [.mergeObjects(...objects)](#module_objectHelpers.mergeObjects) ⇒ <code>\*</code>
+        * [.mergeObjectsMutable(...objects)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>\*</code>
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
     * _inner_
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
-        * [~mergeObjectsCallback](#module_objectHelpers..mergeObjectsCallback) ⇒ <code>\*</code>
 
 <a name="module_objectHelpers.objectKeys"></a>
 
@@ -632,7 +632,7 @@ Determine if the value is a reference instance
 
 <a name="module_objectHelpers.mergeObjectsBase"></a>
 
-### objectHelpers.mergeObjectsBase([options]) ⇒ <code>module:objects~mergeObjectsCallback</code>
+### objectHelpers.mergeObjectsBase([options]) ⇒ [<code>mergeObjectsCallback</code>](#module_objects..mergeObjectsCallback)
 Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
 Objects having the same attributes will overwrite from last object to first.
 
@@ -648,10 +648,22 @@ Objects having the same attributes will overwrite from last object to first.
 <a name="module_objectHelpers.mergeObjects"></a>
 
 ### objectHelpers.mergeObjects(...objects) ⇒ <code>\*</code>
-Uses mergeObjectsBase deep merge objects and arrays
+Uses mergeObjectsBase deep merge objects and arrays, merge by value.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-**See**: [module:objects~mergeObjectsCallback](module:objects~mergeObjectsCallback)  
+**See**: [mergeObjectsCallback](#module_objects..mergeObjectsCallback)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
+
+<a name="module_objectHelpers.mergeObjectsMutable"></a>
+
+### objectHelpers.mergeObjectsMutable(...objects) ⇒ <code>\*</code>
+Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**See**: [mergeObjectsCallback](#module_objects..mergeObjectsCallback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -711,17 +723,6 @@ Function to execute on each property in the object, taking four arguments
 | [currentProperty] | <code>\*</code> | <code>{}</code> | The current property being processed in the object. |
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
-
-<a name="module_objectHelpers..mergeObjectsCallback"></a>
-
-### objectHelpers~mergeObjectsCallback ⇒ <code>\*</code>
-Function that takes one or more objects and combines them into one.
-
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
 
 <a name="module_descriptorSamples"></a>
 

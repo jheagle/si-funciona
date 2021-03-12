@@ -343,7 +343,7 @@ describe('mergeObjects', () => {
   test('combines two objects into one new object', () => {
     const someItem = { name: 'something', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3] }
     const secondItem = { name: 'different', key: 'someKey' }
-    const newItem = helpers.mergeObjects({}, someItem, secondItem)
+    const newItem = helpers.mergeObjectsMutable({}, someItem, secondItem)
     expect(newItem).not.toBe(someItem)
     expect(newItem).toEqual({ name: 'different', number: 5, nested: { value: 'aValue' }, anArray: [1, 2, 3], key: 'someKey' })
   })
@@ -457,7 +457,7 @@ describe('mergeObjects', () => {
         children: children
       }
     }
-    const result = helpers.mergeObjects(children[1], newAttributes)
+    const result = helpers.mergeObjectsMutable(children[1], newAttributes)
     const expectedResult = {
       tagName: 'head',
       parentItem: {

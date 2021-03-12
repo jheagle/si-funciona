@@ -202,7 +202,7 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
 
 /**
  * Function that takes one or more objects and combines them into one.
- * @typedef {Function} mergeObjectsCallback
+ * @typedef {Function} module:objects~mergeObjectsCallback
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -217,7 +217,7 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * @param {bool} [options.useClone=false]
  * @returns {module:objects~mergeObjectsCallback}
  */
-export const mergeObjectsBase = ({ mapLimit = 100, map = [], useClone = false } = {}) => (...objects) => {
+export const mergeObjectsBase = ({ mapLimit = 50000, map = [], useClone = false } = {}) => (...objects) => {
   const firstObject = objects.shift()
   if (objects.length < 1) {
     return firstObject
@@ -262,13 +262,22 @@ export const mergeObjectsBase = ({ mapLimit = 100, map = [], useClone = false } 
 }
 
 /**
- * Uses mergeObjectsBase deep merge objects and arrays
+ * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
  * @function
  * @see {@link module:objects~mergeObjectsCallback}
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-export const mergeObjects = mergeObjectsBase()
+export const mergeObjects = mergeObjectsBase({ useClone: true })
+
+/**
+ * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+export const mergeObjectsMutable = mergeObjectsBase()
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
