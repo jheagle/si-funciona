@@ -87,7 +87,7 @@ var describeObjectDetail = function describeObjectDetail (value) {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: (0, _objects.isCloneable)(value),
+    isReference: (0, _objects.isCloneable)(value) && !(0, _objects.emptyObject)(value),
     isInstance: (0, _objects.isInstanceObject)(value),
     arrayReference: null,
     objectReference: null

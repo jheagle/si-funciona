@@ -8,8 +8,6 @@
 
 import 'core-js/stable'
 import { callWithParams } from './functions'
-import { processIdentifiers, linkReferences } from './objects/cloneHelpers'
-import { processMergeIdentifiers, mergeReferences } from './objects/mergeHelpers'
 
 /**
  * Set a value on an item, then return the item.
@@ -200,7 +198,77 @@ export const isInstanceObject = object => {
  * @param {Array|Object|*} value
  * @returns {boolean}
  */
-export const isCloneable = value => typeof value === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
+export const isCloneable = value => typeof value === 'object' && value !== null && !isInstanceObject(value)
+
+/**
+ * Function that takes one or more objects and combines them into one.
+ * @typedef {Function} mergeObjectsCallback
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+
+/**
+ * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
+ * Objects having the same attributes will overwrite from last object to first.
+ * @function
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {Iterable} [options.map=[]]
+ * @param {bool} [options.useClone=false]
+ * @returns {module:objects~mergeObjectsCallback}
+ */
+export const mergeObjectsBase = ({ mapLimit = 100, map = [], useClone = false } = {}) => (...objects) => {
+  const firstObject = objects.shift()
+  if (objects.length < 1) {
+    return firstObject
+  }
+  return objects.reduce((newObj, arg) => {
+    if (!arg) {
+      return newObj
+    }
+    map.push({
+      source: arg,
+      object: newObj
+    })
+    if (map.length > mapLimit) {
+      map.shift()
+    }
+    return reduceObject(arg, (returnObj, value, key) => {
+      if (isCloneable(value)) {
+        let objectValue = newObj[key]
+        const exists = map.find(existing => existing.source === value)
+        if (exists) {
+          return setValue(key, exists.object, returnObj)
+        }
+        if (!isCloneable(objectValue) || !objectValue) {
+          objectValue = useClone
+            ? Array.isArray(value) ? [] : {}
+            : value
+        }
+        if (isCloneable(objectValue)) {
+          return setValue(key, mergeObjectsBase({ mapLimit, map, useClone })(objectValue, value), returnObj)
+        }
+        map.push({
+          source: value,
+          object: objectValue
+        })
+        if (map.length > mapLimit) {
+          map.shift()
+        }
+      }
+      return setValue(key, value, returnObj)
+    }, newObj)
+  }, firstObject || {})
+}
+
+/**
+ * Uses mergeObjectsBase deep merge objects and arrays
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+export const mergeObjects = mergeObjectsBase()
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -208,22 +276,8 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=100]
- * @param {depthLimit} [options.depthLimit=-1]
+ * @param {Iterable} [options.map=[]]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
-  linkReferences(processIdentifiers(object, { mapLimit, depthLimit }))[0].object
-
-/**
- * Perform a deep merge of objects. This will combine all objects and sub-objects,
- * objects having the same attributes will overwrite starting from the end of the argument
- * list and bubbling up to return a merged version of the first object.
- * @function
- * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
- * object
- * @returns {Object}
- */
-export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...objects) =>
-  linkReferences(processMergeIdentifiers(objects, { mapLimit, depthLimit }))[0].object
-
-export const mergeObjects = mergeObjectsSettings()
+export const cloneObject = (object, { mapLimit = 100, map = [] } = {}) =>
+  mergeObjectsBase({ mapLimit, map, useClone: true })(Array.isArray(object) ? [] : {}, object)

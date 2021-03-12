@@ -7,7 +7,7 @@
 
 import 'core-js/stable'
 import { compareArrays, uniqueArray } from '../arrays'
-import { isCloneable, isInstanceObject, objectKeys, setValue } from '../objects'
+import { emptyObject, isCloneable, isInstanceObject, objectKeys, setValue } from '../objects'
 
 /**
  * Trace an object's attribute and provide details about it.
@@ -27,7 +27,7 @@ export const describeObjectDetail = (value, key = 0, index = 0) => {
     nullable: value === null,
     optional: false,
     circular: false,
-    isReference: isCloneable(value),
+    isReference: isCloneable(value) && !emptyObject(value),
     isInstance: isInstanceObject(value),
     arrayReference: null,
     objectReference: null

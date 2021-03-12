@@ -36,8 +36,6 @@
 
 import 'core-js/stable'
 import { callWithParams } from './functions'
-import { processIdentifiers, linkReferences } from './objects/cloneHelpers'
-import { processMergeIdentifiers, mergeReferences } from './objects/mergeHelpers'
 
 /**
  * Set a value on an item, then return the item.
@@ -205,7 +203,7 @@ export const reduceObject = (obj, fn, initialValue = obj[objectKeys(obj)[0]] || 
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-export const emptyObject = item => !objectKeys(item).length
+export const emptyObject = item => (typeof item === 'function' || isObject(item)) &amp;&amp; !objectKeys(item).length
 
 /**
  * Check if the current object has inherited properties.
@@ -228,7 +226,77 @@ export const isInstanceObject = object => {
  * @param {Array|Object|*} value
  * @returns {boolean}
  */
-export const isCloneable = value => typeof value === 'object' &amp;&amp; value !== null &amp;&amp; !isInstanceObject(value) &amp;&amp; !emptyObject(value)
+export const isCloneable = value => typeof value === 'object' &amp;&amp; value !== null &amp;&amp; !isInstanceObject(value)
+
+/**
+ * Function that takes one or more objects and combines them into one.
+ * @typedef {Function} mergeObjectsCallback
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+
+/**
+ * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
+ * Objects having the same attributes will overwrite from last object to first.
+ * @function
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {Iterable} [options.map=[]]
+ * @param {bool} [options.useClone=false]
+ * @returns {module:objects~mergeObjectsCallback}
+ */
+export const mergeObjectsBase = ({ mapLimit = 100, map = [], useClone = false } = {}) => (...objects) => {
+  const firstObject = objects.shift()
+  if (objects.length &lt; 1) {
+    return firstObject
+  }
+  return objects.reduce((newObj, arg) => {
+    if (!arg) {
+      return newObj
+    }
+    map.push({
+      source: arg,
+      object: newObj
+    })
+    if (map.length > mapLimit) {
+      map.shift()
+    }
+    return reduceObject(arg, (returnObj, value, key) => {
+      if (isCloneable(value)) {
+        let objectValue = newObj[key]
+        const exists = map.find(existing => existing.source === value)
+        if (exists) {
+          return setValue(key, exists.object, returnObj)
+        }
+        if (!isCloneable(objectValue) || !objectValue) {
+          objectValue = useClone
+            ? Array.isArray(value) ? [] : {}
+            : value
+        }
+        if (isCloneable(objectValue)) {
+          return setValue(key, mergeObjectsBase({ mapLimit, map, useClone })(objectValue, value), returnObj)
+        }
+        map.push({
+          source: value,
+          object: objectValue
+        })
+        if (map.length > mapLimit) {
+          map.shift()
+        }
+      }
+      return setValue(key, value, returnObj)
+    }, newObj)
+  }, firstObject || {})
+}
+
+/**
+ * Uses mergeObjectsBase deep merge objects and arrays
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+export const mergeObjects = mergeObjectsBase()
 
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -236,28 +304,11 @@ export const isCloneable = value => typeof value === 'object' &amp;&amp; value !
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=100]
- * @param {depthLimit} [options.depthLimit=-1]
+ * @param {Iterable} [options.map=[]]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 100, depthLimit = -1 } = {}) =>
-  linkReferences(processIdentifiers(object, { mapLimit, depthLimit }))[0].object
-
-/**
- * Perform a deep merge of objects. This will combine all objects and sub-objects,
- * objects having the same attributes will overwrite starting from the end of the argument
- * list and bubbling up to return a merged version of the first object.
- * @function
- * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
- * object
- * @returns {Object}
- */
-export const mergeObjectsSettings = ({ mapLimit = 100, depthLimit = -1 } = {}) => (...args) => args.reduce(
-  (newObj, arg) => arg
-    ? mergeReferences(...processMergeIdentifiers(newObj, arg, { mapLimit, depthLimit }))[0].object
-    : newObj,
-  args[0] || {})
-
-export const mergeObjects = mergeObjectsSettings()
+export const cloneObject = (object, { mapLimit = 100, map = [] } = {}) =>
+  mergeObjectsBase({ mapLimit, map, useClone: true })(Array.isArray(object) ? [] : {}, object)
 </code></pre>
         </article>
     </section>
@@ -268,13 +319,13 @@ export const mergeObjects = mergeObjectsSettings()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-cloneHelpers.html">cloneHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-mergeHelpers.html">mergeHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-arrayHelpers.html">arrayHelpers</a></li><li><a href="module-descriptorSamples.html">descriptorSamples</a></li><li><a href="module-functionalHelpers.html">functionalHelpers</a></li><li><a href="module-functionHelpers.html">functionHelpers</a></li><li><a href="module-numberHelpers.html">numberHelpers</a></li><li><a href="module-objectDescriptors.html">objectDescriptors</a></li><li><a href="module-objectHelpers.html">objectHelpers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Feb 03 2021 22:21:54 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Mar 11 2021 22:16:05 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

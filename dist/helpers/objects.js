@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.mergeObjects = exports.mergeObjectsSettings = exports.cloneObject = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
+exports.cloneObject = exports.mergeObjects = exports.mergeObjectsBase = exports.isCloneable = exports.isInstanceObject = exports.emptyObject = exports.reduceObject = exports.filterObject = exports.mapObject = exports.objectValues = exports.objectKeys = exports.isObject = exports.setAndReturnValue = exports.setValue = void 0
 
 require('core-js/modules/es.object.get-own-property-names.js')
 
@@ -16,6 +16,8 @@ require('core-js/modules/es.array.filter.js')
 require('core-js/modules/es.array.includes.js')
 
 require('core-js/modules/es.function.name.js')
+
+require('core-js/modules/es.array.find.js')
 
 require('core-js/modules/es.symbol.js')
 
@@ -34,10 +36,6 @@ require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 
 var _functions = require('./functions')
-
-var _cloneHelpers = require('./objects/cloneHelpers')
-
-var _mergeHelpers = require('./objects/mergeHelpers')
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -268,63 +266,134 @@ var isInstanceObject = function isInstanceObject (object) {
 exports.isInstanceObject = isInstanceObject
 
 var isCloneable = function isCloneable (value) {
-  return _typeof(value) === 'object' && value !== null && !isInstanceObject(value) && !emptyObject(value)
+  return _typeof(value) === 'object' && value !== null && !isInstanceObject(value)
 }
 /**
- * Clone objects for manipulation without data corruption, returns a copy of the provided object.
+ * Function that takes one or more objects and combines them into one.
+ * @typedef {Function} mergeObjectsCallback
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+
+/**
+ * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
+ * Objects having the same attributes will overwrite from last object to first.
  * @function
- * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=100]
- * @param {depthLimit} [options.depthLimit=-1]
- * @returns {Object}
+ * @param {Iterable} [options.map=[]]
+ * @param {bool} [options.useClone=false]
+ * @returns {module:objects~mergeObjectsCallback}
  */
 
 exports.isCloneable = isCloneable
 
-var cloneObject = function cloneObject (object) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+var mergeObjectsBase = function mergeObjectsBase () {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
   var _ref$mapLimit = _ref.mapLimit
   var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-  var _ref$depthLimit = _ref.depthLimit
-  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-
-  return (0, _cloneHelpers.linkReferences)((0, _cloneHelpers.processIdentifiers)(object, {
-    mapLimit: mapLimit,
-    depthLimit: depthLimit
-  }))[0].object
-}
-/**
- * Perform a deep merge of objects. This will combine all objects and sub-objects,
- * objects having the same attributes will overwrite starting from the end of the argument
- * list and bubbling up to return a merged version of the first object.
- * @function
- * @param {...Object} args - Provide a list of objects which will be merged starting from the end up into the first
- * object
- * @returns {Object}
- */
-
-exports.cloneObject = cloneObject
-
-var mergeObjectsSettings = function mergeObjectsSettings () {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-  var _ref2$mapLimit = _ref2.mapLimit
-  var mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
-  var _ref2$depthLimit = _ref2.depthLimit
-  var depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
+  var _ref$map = _ref.map
+  var map = _ref$map === void 0 ? [] : _ref$map
+  var _ref$useClone = _ref.useClone
+  var useClone = _ref$useClone === void 0 ? false : _ref$useClone
 
   return function () {
     for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
       objects[_key] = arguments[_key]
     }
 
-    return (0, _cloneHelpers.linkReferences)((0, _mergeHelpers.processMergeIdentifiers)(objects, {
-      mapLimit: mapLimit,
-      depthLimit: depthLimit
-    }))[0].object
+    var firstObject = objects.shift()
+
+    if (objects.length < 1) {
+      return firstObject
+    }
+
+    return objects.reduce(function (newObj, arg) {
+      if (!arg) {
+        return newObj
+      }
+
+      map.push({
+        source: arg,
+        object: newObj
+      })
+
+      if (map.length > mapLimit) {
+        map.shift()
+      }
+
+      return reduceObject(arg, function (returnObj, value, key) {
+        if (isCloneable(value)) {
+          var objectValue = newObj[key]
+          var exists = map.find(function (existing) {
+            return existing.source === value
+          })
+
+          if (exists) {
+            return setValue(key, exists.object, returnObj)
+          }
+
+          if (!isCloneable(objectValue) || !objectValue) {
+            objectValue = useClone ? Array.isArray(value) ? [] : {} : value
+          }
+
+          if (isCloneable(objectValue)) {
+            return setValue(key, mergeObjectsBase({
+              mapLimit: mapLimit,
+              map: map,
+              useClone: useClone
+            })(objectValue, value), returnObj)
+          }
+
+          map.push({
+            source: value,
+            object: objectValue
+          })
+
+          if (map.length > mapLimit) {
+            map.shift()
+          }
+        }
+
+        return setValue(key, value, returnObj)
+      }, newObj)
+    }, firstObject || {})
   }
 }
+/**
+ * Uses mergeObjectsBase deep merge objects and arrays
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
 
-exports.mergeObjectsSettings = mergeObjectsSettings
-var mergeObjects = mergeObjectsSettings()
+exports.mergeObjectsBase = mergeObjectsBase
+var mergeObjects = mergeObjectsBase()
+/**
+ * Clone objects for manipulation without data corruption, returns a copy of the provided object.
+ * @function
+ * @param {Object} object - The original object that is being cloned
+ * @param {Object} [options={}]
+ * @param {number} [options.mapLimit=100]
+ * @param {Iterable} [options.map=[]]
+ * @returns {Object}
+ */
+
 exports.mergeObjects = mergeObjects
+
+var cloneObject = function cloneObject (object) {
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  var _ref2$mapLimit = _ref2.mapLimit
+  var mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
+  var _ref2$map = _ref2.map
+  var map = _ref2$map === void 0 ? [] : _ref2$map
+
+  return mergeObjectsBase({
+    mapLimit: mapLimit,
+    map: map,
+    useClone: true
+  })(Array.isArray(object) ? [] : {}, object)
+}
+
+exports.cloneObject = cloneObject
