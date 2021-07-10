@@ -27,6 +27,10 @@ exports.compareArrays = exports.mergeArrays = exports.uniqueArray = exports.buil
 
 require('core-js/modules/es.array.filter.js')
 
+require('core-js/modules/es.array.index-of.js')
+
+require('core-js/modules/es.array.reduce.js')
+
 require('core-js/modules/es.array.map.js')
 
 require('core-js/modules/es.array.concat.js')

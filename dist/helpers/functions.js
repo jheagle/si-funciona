@@ -25,6 +25,8 @@ require('regenerator-runtime/runtime.js')
 
 require('core-js/modules/es.array.concat.js')
 
+require('core-js/modules/es.array.reduce.js')
+
 require('core-js/modules/es.array.slice.js')
 
 require('core-js/modules/es.array.splice.js')

@@ -21,6 +21,8 @@ require('core-js/modules/es.array.iterator.js')
 
 require('core-js/modules/web.dom-collections.iterator.js')
 
+require('core-js/modules/es.array.reduce.js')
+
 require('core-js/modules/es.array.concat.js')
 
 require('core-js/modules/es.array.find.js')

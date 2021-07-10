@@ -7,7 +7,11 @@ exports.cloneObject = exports.mergeObjectsMutable = exports.mergeObjects = expor
 
 require('core-js/modules/es.object.get-own-property-names.js')
 
+require('core-js/modules/es.parse-int.js')
+
 require('core-js/modules/es.array.map.js')
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.array.filter.js')
 

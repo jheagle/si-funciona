@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import * as helpers from '../dist/helpers/objects'
 import { deepReferenceObject, domItem, jsonDom, linkedList, multiReferenceObject, nodeTree, circularObject } from './testHelpers'
 
