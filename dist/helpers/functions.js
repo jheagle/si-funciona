@@ -43,7 +43,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -59,19 +59,21 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param {Function} fn - Receives a function to be curried
  * @returns {Function|*}
  */
-var curry = function curry (fn) {
+const curry = function curry (fn) {
   return function () {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key]
     }
 
-    return args.length >= fn.length ? fn.apply(void 0, args) : function () {
-      for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        a[_key2] = arguments[_key2]
-      }
+    return args.length >= fn.length
+      ? fn.apply(void 0, args)
+      : function () {
+        for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          a[_key2] = arguments[_key2]
+        }
 
-      return curry(fn).apply(void 0, [].concat(args, a))
-    }
+        return curry(fn).apply(void 0, [].concat(args, a))
+      }
   }
 }
 /**
@@ -84,7 +86,7 @@ var curry = function curry (fn) {
 
 exports.curry = curry
 
-var pipe = function pipe () {
+const pipe = function pipe () {
   for (var _len3 = arguments.length, fns = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
     fns[_key3] = arguments[_key3]
   }
@@ -106,9 +108,9 @@ var pipe = function pipe () {
 
 exports.pipe = pipe
 
-var callWithParams = function callWithParams (fn) {
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-  var minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
+const callWithParams = function callWithParams (fn) {
+  const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  const minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
   return fn.apply(void 0, _toConsumableArray(params.slice(0, fn.length || minimum)))
 }
 /**
@@ -130,9 +132,9 @@ var callWithParams = function callWithParams (fn) {
 
 exports.callWithParams = callWithParams
 
-var preloadParams = function preloadParams (fn) {
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-  var unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+const preloadParams = function preloadParams (fn) {
+  const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  const unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
   return function (missing) {
     params.splice(unassignedParam, 0, missing)
     return fn.apply(void 0, _toConsumableArray(params))
@@ -154,10 +156,10 @@ var preloadParams = function preloadParams (fn) {
 
 exports.preloadParams = preloadParams
 
-var delay = function delay () {
-  var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+const delay = function delay () {
+  const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
 
-  var cancel = function cancel () {
+  let cancel = function cancel () {
     return undefined
   }
 
@@ -166,7 +168,7 @@ var delay = function delay () {
       if (isNaN(time)) {
         reject(new Error('Invalid delay: '.concat(time)))
       } else {
-        var timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+        const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
 
         cancel = function cancel () {
           clearTimeout(timeoutId)
@@ -194,18 +196,18 @@ var delay = function delay () {
 
 exports.delay = delay
 
-var queueManager = function queueManager () {
-  var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-  var isRunning = false
+const queueManager = function queueManager () {
+  const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+  let isRunning = false
   return function (fn) {
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4]
     }
 
-    var runNextItem = function runNextItem () {
+    const runNextItem = function runNextItem () {
       if (queue.length && !isRunning) {
         isRunning = true
-        var toRun = queue.shift()
+        const toRun = queue.shift()
         toRun.generator.next(toRun.item)
       }
 
@@ -213,8 +215,8 @@ var queueManager = function queueManager () {
     }
 
     return new Promise(function (resolve, reject) {
-      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
-        var item
+      const generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+        let item
         return regeneratorRuntime.wrap(function _callee$ (_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -267,11 +269,11 @@ var queueManager = function queueManager () {
 
 exports.queueManager = queueManager
 
-var queueTimeout = function queueTimeout () {
-  var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-  var manager = queueManager(queue)
+const queueTimeout = function queueTimeout () {
+  const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+  const manager = queueManager(queue)
   return function (fn) {
-    var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    const time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 
     for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
       args[_key5 - 2] = arguments[_key5]

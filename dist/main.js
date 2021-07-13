@@ -31,19 +31,19 @@ require('core-js/modules/es.object.assign.js')
 
 require('core-js/stable')
 
-var arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
+const arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
 
-var descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
+const descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
 
-var functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
+const functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
 
-var numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
+const numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
 
-var objectHelpers = _interopRequireWildcard(require('./helpers/objects'))
+const objectHelpers = _interopRequireWildcard(require('./helpers/objects'))
 
-function _getRequireWildcardCache (nodeInterop) { if (typeof WeakMap !== 'function') return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop })(nodeInterop) }
+function _getRequireWildcardCache (nodeInterop) { if (typeof WeakMap !== 'function') return null; const cacheBabelInterop = new WeakMap(); const cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop })(nodeInterop) }
 
-function _interopRequireWildcard (obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj) } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== 'default' && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
+function _interopRequireWildcard (obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } const cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj) } const newObj = {}; const hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (const key in obj) { if (key !== 'default' && Object.prototype.hasOwnProperty.call(obj, key)) { const desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
 
 /**
  * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
@@ -56,19 +56,19 @@ function _interopRequireWildcard (obj, nodeInterop) { if (!nodeInterop && obj &&
 /**
    * Store a reference to this scope which will be Window if rendered via browser
    */
-var root = void 0 || window || global || {}
+const root = void 0 || window || global || {}
 /**
    * Store reference to any pre-existing module of the same name
    * @type {module|*}
    */
 
-var previousFunctionalHelpers = root.functionalHelpers || {}
+const previousFunctionalHelpers = root.functionalHelpers || {}
 /**
    * All methods exported from this module are encapsulated within functionalHelpers.
    * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
    */
 
-var functionalHelpers = {}
+const functionalHelpers = {}
 root.functionalHelpers = functionalHelpers
 /**
    * Return a reference to this library while preserving the original same-named library
@@ -76,13 +76,13 @@ root.functionalHelpers = functionalHelpers
    * @returns {module:functionalHelpers~functionalHelpers}
    */
 
-var noConflict = function noConflict () {
+const noConflict = function noConflict () {
   root.functionalHelpers = previousFunctionalHelpers
   return functionalHelpers
 }
 
 functionalHelpers.noConflict = noConflict
 
-var _default = Object.assign(functionalHelpers, arrayHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
+const _default = Object.assign(functionalHelpers, arrayHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
 
 exports.default = _default

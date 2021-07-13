@@ -47,15 +47,15 @@ require('core-js/modules/es.string.iterator.js')
 
 require('core-js/stable')
 
-var _arrays = require('../arrays')
+const _arrays = require('../arrays')
 
-var _objects = require('../objects')
+const _objects = require('../objects')
 
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -73,11 +73,11 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * @param {number} [index=0]
  * @returns {module:descriptorSamples~descriptorDetail}
  */
-var describeObjectDetail = function describeObjectDetail (value) {
-  var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+const describeObjectDetail = function describeObjectDetail (value) {
+  const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  const index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
 
-  var type = _typeof(value)
+  const type = _typeof(value)
 
   return {
     index: index,
@@ -101,12 +101,14 @@ var describeObjectDetail = function describeObjectDetail (value) {
 
 exports.describeObjectDetail = describeObjectDetail
 
-var cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
-  var copyDetail = {};
+const cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
+  const copyDetail = {};
   (0, _objects.objectKeys)(originalDetail).forEach(function (key) {
-    copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(function (value) {
-      return value
-    }) : originalDetail[key]
+    copyDetail[key] = Array.isArray(originalDetail[key])
+      ? originalDetail[key].map(function (value) {
+        return value
+      })
+      : originalDetail[key]
   })
   return copyDetail
 }
@@ -117,8 +119,8 @@ var cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
  * @returns {module:descriptorSamples~descriptor}
  */
 
-var cloneDescriptor = function cloneDescriptor (originalMap) {
-  var copyMap = {}
+const cloneDescriptor = function cloneDescriptor (originalMap) {
+  const copyMap = {}
   copyMap.index = originalMap.index || 0
   copyMap.details = originalMap.details.map(cloneDescriptorDetail)
   copyMap.length = originalMap.length
@@ -139,7 +141,7 @@ var cloneDescriptor = function cloneDescriptor (originalMap) {
  * @returns {module:descriptorSamples~descriptorDetail}
  */
 
-var assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
+const assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
   for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     details[_key - 1] = arguments[_key]
   }
@@ -171,18 +173,18 @@ var assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
  * @returns {module:descriptorSamples~descriptor}
  */
 
-var assignDescriptor = function assignDescriptor (originalMap) {
+const assignDescriptor = function assignDescriptor (originalMap) {
   for (var _len2 = arguments.length, descriptors = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
     descriptors[_key2 - 1] = arguments[_key2]
   }
 
   return descriptors.reduce(function (assignedDescriptor, descriptor) {
-    var detailsDiff = (0, _arrays.compareArrays)(assignedDescriptor.keys, descriptor.keys)
+    const detailsDiff = (0, _arrays.compareArrays)(assignedDescriptor.keys, descriptor.keys)
     detailsDiff.forEach(function (diff) {
-      var existingDetail = assignedDescriptor.details.find(function (detail) {
+      const existingDetail = assignedDescriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
-      var newDetail = descriptor.details.find(function (detail) {
+      const newDetail = descriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
 
@@ -193,14 +195,14 @@ var assignDescriptor = function assignDescriptor (originalMap) {
         return assignedDescriptor
       }
 
-      var useDetail = diff[0] > 0 ? existingDetail : newDetail
+      const useDetail = diff[0] > 0 ? existingDetail : newDetail
 
       if (!useDetail) {
         assignedDescriptor.details[existingDetail.index].optional = true
         return assignedDescriptor
       }
 
-      var useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+      const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
       assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
         index: useIndex,
         optional: true
@@ -216,9 +218,11 @@ var assignDescriptor = function assignDescriptor (originalMap) {
     }).map(function (detail) {
       return detail.index
     }))
-    assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(function (detail) {
-      return typeof detail.key === 'number'
-    }) : assignedDescriptor.isArray
+    assignedDescriptor.isArray = assignedDescriptor.length
+      ? assignedDescriptor.details.every(function (detail) {
+        return typeof detail.key === 'number'
+      })
+      : assignedDescriptor.isArray
     assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
     return assignedDescriptor
   }, cloneDescriptor(originalMap))
@@ -232,8 +236,8 @@ var assignDescriptor = function assignDescriptor (originalMap) {
 
 exports.assignDescriptor = assignDescriptor
 
-var describeObject = function describeObject (object) {
-  var descriptor = {
+const describeObject = function describeObject (object) {
+  const descriptor = {
     index: 0,
     details: [],
     length: 0,
@@ -242,11 +246,11 @@ var describeObject = function describeObject (object) {
     isArray: false,
     complete: false
   }
-  var keys = (0, _objects.objectKeys)(object)
+  const keys = (0, _objects.objectKeys)(object)
 
-  for (var i = 0; i < keys.length; ++i) {
-    var key = keys[i]
-    var newDetail = describeObjectDetail(object[key], key, descriptor.length++)
+  for (let i = 0; i < keys.length; ++i) {
+    const key = keys[i]
+    const newDetail = describeObjectDetail(object[key], key, descriptor.length++)
 
     if (typeof key === 'number' && descriptor.details.length) {
       descriptor.details[0] = assignDescriptorDetail(descriptor.details[0], newDetail)
@@ -281,7 +285,7 @@ var describeObject = function describeObject (object) {
 
 exports.describeObject = describeObject
 
-var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
+const compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
   if (descriptor1.isArray !== descriptor2.isArray) {
     return false
   }
@@ -290,22 +294,24 @@ var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
     return descriptor1.length === descriptor2.length
   }
 
-  var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
-  var largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
+  const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
+  const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
   return smallerDescriptor.keys.every(function (key) {
     return largerDescriptor.keys.includes(key)
-  }) ? smallerDescriptor.details.every(function (detail) {
+  })
+    ? smallerDescriptor.details.every(function (detail) {
       return detail.type.some(function (type) {
         return largerDescriptor.details.find(function (foundDetail) {
           return foundDetail.key === detail.key
         }).type.includes(type)
       })
-    }) : false
+    })
+    : false
 }
 
 exports.compareDescriptor = compareDescriptor
 
-var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
+const sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
   return descriptor1.details.every(function (detail, index) {
     return detail.value.some(function (dVal) {
       return descriptor2.details[index].value.includes(dVal)
@@ -321,13 +327,13 @@ var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
 
 exports.sameDescriptor = sameDescriptor
 
-var nextReference = function nextReference (descriptor, currentReference) {
+const nextReference = function nextReference (descriptor, currentReference) {
   return descriptor.references.find(function (nextRef) {
     if (nextRef <= currentReference) {
       return false
     }
 
-    var val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
+    const val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
 
     if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
       return false
@@ -342,7 +348,7 @@ var nextReference = function nextReference (descriptor, currentReference) {
  * @returns {module:descriptorSamples~descriptor}
  */
 
-var checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
+const checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
   return (0, _objects.setValue)('complete', descriptor.references.every(function (refId) {
     return [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(function (ref) {
       return typeof ref === 'number'
@@ -356,11 +362,13 @@ var checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
  * @returns {module:descriptorSamples~descriptor}
  */
 
-var checkClearValues = function checkClearValues (descriptor) {
-  var keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-  return (0, _objects.setValue)('details', descriptor.complete && !keepValues ? descriptor.details.map(function (detail) {
-    return (0, _objects.setValue)('value', [], detail)
-  }) : descriptor.details, descriptor)
+const checkClearValues = function checkClearValues (descriptor) {
+  const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+  return (0, _objects.setValue)('details', descriptor.complete && !keepValues
+    ? descriptor.details.map(function (detail) {
+      return (0, _objects.setValue)('value', [], detail)
+    })
+    : descriptor.details, descriptor)
 }
 /**
  * Trace out the entire object including nested objects.
@@ -373,32 +381,34 @@ var checkClearValues = function checkClearValues (descriptor) {
  * @returns {module:descriptorSamples~descriptorMap}
  */
 
-var describeObjectMap = function describeObjectMap (object) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
-  var _ref$depthLimit = _ref.depthLimit
-  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  var _ref$keepValues = _ref.keepValues
-  var keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
+const describeObjectMap = function describeObjectMap (object) {
+  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref$mapLimit = _ref.mapLimit
+  const mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
+  const _ref$depthLimit = _ref.depthLimit
+  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  const _ref$keepValues = _ref.keepValues
+  const keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
 
-  var descriptorMap = [describeObject(object)]
+  const descriptorMap = [describeObject(object)]
   descriptorMap[0].index = 0
 
-  var describeReferences = function describeReferences (descriptor, currentDetail) {
-    var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
-    var returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (returnMap) {
-      return returnMap
-    }
-    var index = descriptorMap.length
-    var nextRef = currentDetail ? nextReference(descriptor, currentDetail.index) : undefined
-    var nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
+  const describeReferences = function describeReferences (descriptor, currentDetail) {
+    let limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
+    const returnCallback = arguments.length > 3 && arguments[3] !== undefined
+      ? arguments[3]
+      : function (returnMap) {
+        return returnMap
+      }
+    let index = descriptorMap.length
+    const nextRef = currentDetail ? nextReference(descriptor, currentDetail.index) : undefined
+    const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
 
     if (currentDetail) {
-      var vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+      const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
       vals.forEach(function (val) {
-        var tempDescriptor = describeObject(val)
-        var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
+        const tempDescriptor = describeObject(val)
+        const existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
           return compareDescriptor(tempDescriptor, existingDescriptor)
         })
 
@@ -420,12 +430,12 @@ var describeObjectMap = function describeObjectMap (object) {
         }
 
         if (tempDescriptor.isArray) {
-          var _currentDetail$arrayR
+          let _currentDetail$arrayR
 
           index = (_currentDetail$arrayR = currentDetail.arrayReference) !== null && _currentDetail$arrayR !== void 0 ? _currentDetail$arrayR : index
           descriptor.details[currentDetail.index].arrayReference = index
         } else {
-          var _currentDetail$object
+          let _currentDetail$object
 
           index = (_currentDetail$object = currentDetail.objectReference) !== null && _currentDetail$object !== void 0 ? _currentDetail$object : index
           descriptor.details[currentDetail.index].objectReference = index
@@ -443,8 +453,8 @@ var describeObjectMap = function describeObjectMap (object) {
         })
 
         if (!currentDetail.circular) {
-          var newReference = nextReference(tempDescriptor, -1)
-          var newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
+          const newReference = nextReference(tempDescriptor, -1)
+          const newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
           return describeReferences(tempDescriptor, newDetail, --limit, function (returnMap) {
             return describeReferences(descriptor, nextDetail, --limit)
           })
@@ -457,8 +467,8 @@ var describeObjectMap = function describeObjectMap (object) {
     return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap)
   }
 
-  var descriptor = descriptorMap[0]
-  var currentReference = nextReference(descriptor, -1)
+  const descriptor = descriptorMap[0]
+  const currentReference = nextReference(descriptor, -1)
 
   if (typeof currentReference === 'undefined') {
     descriptorMap[0] = assignDescriptor(descriptorMap[0], checkDescriptorComplete(descriptor, keepValues))

@@ -22,7 +22,7 @@ require('core-js/stable')
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
+const getAbsoluteMax = function getAbsoluteMax (num1, num2) {
   return Math.abs(num1) > Math.abs(num2) ? num1 : num2
 }
 /**
@@ -35,7 +35,7 @@ var getAbsoluteMax = function getAbsoluteMax (num1, num2) {
 
 exports.getAbsoluteMax = getAbsoluteMax
 
-var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
+const getAbsoluteMin = function getAbsoluteMin (num1, num2) {
   return Math.abs(num1) < Math.abs(num2) ? num1 : num2
 }
 /**
@@ -51,9 +51,9 @@ var getAbsoluteMin = function getAbsoluteMin (num1, num2) {
 
 exports.getAbsoluteMin = getAbsoluteMin
 
-var randomNumber = function randomNumber (range) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+const randomNumber = function randomNumber (range) {
+  const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
   return (Math.random() * range + offset) * interval
 }
 /**
@@ -69,9 +69,9 @@ var randomNumber = function randomNumber (range) {
 
 exports.randomNumber = randomNumber
 
-var randomInteger = function randomInteger (range) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+const randomInteger = function randomInteger (range) {
+  const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
   return (Math.floor(Math.random() * range) + offset) * interval
 }
 /**
@@ -87,7 +87,7 @@ var randomInteger = function randomInteger (range) {
 
 exports.randomInteger = randomInteger
 
-var compare = function compare (val1, val2) {
+const compare = function compare (val1, val2) {
   return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
 }
 

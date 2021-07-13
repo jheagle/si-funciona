@@ -37,7 +37,7 @@ require('core-js/modules/web.dom-collections.iterator.js')
 
 require('core-js/stable')
 
-var _functions = require('./functions')
+const _functions = require('./functions')
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -50,7 +50,7 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-var setValue = function setValue (key, value, item) {
+const setValue = function setValue (key, value, item) {
   item[key] = value
   return item
 }
@@ -65,14 +65,14 @@ var setValue = function setValue (key, value, item) {
 
 exports.setValue = setValue
 
-var setAndReturnValue = function setAndReturnValue (item, key, value) {
+const setAndReturnValue = function setAndReturnValue (item, key, value) {
   item[key] = value
   return value
 }
 
 exports.setAndReturnValue = setAndReturnValue
 
-var isObject = function isObject (object) {
+const isObject = function isObject (object) {
   return _typeof(object) === 'object' && object !== null
 }
 /**
@@ -85,24 +85,24 @@ var isObject = function isObject (object) {
 
 exports.isObject = isObject
 
-var objectKeys = function objectKeys (object) {
-  var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+const objectKeys = function objectKeys (object) {
+  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
 
   if (typeof object !== 'function' && !isObject(object)) {
     return []
   }
 
   if (includeInherited) {
-    var propNames = Object.getOwnPropertyNames(object)
+    const propNames = Object.getOwnPropertyNames(object)
 
     if (propNames.length) {
       return propNames
     }
   }
 
-  var keys = []
+  const keys = []
 
-  for (var key in object) {
+  for (const key in object) {
     if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
       if (Array.isArray(object)) {
         keys.push(parseInt(key))
@@ -125,8 +125,8 @@ var objectKeys = function objectKeys (object) {
 
 exports.objectKeys = objectKeys
 
-var objectValues = function objectValues (object) {
-  var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+const objectValues = function objectValues (object) {
+  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
   return objectKeys(object, includeInherited).map(function (key) {
     return object[key]
   })
@@ -153,11 +153,13 @@ var objectValues = function objectValues (object) {
 
 exports.objectValues = objectValues
 
-var mapObject = function mapObject (obj, fn) {
-  var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.map(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
-    return setValue(curr, (0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj)
-  }, {})
+const mapObject = function mapObject (obj, fn) {
+  const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+  return Array.isArray(obj)
+    ? obj.map(fn, thisArg)
+    : objectKeys(obj, true).reduce(function (newObj, curr) {
+      return setValue(curr, (0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj)
+    }, {})
 }
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
@@ -182,17 +184,19 @@ var mapObject = function mapObject (obj, fn) {
 
 exports.mapObject = mapObject
 
-var filterObject = function filterObject (obj, fn) {
-  var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.filter(fn, thisArg) : objectKeys(obj, true).reduce(function (newObj, curr) {
-    if ((0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
-      newObj[curr] = obj[curr]
-    } else {
-      delete newObj[curr]
-    }
+const filterObject = function filterObject (obj, fn) {
+  const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+  return Array.isArray(obj)
+    ? obj.filter(fn, thisArg)
+    : objectKeys(obj, true).reduce(function (newObj, curr) {
+      if ((0, _functions.callWithParams)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
+        newObj[curr] = obj[curr]
+      } else {
+        delete newObj[curr]
+      }
 
-    return newObj
-  }, {})
+      return newObj
+    }, {})
 }
 /**
  * Function to execute on each property in the object, taking four arguments
@@ -221,11 +225,13 @@ var filterObject = function filterObject (obj, fn) {
 
 exports.filterObject = filterObject
 
-var reduceObject = function reduceObject (obj, fn) {
-  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[objectKeys(obj)[0]] || obj[0]
-  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : objectKeys(obj, true).reduce(function (newObj, curr) {
-    return (0, _functions.callWithParams)(fn, [newObj, obj[curr], curr, obj], 2)
-  }, initialValue)
+const reduceObject = function reduceObject (obj, fn) {
+  const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[objectKeys(obj)[0]] || obj[0]
+  return Array.isArray(obj)
+    ? obj.reduce(fn, initialValue)
+    : objectKeys(obj, true).reduce(function (newObj, curr) {
+      return (0, _functions.callWithParams)(fn, [newObj, obj[curr], curr, obj], 2)
+    }, initialValue)
 }
 /**
  * Helper function for testing if the item is an Object or Array that does not have any properties
@@ -236,7 +242,7 @@ var reduceObject = function reduceObject (obj, fn) {
 
 exports.reduceObject = reduceObject
 
-var emptyObject = function emptyObject (item) {
+const emptyObject = function emptyObject (item) {
   return (typeof item === 'function' || isObject(item)) && !objectKeys(item).length
 }
 /**
@@ -247,7 +253,7 @@ var emptyObject = function emptyObject (item) {
 
 exports.emptyObject = emptyObject
 
-var isInstanceObject = function isInstanceObject (object) {
+const isInstanceObject = function isInstanceObject (object) {
   if (typeof object !== 'function' && !isObject(object)) {
     return false
   }
@@ -267,7 +273,7 @@ var isInstanceObject = function isInstanceObject (object) {
 
 exports.isInstanceObject = isInstanceObject
 
-var isCloneable = function isCloneable (value) {
+const isCloneable = function isCloneable (value) {
   return _typeof(value) === 'object' && value !== null && !isInstanceObject(value)
 }
 /**
@@ -290,21 +296,21 @@ var isCloneable = function isCloneable (value) {
 
 exports.isCloneable = isCloneable
 
-var mergeObjectsBase = function mergeObjectsBase () {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-  var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 50000 : _ref$mapLimit
-  var _ref$map = _ref.map
-  var map = _ref$map === void 0 ? [] : _ref$map
-  var _ref$useClone = _ref.useClone
-  var useClone = _ref$useClone === void 0 ? false : _ref$useClone
+const mergeObjectsBase = function mergeObjectsBase () {
+  const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  const _ref$mapLimit = _ref.mapLimit
+  const mapLimit = _ref$mapLimit === void 0 ? 50000 : _ref$mapLimit
+  const _ref$map = _ref.map
+  const map = _ref$map === void 0 ? [] : _ref$map
+  const _ref$useClone = _ref.useClone
+  const useClone = _ref$useClone === void 0 ? false : _ref$useClone
 
   return function () {
     for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
       objects[_key] = arguments[_key]
     }
 
-    var firstObject = objects.shift()
+    const firstObject = objects.shift()
 
     if (objects.length < 1) {
       return firstObject
@@ -326,8 +332,8 @@ var mergeObjectsBase = function mergeObjectsBase () {
 
       return reduceObject(arg, function (returnObj, value, key) {
         if (isCloneable(value)) {
-          var objectValue = newObj[key]
-          var exists = map.find(function (existing) {
+          let objectValue = newObj[key]
+          const exists = map.find(function (existing) {
             return existing.source === value
           })
 
@@ -371,7 +377,7 @@ var mergeObjectsBase = function mergeObjectsBase () {
  */
 
 exports.mergeObjectsBase = mergeObjectsBase
-var mergeObjects = mergeObjectsBase({
+const mergeObjects = mergeObjectsBase({
   useClone: true
 })
 /**
@@ -383,7 +389,7 @@ var mergeObjects = mergeObjectsBase({
  */
 
 exports.mergeObjects = mergeObjects
-var mergeObjectsMutable = mergeObjectsBase()
+const mergeObjectsMutable = mergeObjectsBase()
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function
@@ -396,12 +402,12 @@ var mergeObjectsMutable = mergeObjectsBase()
 
 exports.mergeObjectsMutable = mergeObjectsMutable
 
-var cloneObject = function cloneObject (object) {
-  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref2$mapLimit = _ref2.mapLimit
-  var mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
-  var _ref2$map = _ref2.map
-  var map = _ref2$map === void 0 ? [] : _ref2$map
+const cloneObject = function cloneObject (object) {
+  const _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref2$mapLimit = _ref2.mapLimit
+  const mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
+  const _ref2$map = _ref2.map
+  const map = _ref2$map === void 0 ? [] : _ref2$map
 
   return mergeObjectsBase({
     mapLimit: mapLimit,

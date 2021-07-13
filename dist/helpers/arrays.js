@@ -41,7 +41,7 @@ require('core-js/modules/es.string.includes.js')
 
 require('core-js/stable')
 
-var _objects = require('./objects')
+const _objects = require('./objects')
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
@@ -49,7 +49,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -65,11 +65,11 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-var buildArray = function buildArray (item, length) {
-  var arr = []
+const buildArray = function buildArray (item, length) {
+  const arr = []
 
   while (arr.length < length) {
-    var cloned = (0, _objects.cloneObject)(item)
+    const cloned = (0, _objects.cloneObject)(item)
     arr.push(cloned)
   }
 
@@ -86,8 +86,8 @@ var buildArray = function buildArray (item, length) {
 
 exports.buildArray = buildArray
 
-var buildArrayOfReferences = function buildArrayOfReferences (item, length) {
-  var arr = []
+const buildArrayOfReferences = function buildArrayOfReferences (item, length) {
+  const arr = []
 
   while (arr.length < length) {
     arr.push(item)
@@ -104,7 +104,7 @@ var buildArrayOfReferences = function buildArrayOfReferences (item, length) {
 
 exports.buildArrayOfReferences = buildArrayOfReferences
 
-var uniqueArray = function uniqueArray (array) {
+const uniqueArray = function uniqueArray (array) {
   return array.filter(function (item, index) {
     return array.indexOf(item) === index
   })
@@ -118,7 +118,7 @@ var uniqueArray = function uniqueArray (array) {
 
 exports.uniqueArray = uniqueArray
 
-var mergeArrays = function mergeArrays () {
+const mergeArrays = function mergeArrays () {
   for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
     arrays[_key] = arguments[_key]
   }
@@ -220,18 +220,18 @@ var mergeArrays = function mergeArrays () {
 
 exports.mergeArrays = mergeArrays
 
-var compareArrays = function compareArrays () {
+const compareArrays = function compareArrays () {
   for (var _len2 = arguments.length, arrays = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     arrays[_key2] = arguments[_key2]
   }
 
   return mergeArrays.apply(void 0, arrays).reduce(function (results, attr) {
-    var attrType = _typeof(attr)
+    const attrType = _typeof(attr)
 
-    var useArray = Array.isArray(attr)
-    var keys = arrays.map(function (array) {
+    const useArray = Array.isArray(attr)
+    const keys = arrays.map(function (array) {
       return array.reduce(function (results, current, key) {
-        var currentType = _typeof(current)
+        const currentType = _typeof(current)
 
         if (attrType !== currentType) {
           return results
@@ -245,15 +245,17 @@ var compareArrays = function compareArrays () {
           return results
         }
 
-        var compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objects.objectKeys)(attr), (0, _objects.objectKeys)(current))
+        const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objects.objectKeys)(attr), (0, _objects.objectKeys)(current))
         return compareKeys.every(function (compare) {
           return compare.result.every(function (result) {
             return result === 0
           })
-        }) ? [].concat(_toConsumableArray(results), [key]) : results
+        })
+          ? [].concat(_toConsumableArray(results), [key])
+          : results
       }, [])
     })
-    var arrayResults = keys.map(function (array) {
+    const arrayResults = keys.map(function (array) {
       return array.length ? 1 : -1
     })
     return [].concat(_toConsumableArray(results), [{
@@ -261,9 +263,11 @@ var compareArrays = function compareArrays () {
       keys: keys,
       result: arrayResults.every(function (result) {
         return result === 1
-      }) ? arrayResults.map(function (result) {
+      })
+        ? arrayResults.map(function (result) {
           return 0
-        }) : arrayResults
+        })
+        : arrayResults
     }])
   }, [])
 }

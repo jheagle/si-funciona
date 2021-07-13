@@ -31,7 +31,7 @@ exports.mappedDescriptorMap = exports.descriptorMapSample = exports.descriptorSa
 /**
  * @type {descriptorDetail}
  */
-var descriptorDetailSample = {
+const descriptorDetailSample = {
   index: 0,
   key: 'keyName',
   type: ['string'],
@@ -60,7 +60,7 @@ var descriptorDetailSample = {
  */
 
 exports.descriptorDetailSample = descriptorDetailSample
-var descriptorSample = {
+const descriptorSample = {
   index: 0,
   details: [descriptorDetailSample],
   length: 1,
@@ -78,13 +78,13 @@ var descriptorSample = {
  */
 
 exports.descriptorSample = descriptorSample
-var descriptorMapSample = [descriptorSample]
+const descriptorMapSample = [descriptorSample]
 /**
  * @type {descriptorMap}
  */
 
 exports.descriptorMapSample = descriptorMapSample
-var mappedDescriptorMap = [{
+const mappedDescriptorMap = [{
   index: 0,
   details: [{
     index: 0,

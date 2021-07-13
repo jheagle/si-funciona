@@ -8,7 +8,8 @@
   "scripts": {
     "test": "jest",
     "readme": "cp MAIN.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/objects/*.js >> README.md",
-    "htmldocs": "jsdoc -R MAIN.md -r src/ -d docs"
+    "htmldocs": "jsdoc -R MAIN.md -r src/ -d docs",
+    "resolutions": "npx npm-force-resolutions"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -17,16 +18,17 @@
     "browserify": "^17.0.0",
     "del": "^6.0.0",
     "eslint": "^7.30.0",
-    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard": "^16.0.3",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-standard": "^4.1.0",
-    "gulp": "^3.9.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "glob-parent": "^6.0.0",
+    "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-cli": "^1.4.0",
+    "gulp-cli": "^2.3.0",
     "gulp-eslint": "^6.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify-es": "^2.0.0",
@@ -35,7 +37,8 @@
     "jsdoc-to-markdown": "^7.0.1",
     "standard": "^16.0.3",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "yargs-parser": "^20.2.9"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.14.7",
@@ -47,7 +50,9 @@
     "test": "tests"
   },
   "resolutions": {
-    "eslint": "^7.30.0"
+    "eslint": "7.30.0",
+    "glob-parent": "6.0.0",
+    "yargs-parser": "20.2.9"
   },
   "repository": {
     "type": "git",
