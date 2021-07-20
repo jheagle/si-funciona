@@ -310,7 +310,7 @@ const mergeObjectsBase = function mergeObjectsBase () {
       objects[_key] = arguments[_key]
     }
 
-    const firstObject = objects.shift()
+    const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
 
     if (objects.length < 1) {
       return firstObject
@@ -413,7 +413,7 @@ const cloneObject = function cloneObject (object) {
     mapLimit: mapLimit,
     map: map,
     useClone: true
-  })(Array.isArray(object) ? [] : {}, object)
+  })(object)
 }
 
 exports.cloneObject = cloneObject

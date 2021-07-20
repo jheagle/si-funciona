@@ -19,7 +19,7 @@ require('core-js/modules/es.function.name.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
+exports.trace = exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
 
 require('regenerator-runtime/runtime.js')
 
@@ -38,6 +38,8 @@ require('core-js/modules/es.promise.js')
 require('core-js/stable')
 
 require('regenerator-runtime/runtime')
+
+const _objects = require('./objects')
 
 function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
@@ -286,5 +288,23 @@ const queueTimeout = function queueTimeout () {
     })
   }
 }
+/**
+ * Output the a value with label to the console and return the value to not interrupt the code.
+ * @function
+ * @param {string} label - Pass an identifying label of the value being output.
+ * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
+ * @returns {function(*=)}
+ */
 
 exports.queueTimeout = queueTimeout
+
+const trace = function trace (label) {
+  const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
+  return function (value) {
+    // noinspection JSForgottenDebugStatementInspection
+    console.info(''.concat(label, ': '), useClone ? (0, _objects.cloneObject)(value) : value)
+    return value
+  }
+}
+
+exports.trace = trace

@@ -218,7 +218,7 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * @returns {module:objects~mergeObjectsCallback}
  */
 export const mergeObjectsBase = ({ mapLimit = 50000, map = [], useClone = false } = {}) => (...objects) => {
-  const firstObject = objects.shift()
+  const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
   if (objects.length < 1) {
     return firstObject
   }
@@ -289,4 +289,4 @@ export const mergeObjectsMutable = mergeObjectsBase()
  * @returns {Object}
  */
 export const cloneObject = (object, { mapLimit = 100, map = [] } = {}) =>
-  mergeObjectsBase({ mapLimit, map, useClone: true })(Array.isArray(object) ? [] : {}, object)
+  mergeObjectsBase({ mapLimit, map, useClone: true })(object)

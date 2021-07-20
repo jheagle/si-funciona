@@ -298,7 +298,7 @@
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
-    exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
+    exports.trace = exports.queueTimeout = exports.queueManager = exports.delay = exports.preloadParams = exports.callWithParams = exports.pipe = exports.curry = void 0
 
     require('regenerator-runtime/runtime.js')
 
@@ -317,6 +317,8 @@
     require('core-js/stable')
 
     require('regenerator-runtime/runtime')
+
+    const _objects = require('./objects')
 
     function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
 
@@ -565,9 +567,27 @@
         })
       }
     }
+    /**
+ * Output the a value with label to the console and return the value to not interrupt the code.
+ * @function
+ * @param {string} label - Pass an identifying label of the value being output.
+ * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
+ * @returns {function(*=)}
+ */
 
     exports.queueTimeout = queueTimeout
-  }, { 'core-js/modules/es.array.concat.js': 179, 'core-js/modules/es.array.from.js': 189, 'core-js/modules/es.array.iterator.js': 193, 'core-js/modules/es.array.reduce.js': 199, 'core-js/modules/es.array.slice.js': 201, 'core-js/modules/es.array.splice.js': 205, 'core-js/modules/es.function.name.js': 220, 'core-js/modules/es.object.to-string.js': 278, 'core-js/modules/es.promise.js': 285, 'core-js/modules/es.string.iterator.js': 320, 'core-js/modules/es.symbol.description.js': 342, 'core-js/modules/es.symbol.iterator.js': 345, 'core-js/modules/es.symbol.js': 346, 'core-js/modules/web.dom-collections.iterator.js': 395, 'core-js/stable': 402, 'regenerator-runtime/runtime': 403, 'regenerator-runtime/runtime.js': 403 }],
+
+    const trace = function trace (label) {
+      const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
+      return function (value) {
+        // noinspection JSForgottenDebugStatementInspection
+        console.info(''.concat(label, ': '), useClone ? (0, _objects.cloneObject)(value) : value)
+        return value
+      }
+    }
+
+    exports.trace = trace
+  }, { './objects': 4, 'core-js/modules/es.array.concat.js': 179, 'core-js/modules/es.array.from.js': 189, 'core-js/modules/es.array.iterator.js': 193, 'core-js/modules/es.array.reduce.js': 199, 'core-js/modules/es.array.slice.js': 201, 'core-js/modules/es.array.splice.js': 205, 'core-js/modules/es.function.name.js': 220, 'core-js/modules/es.object.to-string.js': 278, 'core-js/modules/es.promise.js': 285, 'core-js/modules/es.string.iterator.js': 320, 'core-js/modules/es.symbol.description.js': 342, 'core-js/modules/es.symbol.iterator.js': 345, 'core-js/modules/es.symbol.js': 346, 'core-js/modules/web.dom-collections.iterator.js': 395, 'core-js/stable': 402, 'regenerator-runtime/runtime': 403, 'regenerator-runtime/runtime.js': 403 }],
   3: [function (require, module, exports) {
     'use strict'
 
@@ -977,7 +997,7 @@
           objects[_key] = arguments[_key]
         }
 
-        const firstObject = objects.shift()
+        const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
 
         if (objects.length < 1) {
           return firstObject
@@ -1080,7 +1100,7 @@
         mapLimit: mapLimit,
         map: map,
         useClone: true
-      })(Array.isArray(object) ? [] : {}, object)
+      })(object)
     }
 
     exports.cloneObject = cloneObject

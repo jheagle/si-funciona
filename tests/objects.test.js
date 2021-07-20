@@ -570,7 +570,7 @@ describe('mergeObjects', () => {
         style: {}
       },
       element: document,
-      eventListeners: [],
+      eventListeners: {},
       parentItem: {},
       children: children
     }
@@ -583,7 +583,7 @@ describe('mergeObjects', () => {
     const expectedResult = baseItem
     expectedResult.tagName = 'html'
     expectedResult.element = document
-    expectedResult.eventListeners = []
+    expectedResult.eventListeners = {}
     expectedResult.children = children
     expectedResult.children[0].parentItem = expectedResult
     expectedResult.children[1].parentItem = expectedResult
