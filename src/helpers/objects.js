@@ -214,51 +214,73 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=100]
  * @param {Iterable} [options.map=[]]
- * @param {bool} [options.useClone=false]
+ * @param {boolean} [options.useClone=false]
  * @returns {module:objects~mergeObjectsCallback}
  */
-export const mergeObjectsBase = ({ mapLimit = 50000, map = [], useClone = false } = {}) => (...objects) => {
-  const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
-  if (objects.length < 1) {
-    return firstObject
+export const mergeObjectsBase = ({
+  mapLimit = 1000,
+  relevancyRange = 100,
+  map = [],
+  useClone = false
+} = {}) => {
+  const updateMap = map => {
+    const minRelevance = map.length - relevancyRange
+    return map
+      .filter(reference => reference.relevance > minRelevance)
+      .map(
+        reference => setValue(
+          'relevance',
+          reference.relevance > map.length ? map.length : reference.relevance,
+          reference
+        )
+      )
   }
-  return objects.reduce((newObj, arg) => {
-    if (!arg) {
-      return newObj
+  return (...objects) => {
+    const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+    if (objects.length < 1) {
+      return firstObject
     }
-    map.push({
-      source: arg,
-      object: newObj
-    })
-    if (map.length > mapLimit) {
-      map.shift()
-    }
-    return reduceObject(arg, (returnObj, value, key) => {
-      if (isCloneable(value)) {
-        let objectValue = newObj[key]
-        const exists = map.find(existing => existing.source === value)
-        if (exists) {
-          return setValue(key, exists.object, returnObj)
-        }
-        if (!isCloneable(objectValue) || !objectValue) {
-          objectValue = useClone
-            ? Array.isArray(value) ? [] : {}
-            : value
-        }
-        if (isCloneable(objectValue)) {
-          return setValue(key, mergeObjectsBase({ mapLimit, map, useClone })(objectValue, value), returnObj)
-        }
-        map.push({
-          source: value,
-          object: objectValue
-        })
-        if (map.length > mapLimit) {
-          map.shift()
-        }
+    return objects.reduce((newObj, arg) => {
+      if (!arg) {
+        return newObj
       }
-      return setValue(key, value, returnObj)
-    }, newObj)
-  }, firstObject || {})
+      map.push({
+        source: arg,
+        object: newObj,
+        relevance: map.length
+      })
+      if (map.length > mapLimit) {
+        map = updateMap(map)
+      }
+      return reduceObject(arg, (returnObj, value, key) => {
+        if (isCloneable(value)) {
+          let objectValue = newObj[key]
+          const exists = map.find(existing => existing.source === value)
+          if (exists) {
+            exists.relevance = map.length + 1
+            return setValue(key, exists.object, returnObj)
+          }
+          if (!isCloneable(objectValue) || !objectValue) {
+            objectValue = useClone
+              ? Array.isArray(value) ? [] : {}
+              : value
+          }
+          if (isCloneable(objectValue)) {
+            return setValue(key, mergeObjectsBase({ mapLimit, map, useClone })(objectValue, value), returnObj)
+          }
+          map.push({
+            source: value,
+            object: objectValue,
+            relevance: map.length
+          })
+          if (map.length > mapLimit) {
+            map = updateMap(map)
+          }
+        }
+        return setValue(key, value, returnObj)
+      }, newObj)
+    }, firstObject || {})
+  }
 }
 
 /**
