@@ -288,7 +288,9 @@ const isCloneable = function isCloneable (value) {
  * Objects having the same attributes will overwrite from last object to first.
  * @function
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100]
+ * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.depthLimit=-1]
+ * @param {number} [options.relevancyRange=100]
  * @param {Iterable} [options.map=[]]
  * @param {boolean} [options.useClone=false]
  * @returns {module:objects~mergeObjectsCallback}
@@ -300,6 +302,8 @@ const mergeObjectsBase = function mergeObjectsBase () {
   const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
   const _ref$mapLimit = _ref.mapLimit
   const mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+  const _ref$depthLimit = _ref.depthLimit
+  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
   const _ref$relevancyRange = _ref.relevancyRange
   const relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
   const _ref$map = _ref.map
@@ -324,6 +328,10 @@ const mergeObjectsBase = function mergeObjectsBase () {
     const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
 
     if (objects.length < 1) {
+      return firstObject
+    }
+
+    if (depthLimit === 0) {
       return firstObject
     }
 
@@ -361,6 +369,8 @@ const mergeObjectsBase = function mergeObjectsBase () {
           if (isCloneable(objectValue)) {
             return setValue(key, mergeObjectsBase({
               mapLimit: mapLimit,
+              depthLimit: depthLimit - 1,
+              relevancyRange: relevancyRange,
               map: map,
               useClone: useClone
             })(objectValue, value), returnObj)
@@ -409,7 +419,9 @@ const mergeObjectsMutable = mergeObjectsBase()
  * @function
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100]
+ * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.depthLimit=-1]
+ * @param {number} [options.relevancyRange=100]
  * @param {Iterable} [options.map=[]]
  * @returns {Object}
  */
@@ -420,11 +432,17 @@ const cloneObject = function cloneObject (object) {
   const _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
   const _ref2$mapLimit = _ref2.mapLimit
   const mapLimit = _ref2$mapLimit === void 0 ? 100 : _ref2$mapLimit
+  const _ref2$depthLimit = _ref2.depthLimit
+  const depthLimit = _ref2$depthLimit === void 0 ? -1 : _ref2$depthLimit
+  const _ref2$relevancyRange = _ref2.relevancyRange
+  const relevancyRange = _ref2$relevancyRange === void 0 ? 100 : _ref2$relevancyRange
   const _ref2$map = _ref2.map
   const map = _ref2$map === void 0 ? [] : _ref2$map
 
   return mergeObjectsBase({
     mapLimit: mapLimit,
+    depthLimit: depthLimit,
+    relevancyRange: relevancyRange,
     map: map,
     useClone: true
   })(object)

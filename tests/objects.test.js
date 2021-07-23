@@ -307,6 +307,95 @@ describe('cloneObject', () => {
     expect(result).toEqual(deepReferenceObject)
   })
 
+  test('can remove all references with 0 depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 0 })
+    expect(result).toMatchObject({})
+  })
+
+  test('can remove deep references with 1 depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 1 })
+    expect(result).toMatchObject({
+      object1: {},
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 2 with depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 2 })
+    expect(result).toMatchObject({
+      object1: { name: 'someName', object2: {}, array2: [] },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 3 with depth option', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 3 })
+    expect(result).toMatchObject({
+      object1: {
+        name: 'someName',
+        object2: { age: 12, array1: [] },
+        array2: [89, 32]
+      },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can remove references deeper than 4 with depth option, this is the max depth', () => {
+    const result = helpers.cloneObject(deepReferenceObject, { depthLimit: 4 })
+    expect(result).toMatchObject({
+      object1: {
+        name: 'someName',
+        object2: { age: 12, array1: ['someString', 'anotherString'] },
+        array2: [89, 32]
+      },
+      title: 'Some Title',
+      item: 45
+    })
+  })
+
+  test('can limit depth of circular references, using 1', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 1 })
+    expect(result).toMatchObject({ name: 'root', parent: {}, body: {}, head: {}, children: [] })
+  })
+
+  test('can limit depth of circular references, using 2', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 2 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expect(result).toEqual(expectResult)
+  })
+
+  test('can limit depth of circular references, using 3', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 3 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [{}, {}] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [{}, {}] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expect(result).toEqual(expectResult)
+  })
+
+  test('can limit depth of circular references, using 4', () => {
+    const result = helpers.cloneObject(circularObject, { depthLimit: 4 })
+    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    expectResult.body = { name: 'body', parent: expectResult, children: [] }
+    expectResult.head = { name: 'head', parent: expectResult, children: [] }
+    expectResult.children = [expectResult.body, expectResult.head]
+    expectResult.body.children = [
+      { name: 'body child one', parent: expectResult.body, children: [] },
+      { name: 'body child two', parent: expectResult.body, children: [] }
+    ]
+    expectResult.head.children = [
+      { name: 'head child one', parent: expectResult.head, children: [] },
+      { name: 'head child two', parent: expectResult.head, children: [] }
+    ]
+    expect(result).toEqual(expectResult)
+  })
+
   test('can reduce length of map when it exceeds mapLimit', () => {
     const result = helpers.cloneObject(multiReferenceObject, { mapLimit: 1 })
     expect(result).not.toBe(multiReferenceObject)

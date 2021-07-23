@@ -212,16 +212,19 @@ export const isCloneable = value => typeof value === 'object' && value !== null 
  * Objects having the same attributes will overwrite from last object to first.
  * @function
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100]
+ * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.depthLimit=-1]
+ * @param {number} [options.relevancyRange=100]
  * @param {Iterable} [options.map=[]]
  * @param {boolean} [options.useClone=false]
  * @returns {module:objects~mergeObjectsCallback}
  */
 export const mergeObjectsBase = ({
   mapLimit = 1000,
+  depthLimit = -1,
   relevancyRange = 100,
   map = [],
-  useClone = false
+  useClone = false,
 } = {}) => {
   const updateMap = map => {
     const minRelevance = map.length - relevancyRange
@@ -239,6 +242,9 @@ export const mergeObjectsBase = ({
     const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
     if (objects.length < 1) {
       return firstObject
+    }
+    if (depthLimit === 0) {
+      return firstObject;
     }
     return objects.reduce((newObj, arg) => {
       if (!arg) {
@@ -266,7 +272,7 @@ export const mergeObjectsBase = ({
               : value
           }
           if (isCloneable(objectValue)) {
-            return setValue(key, mergeObjectsBase({ mapLimit, map, useClone })(objectValue, value), returnObj)
+            return setValue(key, mergeObjectsBase({ mapLimit, depthLimit: depthLimit - 1, relevancyRange, map, useClone })(objectValue, value), returnObj)
           }
           map.push({
             source: value,
@@ -306,9 +312,11 @@ export const mergeObjectsMutable = mergeObjectsBase()
  * @function
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100]
+ * @param {number} [options.mapLimit=1000]
+ * @param {number} [options.depthLimit=-1]
+ * @param {number} [options.relevancyRange=100]
  * @param {Iterable} [options.map=[]]
  * @returns {Object}
  */
-export const cloneObject = (object, { mapLimit = 100, map = [] } = {}) =>
-  mergeObjectsBase({ mapLimit, map, useClone: true })(object)
+export const cloneObject = (object, { mapLimit = 100, depthLimit = -1, relevancyRange = 100, map = [] } = {}) =>
+  mergeObjectsBase({ mapLimit, depthLimit, relevancyRange, map, useClone: true })(object)
