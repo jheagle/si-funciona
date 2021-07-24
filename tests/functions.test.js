@@ -123,12 +123,14 @@ describe('queueTimeout', () => {
     const test2 = jest.fn()
     const test3 = jest.fn()
     const test4 = jest.fn()
+    const queue = []
     const function1 = value => testArray.push(value) && (test1() || value)
     const function2 = value => testArray.push(value) && (test2() || value)
     const function3 = value => testArray.push(value) && (test3() || value)
     const function4 = value => testArray.push(value) && (test4() || value)
     expect.assertions(5)
-    const timeoutManager = helpers.queueTimeout([])
+    const queueManager = helpers.queueManager(queue)
+    const timeoutManager = helpers.queueTimeout(queueManager)
     return Promise.all([
       timeoutManager(function1, 500, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
       timeoutManager(function2, 0, 'two').then(result => expect(test2).toHaveBeenCalled() || result),

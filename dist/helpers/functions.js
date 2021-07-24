@@ -265,15 +265,15 @@ const queueManager = function queueManager () {
 /**
  * Manage functions to run sequentially with delays.
  * @function
- * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {module:functionHelpers~queueManagerHandle} [queueManager=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}
  */
 
 exports.queueManager = queueManager
 
 const queueTimeout = function queueTimeout () {
-  const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-  const manager = queueManager(queue)
+  const queueManager = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+  const manager = queueManager || queueManager()
   return function (fn) {
     const time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 

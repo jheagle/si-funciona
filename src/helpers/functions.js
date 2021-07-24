@@ -151,11 +151,11 @@ export const queueManager = (queue = []) => {
 /**
  * Manage functions to run sequentially with delays.
  * @function
- * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {module:functionHelpers~queueManagerHandle} [queueManager=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}
  */
-export const queueTimeout = (queue = []) => {
-  const manager = queueManager(queue)
+export const queueTimeout = (queueManager = null) => {
+  const manager = queueManager || queueManager()
   return (fn, time = 0, ...args) => manager(() => delay(time).resolver.then(() => fn(...args)))
 }
 
