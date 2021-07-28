@@ -1,27 +1,5 @@
 'use strict'
 
-function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
-
-require('core-js/modules/es.array.iterator.js')
-
-require('core-js/modules/es.object.to-string.js')
-
-require('core-js/modules/es.string.iterator.js')
-
-require('core-js/modules/es.weak-map.js')
-
-require('core-js/modules/esnext.weak-map.delete-all.js')
-
-require('core-js/modules/web.dom-collections.iterator.js')
-
-require('core-js/modules/es.object.get-own-property-descriptor.js')
-
-require('core-js/modules/es.symbol.js')
-
-require('core-js/modules/es.symbol.description.js')
-
-require('core-js/modules/es.symbol.iterator.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -31,19 +9,17 @@ require('core-js/modules/es.object.assign.js')
 
 require('core-js/stable')
 
-const arrayHelpers = _interopRequireWildcard(require('./helpers/arrays'))
+const _arrays = _interopRequireDefault(require('./helpers/arrays'))
 
-const descriptors = _interopRequireWildcard(require('./helpers/objects/descriptors'))
+const _descriptors = _interopRequireDefault(require('./helpers/descriptors'))
 
-const functionHelpers = _interopRequireWildcard(require('./helpers/functions'))
+const _functions = _interopRequireDefault(require('./helpers/functions'))
 
-const numberHelpers = _interopRequireWildcard(require('./helpers/numbers'))
+const _numbers = _interopRequireDefault(require('./helpers/numbers'))
 
-const objectHelpers = _interopRequireWildcard(require('./helpers/objects'))
+const _objects = _interopRequireDefault(require('./helpers/objects'))
 
-function _getRequireWildcardCache (nodeInterop) { if (typeof WeakMap !== 'function') return null; const cacheBabelInterop = new WeakMap(); const cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop })(nodeInterop) }
-
-function _interopRequireWildcard (obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } const cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj) } const newObj = {}; const hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (const key in obj) { if (key !== 'default' && Object.prototype.hasOwnProperty.call(obj, key)) { const desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
+function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
  * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
@@ -83,6 +59,6 @@ const noConflict = function noConflict () {
 
 functionalHelpers.noConflict = noConflict
 
-const _default = Object.assign(functionalHelpers, arrayHelpers, descriptors, functionHelpers, numberHelpers, objectHelpers)
+const _default = Object.assign(functionalHelpers, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default)
 
 exports.default = _default

@@ -1,0 +1,25 @@
+'use strict'
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+})
+exports.default = void 0
+
+require('core-js/stable')
+
+const _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
+
+function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+
+/**
+ * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
+ * @function
+ * @see {@link module:objects~mergeObjectsCallback}
+ * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
+ * @returns {*}
+ */
+const mergeObjects = (0, _mergeObjectsBase.default)({
+  useClone: true
+})
+const _default = mergeObjects
+exports.default = _default
