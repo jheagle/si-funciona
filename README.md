@@ -73,6 +73,7 @@ Some simple utility functions for generating arrays or performing work on arrays
 
 * [arrayHelpers](#module_arrayHelpers)
     * _static_
+        * [.addUniqueToArray(item, array)](#module_arrayHelpers.addUniqueToArray) ⇒ <code>Array</code> \| <code>Buffer</code> \| <code>\*</code> \| <code>string</code>
         * [.buildArray(item, length)](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
         * [.buildArrayOfReferences(item, length)](#module_arrayHelpers.buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
         * [.compareArrays(...arrays)](#module_arrayHelpers.compareArrays) ⇒ [<code>Array.&lt;compareArrayResult&gt;</code>](#module_arrayHelpers..compareArrayResult)
@@ -80,6 +81,18 @@ Some simple utility functions for generating arrays or performing work on arrays
         * [.uniqueArray(array)](#module_arrayHelpers.uniqueArray) ⇒ <code>Array</code>
     * _inner_
         * [~compareArrayResult](#module_arrayHelpers..compareArrayResult) : <code>Object.&lt;string, (string\|Array.&lt;number&gt;)&gt;</code>
+
+<a name="module_arrayHelpers.addUniqueToArray"></a>
+
+### arrayHelpers.addUniqueToArray(item, array) ⇒ <code>Array</code> \| <code>Buffer</code> \| <code>\*</code> \| <code>string</code>
+Having an array and a potential new array element, check if the element is in the array, if not append to array.
+
+**Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| item | <code>\*</code> | An potential array element, possibly a DomItem |
+| array | <code>Array</code> | An array where an element may be appended. |
 
 <a name="module_arrayHelpers.buildArray"></a>
 

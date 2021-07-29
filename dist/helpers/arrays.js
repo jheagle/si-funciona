@@ -7,6 +7,8 @@ exports.default = void 0
 
 require('core-js/stable')
 
+const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
+
 const _buildArray = _interopRequireDefault(require('./arrays/buildArray'))
 
 const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences'))
@@ -28,6 +30,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @memberOf module:functionalHelpers
  */
 const _default = {
+  addUniqueToArray: _addUniqueToArray.default,
   buildArray: _buildArray.default,
   buildArrayOfReferences: _buildArrayOfReferences.default,
   compareArrays: _compareArrays.default,
