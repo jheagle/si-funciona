@@ -47,7 +47,8 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
 
 /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} queueManagerHandle
+ * @typedef {Function} module:functionHelpers~queueManagerHandle
+ * @memberOf module:functionHelpers
  * @param {Function} fn - A function to enqueue
  * @param  {...*} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
@@ -56,8 +57,9 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
 /**
  * Manage functions to run sequentially.
  * @function
- * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManagerHandle}
+ * @memberOf module:functionHelpers
+ * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {module:functionHelpers~queueManagerHandle}
  */
 const queueManager = function queueManager () {
   const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []

@@ -16,24 +16,11 @@ const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
  * Get a new copy of an existing Descriptor Detail
- * @param {descriptorDetail} originalDetail
- * @returns {descriptorDetail}
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
 const cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
   const copyDetail = {};

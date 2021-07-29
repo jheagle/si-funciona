@@ -16,6 +16,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Output the a value with label to the console and return the value to not interrupt the code.
  * @function
+ * @memberOf module:functionHelpers
  * @param {string} label - Pass an identifying label of the value being output.
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}

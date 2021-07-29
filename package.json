@@ -12,8 +12,8 @@
     "resolutions": "npx npm-force-resolutions"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
     "babel-jest": "^27.0.6",
     "browserify": "^17.0.0",
     "del": "^6.0.0",
@@ -21,7 +21,7 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
@@ -31,7 +31,7 @@
     "gulp-cli": "^2.3.0",
     "gulp-eslint": "^6.0.0",
     "gulp-rename": "^2.0.0",
-    "gulp-uglify-es": "^2.0.0",
+    "gulp-uglify-es": "^3.0.0",
     "jest": "^27.0.6",
     "jsdoc": "^3.6.7",
     "jsdoc-to-markdown": "^7.0.1",
@@ -41,10 +41,10 @@
     "yargs-parser": "^20.2.9"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.14.7",
+    "@babel/runtime-corejs3": "^7.14.8",
     "core-js": "^3.15.2",
-    "npm": "^7.20.0",
-    "regenerator-runtime": "^0.13.7"
+    "npm": "^7.20.3",
+    "regenerator-runtime": "^0.13.9"
   },
   "directories": {
     "test": "tests"

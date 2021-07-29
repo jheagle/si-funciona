@@ -16,16 +16,9 @@ const _queueManager = _interopRequireDefault(require('./queueManager'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} queueManagerHandle
- * @param {Function} fn - A function to enqueue
- * @param  {...*} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
- */
-
-/**
  * Run Timeout functions one after the otherin queue.
- * @typedef {Function} queueTimeoutHandle
+ * @typedef {Function} module:functionHelpers~queueTimeoutHandle
+ * @memberOf module:functionHelpers
  * @param {Function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
@@ -35,8 +28,9 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Manage functions to run sequentially with delays.
  * @function
- * @param {queueManagerHandle} [queueManagerHandle=null]
- * @returns {queueTimeoutHandle}
+ * @memberOf module:functionHelpers
+ * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
+ * @returns {module:functionHelpers~queueTimeoutHandle}
  */
 const queueTimeout = function queueTimeout () {
   const queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null

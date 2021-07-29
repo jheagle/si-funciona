@@ -25,6 +25,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module arrayHelpers
+ * @memberOf module:functionalHelpers
  */
 const _default = {
   buildArray: _buildArray.default,

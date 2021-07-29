@@ -30,34 +30,10 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-/**
- * Find the index of the next descriptorDetail to build a resource for.
- * @param {descriptor} descriptor
+ * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor
  * @param {number} currentReference
  * @returns {number|undefined}
  */

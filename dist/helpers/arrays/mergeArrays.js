@@ -58,7 +58,8 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
 /**
  * Take multiple arrays and then filter all these into one unique array.
  * @function
- * @param {...Array} arrays - Provide mulitple arrays to create one unique array
+ * @memberOf module:arrayHelpers
+ * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}
  */
 const mergeArrays = function mergeArrays () {

@@ -14,7 +14,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
  * @function
- * @see {@link module:objects~mergeObjectsCallback}
+ * @memberOf module:objectHelpers
+ * @see {@link module:objectHelpers~mergeObjectsCallback}
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */

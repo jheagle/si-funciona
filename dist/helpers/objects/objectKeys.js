@@ -18,6 +18,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
+ * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}

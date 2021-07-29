@@ -52,25 +52,12 @@ function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToA
 function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
  * Assign properties from other details onto an existing detail.
- * @param {descriptorDetail} originalDetail
- * @param  {...descriptorDetail} details
- * @returns {descriptorDetail}
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail
+ * @param  {...module:objectDescriptors~descriptorDetail} details
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
 const assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
   for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {

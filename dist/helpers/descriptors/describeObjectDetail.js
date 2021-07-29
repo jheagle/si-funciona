@@ -32,27 +32,13 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
  * Trace an object's attribute and provide details about it.
  * @function
+ * @memberOf module:objectDescriptors
  * @param {*} value
  * @param {string|number} [key=0]
  * @param {number} [index=0]
- * @returns {descriptorDetail}
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
 const describeObjectDetail = function describeObjectDetail (value) {
   const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0

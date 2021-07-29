@@ -6,7 +6,8 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 
 /**
- * @typedef {Object} descriptorDetail
+ * @typedef {Object} module:objectDescriptors~descriptorDetail
+ * @memberOf module:objectDescriptors
  * @property {number} index
  * @property {string|number} key
  * @property {Array.<string>} type
@@ -21,7 +22,8 @@ exports.default = void 0
  */
 
 /**
- * @type {descriptorDetail}
+ * @type {module:objectDescriptors~descriptorDetail}
+ * @memberOf module:objectDescriptors
  */
 const descriptorDetailSample = {
   index: 0,

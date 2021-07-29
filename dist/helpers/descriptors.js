@@ -34,10 +34,12 @@ const _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescri
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
- * Create a format to standarize every object into a specific template.
+ * Create a format to standardize every object into a specific template.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module objectDescriptors
+ * @memberOf module:functionalHelpers
  */
 const _default = {
   assignDescriptor: _assignDescriptor.default,

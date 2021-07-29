@@ -36,37 +36,12 @@ const _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-/**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
  * @function
- * @param {descriptor} originalMap
- * @param  {...descriptor} descriptors
- * @returns {descriptor}
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} originalMap
+ * @param  {...module:objectDescriptors~descriptor} descriptors
+ * @returns {module:objectDescriptors~descriptor}
  */
 const assignDescriptor = function assignDescriptor (originalMap) {
   for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {

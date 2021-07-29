@@ -19,6 +19,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 
 /**
  * Check if the current object has inherited properties.
+ * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @returns {boolean}
  */

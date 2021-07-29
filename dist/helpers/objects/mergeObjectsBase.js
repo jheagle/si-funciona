@@ -25,7 +25,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 
 /**
  * Function that takes one or more objects and combines them into one.
- * @typedef {Function} mergeObjectsCallback
+ * @typedef {Function} module:objectHelpers~mergeObjectsCallback
+ * @memberOf module:objectHelpers
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -34,13 +35,14 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
  * @param {number} [options.depthLimit=-1]
  * @param {number} [options.relevancyRange=100]
  * @param {Iterable|array} [options.map=[]]
  * @param {boolean} [options.useClone=false]
- * @returns {mergeObjectsCallback}
+ * @returns {module:objectHelpers~mergeObjectsCallback}
  */
 const mergeObjectsBase = function mergeObjectsBase () {
   const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}

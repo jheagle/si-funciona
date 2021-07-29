@@ -20,36 +20,11 @@ require('core-js/modules/es.array.find.js')
 require('core-js/stable')
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-/**
  * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
  * @function
- * @param {descriptor} descriptor1
- * @param {descriptor} descriptor2
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor1
+ * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
 const compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {

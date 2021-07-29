@@ -13,6 +13,7 @@ require('core-js/stable')
  * 0 to indicate both values are the equal
  * 1 to indicate val1 is greater than val2
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} val1 - The first number to compare
  * @param {number} val2 - The second number to compare
  * @returns {number}

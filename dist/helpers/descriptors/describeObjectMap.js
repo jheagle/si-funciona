@@ -30,44 +30,15 @@ const _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-/**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-/**
- * @typedef {Array.<descriptor>} descriptorMap
- */
-
-/**
  * Trace out the entire object including nested objects.
  * @function
+ * @memberOf module:objectDescriptors
  * @param {Object|Array} object
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000000000]
  * @param {number} [options.depthLimit=-1]
  * @param {boolean} [options.keepValues=false]
- * @returns {descriptorMap}
+ * @returns {module:objectDescriptors~descriptorMap}
  */
 const describeObjectMap = function describeObjectMap (object) {
   const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}

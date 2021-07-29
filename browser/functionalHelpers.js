@@ -27,6 +27,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module arrayHelpers
+ * @memberOf module:functionalHelpers
  */
     const _default = {
       buildArray: _buildArray.default,
@@ -55,6 +56,7 @@
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
  * @function
+ * @memberOf module:arrayHelpers
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
@@ -87,6 +89,7 @@
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
  * @function
+ * @memberOf module:arrayHelpers
  * @param {*} item - The item to be used for each array element
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
@@ -167,10 +170,6 @@
  * - value stores the element value from the arrays being compared
  * - results has the comparison results where first index (0) is result for first compared array
  *   and the second index (1) will be the result for the second compared array
- * @typedef {Object.<string, string|Array.<number>>} compareArrayResult
- * @property {string} value - The element value being compared
- * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
- * @property {Array.<number>} result - The results in the order of the compared arrays
  * @example
  * // example of input and resulting output
  *
@@ -191,8 +190,14 @@
  * // compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }
  * // First index of -1 indicates this value only exists in the second array
  * // Second index of 1 indicates this value in the second array might need to be added to the first array
+ * @typedef {Object.<string, string|Array.<number>>} module:arrayHelpers~compareArrayResult
+ * @memberOf module:arrayHelpers
+ * @property {string} value - The element value being compared
+ * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
+ * @property {Array.<number>} result - The results in the order of the compared arrays
+ */
 
- /**
+    /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2
  * 0 to indicate both values are the equal
@@ -203,7 +208,6 @@
  * Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
  * the first length will be one or more and the second will be zero, if the both have the value then both will be one
  * or more.
- * @function
  * @example
  * // example of input and resulting output
  * compareArrays(
@@ -246,8 +250,10 @@
  *   }
  * ]
  *
+ * @function
+ * @memberOf module:arrayHelpers
  * @param {...Array} arrays - The arrays to compare
- * @returns {Array.<compareArrayResult>}
+ * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
     const compareArrays = function compareArrays () {
       for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -365,7 +371,8 @@
     /**
  * Take multiple arrays and then filter all these into one unique array.
  * @function
- * @param {...Array} arrays - Provide mulitple arrays to create one unique array
+ * @memberOf module:arrayHelpers
+ * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}
  */
     const mergeArrays = function mergeArrays () {
@@ -400,6 +407,7 @@
     /**
  * Remove duplicate values from an array.
  * @function uniqueArray
+ * @memberOf module:arrayHelpers
  * @param {Array} array - The array to make unique
  * @returns {Array}
  */
@@ -449,10 +457,12 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * Create a format to standarize every object into a specific template.
+ * Create a format to standardize every object into a specific template.
+ * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module objectDescriptors
+ * @memberOf module:functionalHelpers
  */
     const _default = {
       assignDescriptor: _assignDescriptor.default,
@@ -509,37 +519,12 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
  * @function
- * @param {descriptor} originalMap
- * @param  {...descriptor} descriptors
- * @returns {descriptor}
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} originalMap
+ * @param  {...module:objectDescriptors~descriptor} descriptors
+ * @returns {module:objectDescriptors~descriptor}
  */
     const assignDescriptor = function assignDescriptor (originalMap) {
       for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -654,25 +639,12 @@
     function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
  * Assign properties from other details onto an existing detail.
- * @param {descriptorDetail} originalDetail
- * @param  {...descriptorDetail} details
- * @returns {descriptorDetail}
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail
+ * @param  {...module:objectDescriptors~descriptorDetail} details
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
     const assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
       for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -719,36 +691,12 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Check if we should clear the values on this descriptor
- * @param {descriptor} descriptor
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor
  * @param {boolean} [keepValues=false]
- * @returns {descriptor}
+ * @returns {module:objectDescriptors~descriptor}
  */
     const checkClearValues = function checkClearValues (descriptor) {
       const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
@@ -777,35 +725,11 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Check if the descriptors references have all been built and set complete to true if they have.
- * @param {descriptor} descriptor
- * @returns {descriptor}
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor
+ * @returns {module:objectDescriptors~descriptor}
  */
     const checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
       return (0, _setValue.default)('complete', descriptor.references.every(function (refId) {
@@ -841,36 +765,11 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Make a copy of an object descriptor so that the original will not be mutated.
  * @function
- * @param {descriptor} originalMap
- * @returns {descriptor}
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} originalMap
+ * @returns {module:objectDescriptors~descriptor}
  */
     const cloneDescriptor = function cloneDescriptor (originalMap) {
       const copyMap = {}
@@ -910,24 +809,11 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
  * Get a new copy of an existing Descriptor Detail
- * @param {descriptorDetail} originalDetail
- * @returns {descriptorDetail}
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
     const cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
       const copyDetail = {};
@@ -967,36 +853,11 @@
     require('core-js/stable')
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
  * @function
- * @param {descriptor} descriptor1
- * @param {descriptor} descriptor2
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor1
+ * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
     const compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
@@ -1047,36 +908,11 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
  * Trace an object and return the descriptor which defines the object's structure and attributes.
  * @function
+ * @memberOf module:objectDescriptors
  * @param {Object} object
- * @returns {descriptor}
+ * @returns {module:objectDescriptors~descriptor}
  */
     const describeObject = function describeObject (object) {
       const descriptor = {
@@ -1156,27 +992,13 @@
     function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
  * Trace an object's attribute and provide details about it.
  * @function
+ * @memberOf module:objectDescriptors
  * @param {*} value
  * @param {string|number} [key=0]
  * @param {number} [index=0]
- * @returns {descriptorDetail}
+ * @returns {module:objectDescriptors~descriptorDetail}
  */
     const describeObjectDetail = function describeObjectDetail (value) {
       const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
@@ -1235,44 +1057,15 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
- * @typedef {Array.<descriptor>} descriptorMap
- */
-
-    /**
  * Trace out the entire object including nested objects.
  * @function
+ * @memberOf module:objectDescriptors
  * @param {Object|Array} object
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000000000]
  * @param {number} [options.depthLimit=-1]
  * @param {boolean} [options.keepValues=false]
- * @returns {descriptorMap}
+ * @returns {module:objectDescriptors~descriptorMap}
  */
     const describeObjectMap = function describeObjectMap (object) {
       const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
@@ -1408,34 +1201,10 @@
     function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
- * Find the index of the next descriptorDetail to build a resource for.
- * @param {descriptor} descriptor
+ * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor
  * @param {number} currentReference
  * @returns {number|undefined}
  */
@@ -1473,35 +1242,11 @@
     require('core-js/stable')
 
     /**
- * @typedef {Object} descriptorDetail
- * @property {number} index
- * @property {string|number} key
- * @property {Array.<string>} type
- * @property {Array} value
- * @property {boolean} nullable
- * @property {boolean} optional
- * @property {boolean} circular
- * @property {boolean} isReference
- * @property {boolean} isInstance
- * @property {null|number} arrayReference
- * @property {null|number} objectReference
- */
-
-    /**
- * @typedef {Object} descriptor
- * @property {number} index
- * @property {Array.<descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-
-    /**
- *
- * @param {descriptor} descriptor1
- * @param {descriptor} descriptor2
+ * Check if the two descriptors are the same.
+ * @function
+ * @memberOf module:objectDescriptors
+ * @param {module:objectDescriptors~descriptor} descriptor1
+ * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
     const sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
@@ -1549,6 +1294,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module functionHelpers
+ * @memberOf module:functionalHelpers
  */
     const _default = {
       callWithParams: _callWithParams.default,
@@ -1607,6 +1353,7 @@
     /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
  * @function
+ * @memberOf module:functionHelpers
  * @param {Function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
@@ -1638,6 +1385,7 @@
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
  * @function
+ * @memberOf module:functionHelpers
  * @param {Function} fn - Receives a function to be curried
  * @returns {Function|*}
  */
@@ -1680,7 +1428,8 @@
 
     /**
  * Provide a way to cancel a request or attach a resolve event.
- * @typedef {Object} delayHandler
+ * @typedef {Object} module:functionHelpers~delayHandler
+ * @memberOf module:functionHelpers
  * @property {Promise} resolver
  * @property {Function} cancel
  */
@@ -1688,8 +1437,9 @@
     /**
  * Provide a timeout which returns a promise.
  * @function
+ * @memberOf module:functionHelpers
  * @param {number} time - Delay in milliseconds
- * @returns {delayHandler}
+ * @returns {module:functionHelpers~delayHandler}
  */
     const delay = function delay () {
       const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
@@ -1734,6 +1484,7 @@
  * Take one or more function with a single parameter and return value.
  * Pass a parameter and the value will be transformed by each function then returned.
  * @function
+ * @memberOf module:functionHelpers
  * @param {...Function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
@@ -1798,7 +1549,8 @@
 
     /**
  * The return function which takes the missing parameter in order to call the preloaded function.
- * @typedef {Function} callWithMissing
+ * @typedef {Function} module:functionHelpers~callWithMissing
+ * @memberOf module:functionHelpers
  * @param {*} missing - The missing parameter to be applied
  * @returns {*}
  */
@@ -1807,10 +1559,11 @@
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
  * @function
+ * @memberOf module:functionHelpers
  * @param {Function} fn - The function to be called
  * @param {Array} params - The parameters to preload
  * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
- * @returns {callWithMissing}
+ * @returns {module:functionHelpers~callWithMissing}
  */
     const preloadParams = function preloadParams (fn) {
       const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
@@ -1874,7 +1627,8 @@
 
     /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} queueManagerHandle
+ * @typedef {Function} module:functionHelpers~queueManagerHandle
+ * @memberOf module:functionHelpers
  * @param {Function} fn - A function to enqueue
  * @param  {...*} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
@@ -1883,8 +1637,9 @@
     /**
  * Manage functions to run sequentially.
  * @function
- * @param {Iterable} [queue=[]] - The iterable that can be used to store queued functions
- * @returns {queueManagerHandle}
+ * @memberOf module:functionHelpers
+ * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
+ * @returns {module:functionHelpers~queueManagerHandle}
  */
     const queueManager = function queueManager () {
       const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
@@ -1964,16 +1719,9 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} queueManagerHandle
- * @param {Function} fn - A function to enqueue
- * @param  {...*} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
- */
-
-    /**
  * Run Timeout functions one after the otherin queue.
- * @typedef {Function} queueTimeoutHandle
+ * @typedef {Function} module:functionHelpers~queueTimeoutHandle
+ * @memberOf module:functionHelpers
  * @param {Function} fn - A callback function to be performed at some time in the future.
  * @param {number} time - The time in milliseconds to delay.
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
@@ -1983,8 +1731,9 @@
     /**
  * Manage functions to run sequentially with delays.
  * @function
- * @param {queueManagerHandle} [queueManagerHandle=null]
- * @returns {queueTimeoutHandle}
+ * @memberOf module:functionHelpers
+ * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
+ * @returns {module:functionHelpers~queueTimeoutHandle}
  */
     const queueTimeout = function queueTimeout () {
       const queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
@@ -2026,6 +1775,7 @@
     /**
  * Output the a value with label to the console and return the value to not interrupt the code.
  * @function
+ * @memberOf module:functionHelpers
  * @param {string} label - Pass an identifying label of the value being output.
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
@@ -2070,6 +1820,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module numberHelpers
+ * @memberOf module:functionalHelpers
  */
     const _default = {
       absoluteMax: _absoluteMax.default,
@@ -2093,6 +1844,7 @@
     /**
  * Helper for returning the absolute max value
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} num1 - A number to compare
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
@@ -2117,6 +1869,7 @@
     /**
  * Helper for returning the absolute min value
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} num1 - A number to compare
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
@@ -2144,6 +1897,7 @@
  * 0 to indicate both values are the equal
  * 1 to indicate val1 is greater than val2
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} val1 - The first number to compare
  * @param {number} val2 - The second number to compare
  * @returns {number}
@@ -2169,6 +1923,7 @@
  * Create a single random integer within provide range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} range - Choose the breadth of the random number (0-100 would be 100 for range)
  * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 9 for range)
  * @param {number} [interval=1] - Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for
@@ -2198,6 +1953,7 @@
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
  * @function
+ * @memberOf module:numberHelpers
  * @param {number} range - Choose the breadth of the random number (0-100 would be 100 for range)
  * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 9 for range)
  * @param {number} [interval=1] - Choose the distance between numbers (~5, ~10, ~15 would be 5 for interval, 1 for
@@ -2261,6 +2017,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module objectHelpers
+ * @memberOf module:functionalHelpers
  */
     const _default = {
       cloneObject: _cloneObject.default,
@@ -2300,6 +2057,7 @@
     /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
@@ -2350,6 +2108,7 @@
     /**
  * Helper function for testing if the item is an Object or Array that does not have any properties
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
@@ -2383,7 +2142,8 @@
     /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
  * otherwise, taking three arguments
- * @callback filterCallback
+ * @callback module:objectHelpers~filterCallback
+ * @memberOf module:objectHelpers
  * @param {*} currentProperty - The current property being processed in the object.
  * @param {string} [currentIndex] - The property name of the current property being processed in the object.
  * @param {Object|Array} [object] - The object filter was called upon.
@@ -2395,8 +2155,9 @@
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
  * always use the standard filter() function when it is known that the object is actually an array.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {filterCallback|Function} fn - The function to be processed for each filtered property
+ * @param {module:objectHelpers~filterCallback|Function} fn - The function to be processed for each filtered property
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
@@ -2451,6 +2212,7 @@
     /**
  * Determine if the value is a reference instance
  * @function
+ * @memberOf module:objectHelpers
  * @param {Array|Object|*} value
  * @returns {boolean}
  */
@@ -2483,6 +2245,8 @@
 
     /**
  * Check if the current object has inherited properties.
+ * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @returns {boolean}
  */
@@ -2527,6 +2291,13 @@
 
     function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
+    /**
+ * Check if the provided thing is an object.
+ * @function
+ * @memberOf module:objectHelpers
+ * @param {*} object
+ * @returns {boolean}
+ */
     const isObject = function isObject (object) {
       return _typeof(object) === 'object' && object !== null
     }
@@ -2558,7 +2329,8 @@
 
     /**
  * Function that produces a property of the new Object, taking three arguments
- * @callback mapCallback
+ * @callback module:objectHelpers~mapCallback
+ * @memberOf module:objectHelpers
  * @param {*} currentProperty - The current property being processed in the object.
  * @param {string} [currentIndex] - The property name of the current property being processed in the object.
  * @param {Object|Array} [object] - The object map was called upon.
@@ -2570,8 +2342,9 @@
  * If an array is passed in instead then it will perform standard map(). It is recommended to
  * always use the standard map() function when it is known that the object is actually an array.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be mapped
- * @param {mapCallback|Function} fn - The function to be processed for each mapped property
+ * @param {module:objectHelpers~mapCallback|Function} fn - The function to be processed for each mapped property
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
@@ -2604,7 +2377,8 @@
     /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
  * @function
- * @see {@link module:objects~mergeObjectsCallback}
+ * @memberOf module:objectHelpers
+ * @see {@link module:objectHelpers~mergeObjectsCallback}
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -2642,7 +2416,8 @@
 
     /**
  * Function that takes one or more objects and combines them into one.
- * @typedef {Function} mergeObjectsCallback
+ * @typedef {Function} module:objectHelpers~mergeObjectsCallback
+ * @memberOf module:objectHelpers
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -2651,13 +2426,14 @@
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]
  * @param {number} [options.depthLimit=-1]
  * @param {number} [options.relevancyRange=100]
  * @param {Iterable|array} [options.map=[]]
  * @param {boolean} [options.useClone=false]
- * @returns {mergeObjectsCallback}
+ * @returns {module:objectHelpers~mergeObjectsCallback}
  */
     const mergeObjectsBase = function mergeObjectsBase () {
       const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
@@ -2779,7 +2555,8 @@
     /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
  * @function
- * @see {@link module:objects~mergeObjectsCallback}
+ * @memberOf module:objectHelpers
+ * @see {@link module:objectHelpers~mergeObjectsCallback}
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
@@ -2808,6 +2585,8 @@
     /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
+ * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}
@@ -2865,6 +2644,8 @@
     /**
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
+ * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @param {boolean} [includeInherited=false]
  * @returns {Array}
@@ -2899,7 +2680,8 @@
 
     /**
  * Function to execute on each property in the object, taking four arguments
- * @callback reduceCallback
+ * @callback module:objectHelpers~reduceCallback
+ * @memberOf module:objectHelpers
  * @param {*} [accumulator={}] - The accumulator accumulates the callback's return values; it is the accumulated
  * value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
  * @param {*} [currentProperty={}] - The current property being processed in the object.
@@ -2914,8 +2696,9 @@
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
  * always use the standard reduce() function when it is known that the object is actually an array.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {reduceCallback|Function} fn - The function to be processed for each filtered property
+ * @param {module:objectHelpers~reduceCallback|Function} fn - The function to be processed for each filtered property
  * @param {Object|Array} [initialValue] - Optional. Value to use as the first argument to the first call of the
  * callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty
  * array without an initial value is an error.
@@ -2946,6 +2729,7 @@
     /**
  * Set a value on an item, then return the value
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object|Array} item - An object or array to be updated
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
@@ -2973,6 +2757,7 @@
  * Set a value on an item, then return the item.
  * NOTE: Argument order designed for usage with pipe
  * @function
+ * @memberOf module:objectHelpers
  * @param {string|number} key - The key on the item which will have its value set
  * @param {*} value - Any value to be applied to the key
  * @param {Object|Array} item - An object or array to be updated
@@ -3021,27 +2806,27 @@
  */
 
         /**
-   * Store a reference to this scope which will be Window if rendered via browser
-   */
+ * Store a reference to this scope which will be Window if rendered via browser
+ */
         const root = void 0 || window || global || {}
         /**
-   * Store reference to any pre-existing module of the same name
-   * @type {module|*}
-   */
+ * Store reference to any pre-existing module of the same name
+ * @type {module|*}
+ */
 
         const previousFunctionalHelpers = root.functionalHelpers || {}
         /**
-   * All methods exported from this module are encapsulated within functionalHelpers.
-   * @typedef {module:functionalHelpers|module:arrayHelpers|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
-   */
+ * All methods exported from this module are encapsulated within functionalHelpers.
+ * @typedef {module:functionalHelpers|module:arrayHelpers|module:objectDescriptors|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
+ */
 
         const functionalHelpers = {}
         root.functionalHelpers = functionalHelpers
         /**
-   * Return a reference to this library while preserving the original same-named library
-   * @function
-   * @returns {module:functionalHelpers~functionalHelpers}
-   */
+ * Return a reference to this library while preserving the original same-named library
+ * @function
+ * @returns {functionalHelpers}
+ */
 
         const noConflict = function noConflict () {
           root.functionalHelpers = previousFunctionalHelpers
@@ -15185,9 +14970,9 @@
       // This is a polyfill for %IteratorPrototype% for environments that
       // don't natively support it.
       let IteratorPrototype = {}
-      IteratorPrototype[iteratorSymbol] = function () {
+      define(IteratorPrototype, iteratorSymbol, function () {
         return this
-      }
+      })
 
       const getProto = Object.getPrototypeOf
       const NativeIteratorPrototype = getProto && getProto(getProto(values([])))
@@ -15201,8 +14986,9 @@
 
       const Gp = GeneratorFunctionPrototype.prototype =
     Generator.prototype = Object.create(IteratorPrototype)
-      GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype
-      GeneratorFunctionPrototype.constructor = GeneratorFunction
+      GeneratorFunction.prototype = GeneratorFunctionPrototype
+      define(Gp, 'constructor', GeneratorFunctionPrototype)
+      define(GeneratorFunctionPrototype, 'constructor', GeneratorFunction)
       GeneratorFunction.displayName = define(
         GeneratorFunctionPrototype,
         toStringTagSymbol,
@@ -15316,9 +15102,9 @@
       }
 
       defineIteratorMethods(AsyncIterator.prototype)
-      AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+      define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
         return this
-      }
+      })
       exports.AsyncIterator = AsyncIterator
 
       // Note that simple async functions are implemented on top of
@@ -15507,13 +15293,13 @@
       // iterator prototype chain incorrectly implement this, causing the Generator
       // object to not be returned from this call. This ensures that doesn't happen.
       // See https://github.com/facebook/regenerator/issues/274 for more details.
-      Gp[iteratorSymbol] = function () {
+      define(Gp, iteratorSymbol, function () {
         return this
-      }
+      })
 
-      Gp.toString = function () {
+      define(Gp, 'toString', function () {
         return '[object Generator]'
-      }
+      })
 
       function pushTryEntry (locs) {
         const entry = { tryLoc: locs[0] }
@@ -15828,14 +15614,19 @@
     } catch (accidentalStrictMode) {
       // This module should not be running in strict mode, so the above
       // assignment should always work unless something is misconfigured. Just
-      // in case runtime.js accidentally runs in strict mode, we can escape
+      // in case runtime.js accidentally runs in strict mode, in modern engines
+      // we can explicitly access globalThis. In older engines we can escape
       // strict mode using a global Function call. This could conceivably fail
       // if a Content Security Policy forbids using Function, but in that case
       // the proper solution is to fix the accidental strict mode problem. If
       // you've misconfigured your bundler to force strict mode and applied a
       // CSP to forbid Function, and you're not willing to fix either of those
       // problems, please detail your unique predicament in a GitHub issue.
-      Function('r', 'regeneratorRuntime = r')(runtime)
+      if (typeof globalThis === 'object') {
+        globalThis.regeneratorRuntime = runtime
+      } else {
+        Function('r', 'regeneratorRuntime = r')(runtime)
+      }
     }
   }, {}]
 }, {}, [51])

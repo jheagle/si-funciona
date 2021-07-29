@@ -30,6 +30,7 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
 /**
  * Determine if the value is a reference instance
  * @function
+ * @memberOf module:objectHelpers
  * @param {Array|Object|*} value
  * @returns {boolean}
  */

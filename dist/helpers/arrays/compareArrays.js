@@ -60,10 +60,6 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * - value stores the element value from the arrays being compared
  * - results has the comparison results where first index (0) is result for first compared array
  *   and the second index (1) will be the result for the second compared array
- * @typedef {Object.<string, string|Array.<number>>} compareArrayResult
- * @property {string} value - The element value being compared
- * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
- * @property {Array.<number>} result - The results in the order of the compared arrays
  * @example
  * // example of input and resulting output
  *
@@ -84,8 +80,14 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * // compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }
  * // First index of -1 indicates this value only exists in the second array
  * // Second index of 1 indicates this value in the second array might need to be added to the first array
+ * @typedef {Object.<string, string|Array.<number>>} module:arrayHelpers~compareArrayResult
+ * @memberOf module:arrayHelpers
+ * @property {string} value - The element value being compared
+ * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
+ * @property {Array.<number>} result - The results in the order of the compared arrays
+ */
 
- /**
+/**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2
  * 0 to indicate both values are the equal
@@ -96,7 +98,6 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
  * the first length will be one or more and the second will be zero, if the both have the value then both will be one
  * or more.
- * @function
  * @example
  * // example of input and resulting output
  * compareArrays(
@@ -139,8 +140,10 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  *   }
  * ]
  *
+ * @function
+ * @memberOf module:arrayHelpers
  * @param {...Array} arrays - The arrays to compare
- * @returns {Array.<compareArrayResult>}
+ * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
 const compareArrays = function compareArrays () {
   for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {

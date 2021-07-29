@@ -16,6 +16,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * @function
+ * @memberOf module:objectHelpers
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=1000]

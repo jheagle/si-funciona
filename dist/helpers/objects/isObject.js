@@ -23,6 +23,13 @@ require('core-js/stable')
 
 function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
 
+/**
+ * Check if the provided thing is an object.
+ * @function
+ * @memberOf module:objectHelpers
+ * @param {*} object
+ * @returns {boolean}
+ */
 const isObject = function isObject (object) {
   return _typeof(object) === 'object' && object !== null
 }

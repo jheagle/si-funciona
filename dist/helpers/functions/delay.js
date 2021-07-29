@@ -15,7 +15,8 @@ require('regenerator-runtime/runtime')
 
 /**
  * Provide a way to cancel a request or attach a resolve event.
- * @typedef {Object} delayHandler
+ * @typedef {Object} module:functionHelpers~delayHandler
+ * @memberOf module:functionHelpers
  * @property {Promise} resolver
  * @property {Function} cancel
  */
@@ -23,8 +24,9 @@ require('regenerator-runtime/runtime')
 /**
  * Provide a timeout which returns a promise.
  * @function
+ * @memberOf module:functionHelpers
  * @param {number} time - Delay in milliseconds
- * @returns {delayHandler}
+ * @returns {module:functionHelpers~delayHandler}
  */
 const delay = function delay () {
   const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
