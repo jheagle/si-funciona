@@ -1,13 +1,14 @@
 /**
  * Log out an object in a nicely formatted way.
  * @param {Object} object
+ * @param {string} [label='logging']
  */
-export const logObject = (object, label = '') => {
-  if (label) {
-    console.log(label, require('util').inspect(object, false, null, true))
+export const logObject = (object, label = 'logging') => {
+  if (typeof require === 'undefined') {
+    console.log(label, object)
     return
   }
-  console.log(require('util').inspect(object, false, null, true))
+  console.log(label, require('util').inspect(object, false, null, true))
 }
 
 /**
