@@ -7,8 +7,6 @@ exports.default = void 0
 
 require('core-js/modules/es.object.get-own-property-names.js')
 
-require('core-js/modules/es.parse-int.js')
-
 require('core-js/stable')
 
 const _isObject = _interopRequireDefault(require('./isObject'))

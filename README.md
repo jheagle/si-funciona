@@ -417,6 +417,7 @@ Manage how functions are called with these utilities.
         * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
         * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
         * [.delay(time)](#module_functionHelpers.delay) ⇒ [<code>delayHandler</code>](#module_functionHelpers..delayHandler)
+        * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
         * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
         * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
         * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
@@ -462,6 +463,18 @@ Provide a timeout which returns a promise.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | time | <code>number</code> | <code>0</code> | Delay in milliseconds |
+
+<a name="module_functionHelpers.onBodyLoad"></a>
+
+### functionHelpers.onBodyLoad(callback, [reset]) ⇒ <code>Array.&lt;function()&gt;</code>
+Prepare functions to be called once the body is available.
+
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| callback | <code>function</code> |  | 
+| [reset] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_functionHelpers.pipe"></a>
 

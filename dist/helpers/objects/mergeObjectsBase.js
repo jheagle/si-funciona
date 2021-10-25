@@ -9,8 +9,6 @@ require('core-js/modules/es.array.map.js')
 
 require('core-js/modules/es.array.filter.js')
 
-require('core-js/modules/es.array.reduce.js')
-
 require('core-js/modules/es.array.find.js')
 
 require('core-js/stable')

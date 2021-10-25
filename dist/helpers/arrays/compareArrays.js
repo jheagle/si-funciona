@@ -1,5 +1,20 @@
 'use strict'
 
+require('core-js/modules/es.array.from.js')
+
+require('core-js/modules/es.array.slice.js')
+
+require('core-js/modules/es.function.name.js')
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+})
+exports.default = void 0
+
+require('core-js/modules/es.array.map.js')
+
+require('core-js/modules/es.array.concat.js')
+
 require('core-js/modules/es.symbol.js')
 
 require('core-js/modules/es.symbol.description.js')
@@ -13,23 +28,6 @@ require('core-js/modules/es.array.iterator.js')
 require('core-js/modules/es.string.iterator.js')
 
 require('core-js/modules/web.dom-collections.iterator.js')
-
-require('core-js/modules/es.array.from.js')
-
-require('core-js/modules/es.array.slice.js')
-
-require('core-js/modules/es.function.name.js')
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-})
-exports.default = void 0
-
-require('core-js/modules/es.array.reduce.js')
-
-require('core-js/modules/es.array.map.js')
-
-require('core-js/modules/es.array.concat.js')
 
 require('core-js/stable')
 

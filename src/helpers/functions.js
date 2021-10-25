@@ -11,6 +11,7 @@ import 'core-js/stable'
 import callWithParams from './functions/callWithParams'
 import curry from './functions/curry'
 import delay from './functions/delay'
+import onBodyLoad from './functions/onBodyLoad'
 import pipe from './functions/pipe'
 import preloadParams from './functions/preloadParams'
 import queueManager from './functions/queueManager'
@@ -21,6 +22,7 @@ export default {
   callWithParams,
   curry,
   delay,
+  onBodyLoad,
   pipe,
   preloadParams,
   queueManager,

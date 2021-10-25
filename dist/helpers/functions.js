@@ -13,6 +13,8 @@ const _curry = _interopRequireDefault(require('./functions/curry'))
 
 const _delay = _interopRequireDefault(require('./functions/delay'))
 
+const _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
+
 const _pipe = _interopRequireDefault(require('./functions/pipe'))
 
 const _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
@@ -37,6 +39,7 @@ const _default = {
   callWithParams: _callWithParams.default,
   curry: _curry.default,
   delay: _delay.default,
+  onBodyLoad: _onBodyLoad.default,
   pipe: _pipe.default,
   preloadParams: _preloadParams.default,
   queueManager: _queueManager.default,

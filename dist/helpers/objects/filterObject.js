@@ -7,8 +7,6 @@ exports.default = void 0
 
 require('core-js/modules/es.array.filter.js')
 
-require('core-js/modules/es.array.reduce.js')
-
 require('core-js/stable')
 
 const _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
