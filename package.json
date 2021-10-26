@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest",
     "readme": "cp MAIN.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/arrays/*.js src/helpers/descriptors/samples/*.js src/helpers/descriptors/*.js src/helpers/functions/*.js src/helpers/numbers/*.js src/helpers/objects/*.js >> README.md",
-    "htmldocs": "jsdoc -R MAIN.md -r tests/testHelpers.js src/ -d docs",
+    "htmldocs": "jsdoc -R MAIN.md -r src/ -d docs",
     "resolutions": "npx npm-force-resolutions"
   },
   "devDependencies": {
