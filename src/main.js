@@ -6,17 +6,22 @@
  * @module functionalHelpers
  */
 
-import 'core-js/stable'
-import arrayHelpers from './helpers/arrays'
-import descriptors from './helpers/descriptors'
-import functionHelpers from './helpers/functions'
-import numberHelpers from './helpers/numbers'
-import objectHelpers from './helpers/objects'
+import arrayHelpers from './helpers/arrays.js'
+import descriptors from './helpers/descriptors.js'
+import functionHelpers from './helpers/functions.js'
+import numberHelpers from './helpers/numbers.js'
+import objectHelpers from './helpers/objects.js'
 
-export default {
+const functionalHelpers = Object.assign(
+  {},
   arrayHelpers,
   descriptors,
   functionHelpers,
   numberHelpers,
   objectHelpers
-}
+)
+
+export default functionalHelpers
+
+const root = this || (typeof window !== 'undefined') ? window : {}
+root['functionalHelpers'] = functionalHelpers

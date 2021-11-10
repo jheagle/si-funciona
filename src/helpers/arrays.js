@@ -8,12 +8,12 @@
  */
 
 import 'core-js/stable'
-import addUniqueToArray from './arrays/addUniqueToArray'
-import buildArray from './arrays/buildArray'
-import buildArrayOfReferences from './arrays/buildArrayOfReferences'
-import compareArrays from './arrays/compareArrays'
-import mergeArrays from './arrays/mergeArrays'
-import uniqueArray from './arrays/uniqueArray'
+import addUniqueToArray from './arrays/addUniqueToArray.js'
+import buildArray from './arrays/buildArray.js'
+import buildArrayOfReferences from './arrays/buildArrayOfReferences.js'
+import compareArrays from './arrays/compareArrays.js'
+import mergeArrays from './arrays/mergeArrays.js'
+import uniqueArray from './arrays/uniqueArray.js'
 
 export default {
   addUniqueToArray,

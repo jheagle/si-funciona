@@ -8,11 +8,11 @@
  */
 
 import 'core-js/stable'
-import absoluteMax from './numbers/absoluteMax'
-import absoluteMin from './numbers/absoluteMin'
-import compare from './numbers/compare'
-import randomInteger from './numbers/randomInteger'
-import randomNumber from './numbers/randomNumber'
+import absoluteMax from './numbers/absoluteMax.js'
+import absoluteMin from './numbers/absoluteMin.js'
+import compare from './numbers/compare.js'
+import randomInteger from './numbers/randomInteger.js'
+import randomNumber from './numbers/randomNumber.js'
 
 export default {
   absoluteMax,

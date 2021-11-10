@@ -7,23 +7,23 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
+const _callWithParams = _interopRequireDefault(require('./functions/callWithParams.js'))
 
-const _curry = _interopRequireDefault(require('./functions/curry'))
+const _curry = _interopRequireDefault(require('./functions/curry.js'))
 
-const _delay = _interopRequireDefault(require('./functions/delay'))
+const _delay = _interopRequireDefault(require('./functions/delay.js'))
 
-const _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
+const _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad.js'))
 
-const _pipe = _interopRequireDefault(require('./functions/pipe'))
+const _pipe = _interopRequireDefault(require('./functions/pipe.js'))
 
-const _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
+const _preloadParams = _interopRequireDefault(require('./functions/preloadParams.js'))
 
-const _queueManager = _interopRequireDefault(require('./functions/queueManager'))
+const _queueManager = _interopRequireDefault(require('./functions/queueManager.js'))
 
-const _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
+const _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout.js'))
 
-const _trace = _interopRequireDefault(require('./functions/trace'))
+const _trace = _interopRequireDefault(require('./functions/trace.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 

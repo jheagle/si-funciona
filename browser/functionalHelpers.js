@@ -9,17 +9,17 @@
 
     require('core-js/stable')
 
-    const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
+    const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray.js'))
 
-    const _buildArray = _interopRequireDefault(require('./arrays/buildArray'))
+    const _buildArray = _interopRequireDefault(require('./arrays/buildArray.js'))
 
-    const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences'))
+    const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences.js'))
 
-    const _compareArrays = _interopRequireDefault(require('./arrays/compareArrays'))
+    const _compareArrays = _interopRequireDefault(require('./arrays/compareArrays.js'))
 
-    const _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays'))
+    const _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays.js'))
 
-    const _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray'))
+    const _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -40,7 +40,7 @@
       uniqueArray: _uniqueArray.default
     }
     exports.default = _default
-  }, { './arrays/addUniqueToArray': 2, './arrays/buildArray': 3, './arrays/buildArrayOfReferences': 4, './arrays/compareArrays': 5, './arrays/mergeArrays': 6, './arrays/uniqueArray': 7, 'core-js/stable': 498 }],
+  }, { './arrays/addUniqueToArray.js': 2, './arrays/buildArray.js': 3, './arrays/buildArrayOfReferences.js': 4, './arrays/compareArrays.js': 5, './arrays/mergeArrays.js': 6, './arrays/uniqueArray.js': 7, 'core-js/stable': 498 }],
   2: [function (require, module, exports) {
     'use strict'
 
@@ -502,29 +502,29 @@
 
     require('core-js/stable')
 
-    const _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
+    const _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor.js'))
 
-    const _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
+    const _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail.js'))
 
-    const _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues'))
+    const _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues.js'))
 
-    const _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete'))
+    const _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete.js'))
 
-    const _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor'))
+    const _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor.js'))
 
-    const _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail'))
+    const _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail.js'))
 
-    const _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor'))
+    const _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor.js'))
 
-    const _describeObject = _interopRequireDefault(require('./descriptors/describeObject'))
+    const _describeObject = _interopRequireDefault(require('./descriptors/describeObject.js'))
 
-    const _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap'))
+    const _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap.js'))
 
-    const _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail'))
+    const _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail.js'))
 
-    const _nextReference = _interopRequireDefault(require('./descriptors/nextReference'))
+    const _nextReference = _interopRequireDefault(require('./descriptors/nextReference.js'))
 
-    const _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
+    const _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -551,7 +551,7 @@
       sameDescriptor: _sameDescriptor.default
     }
     exports.default = _default
-  }, { './descriptors/assignDescriptor': 9, './descriptors/assignDescriptorDetail': 10, './descriptors/checkClearValues': 11, './descriptors/checkDescriptorComplete': 12, './descriptors/cloneDescriptor': 13, './descriptors/cloneDescriptorDetail': 14, './descriptors/compareDescriptor': 15, './descriptors/describeObject': 16, './descriptors/describeObjectDetail': 17, './descriptors/describeObjectMap': 18, './descriptors/nextReference': 19, './descriptors/sameDescriptor': 20, 'core-js/stable': 498 }],
+  }, { './descriptors/assignDescriptor.js': 9, './descriptors/assignDescriptorDetail.js': 10, './descriptors/checkClearValues.js': 11, './descriptors/checkDescriptorComplete.js': 12, './descriptors/cloneDescriptor.js': 13, './descriptors/cloneDescriptorDetail.js': 14, './descriptors/compareDescriptor.js': 15, './descriptors/describeObject.js': 16, './descriptors/describeObjectDetail.js': 17, './descriptors/describeObjectMap.js': 18, './descriptors/nextReference.js': 19, './descriptors/sameDescriptor.js': 20, 'core-js/stable': 498 }],
   9: [function (require, module, exports) {
     'use strict'
 
@@ -1454,23 +1454,23 @@
 
     require('core-js/stable')
 
-    const _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
+    const _callWithParams = _interopRequireDefault(require('./functions/callWithParams.js'))
 
-    const _curry = _interopRequireDefault(require('./functions/curry'))
+    const _curry = _interopRequireDefault(require('./functions/curry.js'))
 
-    const _delay = _interopRequireDefault(require('./functions/delay'))
+    const _delay = _interopRequireDefault(require('./functions/delay.js'))
 
-    const _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
+    const _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad.js'))
 
-    const _pipe = _interopRequireDefault(require('./functions/pipe'))
+    const _pipe = _interopRequireDefault(require('./functions/pipe.js'))
 
-    const _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
+    const _preloadParams = _interopRequireDefault(require('./functions/preloadParams.js'))
 
-    const _queueManager = _interopRequireDefault(require('./functions/queueManager'))
+    const _queueManager = _interopRequireDefault(require('./functions/queueManager.js'))
 
-    const _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
+    const _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout.js'))
 
-    const _trace = _interopRequireDefault(require('./functions/trace'))
+    const _trace = _interopRequireDefault(require('./functions/trace.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -1494,7 +1494,7 @@
       trace: _trace.default
     }
     exports.default = _default
-  }, { './functions/callWithParams': 22, './functions/curry': 23, './functions/delay': 24, './functions/onBodyLoad': 25, './functions/pipe': 26, './functions/preloadParams': 27, './functions/queueManager': 28, './functions/queueTimeout': 29, './functions/trace': 30, 'core-js/stable': 498 }],
+  }, { './functions/callWithParams.js': 22, './functions/curry.js': 23, './functions/delay.js': 24, './functions/onBodyLoad.js': 25, './functions/pipe.js': 26, './functions/preloadParams.js': 27, './functions/queueManager.js': 28, './functions/queueTimeout.js': 29, './functions/trace.js': 30, 'core-js/stable': 498 }],
   22: [function (require, module, exports) {
     'use strict'
 
@@ -2073,15 +2073,15 @@
 
     require('core-js/stable')
 
-    const _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
+    const _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
 
-    const _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
+    const _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
 
-    const _compare = _interopRequireDefault(require('./numbers/compare'))
+    const _compare = _interopRequireDefault(require('./numbers/compare.js'))
 
-    const _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
+    const _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
 
-    const _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
+    const _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -2101,7 +2101,7 @@
       randomNumber: _randomNumber.default
     }
     exports.default = _default
-  }, { './numbers/absoluteMax': 32, './numbers/absoluteMin': 33, './numbers/compare': 34, './numbers/randomInteger': 35, './numbers/randomNumber': 36, 'core-js/stable': 498 }],
+  }, { './numbers/absoluteMax.js': 32, './numbers/absoluteMin.js': 33, './numbers/compare.js': 34, './numbers/randomInteger.js': 35, './numbers/randomNumber.js': 36, 'core-js/stable': 498 }],
   32: [function (require, module, exports) {
     'use strict'
 
@@ -2250,35 +2250,35 @@
 
     require('core-js/stable')
 
-    const _cloneObject = _interopRequireDefault(require('./objects/cloneObject'))
+    const _cloneObject = _interopRequireDefault(require('./objects/cloneObject.js'))
 
-    const _emptyObject = _interopRequireDefault(require('./objects/emptyObject'))
+    const _emptyObject = _interopRequireDefault(require('./objects/emptyObject.js'))
 
-    const _filterObject = _interopRequireDefault(require('./objects/filterObject'))
+    const _filterObject = _interopRequireDefault(require('./objects/filterObject.js'))
 
-    const _isCloneable = _interopRequireDefault(require('./objects/isCloneable'))
+    const _isCloneable = _interopRequireDefault(require('./objects/isCloneable.js'))
 
-    const _isInstanceObject = _interopRequireDefault(require('./objects/isInstanceObject'))
+    const _isInstanceObject = _interopRequireDefault(require('./objects/isInstanceObject.js'))
 
-    const _isObject = _interopRequireDefault(require('./objects/isObject'))
+    const _isObject = _interopRequireDefault(require('./objects/isObject.js'))
 
-    const _mapObject = _interopRequireDefault(require('./objects/mapObject'))
+    const _mapObject = _interopRequireDefault(require('./objects/mapObject.js'))
 
-    const _mergeObjects = _interopRequireDefault(require('./objects/mergeObjects'))
+    const _mergeObjects = _interopRequireDefault(require('./objects/mergeObjects.js'))
 
-    const _mergeObjectsBase = _interopRequireDefault(require('./objects/mergeObjectsBase'))
+    const _mergeObjectsBase = _interopRequireDefault(require('./objects/mergeObjectsBase.js'))
 
-    const _mergeObjectsMutable = _interopRequireDefault(require('./objects/mergeObjectsMutable'))
+    const _mergeObjectsMutable = _interopRequireDefault(require('./objects/mergeObjectsMutable.js'))
 
-    const _objectKeys = _interopRequireDefault(require('./objects/objectKeys'))
+    const _objectKeys = _interopRequireDefault(require('./objects/objectKeys.js'))
 
-    const _objectValues = _interopRequireDefault(require('./objects/objectValues'))
+    const _objectValues = _interopRequireDefault(require('./objects/objectValues.js'))
 
-    const _reduceObject = _interopRequireDefault(require('./objects/reduceObject'))
+    const _reduceObject = _interopRequireDefault(require('./objects/reduceObject.js'))
 
-    const _setAndReturnValue = _interopRequireDefault(require('./objects/setAndReturnValue'))
+    const _setAndReturnValue = _interopRequireDefault(require('./objects/setAndReturnValue.js'))
 
-    const _setValue = _interopRequireDefault(require('./objects/setValue'))
+    const _setValue = _interopRequireDefault(require('./objects/setValue.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -2308,7 +2308,7 @@
       setValue: _setValue.default
     }
     exports.default = _default
-  }, { './objects/cloneObject': 38, './objects/emptyObject': 39, './objects/filterObject': 40, './objects/isCloneable': 41, './objects/isInstanceObject': 42, './objects/isObject': 43, './objects/mapObject': 44, './objects/mergeObjects': 45, './objects/mergeObjectsBase': 46, './objects/mergeObjectsMutable': 47, './objects/objectKeys': 48, './objects/objectValues': 49, './objects/reduceObject': 50, './objects/setAndReturnValue': 51, './objects/setValue': 52, 'core-js/stable': 498 }],
+  }, { './objects/cloneObject.js': 38, './objects/emptyObject.js': 39, './objects/filterObject.js': 40, './objects/isCloneable.js': 41, './objects/isInstanceObject.js': 42, './objects/isObject.js': 43, './objects/mapObject.js': 44, './objects/mergeObjects.js': 45, './objects/mergeObjectsBase.js': 46, './objects/mergeObjectsMutable.js': 47, './objects/objectKeys.js': 48, './objects/objectValues.js': 49, './objects/reduceObject.js': 50, './objects/setAndReturnValue.js': 51, './objects/setValue.js': 52, 'core-js/stable': 498 }],
   38: [function (require, module, exports) {
     'use strict'
 
@@ -3100,17 +3100,17 @@
     })
     exports.default = void 0
 
-    require('core-js/stable')
+    require('core-js/modules/es.object.assign.js')
 
-    const _arrays = _interopRequireDefault(require('./helpers/arrays'))
+    const _arrays = _interopRequireDefault(require('./helpers/arrays.js'))
 
-    const _descriptors = _interopRequireDefault(require('./helpers/descriptors'))
+    const _descriptors = _interopRequireDefault(require('./helpers/descriptors.js'))
 
-    const _functions = _interopRequireDefault(require('./helpers/functions'))
+    const _functions = _interopRequireDefault(require('./helpers/functions.js'))
 
-    const _numbers = _interopRequireDefault(require('./helpers/numbers'))
+    const _numbers = _interopRequireDefault(require('./helpers/numbers.js'))
 
-    const _objects = _interopRequireDefault(require('./helpers/objects'))
+    const _objects = _interopRequireDefault(require('./helpers/objects.js'))
 
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -3121,15 +3121,12 @@
  * @version 1.0.0
  * @module functionalHelpers
  */
-    const _default = {
-      arrayHelpers: _arrays.default,
-      descriptors: _descriptors.default,
-      functionHelpers: _functions.default,
-      numberHelpers: _numbers.default,
-      objectHelpers: _objects.default
-    }
+    const functionalHelpers = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default)
+    const _default = functionalHelpers
     exports.default = _default
-  }, { './helpers/arrays': 1, './helpers/descriptors': 8, './helpers/functions': 21, './helpers/numbers': 31, './helpers/objects': 37, 'core-js/stable': 498 }],
+    const root = void 0 || typeof window !== 'undefined' ? window : {}
+    root.functionalHelpers = functionalHelpers
+  }, { './helpers/arrays.js': 1, './helpers/descriptors.js': 8, './helpers/functions.js': 21, './helpers/numbers.js': 31, './helpers/objects.js': 37, 'core-js/modules/es.object.assign.js': 334 }],
   54: [function (require, module, exports) {
     const global = require('../internals/global')
     const isCallable = require('../internals/is-callable')

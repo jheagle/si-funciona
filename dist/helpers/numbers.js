@@ -7,15 +7,15 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
+const _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
 
-const _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
+const _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
 
-const _compare = _interopRequireDefault(require('./numbers/compare'))
+const _compare = _interopRequireDefault(require('./numbers/compare.js'))
 
-const _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
+const _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
 
-const _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
+const _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 

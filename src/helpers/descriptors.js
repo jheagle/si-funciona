@@ -8,18 +8,18 @@
  */
 
 import 'core-js/stable'
-import assignDescriptor from './descriptors/assignDescriptor'
-import assignDescriptorDetail from './descriptors/assignDescriptorDetail'
-import checkClearValues from './descriptors/checkClearValues'
-import checkDescriptorComplete from './descriptors/checkDescriptorComplete'
-import cloneDescriptor from './descriptors/cloneDescriptor'
-import cloneDescriptorDetail from './descriptors/cloneDescriptorDetail'
-import compareDescriptor from './descriptors/compareDescriptor'
-import describeObject from './descriptors/describeObject'
-import describeObjectMap from './descriptors/describeObjectMap'
-import describeObjectDetail from './descriptors/describeObjectDetail'
-import nextReference from './descriptors/nextReference'
-import sameDescriptor from './descriptors/sameDescriptor'
+import assignDescriptor from './descriptors/assignDescriptor.js'
+import assignDescriptorDetail from './descriptors/assignDescriptorDetail.js'
+import checkClearValues from './descriptors/checkClearValues.js'
+import checkDescriptorComplete from './descriptors/checkDescriptorComplete.js'
+import cloneDescriptor from './descriptors/cloneDescriptor.js'
+import cloneDescriptorDetail from './descriptors/cloneDescriptorDetail.js'
+import compareDescriptor from './descriptors/compareDescriptor.js'
+import describeObject from './descriptors/describeObject.js'
+import describeObjectMap from './descriptors/describeObjectMap.js'
+import describeObjectDetail from './descriptors/describeObjectDetail.js'
+import nextReference from './descriptors/nextReference.js'
+import sameDescriptor from './descriptors/sameDescriptor.js'
 
 export default {
   assignDescriptor,

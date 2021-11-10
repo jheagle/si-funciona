@@ -7,17 +7,17 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
+const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray.js'))
 
-const _buildArray = _interopRequireDefault(require('./arrays/buildArray'))
+const _buildArray = _interopRequireDefault(require('./arrays/buildArray.js'))
 
-const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences'))
+const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences.js'))
 
-const _compareArrays = _interopRequireDefault(require('./arrays/compareArrays'))
+const _compareArrays = _interopRequireDefault(require('./arrays/compareArrays.js'))
 
-const _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays'))
+const _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays.js'))
 
-const _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray'))
+const _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 

@@ -7,29 +7,29 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
+const _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor.js'))
 
-const _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
+const _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail.js'))
 
-const _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues'))
+const _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues.js'))
 
-const _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete'))
+const _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete.js'))
 
-const _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor'))
+const _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor.js'))
 
-const _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail'))
+const _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail.js'))
 
-const _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor'))
+const _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor.js'))
 
-const _describeObject = _interopRequireDefault(require('./descriptors/describeObject'))
+const _describeObject = _interopRequireDefault(require('./descriptors/describeObject.js'))
 
-const _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap'))
+const _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap.js'))
 
-const _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail'))
+const _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail.js'))
 
-const _nextReference = _interopRequireDefault(require('./descriptors/nextReference'))
+const _nextReference = _interopRequireDefault(require('./descriptors/nextReference.js'))
 
-const _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
+const _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 

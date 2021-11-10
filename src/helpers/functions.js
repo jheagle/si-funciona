@@ -8,15 +8,15 @@
  */
 
 import 'core-js/stable'
-import callWithParams from './functions/callWithParams'
-import curry from './functions/curry'
-import delay from './functions/delay'
-import onBodyLoad from './functions/onBodyLoad'
-import pipe from './functions/pipe'
-import preloadParams from './functions/preloadParams'
-import queueManager from './functions/queueManager'
-import queueTimeout from './functions/queueTimeout'
-import trace from './functions/trace'
+import callWithParams from './functions/callWithParams.js'
+import curry from './functions/curry.js'
+import delay from './functions/delay.js'
+import onBodyLoad from './functions/onBodyLoad.js'
+import pipe from './functions/pipe.js'
+import preloadParams from './functions/preloadParams.js'
+import queueManager from './functions/queueManager.js'
+import queueTimeout from './functions/queueTimeout.js'
+import trace from './functions/trace.js'
 
 export default {
   callWithParams,
