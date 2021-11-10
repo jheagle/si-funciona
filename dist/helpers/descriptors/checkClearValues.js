@@ -7,6 +7,10 @@ exports.default = void 0
 
 require('core-js/modules/es.array.map.js')
 
+require('core-js/modules/esnext.async-iterator.map.js')
+
+require('core-js/modules/esnext.iterator.map.js')
+
 require('core-js/stable')
 
 const _setValue = _interopRequireDefault(require('../objects/setValue'))

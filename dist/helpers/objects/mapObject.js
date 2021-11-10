@@ -7,6 +7,18 @@ exports.default = void 0
 
 require('core-js/modules/es.array.map.js')
 
+require('core-js/modules/esnext.async-iterator.map.js')
+
+require('core-js/modules/esnext.iterator.map.js')
+
+require('core-js/modules/es.object.to-string.js')
+
+require('core-js/modules/esnext.async-iterator.reduce.js')
+
+require('core-js/modules/esnext.iterator.constructor.js')
+
+require('core-js/modules/esnext.iterator.reduce.js')
+
 require('core-js/stable')
 
 const _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))

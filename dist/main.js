@@ -5,8 +5,6 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 
-require('core-js/modules/es.object.assign.js')
-
 require('core-js/stable')
 
 const _arrays = _interopRequireDefault(require('./helpers/arrays'))
@@ -28,37 +26,11 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @version 1.0.0
  * @module functionalHelpers
  */
-
-/**
- * Store a reference to this scope which will be Window if rendered via browser
- */
-const root = void 0 || window || global || {}
-/**
- * Store reference to any pre-existing module of the same name
- * @type {module|*}
- */
-
-const previousFunctionalHelpers = root.functionalHelpers || {}
-/**
- * All methods exported from this module are encapsulated within functionalHelpers.
- * @typedef {module:functionalHelpers|module:arrayHelpers|module:objectDescriptors|module:functionHelpers|module:numberHelpers|module:objectHelpers} functionalHelpers
- */
-
-const functionalHelpers = {}
-root.functionalHelpers = functionalHelpers
-/**
- * Return a reference to this library while preserving the original same-named library
- * @function
- * @returns {functionalHelpers}
- */
-
-const noConflict = function noConflict () {
-  root.functionalHelpers = previousFunctionalHelpers
-  return functionalHelpers
+const _default = {
+  arrayHelpers: _arrays.default,
+  descriptors: _descriptors.default,
+  functionHelpers: _functions.default,
+  numberHelpers: _numbers.default,
+  objectHelpers: _objects.default
 }
-
-functionalHelpers.noConflict = noConflict
-
-const _default = Object.assign(functionalHelpers, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default)
-
 exports.default = _default

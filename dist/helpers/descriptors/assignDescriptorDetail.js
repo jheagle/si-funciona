@@ -4,8 +4,6 @@ require('core-js/modules/es.symbol.js')
 
 require('core-js/modules/es.symbol.description.js')
 
-require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/es.symbol.iterator.js')
 
 require('core-js/modules/es.array.iterator.js')
@@ -20,14 +18,30 @@ require('core-js/modules/es.array.slice.js')
 
 require('core-js/modules/es.function.name.js')
 
+require('core-js/modules/es.regexp.exec.js')
+
+require('core-js/modules/es.regexp.test.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
 
+require('core-js/modules/es.object.to-string.js')
+
+require('core-js/modules/esnext.async-iterator.reduce.js')
+
+require('core-js/modules/esnext.iterator.constructor.js')
+
+require('core-js/modules/esnext.iterator.reduce.js')
+
 require('core-js/modules/es.array.concat.js')
 
 require('core-js/modules/es.array.find.js')
+
+require('core-js/modules/esnext.async-iterator.find.js')
+
+require('core-js/modules/esnext.iterator.find.js')
 
 require('core-js/stable')
 

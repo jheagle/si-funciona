@@ -32,37 +32,6 @@ All of the functionalHelpers system functions for stringing together functions a
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
-
-* [functionalHelpers](#module_functionalHelpers)
-    * [~root](#module_functionalHelpers..root)
-    * [~previousFunctionalHelpers](#module_functionalHelpers..previousFunctionalHelpers) : <code>module</code> \| <code>\*</code>
-    * [~noConflict()](#module_functionalHelpers..noConflict) ⇒ <code>functionalHelpers</code>
-    * [~functionalHelpers](#module_functionalHelpers..functionalHelpers) : [<code>functionalHelpers</code>](#module_functionalHelpers) \| [<code>arrayHelpers</code>](#module_arrayHelpers) \| [<code>objectDescriptors</code>](#module_objectDescriptors) \| [<code>functionHelpers</code>](#module_functionHelpers) \| [<code>numberHelpers</code>](#module_numberHelpers) \| [<code>objectHelpers</code>](#module_objectHelpers)
-
-<a name="module_functionalHelpers..root"></a>
-
-### functionalHelpers~root
-Store a reference to this scope which will be Window if rendered via browser
-
-**Kind**: inner constant of [<code>functionalHelpers</code>](#module_functionalHelpers)  
-<a name="module_functionalHelpers..previousFunctionalHelpers"></a>
-
-### functionalHelpers~previousFunctionalHelpers : <code>module</code> \| <code>\*</code>
-Store reference to any pre-existing module of the same name
-
-**Kind**: inner constant of [<code>functionalHelpers</code>](#module_functionalHelpers)  
-<a name="module_functionalHelpers..noConflict"></a>
-
-### functionalHelpers~noConflict() ⇒ <code>functionalHelpers</code>
-Return a reference to this library while preserving the original same-named library
-
-**Kind**: inner method of [<code>functionalHelpers</code>](#module_functionalHelpers)  
-<a name="module_functionalHelpers..functionalHelpers"></a>
-
-### functionalHelpers~functionalHelpers : [<code>functionalHelpers</code>](#module_functionalHelpers) \| [<code>arrayHelpers</code>](#module_arrayHelpers) \| [<code>objectDescriptors</code>](#module_objectDescriptors) \| [<code>functionHelpers</code>](#module_functionHelpers) \| [<code>numberHelpers</code>](#module_numberHelpers) \| [<code>objectHelpers</code>](#module_objectHelpers)
-All methods exported from this module are encapsulated within functionalHelpers.
-
-**Kind**: inner typedef of [<code>functionalHelpers</code>](#module_functionalHelpers)  
 <a name="module_arrayHelpers"></a>
 
 ## arrayHelpers
