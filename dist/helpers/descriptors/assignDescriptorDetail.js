@@ -22,10 +22,14 @@ require('core-js/modules/es.regexp.exec.js')
 
 require('core-js/modules/es.regexp.test.js')
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.object.to-string.js')
 
@@ -45,9 +49,9 @@ require('core-js/modules/esnext.iterator.find.js')
 
 require('core-js/stable')
 
-const _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
+var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
 
-const _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
+var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -55,7 +59,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -71,7 +75,7 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param  {...module:objectDescriptors~descriptorDetail} details
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-const assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
+var assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
   for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     details[_key - 1] = arguments[_key]
   }
@@ -96,5 +100,5 @@ const assignDescriptorDetail = function assignDescriptorDetail (originalDetail) 
   }, (0, _cloneDescriptorDetail.default)(originalDetail))
 }
 
-const _default = assignDescriptorDetail
+var _default = assignDescriptorDetail
 exports.default = _default

@@ -22,10 +22,14 @@ require('core-js/modules/es.regexp.exec.js')
 
 require('core-js/modules/es.regexp.test.js')
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.object.to-string.js')
 
@@ -49,11 +53,11 @@ require('core-js/modules/esnext.iterator.every.js')
 
 require('core-js/stable')
 
-const _isObject = _interopRequireDefault(require('../objects/isObject'))
+var _isObject = _interopRequireDefault(require('../objects/isObject'))
 
-const _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
+var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
 
-const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -61,7 +65,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -69,7 +73,7 @@ function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToA
 
 function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i] } return arr2 }
 
-function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
 
 /**
  * Store the comparison result for an element that may exist in either of compared arrays.
@@ -161,18 +165,18 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
-const compareArrays = function compareArrays () {
+var compareArrays = function compareArrays () {
   for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
     arrays[_key] = arguments[_key]
   }
 
   return _mergeArrays.default.apply(void 0, arrays).reduce(function (results, attr) {
-    const attrType = _typeof(attr)
+    var attrType = _typeof(attr)
 
-    const useArray = Array.isArray(attr)
-    const keys = arrays.map(function (array) {
+    var useArray = Array.isArray(attr)
+    var keys = arrays.map(function (array) {
       return array.reduce(function (results, current, key) {
-        const currentType = _typeof(current)
+        var currentType = _typeof(current)
 
         if (attrType !== currentType) {
           return results
@@ -186,17 +190,15 @@ const compareArrays = function compareArrays () {
           return results
         }
 
-        const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
+        var compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
         return compareKeys.every(function (compare) {
           return compare.result.every(function (result) {
             return result === 0
           })
-        })
-          ? [].concat(_toConsumableArray(results), [key])
-          : results
+        }) ? [].concat(_toConsumableArray(results), [key]) : results
       }, [])
     })
-    const arrayResults = keys.map(function (array) {
+    var arrayResults = keys.map(function (array) {
       return array.length ? 1 : -1
     })
     return [].concat(_toConsumableArray(results), [{
@@ -204,14 +206,12 @@ const compareArrays = function compareArrays () {
       keys: keys,
       result: arrayResults.every(function (result) {
         return result === 1
-      })
-        ? arrayResults.map(function (result) {
+      }) ? arrayResults.map(function (result) {
           return 0
-        })
-        : arrayResults
+        }) : arrayResults
     }])
   }, [])
 }
 
-const _default = compareArrays
+var _default = compareArrays
 exports.default = _default

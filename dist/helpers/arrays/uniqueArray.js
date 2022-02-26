@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -15,6 +17,8 @@ require('core-js/modules/esnext.iterator.constructor.js')
 
 require('core-js/modules/esnext.iterator.filter.js')
 
+require('core-js/modules/es.array.index-of.js')
+
 require('core-js/stable')
 
 /**
@@ -24,11 +28,11 @@ require('core-js/stable')
  * @param {Array} array - The array to make unique
  * @returns {Array}
  */
-const uniqueArray = function uniqueArray (array) {
+var uniqueArray = function uniqueArray (array) {
   return array.filter(function (item, index) {
     return array.indexOf(item) === index
   })
 }
 
-const _default = uniqueArray
+var _default = uniqueArray
 exports.default = _default

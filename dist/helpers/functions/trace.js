@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -9,7 +11,7 @@ require('core-js/stable')
 
 require('regenerator-runtime/runtime')
 
-const _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
+var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -21,8 +23,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
  */
-const trace = function trace (label) {
-  const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
+var trace = function trace (label) {
+  var useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
   return function (value) {
     // noinspection JSForgottenDebugStatementInspection
     console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
@@ -30,5 +32,5 @@ const trace = function trace (label) {
   }
 }
 
-const _default = trace
+var _default = trace
 exports.default = _default

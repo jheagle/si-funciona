@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -16,10 +18,10 @@ require('core-js/stable')
  * @param {*} value - Any value to be applied to the key
  * @returns {*}
  */
-const setAndReturnValue = function setAndReturnValue (item, key, value) {
+var setAndReturnValue = function setAndReturnValue (item, key, value) {
   item[key] = value
   return value
 }
 
-const _default = setAndReturnValue
+var _default = setAndReturnValue
 exports.default = _default

@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -15,15 +17,17 @@ require('core-js/modules/esnext.iterator.constructor.js')
 
 require('core-js/modules/esnext.iterator.filter.js')
 
+require('core-js/modules/es.array.reduce.js')
+
 require('core-js/modules/esnext.async-iterator.reduce.js')
 
 require('core-js/modules/esnext.iterator.reduce.js')
 
 require('core-js/stable')
 
-const _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
+var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
 
-const _objectKeys = _interopRequireDefault(require('./objectKeys'))
+var _objectKeys = _interopRequireDefault(require('./objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -49,20 +53,18 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-const filterObject = function filterObject (obj, fn) {
-  const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj)
-    ? obj.filter(fn, thisArg)
-    : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
-        if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
-          newObj[curr] = obj[curr]
-        } else {
-          delete newObj[curr]
-        }
+var filterObject = function filterObject (obj, fn) {
+  var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+  return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
+    if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
+      newObj[curr] = obj[curr]
+    } else {
+      delete newObj[curr]
+    }
 
-        return newObj
-      }, {})
+    return newObj
+  }, {})
 }
 
-const _default = filterObject
+var _default = filterObject
 exports.default = _default

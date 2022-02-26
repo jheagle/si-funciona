@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -7,19 +9,19 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _queueManager = _interopRequireDefault(require('./queueManager'))
+var _queueManager = _interopRequireDefault(require('./queueManager'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
-const queue = []
-const manager = (0, _queueManager.default)()
-let observer = null
+var queue = []
+var manager = (0, _queueManager.default)()
+var observer = null
 
-const doReset = function doReset () {
+var doReset = function doReset () {
   return observer = null
 }
 
-const initializeObserver = function initializeObserver () {
+var initializeObserver = function initializeObserver () {
   observer = new MutationObserver(function () {
     if (document.body) {
       while (queue.length) {
@@ -44,8 +46,8 @@ const initializeObserver = function initializeObserver () {
  * @returns {Array.<Function>}
  */
 
-const onBodyLoad = function onBodyLoad (callback) {
-  const reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+var onBodyLoad = function onBodyLoad (callback) {
+  var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
 
   if (reset) {
     doReset()
@@ -60,5 +62,5 @@ const onBodyLoad = function onBodyLoad (callback) {
   return queue
 }
 
-const _default = onBodyLoad
+var _default = onBodyLoad
 exports.default = _default

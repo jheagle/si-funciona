@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -25,7 +27,7 @@ exports.default = void 0
  * @type {module:objectDescriptors~descriptorDetail}
  * @memberOf module:objectDescriptors
  */
-const descriptorDetailSample = {
+var descriptorDetailSample = {
   index: 0,
   key: 'keyName',
   type: ['string'],
@@ -38,5 +40,5 @@ const descriptorDetailSample = {
   arrayReference: null,
   objectReference: null
 }
-const _default = descriptorDetailSample
+var _default = descriptorDetailSample
 exports.default = _default

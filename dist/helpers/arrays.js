@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -7,17 +9,17 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray.js'))
+var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray.js'))
 
-const _buildArray = _interopRequireDefault(require('./arrays/buildArray.js'))
+var _buildArray = _interopRequireDefault(require('./arrays/buildArray.js'))
 
-const _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences.js'))
+var _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences.js'))
 
-const _compareArrays = _interopRequireDefault(require('./arrays/compareArrays.js'))
+var _compareArrays = _interopRequireDefault(require('./arrays/compareArrays.js'))
 
-const _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays.js'))
+var _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays.js'))
 
-const _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray.js'))
+var _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -29,7 +31,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module arrayHelpers
  * @memberOf module:functionalHelpers
  */
-const _default = {
+var _default = {
   addUniqueToArray: _addUniqueToArray.default,
   buildArray: _buildArray.default,
   buildArrayOfReferences: _buildArrayOfReferences.default,

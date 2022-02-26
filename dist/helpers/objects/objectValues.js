@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -13,7 +15,7 @@ require('core-js/modules/esnext.iterator.map.js')
 
 require('core-js/stable')
 
-const _objectKeys = _interopRequireDefault(require('./objectKeys'))
+var _objectKeys = _interopRequireDefault(require('./objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -26,12 +28,12 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
-const objectValues = function objectValues (object) {
-  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+var objectValues = function objectValues (object) {
+  var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
   return (0, _objectKeys.default)(object, includeInherited).map(function (key) {
     return object[key]
   })
 }
 
-const _default = objectValues
+var _default = objectValues
 exports.default = _default

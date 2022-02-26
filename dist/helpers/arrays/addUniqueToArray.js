@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -21,9 +23,9 @@ require('core-js/stable')
  * @param {Array} array - An array where an element may be appended.
  * @returns {Array|Buffer|*|string}
  */
-const addUniqueToArray = function addUniqueToArray (item, array) {
+var addUniqueToArray = function addUniqueToArray (item, array) {
   return !array.includes(item) ? array.concat([item]) : array
 }
 
-const _default = addUniqueToArray
+var _default = addUniqueToArray
 exports.default = _default

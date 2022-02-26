@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -23,7 +25,7 @@ require('core-js/modules/esnext.iterator.map.js')
 
 require('core-js/stable')
 
-const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -34,17 +36,15 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {module:objectDescriptors~descriptorDetail} originalDetail
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-const cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
-  const copyDetail = {};
+var cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
+  var copyDetail = {};
   (0, _objectKeys.default)(originalDetail).forEach(function (key) {
-    copyDetail[key] = Array.isArray(originalDetail[key])
-      ? originalDetail[key].map(function (value) {
-        return value
-      })
-      : originalDetail[key]
+    copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(function (value) {
+      return value
+    }) : originalDetail[key]
   })
   return copyDetail
 }
 
-const _default = cloneDescriptorDetail
+var _default = cloneDescriptorDetail
 exports.default = _default

@@ -1,9 +1,13 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.object.to-string.js')
 
@@ -15,9 +19,9 @@ require('core-js/modules/esnext.iterator.reduce.js')
 
 require('core-js/stable')
 
-const _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
+var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
 
-const _objectKeys = _interopRequireDefault(require('./objectKeys'))
+var _objectKeys = _interopRequireDefault(require('./objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -47,14 +51,12 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-const reduceObject = function reduceObject (obj, fn) {
-  const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
-  return Array.isArray(obj)
-    ? obj.reduce(fn, initialValue)
-    : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
-        return (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2)
-      }, initialValue)
+var reduceObject = function reduceObject (obj, fn) {
+  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
+  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
+    return (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2)
+  }, initialValue)
 }
 
-const _default = reduceObject
+var _default = reduceObject
 exports.default = _default

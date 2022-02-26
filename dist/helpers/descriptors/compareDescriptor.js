@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -41,7 +43,7 @@ require('core-js/stable')
  * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
-const compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
+var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
   if (descriptor1.isArray !== descriptor2.isArray) {
     return false
   }
@@ -50,20 +52,18 @@ const compareDescriptor = function compareDescriptor (descriptor1, descriptor2) 
     return descriptor1.length === descriptor2.length
   }
 
-  const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
-  const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
+  var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
+  var largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
   return smallerDescriptor.keys.every(function (key) {
     return largerDescriptor.keys.includes(key)
-  })
-    ? smallerDescriptor.details.every(function (detail) {
+  }) ? smallerDescriptor.details.every(function (detail) {
       return detail.type.some(function (type) {
         return largerDescriptor.details.find(function (foundDetail) {
           return foundDetail.key === detail.key
         }).type.includes(type)
       })
-    })
-    : false
+    }) : false
 }
 
-const _default = compareDescriptor
+var _default = compareDescriptor
 exports.default = _default

@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -9,9 +11,9 @@ require('core-js/stable')
 
 require('regenerator-runtime/runtime')
 
-const _delay = _interopRequireDefault(require('./delay'))
+var _delay = _interopRequireDefault(require('./delay'))
 
-const _queueManager = _interopRequireDefault(require('./queueManager'))
+var _queueManager = _interopRequireDefault(require('./queueManager'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -32,11 +34,11 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}
  */
-const queueTimeout = function queueTimeout () {
-  const queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
-  const manager = queueManagerHandle || (0, _queueManager.default)()
+var queueTimeout = function queueTimeout () {
+  var queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+  var manager = queueManagerHandle || (0, _queueManager.default)()
   return function (fn) {
-    const time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+    var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
 
     for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       args[_key - 2] = arguments[_key]
@@ -50,5 +52,5 @@ const queueTimeout = function queueTimeout () {
   }
 }
 
-const _default = queueTimeout
+var _default = queueTimeout
 exports.default = _default

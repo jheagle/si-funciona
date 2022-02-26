@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -21,6 +23,8 @@ require('core-js/modules/esnext.iterator.constructor.js')
 
 require('core-js/modules/esnext.iterator.filter.js')
 
+require('core-js/modules/es.array.reduce.js')
+
 require('core-js/modules/esnext.async-iterator.reduce.js')
 
 require('core-js/modules/esnext.iterator.reduce.js')
@@ -33,11 +37,11 @@ require('core-js/modules/esnext.iterator.find.js')
 
 require('core-js/stable')
 
-const _isCloneable = _interopRequireDefault(require('./isCloneable'))
+var _isCloneable = _interopRequireDefault(require('./isCloneable'))
 
-const _reduceObject = _interopRequireDefault(require('./reduceObject'))
+var _reduceObject = _interopRequireDefault(require('./reduceObject'))
 
-const _setValue = _interopRequireDefault(require('./setValue'))
+var _setValue = _interopRequireDefault(require('./setValue'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -62,26 +66,26 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback}
  */
-const mergeObjectsBase = function mergeObjectsBase () {
-  const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-  const _ref$mapLimit = _ref.mapLimit
-  const mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
-  const _ref$depthLimit = _ref.depthLimit
-  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  const _ref$relevancyRange = _ref.relevancyRange
-  const relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
-  const _ref$map = _ref.map
-  let map = _ref$map === void 0 ? [] : _ref$map
-  const _ref$useClone = _ref.useClone
-  const useClone = _ref$useClone === void 0 ? false : _ref$useClone
+var mergeObjectsBase = function mergeObjectsBase () {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  var _ref$mapLimit = _ref.mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+  var _ref$depthLimit = _ref.depthLimit
+  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  var _ref$relevancyRange = _ref.relevancyRange
+  var relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
+  var _ref$map = _ref.map
+  var map = _ref$map === void 0 ? [] : _ref$map
+  var _ref$useClone = _ref.useClone
+  var useClone = _ref$useClone === void 0 ? false : _ref$useClone
 
   /**
    * Remove elements out of relevance range and update the max relevance.
    * @param {array} map
    * @returns {array}
    */
-  const updateMap = function updateMap (map) {
-    const minRelevance = map.length - relevancyRange
+  var updateMap = function updateMap (map) {
+    var minRelevance = map.length - relevancyRange
     return map.filter(function (reference) {
       return reference.relevance > minRelevance
     }).map(function (reference) {
@@ -94,7 +98,7 @@ const mergeObjectsBase = function mergeObjectsBase () {
       objects[_key] = arguments[_key]
     }
 
-    const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+    var firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
 
     if (objects.length < 1) {
       return firstObject
@@ -121,8 +125,8 @@ const mergeObjectsBase = function mergeObjectsBase () {
 
       return (0, _reduceObject.default)(arg, function (returnObj, value, key) {
         if ((0, _isCloneable.default)(value)) {
-          let objectValue = newObj[key]
-          const exists = map.find(function (existing) {
+          var objectValue = newObj[key]
+          var exists = map.find(function (existing) {
             return existing.source === value
           })
 
@@ -162,5 +166,5 @@ const mergeObjectsBase = function mergeObjectsBase () {
   }
 }
 
-const _default = mergeObjectsBase
+var _default = mergeObjectsBase
 exports.default = _default

@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -28,10 +30,10 @@ require('regenerator-runtime/runtime')
  * @param {number} time - Delay in milliseconds
  * @returns {module:functionHelpers~delayHandler}
  */
-const delay = function delay () {
-  const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+var delay = function delay () {
+  var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
 
-  let cancel = function cancel () {
+  var cancel = function cancel () {
     return undefined
   }
 
@@ -40,7 +42,7 @@ const delay = function delay () {
       if (isNaN(time)) {
         reject(new Error('Invalid delay: '.concat(time)))
       } else {
-        const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+        var timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
 
         cancel = function cancel () {
           clearTimeout(timeoutId)
@@ -52,5 +54,5 @@ const delay = function delay () {
   }
 }
 
-const _default = delay
+var _default = delay
 exports.default = _default

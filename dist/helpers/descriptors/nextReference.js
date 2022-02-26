@@ -12,6 +12,8 @@ require('core-js/modules/es.string.iterator.js')
 
 require('core-js/modules/web.dom-collections.iterator.js')
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -29,11 +31,11 @@ require('core-js/modules/esnext.iterator.find.js')
 
 require('core-js/stable')
 
-const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
-function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
 
 /**
  * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
@@ -43,13 +45,13 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * @param {number} currentReference
  * @returns {number|undefined}
  */
-const nextReference = function nextReference (descriptor, currentReference) {
+var nextReference = function nextReference (descriptor, currentReference) {
   return descriptor.references.find(function (nextRef) {
     if (nextRef <= currentReference) {
       return false
     }
 
-    const val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
+    var val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
 
     if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
       return false
@@ -59,5 +61,5 @@ const nextReference = function nextReference (descriptor, currentReference) {
   })
 }
 
-const _default = nextReference
+var _default = nextReference
 exports.default = _default

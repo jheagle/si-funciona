@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -9,11 +11,11 @@ require('core-js/modules/es.object.to-string.js')
 
 require('core-js/stable')
 
-const _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
+var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
 
-const _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
+var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
 
-const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -24,8 +26,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object} object
  * @returns {module:objectDescriptors~descriptor}
  */
-const describeObject = function describeObject (object) {
-  const descriptor = {
+var describeObject = function describeObject (object) {
+  var descriptor = {
     index: 0,
     details: [],
     length: 0,
@@ -34,11 +36,11 @@ const describeObject = function describeObject (object) {
     isArray: false,
     complete: false
   }
-  const keys = (0, _objectKeys.default)(object)
+  var keys = (0, _objectKeys.default)(object)
 
-  for (let i = 0; i < keys.length; ++i) {
-    const key = keys[i]
-    const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
+  for (var i = 0; i < keys.length; ++i) {
+    var key = keys[i]
+    var newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
 
     if (typeof key === 'number' && descriptor.details.length) {
       descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)
@@ -64,5 +66,5 @@ const describeObject = function describeObject (object) {
   return descriptor
 }
 
-const _default = describeObject
+var _default = describeObject
 exports.default = _default

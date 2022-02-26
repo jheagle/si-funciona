@@ -22,10 +22,14 @@ require('core-js/modules/es.regexp.exec.js')
 
 require('core-js/modules/es.regexp.test.js')
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.object.to-string.js')
 
@@ -55,7 +59,7 @@ require('core-js/modules/es.string.includes.js')
 
 require('core-js/stable')
 
-const _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
+var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -63,7 +67,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -78,7 +82,7 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}
  */
-const mergeArrays = function mergeArrays () {
+var mergeArrays = function mergeArrays () {
   for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
     arrays[_key] = arguments[_key]
   }
@@ -90,5 +94,5 @@ const mergeArrays = function mergeArrays () {
   }, [])
 }
 
-const _default = mergeArrays
+var _default = mergeArrays
 exports.default = _default

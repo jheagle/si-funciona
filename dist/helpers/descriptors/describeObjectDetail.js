@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -21,15 +23,15 @@ require('core-js/modules/web.dom-collections.iterator.js')
 
 require('core-js/stable')
 
-const _emptyObject = _interopRequireDefault(require('../objects/emptyObject'))
+var _emptyObject = _interopRequireDefault(require('../objects/emptyObject'))
 
-const _isCloneable = _interopRequireDefault(require('../objects/isCloneable'))
+var _isCloneable = _interopRequireDefault(require('../objects/isCloneable'))
 
-const _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
+var _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
-function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') { _typeof = function _typeof (obj) { return typeof obj } } else { _typeof = function _typeof (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj } } return _typeof(obj) }
+function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
 
 /**
  * Trace an object's attribute and provide details about it.
@@ -40,11 +42,11 @@ function _typeof (obj) { '@babel/helpers - typeof'; if (typeof Symbol === 'funct
  * @param {number} [index=0]
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-const describeObjectDetail = function describeObjectDetail (value) {
-  const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  const index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+var describeObjectDetail = function describeObjectDetail (value) {
+  var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
 
-  const type = _typeof(value)
+  var type = _typeof(value)
 
   return {
     index: index,
@@ -61,5 +63,5 @@ const describeObjectDetail = function describeObjectDetail (value) {
   }
 }
 
-const _default = describeObjectDetail
+var _default = describeObjectDetail
 exports.default = _default

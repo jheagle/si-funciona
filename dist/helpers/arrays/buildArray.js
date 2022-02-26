@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -7,7 +9,7 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
+var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -20,16 +22,16 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-const buildArray = function buildArray (item, length) {
-  const arr = []
+var buildArray = function buildArray (item, length) {
+  var arr = []
 
   while (arr.length < length) {
-    const cloned = (0, _cloneObject.default)(item)
+    var cloned = (0, _cloneObject.default)(item)
     arr.push(cloned)
   }
 
   return arr
 }
 
-const _default = buildArray
+var _default = buildArray
 exports.default = _default

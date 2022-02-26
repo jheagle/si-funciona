@@ -22,6 +22,8 @@ require('core-js/modules/es.regexp.exec.js')
 
 require('core-js/modules/es.regexp.test.js')
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -41,7 +43,7 @@ function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableT
 
 function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
 
-function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); let n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
+function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
 
 function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
 
@@ -65,18 +67,18 @@ function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len
  * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-const queueManager = function queueManager () {
-  const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-  let isRunning = false
+var queueManager = function queueManager () {
+  var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+  var isRunning = false
   return function (fn) {
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key]
     }
 
-    const runNextItem = function runNextItem () {
+    var runNextItem = function runNextItem () {
       if (queue.length && !isRunning) {
         isRunning = true
-        const toRun = queue.shift()
+        var toRun = queue.shift()
         toRun.generator.next(toRun.item)
       }
 
@@ -84,8 +86,8 @@ const queueManager = function queueManager () {
     }
 
     return new Promise(function (resolve, reject) {
-      const generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
-        let item
+      var generator = /* #__PURE__ */regeneratorRuntime.mark(function _callee () {
+        var item
         return regeneratorRuntime.wrap(function _callee$ (_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -121,5 +123,5 @@ const queueManager = function queueManager () {
   }
 }
 
-const _default = queueManager
+var _default = queueManager
 exports.default = _default

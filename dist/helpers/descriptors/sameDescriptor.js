@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -31,7 +33,7 @@ require('core-js/stable')
  * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
-const sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
+var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
   return descriptor1.details.every(function (detail, index) {
     return detail.value.some(function (dVal) {
       return descriptor2.details[index].value.includes(dVal)
@@ -39,5 +41,5 @@ const sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
   })
 }
 
-const _default = sameDescriptor
+var _default = sameDescriptor
 exports.default = _default

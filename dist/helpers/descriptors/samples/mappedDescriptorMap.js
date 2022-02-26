@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -9,7 +11,7 @@ exports.default = void 0
  * @type {module:objectDescriptors~descriptorMap}
  * @memberOf module:objectDescriptors
  */
-const mappedDescriptorMap = [{
+var mappedDescriptorMap = [{
   index: 0,
   details: [{
     index: 0,
@@ -282,5 +284,5 @@ const mappedDescriptorMap = [{
   isArray: true,
   complete: true
 }]
-const _default = mappedDescriptorMap
+var _default = mappedDescriptorMap
 exports.default = _default

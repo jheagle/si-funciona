@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -15,9 +17,9 @@ require('core-js/stable')
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-const absoluteMin = function absoluteMin (num1, num2) {
+var absoluteMin = function absoluteMin (num1, num2) {
   return Math.abs(num1) < Math.abs(num2) ? num1 : num2
 }
 
-const _default = absoluteMin
+var _default = absoluteMin
 exports.default = _default

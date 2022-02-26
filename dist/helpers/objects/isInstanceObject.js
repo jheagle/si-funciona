@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -11,9 +13,9 @@ require('core-js/modules/es.function.name.js')
 
 require('core-js/stable')
 
-const _isObject = _interopRequireDefault(require('./isObject'))
+var _isObject = _interopRequireDefault(require('./isObject'))
 
-const _objectKeys = _interopRequireDefault(require('./objectKeys'))
+var _objectKeys = _interopRequireDefault(require('./objectKeys'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -24,7 +26,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} object
  * @returns {boolean}
  */
-const isInstanceObject = function isInstanceObject (object) {
+var isInstanceObject = function isInstanceObject (object) {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
     return false
   }
@@ -36,5 +38,5 @@ const isInstanceObject = function isInstanceObject (object) {
   return object.constructor.name !== 'Array' && (0, _objectKeys.default)(object, true).length > (0, _objectKeys.default)(object).length
 }
 
-const _default = isInstanceObject
+var _default = isInstanceObject
 exports.default = _default

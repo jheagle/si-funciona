@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -19,7 +21,7 @@ require('core-js/modules/web.dom-collections.iterator.js')
 
 require('core-js/stable')
 
-const _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
+var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -30,8 +32,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {module:objectDescriptors~descriptor} originalMap
  * @returns {module:objectDescriptors~descriptor}
  */
-const cloneDescriptor = function cloneDescriptor (originalMap) {
-  const copyMap = {}
+var cloneDescriptor = function cloneDescriptor (originalMap) {
+  var copyMap = {}
   copyMap.index = originalMap.index || 0
   copyMap.details = originalMap.details.map(_cloneDescriptorDetail.default)
   copyMap.length = originalMap.length
@@ -46,5 +48,5 @@ const cloneDescriptor = function cloneDescriptor (originalMap) {
   return copyMap
 }
 
-const _default = cloneDescriptor
+var _default = cloneDescriptor
 exports.default = _default

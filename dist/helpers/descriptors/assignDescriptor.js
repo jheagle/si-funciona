@@ -1,9 +1,13 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+
+require('core-js/modules/es.array.reduce.js')
 
 require('core-js/modules/es.object.to-string.js')
 
@@ -49,13 +53,13 @@ require('core-js/modules/esnext.iterator.filter.js')
 
 require('core-js/stable')
 
-const _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
+var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
 
-const _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
+var _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
 
-const _compareArrays = _interopRequireDefault(require('../arrays/compareArrays'))
+var _compareArrays = _interopRequireDefault(require('../arrays/compareArrays'))
 
-const _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
+var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -67,18 +71,18 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param  {...module:objectDescriptors~descriptor} descriptors
  * @returns {module:objectDescriptors~descriptor}
  */
-const assignDescriptor = function assignDescriptor (originalMap) {
+var assignDescriptor = function assignDescriptor (originalMap) {
   for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     descriptors[_key - 1] = arguments[_key]
   }
 
   return descriptors.reduce(function (assignedDescriptor, descriptor) {
-    const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
+    var detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
     detailsDiff.forEach(function (diff) {
-      const existingDetail = assignedDescriptor.details.find(function (detail) {
+      var existingDetail = assignedDescriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
-      const newDetail = descriptor.details.find(function (detail) {
+      var newDetail = descriptor.details.find(function (detail) {
         return detail.key === diff.value
       })
 
@@ -89,14 +93,14 @@ const assignDescriptor = function assignDescriptor (originalMap) {
         return assignedDescriptor
       }
 
-      const useDetail = diff[0] > 0 ? existingDetail : newDetail
+      var useDetail = diff[0] > 0 ? existingDetail : newDetail
 
       if (!useDetail) {
         assignedDescriptor.details[existingDetail.index].optional = true
         return assignedDescriptor
       }
 
-      const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+      var useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
       assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
         index: useIndex,
         optional: true
@@ -112,15 +116,13 @@ const assignDescriptor = function assignDescriptor (originalMap) {
     }).map(function (detail) {
       return detail.index
     }))
-    assignedDescriptor.isArray = assignedDescriptor.length
-      ? assignedDescriptor.details.every(function (detail) {
-        return typeof detail.key === 'number'
-      })
-      : assignedDescriptor.isArray
+    assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(function (detail) {
+      return typeof detail.key === 'number'
+    }) : assignedDescriptor.isArray
     assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
     return assignedDescriptor
   }, (0, _cloneDescriptor.default)(originalMap))
 }
 
-const _default = assignDescriptor
+var _default = assignDescriptor
 exports.default = _default

@@ -11,6 +11,7 @@ import descriptors from './helpers/descriptors.js'
 import functionHelpers from './helpers/functions.js'
 import numberHelpers from './helpers/numbers.js'
 import objectHelpers from './helpers/objects.js'
+import stringHelpers from './helpers/strings.js'
 
 const functionalHelpers = Object.assign(
   {},
@@ -18,7 +19,8 @@ const functionalHelpers = Object.assign(
   descriptors,
   functionHelpers,
   numberHelpers,
-  objectHelpers
+  objectHelpers,
+  stringHelpers
 )
 
 export default functionalHelpers

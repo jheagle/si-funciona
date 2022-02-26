@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -19,7 +21,7 @@ require('core-js/modules/esnext.iterator.some.js')
 
 require('core-js/stable')
 
-const _setValue = _interopRequireDefault(require('../objects/setValue'))
+var _setValue = _interopRequireDefault(require('../objects/setValue'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -30,7 +32,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {module:objectDescriptors~descriptor} descriptor
  * @returns {module:objectDescriptors~descriptor}
  */
-const checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
+var checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
   return (0, _setValue.default)('complete', descriptor.references.every(function (refId) {
     return [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(function (ref) {
       return typeof ref === 'number'
@@ -38,5 +40,5 @@ const checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
   }), descriptor)
 }
 
-const _default = checkDescriptorComplete
+var _default = checkDescriptorComplete
 exports.default = _default

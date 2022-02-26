@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -7,15 +9,15 @@ exports.default = void 0
 
 require('core-js/stable')
 
-const _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
+var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
 
-const _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
+var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
 
-const _compare = _interopRequireDefault(require('./numbers/compare.js'))
+var _compare = _interopRequireDefault(require('./numbers/compare.js'))
 
-const _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
+var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
 
-const _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
+var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -27,7 +29,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module numberHelpers
  * @memberOf module:functionalHelpers
  */
-const _default = {
+var _default = {
   absoluteMax: _absoluteMax.default,
   absoluteMin: _absoluteMin.default,
   compare: _compare.default,

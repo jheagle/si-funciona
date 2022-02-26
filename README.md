@@ -23,6 +23,9 @@
 <dt><a href="#module_objectHelpers">objectHelpers</a></dt>
 <dd><p>Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.</p>
 </dd>
+<dt><a href="#module_stringHelpers">stringHelpers</a></dt>
+<dd><p>Manage how strings are manipulated with these utilities.</p>
+</dd>
 </dl>
 
 <a name="module_functionalHelpers"></a>
@@ -912,3 +915,10 @@ Function to execute on each property in the object, taking four arguments
 | [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
 | [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
 
+<a name="module_stringHelpers"></a>
+
+## stringHelpers
+Manage how strings are manipulated with these utilities.
+
+**Version**: 1.0.0  
+**Author**: Joshua Heagle <joshuaheagle@gmail.com>  

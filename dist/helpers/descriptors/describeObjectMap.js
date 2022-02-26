@@ -1,5 +1,7 @@
 'use strict'
 
+require('core-js/modules/es.object.define-property.js')
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -25,19 +27,19 @@ require('core-js/modules/esnext.iterator.find.js')
 
 require('core-js/stable')
 
-const _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
+var _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
 
-const _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
+var _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
 
-const _checkDescriptorComplete = _interopRequireDefault(require('./checkDescriptorComplete'))
+var _checkDescriptorComplete = _interopRequireDefault(require('./checkDescriptorComplete'))
 
-const _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
+var _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
 
-const _describeObject = _interopRequireDefault(require('./describeObject'))
+var _describeObject = _interopRequireDefault(require('./describeObject'))
 
-const _nextReference = _interopRequireDefault(require('./nextReference'))
+var _nextReference = _interopRequireDefault(require('./nextReference'))
 
-const _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
+var _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
 
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
@@ -52,34 +54,32 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {boolean} [options.keepValues=false]
  * @returns {module:objectDescriptors~descriptorMap}
  */
-const describeObjectMap = function describeObjectMap (object) {
-  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  const _ref$mapLimit = _ref.mapLimit
-  const mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
-  const _ref$depthLimit = _ref.depthLimit
-  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  const _ref$keepValues = _ref.keepValues
-  const keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
+var describeObjectMap = function describeObjectMap (object) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  var _ref$mapLimit = _ref.mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
+  var _ref$depthLimit = _ref.depthLimit
+  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  var _ref$keepValues = _ref.keepValues
+  var keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
 
-  const descriptorMap = [(0, _describeObject.default)(object)]
+  var descriptorMap = [(0, _describeObject.default)(object)]
   descriptorMap[0].index = 0
 
-  const describeReferences = function describeReferences (descriptor, currentDetail) {
-    let limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
-    const returnCallback = arguments.length > 3 && arguments[3] !== undefined
-      ? arguments[3]
-      : function (returnMap) {
-        return returnMap
-      }
-    let index = descriptorMap.length
-    const nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
-    const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
+  var describeReferences = function describeReferences (descriptor, currentDetail) {
+    var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
+    var returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (returnMap) {
+      return returnMap
+    }
+    var index = descriptorMap.length
+    var nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
+    var nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
 
     if (currentDetail) {
-      const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+      var vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
       vals.forEach(function (val) {
-        const tempDescriptor = (0, _describeObject.default)(val)
-        const existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
+        var tempDescriptor = (0, _describeObject.default)(val)
+        var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
           return (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor)
         })
 
@@ -101,12 +101,12 @@ const describeObjectMap = function describeObjectMap (object) {
         }
 
         if (tempDescriptor.isArray) {
-          let _currentDetail$arrayR
+          var _currentDetail$arrayR
 
           index = (_currentDetail$arrayR = currentDetail.arrayReference) !== null && _currentDetail$arrayR !== void 0 ? _currentDetail$arrayR : index
           descriptor.details[currentDetail.index].arrayReference = index
         } else {
-          let _currentDetail$object
+          var _currentDetail$object
 
           index = (_currentDetail$object = currentDetail.objectReference) !== null && _currentDetail$object !== void 0 ? _currentDetail$object : index
           descriptor.details[currentDetail.index].objectReference = index
@@ -124,8 +124,8 @@ const describeObjectMap = function describeObjectMap (object) {
         })
 
         if (!currentDetail.circular) {
-          const newReference = (0, _nextReference.default)(tempDescriptor, -1)
-          const newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
+          var newReference = (0, _nextReference.default)(tempDescriptor, -1)
+          var newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
           return describeReferences(tempDescriptor, newDetail, --limit, function (returnMap) {
             return describeReferences(descriptor, nextDetail, --limit)
           })
@@ -138,8 +138,8 @@ const describeObjectMap = function describeObjectMap (object) {
     return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap)
   }
 
-  const descriptor = descriptorMap[0]
-  const currentReference = (0, _nextReference.default)(descriptor, -1)
+  var descriptor = descriptorMap[0]
+  var currentReference = (0, _nextReference.default)(descriptor, -1)
 
   if (typeof currentReference === 'undefined') {
     descriptorMap[0] = (0, _assignDescriptor.default)(descriptorMap[0], (0, _checkDescriptorComplete.default)(descriptor))
@@ -150,5 +150,5 @@ const describeObjectMap = function describeObjectMap (object) {
   return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
 }
 
-const _default = describeObjectMap
+var _default = describeObjectMap
 exports.default = _default
