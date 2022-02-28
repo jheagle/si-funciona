@@ -2,7 +2,7 @@
   "name": "functional-helpers",
   "description": "General usage utility functions.",
   "version": "0.0.0",
-  "main": "dist/main.js",
+  "main": "dist/main.min.js",
   "author": "Joshua Heagle",
   "license": "MIT",
   "scripts": {
