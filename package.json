@@ -9,7 +9,7 @@
     "dev": "gulp",
     "build": "gulp build",
     "htmldocs": "jsdoc -R MAIN.md -r src/ -d docs",
-    "readme": "cp MAIN.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/arrays/*.js src/helpers/descriptors/samples/*.js src/helpers/descriptors/*.js src/helpers/functions/*.js src/helpers/numbers/*.js src/helpers/objects/*.js >> README.md",
+    "readme": "cp MAIN.md README.md && echo \"\" >> README.md && jsdoc2md src/main.js src/helpers/*.js src/helpers/arrays/*.js src/helpers/descriptors/samples/*.js src/helpers/descriptors/*.js src/helpers/functions/*.js src/helpers/numbers/*.js src/helpers/objects/*.js src/helpers/strings/*.js >> README.md",
     "resolutions": "npx npm-force-resolutions",
     "test": "jest"
   },

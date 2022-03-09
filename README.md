@@ -922,3 +922,78 @@ Manage how strings are manipulated with these utilities.
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
+
+* [stringHelpers](#module_stringHelpers)
+    * [.camelCase(str)](#module_stringHelpers.camelCase) ⇒ <code>string</code>
+    * [.kabobCase(str)](#module_stringHelpers.kabobCase) ⇒ <code>string</code>
+    * [.snakeCase(str)](#module_stringHelpers.snakeCase) ⇒ <code>string</code>
+    * [.titleCase(str)](#module_stringHelpers.titleCase) ⇒ <code>string</code>
+    * [.ucFirst(str)](#module_stringHelpers.ucFirst) ⇒ <code>string</code>
+    * [.words(str)](#module_stringHelpers.words) ⇒ <code>array</code>
+
+<a name="module_stringHelpers.camelCase"></a>
+
+### stringHelpers.camelCase(str) ⇒ <code>string</code>
+Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.kabobCase"></a>
+
+### stringHelpers.kabobCase(str) ⇒ <code>string</code>
+Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-case.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.snakeCase"></a>
+
+### stringHelpers.snakeCase(str) ⇒ <code>string</code>
+Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.titleCase"></a>
+
+### stringHelpers.titleCase(str) ⇒ <code>string</code>
+Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.ucFirst"></a>
+
+### stringHelpers.ucFirst(str) ⇒ <code>string</code>
+Given a string, make the first character uppercase and the rest lowercase.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.words"></a>
+
+### stringHelpers.words(str) ⇒ <code>array</code>
+Split a string into sets of numbers or letters.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
