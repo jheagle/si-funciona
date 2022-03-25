@@ -1,55 +1,61 @@
 const babel = require('gulp-babel')
 const browserify = require('browserify')
-const buffer = require('vinyl-buffer')
 const del = require('del')
-const gulp = require('gulp')
+const { dest, parallel, series, src, watch } = require('gulp')
+const jsdoc2md = require('jsdoc-to-markdown')
 const rename = require('gulp-rename')
 const source = require('vinyl-source-stream')
 const standard = require('gulp-standard')
 const uglify = require('gulp-uglify-es').default
 
-gulp.task('clean', () => del(['dist', 'browser']))
-
-gulp.task('dist:quick', () => gulp.src('src/**/*.js')
-  .pipe(babel())
-  .pipe(gulp.dest('dist'))
-)
-
-gulp.task('bundle:quick', () => browserify('dist/main.js')
-  .bundle()
-  .pipe(source('functionalHelpers.js'))
-  .pipe(buffer())
-  .pipe(gulp.dest('browser'))
-)
-
-gulp.task('dist', () => gulp.src('src/**/*.js')
+const dist = () => src('src/**/!(*.test).js')
   .pipe(babel())
   .pipe(standard({ fix: true }))
   .pipe(standard.reporter('default', {
     fix: true,
     quiet: true
   }))
-  .pipe(gulp.dest('dist'))
-  .pipe(uglify())
-  .pipe(rename({ extname: '.min.js' }))
-  .pipe(gulp.dest('dist'))
-)
+  .pipe(dest('dist'))
 
-gulp.task('bundle', () => browserify('dist/main.js')
+const bundle = () => browserify('dist/main.js')
   .bundle()
   .pipe(source('functionalHelpers.js'))
-  .pipe(buffer())
+  .pipe(dest('browser'))
+
+exports.default = series(dist, bundle)
+
+exports.watch = () => watch('src/**/*.js', { ignoreInitial: false, usePolling: true }, series(dist, bundle))
+
+const clean = () => del(['dist', 'browser'])
+
+const distLint = () => src('dist/**/*.js')
   .pipe(standard({ fix: true }))
   .pipe(standard.reporter('default', {
     fix: true,
     quiet: true
   }))
-  .pipe(gulp.dest('browser'))
+  .pipe(dest('dist'))
+
+const distMinify = () => src('dist/**/*.js')
   .pipe(uglify())
   .pipe(rename({ extname: '.min.js' }))
-  .pipe(gulp.dest('browser'))
-)
+  .pipe(dest('dist'))
 
-gulp.task('default', gulp.series('dist:quick', 'bundle:quick'))
+const bundleLint = () => src('browser/functionalHelpers.js')
+  .pipe(standard({ fix: true }))
+  .pipe(standard.reporter('default', {
+    fix: true,
+    quiet: true
+  }))
+  .pipe(dest('browser'))
 
-gulp.task('build', gulp.series('clean', 'dist', 'bundle'))
+const bundleMinify = () => src('browser/functionalHelpers.js')
+  .pipe(uglify())
+  .pipe(rename({ extname: '.min.js' }))
+  .pipe(dest('browser'))
+
+exports.readme = () => src(['MAIN.md', 'src/**/!(*.test).js'])
+  .pipe(jsdoc2md.renderSync)
+  .pipe(dest('README.md'))
+
+exports.build = series(clean, dist, parallel(distLint, distMinify), bundle, parallel(bundleLint, bundleMinify))

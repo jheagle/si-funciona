@@ -66,6 +66,6 @@
     "browser"
   ],
   "jest": {
-    "testMatch": ["<rootDir>/tests/**/*.test.js"]
+    "testMatch": ["<rootDir>/src/**/*.test.js"]
   }
 }
