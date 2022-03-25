@@ -1,10 +1,18 @@
 {
   "name": "functional-helpers",
+  "author": "Joshua Heagle <joshuaheagle@gmail.com> (https://joshuaheagle.com)",
   "description": "General usage utility functions.",
+  "homepage": "https://github.com/jheagle/functional-helpers#readme",
+  "keywords": [
+    "functional",
+    "helpers",
+    "utility"
+  ],
   "version": "0.0.0",
-  "main": "dist/main.min.js",
-  "author": "Joshua Heagle",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jheagle/functional-helpers/issues"
+  },
   "scripts": {
     "build": "gulp build",
     "dev": "gulp",
@@ -44,29 +52,21 @@
     "npm": "^8.5.5",
     "regenerator-runtime": "^0.13.9"
   },
-  "directories": {
-    "test": "tests"
-  },
   "resolutions": {
     "ansi-regex": "5.0.1",
     "glob-parent": "6.0.2",
     "lodash.template": "4.5.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jheagle/functional-helpers.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jheagle/functional-helpers/issues"
-  },
-  "homepage": "https://github.com/jheagle/functional-helpers#readme",
+  "repository": "github:jheagle/functional-helpers",
+  "main": "dist/main.min.js",
+  "files": [
+    "dist",
+    "browser"
+  ],
+  "funding": "https://www.paypal.com/donate/?business=LRYR6SZRWKXVY&no_recurring=0&item_name=Let%27s+build+together+today+to+simplify+our+jobs+tomorrow.&currency_code=CAD",
   "standard": {
     "env": [
       "jest"
     ]
-  },
-  "files": [
-    "dist",
-    "browser"
-  ]
+  }
 }
