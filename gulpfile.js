@@ -13,11 +13,6 @@ const uglify = require('gulp-uglify-es').default
 
 const dist = () => src('src/**/!(*.test).js')
   .pipe(babel())
-  .pipe(standard({ fix: true }))
-  .pipe(standard.reporter('default', {
-    fix: true,
-    quiet: true
-  }))
   .pipe(dest('dist'))
 
 const bundle = () => browserify('dist/main.js')
