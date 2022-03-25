@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   plugins: ['plugins/markdown'],
@@ -7,4 +7,4 @@ module.exports = {
     includePattern: '.+\\.js(doc|x)?$',
     excludePattern: '((^|\\/|\\\\)_|.+\\.test\\..*)'
   },
-};
+}
