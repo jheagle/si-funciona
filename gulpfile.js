@@ -1,7 +1,9 @@
 const babel = require('gulp-babel')
 const browserify = require('browserify')
+const fs = require('fs')
 const del = require('del')
 const { dest, parallel, series, src, watch } = require('gulp')
+const filenames = require('gulp-filenames')
 const jsdoc2md = require('jsdoc-to-markdown')
 const rename = require('gulp-rename')
 const source = require('vinyl-source-stream')
@@ -54,8 +56,23 @@ const bundleMinify = () => src('browser/functionalHelpers.js')
   .pipe(rename({ extname: '.min.js' }))
   .pipe(dest('browser'))
 
-exports.readme = () => src(['MAIN.md', 'src/**/!(*.test).js'])
-  .pipe(jsdoc2md.renderSync)
-  .pipe(dest('README.md'))
+const readmeTemplate = () => src('MAIN.md')
+  .pipe(rename('README.md'))
+  .pipe(dest('.'))
 
-exports.build = series(clean, dist, parallel(distLint, distMinify), bundle, parallel(bundleLint, bundleMinify))
+const addToReadme = () => src('src/**/!(*.test).js')
+  .pipe(filenames('readme'))
+  .on('end', () => {
+    const readme = jsdoc2md.renderSync({ files: filenames.get('readme').map(file => `src/${file}`) })
+    fs.appendFileSync('README.md', readme, 'utf8')
+    return readme
+  })
+
+const readme = series(readmeTemplate, addToReadme)
+
+exports.readme = readme
+
+exports.build = parallel(
+  series(clean, dist, parallel(distLint, distMinify), bundle, parallel(bundleLint, bundleMinify)),
+  readme
+)
