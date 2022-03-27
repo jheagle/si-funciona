@@ -24,6 +24,12 @@
     "watch": "gulp watch",
     "watch:tests": "gulp watch:tests"
   },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.17.8",
+    "core-js": "^3.21.1",
+    "npm": "^8.5.5",
+    "regenerator-runtime": "^0.13.9"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
@@ -45,12 +51,6 @@
     "lodash.template": "^4.5.0",
     "standard": "^16.0.4",
     "vinyl-source-stream": "^2.0.0"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.17.8",
-    "core-js": "^3.21.1",
-    "npm": "^8.5.5",
-    "regenerator-runtime": "^0.13.9"
   },
   "resolutions": {
     "ansi-regex": "5.0.1",
