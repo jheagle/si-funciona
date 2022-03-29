@@ -28,10 +28,8 @@
     "npm": "^8.5.5"
   },
   "devDependencies": {
-    "babel-jest": "^27.5.1",
     "glob-parent": "^6.0.2",
     "gulp": "^4.0.2",
-    "jest": "^27.5.1",
     "js-build-tools": "github:jheagle/js-build-tools",
     "jsdoc": "^3.6.10",
     "lodash.template": "^4.5.0",
