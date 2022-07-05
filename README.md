@@ -643,6 +643,9 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 * [objectHelpers](#module_objectHelpers)
     * _static_
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
+        * [.dotGet(arrayObject, dotNotation, [defaultValue])](#module_objectHelpers.dotGet) ⇒ <code>\*</code>
+        * [.dotNotate(arrayObject, [prepend], [results])](#module_objectHelpers.dotNotate) ⇒ <code>Object</code>
+        * [.dotSet(arrayObject, dotNotation, value)](#module_objectHelpers.dotSet) ⇒ <code>Object</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isCloneable(value)](#module_objectHelpers.isCloneable) ⇒ <code>boolean</code>
@@ -679,6 +682,48 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 | [options.depthLimit] | <code>number</code> | <code>-1</code> |  |
 | [options.relevancyRange] | <code>number</code> | <code>100</code> |  |
 | [options.map] | <code>Iterable</code> | <code>[]</code> |  |
+
+<a name="module_objectHelpers.dotGet"></a>
+
+### objectHelpers.dotGet(arrayObject, dotNotation, [defaultValue]) ⇒ <code>\*</code>
+Get a nested property value from an object.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>\*</code> - The value of the property  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| arrayObject | <code>Object</code> |  | The array or object to get the property from |
+| dotNotation | <code>string</code> |  | The path to the property |
+| [defaultValue] | <code>string</code> \| <code>null</code> | <code>null</code> | The default value to return if the property is not found |
+
+<a name="module_objectHelpers.dotNotate"></a>
+
+### objectHelpers.dotNotate(arrayObject, [prepend], [results]) ⇒ <code>Object</code>
+Convert an array or object to a single dimensional associative array with dot notation.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>Object</code> - The dot-notated array  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| arrayObject | <code>Object</code> |  | The array or object to dot-notate |
+| [prepend] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | The path for the property being processed |
+| [results] | <code>Object</code> | <code>{}</code> | The final array to return |
+
+<a name="module_objectHelpers.dotSet"></a>
+
+### objectHelpers.dotSet(arrayObject, dotNotation, value) ⇒ <code>Object</code>
+Set a nested property value an object.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>Object</code> - The modified object  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| arrayObject | <code>Object</code> |  | The array or object to set the property on |
+| dotNotation | <code>string</code> |  | The path for the property |
+| value | <code>\*</code> | <code></code> | The default value to return if the property is not found |
 
 <a name="module_objectHelpers.emptyObject"></a>
 
@@ -729,7 +774,7 @@ Check if the current object has inherited properties.
 <a name="module_objectHelpers.isObject"></a>
 
 ### objectHelpers.isObject(object) ⇒ <code>boolean</code>
-Check if the provided thing is an object.
+Check if the provided thing is an object / array.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 

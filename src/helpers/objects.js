@@ -9,6 +9,9 @@
 
 import 'core-js/stable'
 import cloneObject from './objects/cloneObject.js'
+import dotGet from './objects/dotGet.js'
+import dotNotate from './objects/dotNotate.js'
+import dotSet from './objects/dotSet.js'
 import emptyObject from './objects/emptyObject.js'
 import filterObject from './objects/filterObject.js'
 import isCloneable from './objects/isCloneable.js'
@@ -26,6 +29,9 @@ import setValue from './objects/setValue.js'
 
 export default {
   cloneObject,
+  dotGet,
+  dotNotate,
+  dotSet,
   emptyObject,
   filterObject,
   isCloneable,

@@ -16,8 +16,6 @@ require('core-js/modules/es.array.from.js')
 
 require('core-js/modules/es.array.slice.js')
 
-require('core-js/modules/es.function.name.js')
-
 require('core-js/modules/es.regexp.exec.js')
 
 require('core-js/modules/es.regexp.test.js')

@@ -9,8 +9,6 @@ exports.default = void 0
 
 require('core-js/modules/es.array.includes.js')
 
-require('core-js/modules/es.function.name.js')
-
 require('core-js/stable')
 
 var _isObject = _interopRequireDefault(require('./isObject'))
