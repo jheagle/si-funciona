@@ -644,7 +644,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
     * _static_
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
         * [.dotGet(arrayObject, dotNotation, [defaultValue])](#module_objectHelpers.dotGet) ⇒ <code>\*</code>
-        * [.dotNotate(arrayObject, [prepend], [results])](#module_objectHelpers.dotNotate) ⇒ <code>Object</code>
+        * [.dotNotate(arrayObject, [retainObjects])](#module_objectHelpers.dotNotate) ⇒ <code>Object</code>
         * [.dotSet(arrayObject, dotNotation, value)](#module_objectHelpers.dotSet) ⇒ <code>Object</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
@@ -662,6 +662,8 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
     * _inner_
+        * [~handleRetainObjects([retainObjects])](#module_objectHelpers..handleRetainObjects) ⇒ <code>function</code>
+        * [~performDotNotate(arrayObject, didRetain, [prepend], [results])](#module_objectHelpers..performDotNotate) ⇒ <code>Object</code>
         * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
         * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
         * [~mergeObjectsCallback](#module_objectHelpers..mergeObjectsCallback) ⇒ <code>\*</code>
@@ -699,7 +701,7 @@ Get a nested property value from an object.
 
 <a name="module_objectHelpers.dotNotate"></a>
 
-### objectHelpers.dotNotate(arrayObject, [prepend], [results]) ⇒ <code>Object</code>
+### objectHelpers.dotNotate(arrayObject, [retainObjects]) ⇒ <code>Object</code>
 Convert an array or object to a single dimensional associative array with dot notation.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
@@ -708,8 +710,7 @@ Convert an array or object to a single dimensional associative array with dot no
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | arrayObject | <code>Object</code> |  | The array or object to dot-notate |
-| [prepend] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | The path for the property being processed |
-| [results] | <code>Object</code> | <code>{}</code> | The final array to return |
+| [retainObjects] | <code>array</code> | <code>[]</code> | An array of keys to retain as objects |
 
 <a name="module_objectHelpers.dotSet"></a>
 
@@ -908,6 +909,33 @@ Set a value on an item, then return the item.NOTE: Argument order designed for 
 | key | <code>string</code> \| <code>number</code> | The key on the item which will have its value set |
 | value | <code>\*</code> | Any value to be applied to the key |
 | item | <code>Object</code> \| <code>Array</code> | An object or array to be updated |
+
+<a name="module_objectHelpers..handleRetainObjects"></a>
+
+### objectHelpers~handleRetainObjects([retainObjects]) ⇒ <code>function</code>
+Convert an array of keys into a regex, return a function to test if incoming keys match.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>function</code> - The dot-notated array  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [retainObjects] | <code>array</code> | <code>[]</code> | An array of keys to retain as objects |
+
+<a name="module_objectHelpers..performDotNotate"></a>
+
+### objectHelpers~performDotNotate(arrayObject, didRetain, [prepend], [results]) ⇒ <code>Object</code>
+The underlying logic function for converting arrays to dot-notation.
+
+**Kind**: inner method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>Object</code> - The dot-notated array  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| arrayObject | <code>Object</code> |  | The array or object to dot-notate |
+| didRetain | <code>function</code> |  | The test function to see if a key should be retained |
+| [prepend] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | The path for the property being processed |
+| [results] | <code>Object</code> | <code>{}</code> | The final array to return |
 
 <a name="module_objectHelpers..filterCallback"></a>
 

@@ -23,8 +23,27 @@ describe('dotNotate', () => {
   })
 
   test('describes a circular object', () => {
-    const result = dotNotate(circularObject)
-    expect(Object.keys(result).length).toBe(166)
+    const result = dotNotate(circularObject, ['parent', 'body', 'head'])
+    const resultKeys = Object.keys(result)
+    expect(resultKeys.length).toBe(16)
+    expect(resultKeys).toEqual([
+      'name',
+      'parent',
+      'body',
+      'head',
+      'children.0.name',
+      'children.0.parent',
+      'children.0.children.0.name',
+      'children.0.children.0.parent',
+      'children.0.children.1.name',
+      'children.0.children.1.parent',
+      'children.1.name',
+      'children.1.parent',
+      'children.1.children.0.name',
+      'children.1.children.0.parent',
+      'children.1.children.1.name',
+      'children.1.children.1.parent'
+    ])
   })
 
   test('describes an object with varying deeply nested properties', () => {

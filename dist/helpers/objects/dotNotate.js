@@ -7,13 +7,15 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 
-require('core-js/modules/es.array.concat.js')
+require('core-js/modules/es.array.map.js')
+
+require('core-js/modules/esnext.async-iterator.map.js')
+
+require('core-js/modules/esnext.iterator.map.js')
 
 require('core-js/modules/es.regexp.exec.js')
 
-require('core-js/modules/es.string.split.js')
-
-require('core-js/modules/es.array.slice.js')
+require('core-js/modules/es.string.replace.js')
 
 require('core-js/modules/es.regexp.constructor.js')
 
@@ -21,57 +23,100 @@ require('core-js/modules/es.regexp.sticky.js')
 
 require('core-js/modules/es.regexp.to-string.js')
 
-require('core-js/modules/es.string.replace.js')
-
 require('core-js/modules/es.string.match.js')
+
+require('core-js/modules/es.array.concat.js')
 
 require('core-js/stable')
 
 var _isObject = _interopRequireDefault(require('./isObject'))
 
-var _strBeforeLast = _interopRequireDefault(require('../strings/strBeforeLast'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
+/**
+ * Convert an array of keys into a regex, return a function to test if incoming keys match.
+ * @inner
+ * @memberOf module:objectHelpers
+ * @param {array} [retainObjects=[]] - An array of keys to retain as objects
+ * @returns {Function} The dot-notated array
+ */
+var handleRetainObjects = function handleRetainObjects (retainObjects) {
+  if (!retainObjects.length) {
+    /**
+     * Bypass the test function if there are no retainObjects.
+     * @returns {false}
+     */
+    return function () {
+      return false
+    }
+  }
+
+  retainObjects = retainObjects.map(function (key) {
+    return key.replace('\.', '\\.')
+  })
+  var retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
+  /**
+   * Test if a key should be retained as an object.
+   * @param {string} currentKey - The key to test
+   * @param {*} value - The value of the key
+   * @param {Object} results - The results object to add to
+   * @returns {boolean}
+   */
+
+  return function (currentKey, value, results) {
+    if (!currentKey.match(retainRegex)) {
+      return false
+    }
+
+    results[currentKey] = value
+    return true
+  }
+}
+/**
+ * The underlying logic function for converting arrays to dot-notation.
+ * @inner
+ * @memberOf module:objectHelpers
+ * @param {Object} arrayObject - The array or object to dot-notate
+ * @param {Function} didRetain - The test function to see if a key should be retained
+ * @param {string} [prepend=''] - The path for the property being processed
+ * @param {Object} [results={}] - The final array to return
+ * @returns {Object} The dot-notated array
+ */
+
+var performDotNotate = function performDotNotate (arrayObject, didRetain) {
+  var prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
+  var results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+
+  for (var key in arrayObject) {
+    var value = arrayObject[key]
+    var currentKey = ''.concat(prepend).concat(key)
+
+    if (didRetain(currentKey, value, results)) {
+      continue
+    }
+
+    if ((0, _isObject.default)(value)) {
+      performDotNotate(value, didRetain, ''.concat(currentKey, '.'), results)
+      continue
+    }
+
+    results[currentKey] = value
+  }
+
+  return results
+}
 /**
  * Convert an array or object to a single dimensional associative array with dot notation.
  * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to dot-notate
- * @param {string} [prepend=''] - The path for the property being processed
- * @param {Object} [results={}] - The final array to return
+ * @param {array} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Object} The dot-notated array
  */
+
 var dotNotate = function dotNotate (arrayObject) {
-  var prepend = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ''
-  var results = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
-
-  for (var key in arrayObject) {
-    var value = arrayObject[key]
-
-    if ((0, _isObject.default)(value)) {
-      var nestedKey = ''.concat(prepend).concat(key)
-      var allMatches = []
-      var prepends = nestedKey.split('.')
-
-      if (prepends.length > 1) {
-        var lastTwoPrepends = prepends.slice(prepends.length - 2).join('.')
-        var lastPrependsRegex = new RegExp(lastTwoPrepends.replace('\.', '\\.'), 'g')
-        allMatches = nestedKey.match(lastPrependsRegex) || []
-      }
-
-      if (allMatches.length > 1) {
-        return results
-      }
-
-      dotNotate(value, ''.concat(nestedKey, '.'), results)
-      continue
-    }
-
-    results[prepend + key] = value
-  }
-
-  return results
+  var retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+  return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
 }
 
 var _default = dotNotate
