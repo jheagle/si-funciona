@@ -2574,10 +2574,23 @@
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
     /**
+ * A string representing the full-path to a property in an object. Each depth of the path is separated by a period.
+ * @example 'a.b.c'
+ * @typedef {string} DotNotationString
+ * @memberOf module:objectHelpers
+ */
+
+    /**
+ * An array or object where all properties have been flatted and keyed by a dot-notated string.
+ * @typedef {Object.<DotNotationString, *>} DotNotatedObject
+ * @memberOf module:objectHelpers
+ */
+
+    /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
  * @memberOf module:objectHelpers
- * @param {array} [retainObjects=[]] - An array of keys to retain as objects
+ * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
     var handleRetainObjects = function handleRetainObjects (retainObjects) {
@@ -2618,9 +2631,9 @@
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to dot-notate
  * @param {Function} didRetain - The test function to see if a key should be retained
- * @param {string} [prepend=''] - The path for the property being processed
- * @param {Object} [results={}] - The final array to return
- * @returns {Object} The dot-notated array
+ * @param {DotNotationString} [prepend=''] - The path for the property being processed
+ * @param {DotNotatedObject} [results={}] - The final array to return
+ * @returns {DotNotatedObject} The dot-notated object
  */
 
     var performDotNotate = function performDotNotate (arrayObject, didRetain) {
@@ -2650,8 +2663,8 @@
  * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to dot-notate
- * @param {array} [retainObjects=[]] - An array of keys to retain as objects
- * @returns {Object} The dot-notated array
+ * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
+ * @returns {DotNotatedObject} The dot-notated object
  */
 
     var dotNotate = function dotNotate (arrayObject) {
