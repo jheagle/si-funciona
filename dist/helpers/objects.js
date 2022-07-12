@@ -17,6 +17,8 @@ var _dotNotate = _interopRequireDefault(require('./objects/dotNotate.js'))
 
 var _dotSet = _interopRequireDefault(require('./objects/dotSet.js'))
 
+var _dotUnset = _interopRequireDefault(require('./objects/dotUnset.js'))
+
 var _emptyObject = _interopRequireDefault(require('./objects/emptyObject.js'))
 
 var _filterObject = _interopRequireDefault(require('./objects/filterObject.js'))
@@ -60,6 +62,7 @@ var _default = {
   dotGet: _dotGet.default,
   dotNotate: _dotNotate.default,
   dotSet: _dotSet.default,
+  dotUnset: _dotUnset.default,
   emptyObject: _emptyObject.default,
   filterObject: _filterObject.default,
   isCloneable: _isCloneable.default,

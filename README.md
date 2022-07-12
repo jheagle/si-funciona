@@ -646,6 +646,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.dotGet(arrayObject, dotNotation, [defaultValue])](#module_objectHelpers.dotGet) ⇒ <code>\*</code>
         * [.dotNotate(arrayObject, [retainObjects])](#module_objectHelpers.dotNotate) ⇒ <code>DotNotatedObject</code>
         * [.dotSet(arrayObject, dotNotation, value)](#module_objectHelpers.dotSet) ⇒ <code>Object</code>
+        * [.dotUnset(arrayObject, dotNotation)](#module_objectHelpers.dotUnset) ⇒ <code>Object</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isCloneable(value)](#module_objectHelpers.isCloneable) ⇒ <code>boolean</code>
@@ -727,6 +728,19 @@ Set a nested property value an object.
 | arrayObject | <code>Object</code> |  | The array or object to set the property on |
 | dotNotation | <code>string</code> |  | The path for the property |
 | value | <code>\*</code> | <code></code> | The default value to return if the property is not found |
+
+<a name="module_objectHelpers.dotUnset"></a>
+
+### objectHelpers.dotUnset(arrayObject, dotNotation) ⇒ <code>Object</code>
+Unset a nested property value an object.
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>Object</code> - The modified object  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arrayObject | <code>Object</code> | The array or object to set the property on |
+| dotNotation | <code>string</code> | The path for the property |
 
 <a name="module_objectHelpers.emptyObject"></a>
 

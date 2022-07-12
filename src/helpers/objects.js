@@ -12,6 +12,7 @@ import cloneObject from './objects/cloneObject.js'
 import dotGet from './objects/dotGet.js'
 import dotNotate from './objects/dotNotate.js'
 import dotSet from './objects/dotSet.js'
+import dotUnset from './objects/dotUnset.js'
 import emptyObject from './objects/emptyObject.js'
 import filterObject from './objects/filterObject.js'
 import isCloneable from './objects/isCloneable.js'
@@ -32,6 +33,7 @@ export default {
   dotGet,
   dotNotate,
   dotSet,
+  dotUnset,
   emptyObject,
   filterObject,
   isCloneable,

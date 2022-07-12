@@ -11,6 +11,10 @@ import 'core-js/stable'
 import camelCase from './strings/camelCase.js'
 import kabobCase from './strings/kabobCase.js'
 import snakeCase from './strings/snakeCase.js'
+import strAfter from './strings/strAfter.js'
+import strAfterLast from './strings/strAfterLast.js'
+import strBefore from './strings/strBefore.js'
+import strBeforeLast from './strings/strBeforeLast.js'
 import titleCase from './strings/titleCase.js'
 import ucFirst from './strings/ucFirst.js'
 import words from './strings/words.js'
@@ -19,6 +23,10 @@ export default {
   camelCase,
   kabobCase,
   snakeCase,
+  strAfter,
+  strAfterLast,
+  strBefore,
+  strBeforeLast,
   titleCase,
   ucFirst,
   words
