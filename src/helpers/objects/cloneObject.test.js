@@ -11,7 +11,7 @@ import {
   linkedList,
   multiReferenceObject,
   nodeTree
-} from '../../../testHelpers'
+} from 'js-build-tools/dist/testHelpers'
 
 describe('cloneObject', () => {
   test('produces a new copy of an object, changes to one object will not affect the original', () => {

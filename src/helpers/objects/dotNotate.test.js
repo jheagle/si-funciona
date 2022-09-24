@@ -2,7 +2,7 @@ import dotNotate from './dotNotate'
 import {
   circularObject,
   deepReferenceObject
-} from '../../../testHelpers'
+} from 'js-build-tools/dist/testHelpers'
 
 describe('dotNotate', () => {
   test('describes a simple object', () => {

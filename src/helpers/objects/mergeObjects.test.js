@@ -3,7 +3,7 @@
  */
 
 import mergeObjects from './mergeObjects'
-import { circularObject } from '../../../testHelpers'
+import { circularObject } from 'js-build-tools/dist/testHelpers'
 
 test('combine objects with circular references', () => {
   const anotherCircular = { name: 'root', parent: {}, body: {}, head: {}, children: [] }

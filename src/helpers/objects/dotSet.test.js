@@ -2,7 +2,7 @@ import dotSet from './dotSet'
 import {
   circularObject,
   deepReferenceObject, multiReferenceObject
-} from '../../../testHelpers'
+} from 'js-build-tools/dist/testHelpers'
 
 describe('dotSet', () => {
   test('set a value at level 0 of the object', () => {

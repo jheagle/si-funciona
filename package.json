@@ -25,13 +25,13 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "npm": "^8.18.0"
+    "npm": "^8.19.2"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "jest": "^29.0.1",
-    "jest-environment-jsdom": "^29.0.1",
-    "js-build-tools": "^1.0.6",
+    "jest": "^29.0.3",
+    "jest-environment-jsdom": "^29.0.3",
+    "js-build-tools": "^1.1.0",
     "jsdoc": "^3.6.11",
     "standard": "^17.0.0"
   },
