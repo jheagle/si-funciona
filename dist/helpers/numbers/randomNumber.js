@@ -1,14 +1,11 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/stable')
-
 /**
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
@@ -25,6 +22,5 @@ var randomNumber = function randomNumber (range) {
   var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
   return (Math.random() * range + offset) * interval
 }
-
 var _default = randomNumber
 exports.default = _default

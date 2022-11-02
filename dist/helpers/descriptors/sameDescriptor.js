@@ -1,30 +1,19 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/esnext.async-iterator.every.js')
-
 require('core-js/modules/esnext.iterator.constructor.js')
-
 require('core-js/modules/esnext.iterator.every.js')
-
 require('core-js/modules/esnext.async-iterator.some.js')
-
 require('core-js/modules/esnext.iterator.some.js')
-
 require('core-js/modules/es.array.includes.js')
-
 require('core-js/modules/es.string.includes.js')
-
 require('core-js/stable')
-
 /**
  * Check if the two descriptors are the same.
  * @function
@@ -40,6 +29,5 @@ var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
     })
   })
 }
-
 var _default = sameDescriptor
 exports.default = _default

@@ -1,14 +1,11 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/stable')
-
 /**
  * Set a value on an item, then return the item.
  * NOTE: Argument order designed for usage with pipe
@@ -23,6 +20,5 @@ var setValue = function setValue (key, value, item) {
   item[key] = value
   return item
 }
-
 var _default = setValue
 exports.default = _default

@@ -1,38 +1,23 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.array.map.js')
-
 require('core-js/modules/esnext.async-iterator.map.js')
-
 require('core-js/modules/esnext.iterator.map.js')
-
 require('core-js/modules/es.array.reduce.js')
-
 require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/esnext.async-iterator.reduce.js')
-
 require('core-js/modules/esnext.iterator.constructor.js')
-
 require('core-js/modules/esnext.iterator.reduce.js')
-
 require('core-js/stable')
-
 var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
-
 var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-
 var _setValue = _interopRequireDefault(require('./setValue'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
 /**
  * Function that produces a property of the new Object, taking three arguments
  * @callback module:objectHelpers~mapCallback
@@ -60,6 +45,5 @@ var mapObject = function mapObject (obj, fn) {
     return (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj)
   }, {})
 }
-
 var _default = mapObject
 exports.default = _default

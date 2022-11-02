@@ -1,20 +1,14 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.array.includes.js')
-
 require('core-js/modules/es.string.includes.js')
-
 require('core-js/modules/es.array.concat.js')
-
 require('core-js/stable')
-
 /**
  * Having an array and a potential new array element, check if the element is in the array, if not append to array.
  * @function
@@ -26,6 +20,5 @@ require('core-js/stable')
 var addUniqueToArray = function addUniqueToArray (item, array) {
   return !array.includes(item) ? array.concat([item]) : array
 }
-
 var _default = addUniqueToArray
 exports.default = _default

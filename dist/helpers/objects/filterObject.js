@@ -1,36 +1,22 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.array.filter.js')
-
 require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/esnext.async-iterator.filter.js')
-
 require('core-js/modules/esnext.iterator.constructor.js')
-
 require('core-js/modules/esnext.iterator.filter.js')
-
 require('core-js/modules/es.array.reduce.js')
-
 require('core-js/modules/esnext.async-iterator.reduce.js')
-
 require('core-js/modules/esnext.iterator.reduce.js')
-
 require('core-js/stable')
-
 var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
-
 var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
 /**
  * Function is a predicate, to test each property value of the object. Return true to keep the element, false
  * otherwise, taking three arguments
@@ -61,10 +47,8 @@ var filterObject = function filterObject (obj, fn) {
     } else {
       delete newObj[curr]
     }
-
     return newObj
   }, {})
 }
-
 var _default = filterObject
 exports.default = _default

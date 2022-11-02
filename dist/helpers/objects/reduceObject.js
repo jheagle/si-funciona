@@ -1,30 +1,19 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.array.reduce.js')
-
 require('core-js/modules/es.object.to-string.js')
-
 require('core-js/modules/esnext.async-iterator.reduce.js')
-
 require('core-js/modules/esnext.iterator.constructor.js')
-
 require('core-js/modules/esnext.iterator.reduce.js')
-
 require('core-js/stable')
-
 var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
-
 var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
 /**
  * Function to execute on each property in the object, taking four arguments
  * @callback module:objectHelpers~reduceCallback
@@ -57,6 +46,5 @@ var reduceObject = function reduceObject (obj, fn) {
     return (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2)
   }, initialValue)
 }
-
 var _default = reduceObject
 exports.default = _default

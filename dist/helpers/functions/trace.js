@@ -1,20 +1,14 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/stable')
-
 require('regenerator-runtime/runtime')
-
 var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
 /**
  * Output the a value with label to the console and return the value to not interrupt the code.
  * @function
@@ -31,6 +25,5 @@ var trace = function trace (label) {
     return value
   }
 }
-
 var _default = trace
 exports.default = _default

@@ -1,14 +1,11 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/stable')
-
 /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
@@ -23,6 +20,5 @@ require('core-js/stable')
 var compare = function compare (val1, val2) {
   return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
 }
-
 var _default = compare
 exports.default = _default

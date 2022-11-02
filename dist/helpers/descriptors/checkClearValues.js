@@ -1,24 +1,16 @@
 'use strict'
 
 require('core-js/modules/es.object.define-property.js')
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-
 require('core-js/modules/es.array.map.js')
-
 require('core-js/modules/esnext.async-iterator.map.js')
-
 require('core-js/modules/esnext.iterator.map.js')
-
 require('core-js/stable')
-
 var _setValue = _interopRequireDefault(require('../objects/setValue'))
-
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
 /**
  * Check if we should clear the values on this descriptor
  * @function
@@ -33,6 +25,5 @@ var checkClearValues = function checkClearValues (descriptor) {
     return (0, _setValue.default)('value', [], detail)
   }) : descriptor.details, descriptor)
 }
-
 var _default = checkClearValues
 exports.default = _default
