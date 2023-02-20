@@ -25,7 +25,7 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "npm": "^8.19.3"
+    "npm": "^8.19.4"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
