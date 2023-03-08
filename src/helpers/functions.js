@@ -16,6 +16,7 @@ import pipe from './functions/pipe.js'
 import preloadParams from './functions/preloadParams.js'
 import queueManager from './functions/queueManager.js'
 import queueTimeout from './functions/queueTimeout.js'
+import relevancyFilter from './functions/relevancyFilter.js'
 import trace from './functions/trace.js'
 
 export default {
@@ -27,5 +28,6 @@ export default {
   preloadParams,
   queueManager,
   queueTimeout,
+  relevancyFilter,
   trace
 }

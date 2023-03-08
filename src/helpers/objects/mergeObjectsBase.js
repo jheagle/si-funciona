@@ -1,7 +1,8 @@
 import 'core-js/stable'
-import isCloneable from './isCloneable'
-import reduceObject from './reduceObject'
-import setValue from './setValue'
+import isCloneable from './isCloneable.js'
+import reduceObject from './reduceObject.js'
+import relevancyFilter from '../functions/relevancyFilter.js'
+import setValue from './setValue.js'
 
 /**
  * Function that takes one or more objects and combines them into one.
@@ -30,73 +31,56 @@ const mergeObjectsBase = ({
   relevancyRange = 100,
   map = [],
   useClone = false,
-} = {}) => {
-  /**
-   * Remove elements out of relevance range and update the max relevance.
-   * @param {array} map
-   * @returns {array}
-   */
-  const updateMap = map => {
-    const minRelevance = map.length - relevancyRange
-    return map
-      .filter(reference => reference.relevance > minRelevance)
-      .map(
-        reference => setValue(
-          'relevance',
-          reference.relevance > map.length ? map.length : reference.relevance,
-          reference
-        )
-      )
+} = {}) => (...objects) => {
+  const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+  if (objects.length < 1) {
+    return firstObject
   }
-  return (...objects) => {
-    const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
-    if (objects.length < 1) {
-      return firstObject
+  if (depthLimit === 0) {
+    return firstObject
+  }
+  return objects.reduce((newObj, arg) => {
+    if (!arg) {
+      return newObj
     }
-    if (depthLimit === 0) {
-      return firstObject;
-    }
-    return objects.reduce((newObj, arg) => {
-      if (!arg) {
-        return newObj
-      }
-      map.push({
-        source: arg,
-        object: newObj,
-        relevance: map.length
-      })
-      if (map.length > mapLimit) {
-        map = updateMap(map)
-      }
-      return reduceObject(arg, (returnObj, value, key) => {
-        if (isCloneable(value)) {
-          let objectValue = newObj[key]
-          const exists = map.find(existing => existing.source === value)
-          if (exists) {
-            exists.relevance = map.length + 1
-            return setValue(key, exists.object, returnObj)
-          }
-          if (!isCloneable(objectValue) || !objectValue) {
-            objectValue = useClone
-              ? Array.isArray(value) ? [] : {}
-              : value
-          }
-          if (isCloneable(objectValue)) {
-            return setValue(key, mergeObjectsBase({ mapLimit, depthLimit: depthLimit - 1, relevancyRange, map, useClone })(objectValue, value), returnObj)
-          }
-          map.push({
-            source: value,
-            object: objectValue,
-            relevance: map.length
-          })
-          if (map.length > mapLimit) {
-            map = updateMap(map)
-          }
+    map.push({
+      source: arg,
+      object: newObj,
+      relevance: map.length
+    })
+    map = relevancyFilter(map, { mapLimit, relevancyRange })
+    return reduceObject(arg, (returnObj, value, key) => {
+      if (isCloneable(value)) {
+        let objectValue = newObj[key]
+        const exists = map.find(existing => existing.source === value)
+        if (exists) {
+          exists.relevance = map.length + 1
+          return setValue(key, exists.object, returnObj)
         }
-        return setValue(key, value, returnObj)
-      }, newObj)
-    }, firstObject || {})
-  }
+        if (!isCloneable(objectValue) || !objectValue) {
+          objectValue = useClone
+            ? Array.isArray(value) ? [] : {}
+            : value
+        }
+        if (isCloneable(objectValue)) {
+          return setValue(key, mergeObjectsBase({
+            mapLimit,
+            depthLimit: depthLimit - 1,
+            relevancyRange,
+            map,
+            useClone
+          })(objectValue, value), returnObj)
+        }
+        map.push({
+          source: value,
+          object: objectValue,
+          relevance: map.length
+        })
+        map = relevancyFilter(map, { mapLimit, relevancyRange })
+      }
+      return setValue(key, value, returnObj)
+    }, newObj)
+  }, firstObject || {})
 }
 
 export default mergeObjectsBase

@@ -134,7 +134,6 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.objectKeys(object, [includeInherited])](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
         * [.mergeObjectsMutable(...objects)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>\*</code>
         * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ [<code>mergeObjectsCallback</code>](#module_objectHelpers..mergeObjectsCallback)
-            * [~updateMap(map)](#module_objectHelpers.mergeObjectsBase..updateMap) ⇒ <code>array</code>
         * [.mergeObjects(...objects)](#module_objectHelpers.mergeObjects) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isObject(object)](#module_objectHelpers.isObject) ⇒ <code>boolean</code>
@@ -247,17 +246,6 @@ Perform a deep merge of objects. This will return a function that will combine a
 | [options.relevancyRange] | <code>number</code> | <code>100</code> | 
 | [options.map] | <code>Iterable</code> \| <code>array</code> | <code>[]</code> | 
 | [options.useClone] | <code>boolean</code> | <code>false</code> | 
-
-<a name="module_objectHelpers.mergeObjectsBase..updateMap"></a>
-
-#### mergeObjectsBase~updateMap(map) ⇒ <code>array</code>
-Remove elements out of relevance range and update the max relevance.
-
-**Kind**: inner method of [<code>mergeObjectsBase</code>](#module_objectHelpers.mergeObjectsBase)  
-
-| Param | Type |
-| --- | --- |
-| map | <code>array</code> | 
 
 <a name="module_objectHelpers.mergeObjects"></a>
 
@@ -593,6 +581,7 @@ Manage how functions are called with these utilities.
 * [functionHelpers](#module_functionHelpers)
     * _static_
         * [.trace(label, useClone)](#module_functionHelpers.trace) ⇒ <code>function</code>
+        * [.relevancyFilter(map, [options])](#module_functionHelpers.relevancyFilter) ⇒ <code>relevanceMap</code>
         * [.queueTimeout([queueManagerHandle])](#module_functionHelpers.queueTimeout) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
         * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
         * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
@@ -601,6 +590,8 @@ Manage how functions are called with these utilities.
         * [.delay(time)](#module_functionHelpers.delay) ⇒ [<code>delayHandler</code>](#module_functionHelpers..delayHandler)
         * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
         * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
+        * [.relevanceObject](#module_functionHelpers.relevanceObject) : <code>Object</code>
+        * [.relevanceMap](#module_functionHelpers.relevanceMap) : <code>Array.&lt;relevanceObject&gt;</code>
     * _inner_
         * [~queueTimeoutHandle](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
         * [~queueManagerHandle](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
@@ -618,6 +609,20 @@ Output the a value with label to the console and return the value to not interru
 | --- | --- | --- | --- |
 | label | <code>string</code> |  | Pass an identifying label of the value being output. |
 | useClone |  | <code>true</code> | Determines if the logged data should be a clone of the original to preserve state. |
+
+<a name="module_functionHelpers.relevancyFilter"></a>
+
+### functionHelpers.relevancyFilter(map, [options]) ⇒ <code>relevanceMap</code>
+Remove elements out of relevance range and update the max relevance.
+
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| map | <code>relevanceMap</code> |  | 
+| [options] | <code>Object</code> | <code>{}</code> | 
+| [options.mapLimit] | <code>int</code> | <code>1000</code> | 
+| [options.relevancyRange] | <code>int</code> | <code>100</code> | 
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
@@ -712,6 +717,24 @@ Given a function, call with the correct number of paramters from an array of pos
 | params | <code>Array</code> |  | Array of possible function parameters |
 | [minimum] | <code>number</code> | <code>2</code> | Minimumn number of parameters to use in the function |
 
+<a name="module_functionHelpers.relevanceObject"></a>
+
+### functionHelpers.relevanceObject : <code>Object</code>
+An object having an integer valued property named 'relevance'.
+
+**Kind**: static typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| relevance | <code>int</code> | 
+
+<a name="module_functionHelpers.relevanceMap"></a>
+
+### functionHelpers.relevanceMap : <code>Array.&lt;relevanceObject&gt;</code>
+A map of relevanceObjects which can be manipulated to filter results.
+
+**Kind**: static typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
 <a name="module_functionHelpers..queueTimeoutHandle"></a>
 
 ### functionHelpers~queueTimeoutHandle ⇒ <code>Promise</code>

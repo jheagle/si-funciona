@@ -8,21 +8,19 @@ exports.default = void 0
 require('core-js/modules/es.array.map.js')
 require('core-js/modules/esnext.async-iterator.map.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/modules/es.array.filter.js')
-require('core-js/modules/es.object.to-string.js')
-require('core-js/modules/esnext.async-iterator.filter.js')
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.filter.js')
 require('core-js/modules/es.array.reduce.js')
+require('core-js/modules/es.object.to-string.js')
 require('core-js/modules/esnext.async-iterator.reduce.js')
+require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/modules/es.array.find.js')
 require('core-js/modules/esnext.async-iterator.find.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/stable')
-var _isCloneable = _interopRequireDefault(require('./isCloneable'))
-var _reduceObject = _interopRequireDefault(require('./reduceObject'))
-var _setValue = _interopRequireDefault(require('./setValue'))
+var _isCloneable = _interopRequireDefault(require('./isCloneable.js'))
+var _reduceObject = _interopRequireDefault(require('./reduceObject.js'))
+var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter.js'))
+var _setValue = _interopRequireDefault(require('./setValue.js'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Function that takes one or more objects and combines them into one.
@@ -57,19 +55,6 @@ var mergeObjectsBase = function mergeObjectsBase () {
   var map = _ref$map === void 0 ? [] : _ref$map
   var _ref$useClone = _ref.useClone
   var useClone = _ref$useClone === void 0 ? false : _ref$useClone
-  /**
-   * Remove elements out of relevance range and update the max relevance.
-   * @param {array} map
-   * @returns {array}
-   */
-  var updateMap = function updateMap (map) {
-    var minRelevance = map.length - relevancyRange
-    return map.filter(function (reference) {
-      return reference.relevance > minRelevance
-    }).map(function (reference) {
-      return (0, _setValue.default)('relevance', reference.relevance > map.length ? map.length : reference.relevance, reference)
-    })
-  }
   return function () {
     for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
       objects[_key] = arguments[_key]
@@ -90,9 +75,10 @@ var mergeObjectsBase = function mergeObjectsBase () {
         object: newObj,
         relevance: map.length
       })
-      if (map.length > mapLimit) {
-        map = updateMap(map)
-      }
+      map = (0, _relevancyFilter.default)(map, {
+        mapLimit: mapLimit,
+        relevancyRange: relevancyRange
+      })
       return (0, _reduceObject.default)(arg, function (returnObj, value, key) {
         if ((0, _isCloneable.default)(value)) {
           var objectValue = newObj[key]
@@ -120,9 +106,10 @@ var mergeObjectsBase = function mergeObjectsBase () {
             object: objectValue,
             relevance: map.length
           })
-          if (map.length > mapLimit) {
-            map = updateMap(map)
-          }
+          map = (0, _relevancyFilter.default)(map, {
+            mapLimit: mapLimit,
+            relevancyRange: relevancyRange
+          })
         }
         return (0, _setValue.default)(key, value, returnObj)
       }, newObj)

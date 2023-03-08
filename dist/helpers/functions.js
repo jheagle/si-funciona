@@ -14,6 +14,7 @@ var _pipe = _interopRequireDefault(require('./functions/pipe.js'))
 var _preloadParams = _interopRequireDefault(require('./functions/preloadParams.js'))
 var _queueManager = _interopRequireDefault(require('./functions/queueManager.js'))
 var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout.js'))
+var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter.js'))
 var _trace = _interopRequireDefault(require('./functions/trace.js'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
@@ -33,6 +34,7 @@ var _default = {
   preloadParams: _preloadParams.default,
   queueManager: _queueManager.default,
   queueTimeout: _queueTimeout.default,
+  relevancyFilter: _relevancyFilter.default,
   trace: _trace.default
 }
 exports.default = _default
