@@ -14,15 +14,15 @@ var _objects = _interopRequireDefault(require('./helpers/objects.js'))
 var _strings = _interopRequireDefault(require('./helpers/strings.js'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
- * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * All of the siFunciona system functions for stringing together functions and simplifying logic.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- * @module functionalHelpers
+ * @module siFunciona
  */
 
-var functionalHelpers = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
-var _default = functionalHelpers
+var siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
+var _default = siFunciona
 exports.default = _default
 var root = void 0 || typeof window !== 'undefined' ? window : {}
-root.functionalHelpers = functionalHelpers
+root.siFunciona = siFunciona

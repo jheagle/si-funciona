@@ -21,7 +21,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module arrayHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       addUniqueToArray: _addUniqueToArray.default,
@@ -412,7 +412,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module objectDescriptors
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       assignDescriptor: _assignDescriptor.default,
@@ -1123,7 +1123,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module functionHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       callWithParams: _callWithParams.default,
@@ -1683,7 +1683,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module numberHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       absoluteMax: _absoluteMax.default,
@@ -1857,7 +1857,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module objectHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       cloneObject: _cloneObject.default,
@@ -2814,7 +2814,7 @@
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module stringHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
     var _default = {
       camelCase: _camelCase.default,
@@ -3093,18 +3093,18 @@
     var _strings = _interopRequireDefault(require('./helpers/strings.js'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * All of the siFunciona system functions for stringing together functions and simplifying logic.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- * @module functionalHelpers
+ * @module siFunciona
  */
 
-    var functionalHelpers = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
-    var _default = functionalHelpers
+    var siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
+    var _default = siFunciona
     exports.default = _default
     var root = void 0 || typeof window !== 'undefined' ? window : {}
-    root.functionalHelpers = functionalHelpers
+    root.siFunciona = siFunciona
   }, { './helpers/arrays.js': 1, './helpers/descriptors.js': 8, './helpers/functions.js': 21, './helpers/numbers.js': 32, './helpers/objects.js': 38, './helpers/strings.js': 58, 'core-js/modules/es.object.assign.js': 413, 'core-js/modules/es.object.define-property.js': 417 }],
   70: [function (require, module, exports) {
     var isCallable = require('../internals/is-callable')

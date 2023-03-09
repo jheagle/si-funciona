@@ -1,12 +1,12 @@
-# Functional Helpers
+# Sí, funciona
 
-## General usage utility functions
+## Funciones de utilidad para uso general. [General usage utility functions.]
 
 ## Modules
 
 <dl>
-<dt><a href="#module_functionalHelpers">functionalHelpers</a></dt>
-<dd><p>All of the functionalHelpers system functions for stringing together functions and simplifying logic.</p>
+<dt><a href="#module_siFunciona">siFunciona</a></dt>
+<dd><p>All of the siFunciona system functions for stringing together functions and simplifying logic.</p>
 </dd>
 <dt><a href="#module_stringHelpers">stringHelpers</a></dt>
 <dd><p>Manage how strings are manipulated with these utilities.</p>
@@ -28,10 +28,10 @@
 </dd>
 </dl>
 
-<a name="module_functionalHelpers"></a>
+<a name="module_siFunciona"></a>
 
-## functionalHelpers
-All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+## siFunciona
+All of the siFunciona system functions for stringing together functions and simplifying logic.
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  

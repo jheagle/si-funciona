@@ -1,9 +1,9 @@
 /**
- * All of the functionalHelpers system functions for stringing together functions and simplifying logic.
+ * All of the siFunciona system functions for stringing together functions and simplifying logic.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
- * @module functionalHelpers
+ * @module siFunciona
  */
 
 import arrayHelpers from './helpers/arrays.js'
@@ -13,7 +13,7 @@ import numberHelpers from './helpers/numbers.js'
 import objectHelpers from './helpers/objects.js'
 import stringHelpers from './helpers/strings.js'
 
-const functionalHelpers = Object.assign(
+const siFunciona = Object.assign(
   {},
   arrayHelpers,
   descriptors,
@@ -23,7 +23,7 @@ const functionalHelpers = Object.assign(
   stringHelpers
 )
 
-export default functionalHelpers
+export default siFunciona
 
 const root = this || (typeof window !== 'undefined') ? window : {}
-root['functionalHelpers'] = functionalHelpers
+root['siFunciona'] = siFunciona

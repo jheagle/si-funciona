@@ -1,17 +1,21 @@
 {
-  "name": "functional-helpers",
+  "name": "si-funciona",
   "author": "Joshua Heagle <joshuaheagle@gmail.com> (https://joshuaheagle.com)",
-  "description": "General usage utility functions.",
-  "homepage": "https://github.com/jheagle/functional-helpers#readme",
+  "description": "Funciones de utilidad para uso general. [General usage utility functions.]",
+  "homepage": "https://github.com/jheagle/si-funciona#readme",
   "keywords": [
     "functional",
     "helpers",
-    "utility"
+    "utility",
+    "funcional",
+    "ayudas",
+    "utilidades",
+    "general"
   ],
   "version": "0.0.0",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jheagle/functional-helpers/issues"
+    "url": "https://github.com/jheagle/si-funciona/issues"
   },
   "scripts": {
     "build": "gulp build",
@@ -36,7 +40,7 @@
     "standard": "^17.0.0"
   },
   "resolutions": {},
-  "repository": "github:jheagle/functional-helpers",
+  "repository": "github:jheagle/si-funciona",
   "main": "dist/main.min.js",
   "files": [
     "dist",

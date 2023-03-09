@@ -1,4 +1,4 @@
-# Functional Helpers
+# Sí, funciona
 
-## General usage utility functions
+## Funciones de utilidad para uso general. [General usage utility functions.]
 

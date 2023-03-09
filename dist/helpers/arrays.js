@@ -19,7 +19,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
  * @module arrayHelpers
- * @memberOf module:functionalHelpers
+ * @memberOf module:siFunciona
  */
 var _default = {
   addUniqueToArray: _addUniqueToArray.default,

@@ -1,3 +1,3 @@
 module.exports = {
-  browserName: 'functionalHelpers'
+  browserName: 'siFunciona'
 }
