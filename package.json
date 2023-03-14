@@ -12,7 +12,7 @@
     "utilidades",
     "general"
   ],
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jheagle/si-funciona/issues"
@@ -40,7 +40,10 @@
     "standard": "^17.0.0"
   },
   "resolutions": {},
-  "repository": "github:jheagle/si-funciona",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jheagle/si-funciona.git"
+  },
   "main": "dist/main.min.js",
   "files": [
     "dist",
@@ -51,5 +54,8 @@
     "env": [
       "jest"
     ]
+  },
+  "directories": {
+    "doc": "docs"
   }
 }

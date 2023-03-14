@@ -33,24 +33,26 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
+ * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
+ * have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
  * @function
  * @memberOf module:objectHelpers
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
- * @param {number} [options.depthLimit=-1]
- * @param {number} [options.relevancyRange=100]
- * @param {Iterable|array} [options.map=[]]
+ * @param {number} [options.mapLimit=100] - Size of temporary reference array used in memory before assessing relevancy.
+ * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
+ * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
+ * @param {Iterable|array} [options.map=[]] - A predetermined list of references gathered (to be passed to itself during recursion).
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback}
  */
 var mergeObjectsBase = function mergeObjectsBase () {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
   var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
+  var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
   var _ref$depthLimit = _ref.depthLimit
   var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
   var _ref$relevancyRange = _ref.relevancyRange
-  var relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
+  var relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
   var _ref$map = _ref.map
   var map = _ref$map === void 0 ? [] : _ref$map
   var _ref$useClone = _ref.useClone

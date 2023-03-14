@@ -15,20 +15,22 @@ import setValue from './setValue.js'
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
+ * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
+ * have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
  * @function
  * @memberOf module:objectHelpers
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000]
- * @param {number} [options.depthLimit=-1]
- * @param {number} [options.relevancyRange=100]
- * @param {Iterable|array} [options.map=[]]
+ * @param {number} [options.mapLimit=100] - Size of temporary reference array used in memory before assessing relevancy.
+ * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
+ * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
+ * @param {Iterable|array} [options.map=[]] - A predetermined list of references gathered (to be passed to itself during recursion).
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback}
  */
 const mergeObjectsBase = ({
-  mapLimit = 1000,
+  mapLimit = 100,
   depthLimit = -1,
-  relevancyRange = 100,
+  relevancyRange = 1000,
   map = [],
   useClone = false,
 } = {}) => (...objects) => {

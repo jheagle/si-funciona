@@ -234,18 +234,18 @@ Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
 <a name="module_objectHelpers.mergeObjectsBase"></a>
 
 ### objectHelpers.mergeObjectsBase([options]) ⇒ [<code>mergeObjectsCallback</code>](#module_objectHelpers..mergeObjectsCallback)
-Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.Objects having the same attributes will overwrite from last object to first.
+Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.Objects having the same attributes will overwrite from last object to first.NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known tohave circular references. A high mapLimit may lead to heavy memory usage and slow performance.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| [options] | <code>Object</code> | <code>{}</code> | 
-| [options.mapLimit] | <code>number</code> | <code>1000</code> | 
-| [options.depthLimit] | <code>number</code> | <code>-1</code> | 
-| [options.relevancyRange] | <code>number</code> | <code>100</code> | 
-| [options.map] | <code>Iterable</code> \| <code>array</code> | <code>[]</code> | 
-| [options.useClone] | <code>boolean</code> | <code>false</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> |  |
+| [options.mapLimit] | <code>number</code> | <code>100</code> | Size of temporary reference array used in memory before assessing relevancy. |
+| [options.depthLimit] | <code>number</code> | <code>-1</code> | Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited. |
+| [options.relevancyRange] | <code>number</code> | <code>1000</code> | Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed. |
+| [options.map] | <code>Iterable</code> \| <code>array</code> | <code>[]</code> | A predetermined list of references gathered (to be passed to itself during recursion). |
+| [options.useClone] | <code>boolean</code> | <code>false</code> |  |
 
 <a name="module_objectHelpers.mergeObjects"></a>
 
@@ -386,7 +386,7 @@ Get a nested property value from an object.
 <a name="module_objectHelpers.cloneObject"></a>
 
 ### objectHelpers.cloneObject(object, [options]) ⇒ <code>Object</code>
-Clone objects for manipulation without data corruption, returns a copy of the provided object.
+Clone objects for manipulation without data corruption, returns a copy of the provided object.NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known tohave circular references. A high mapLimit may lead to heavy memory usage and slow performance.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -394,10 +394,9 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 | --- | --- | --- | --- |
 | object | <code>Object</code> |  | The original object that is being cloned |
 | [options] | <code>Object</code> | <code>{}</code> |  |
-| [options.mapLimit] | <code>number</code> | <code>1000</code> |  |
-| [options.depthLimit] | <code>number</code> | <code>-1</code> |  |
-| [options.relevancyRange] | <code>number</code> | <code>100</code> |  |
-| [options.map] | <code>Iterable</code> | <code>[]</code> |  |
+| [options.mapLimit] | <code>number</code> | <code>100</code> | Size of temporary reference array used in memory before assessing relevancy. |
+| [options.depthLimit] | <code>number</code> | <code>-1</code> | Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited. |
+| [options.relevancyRange] | <code>number</code> | <code>1000</code> | Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed. |
 
 <a name="module_objectHelpers.DotNotationString"></a>
 
