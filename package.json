@@ -13,7 +13,7 @@
     "general"
   ],
   "version": "1.0.1",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/jheagle/si-funciona/issues"
   },
@@ -29,13 +29,11 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "npm": "^9.6.0"
+    "npm": "^9.6.2"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "jest": "^29.4.3",
-    "jest-environment-jsdom": "^29.4.3",
-    "js-build-tools": "^1.2.0",
+    "js-build-tools": "^1.2.1",
     "jsdoc": "^4.0.2",
     "standard": "^17.0.0"
   },
