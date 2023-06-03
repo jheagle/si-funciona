@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -18,12 +17,11 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @property {boolean} isArray
  * @property {boolean} complete
  */
-
 /**
  * @type {module:objectDescriptors~descriptor}
  * @memberOf module:objectDescriptors
  */
-var descriptorSample = {
+const descriptorSample = {
   index: 0,
   details: [_descriptorDetail.default],
   length: 1,

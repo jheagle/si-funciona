@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -15,8 +14,8 @@ require('core-js/stable')
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-var buildArrayOfReferences = function buildArrayOfReferences (item, length) {
-  var arr = []
+const buildArrayOfReferences = (item, length) => {
+  const arr = []
   while (arr.length < length) {
     arr.push(item)
   }

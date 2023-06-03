@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -19,16 +18,16 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {*} value - The default value to return if the property is not found
  * @returns {Object} The modified object
  */
-var dotSet = function dotSet (arrayObject, dotNotation) {
+const dotSet = function (arrayObject, dotNotation) {
   var _arrayObject$key
-  var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
-  var key = (0, _strBefore.default)(dotNotation, '.')
-  var lastKey = !key
+  const value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+  let key = (0, _strBefore.default)(dotNotation, '.')
+  const lastKey = !key
   if (lastKey) {
     key = dotNotation
   }
   if (key === '*') {
-    for (var wildKey in arrayObject) {
+    for (const wildKey in arrayObject) {
       if (lastKey) {
         arrayObject[wildKey] = value
         continue
@@ -44,7 +43,7 @@ var dotSet = function dotSet (arrayObject, dotNotation) {
     arrayObject[dotNotation] = value
     return arrayObject
   }
-  var next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+  const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
   arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
   return arrayObject
 }

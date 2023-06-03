@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -16,7 +15,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-var mergeObjects = (0, _mergeObjectsBase.default)({
+const mergeObjects = (0, _mergeObjectsBase.default)({
   useClone: true
 })
 var _default = mergeObjects

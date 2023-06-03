@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -18,15 +17,15 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {string} dotNotation - The path for the property
  * @returns {Object} The modified object
  */
-var dotUnset = function dotUnset (arrayObject, dotNotation) {
+const dotUnset = (arrayObject, dotNotation) => {
   var _arrayObject$key
-  var key = (0, _strBefore.default)(dotNotation, '.')
-  var lastKey = !key
+  let key = (0, _strBefore.default)(dotNotation, '.')
+  const lastKey = !key
   if (lastKey) {
     key = dotNotation
   }
   if (key === '*') {
-    for (var wildKey in arrayObject) {
+    for (const wildKey in arrayObject) {
       if (lastKey) {
         delete arrayObject[wildKey]
         continue
@@ -42,7 +41,7 @@ var dotUnset = function dotUnset (arrayObject, dotNotation) {
     delete arrayObject[dotNotation]
     return arrayObject
   }
-  var next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+  const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
   arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
   return arrayObject
 }

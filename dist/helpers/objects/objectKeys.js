@@ -1,12 +1,9 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.object.get-own-property-names.js')
-require('core-js/modules/es.parse-int.js')
 require('core-js/stable')
 var _isObject = _interopRequireDefault(require('./isObject'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -19,19 +16,19 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}
  */
-var objectKeys = function objectKeys (object) {
-  var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+const objectKeys = function (object) {
+  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
     return []
   }
   if (includeInherited) {
-    var propNames = Object.getOwnPropertyNames(object)
+    const propNames = Object.getOwnPropertyNames(object)
     if (propNames.length) {
       return propNames
     }
   }
-  var keys = []
-  for (var key in object) {
+  const keys = []
+  for (const key in object) {
     if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
       if (Array.isArray(object)) {
         keys.push(parseInt(key))

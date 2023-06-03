@@ -1,20 +1,12 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.array.map.js')
 require('core-js/modules/esnext.async-iterator.map.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/modules/es.regexp.exec.js')
 require('core-js/modules/es.string.replace.js')
-require('core-js/modules/es.regexp.constructor.js')
-require('core-js/modules/es.regexp.sticky.js')
-require('core-js/modules/es.regexp.to-string.js')
-require('core-js/modules/es.string.match.js')
-require('core-js/modules/es.array.concat.js')
 require('core-js/stable')
 var _isObject = _interopRequireDefault(require('./isObject'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -30,7 +22,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @typedef {Object.<DotNotationString, *>} DotNotatedObject
  * @memberOf module:objectHelpers
  */
-
 /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
@@ -38,20 +29,16 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
-var handleRetainObjects = function handleRetainObjects (retainObjects) {
+const handleRetainObjects = retainObjects => {
   if (!retainObjects.length) {
     /**
      * Bypass the test function if there are no retainObjects.
      * @returns {false}
      */
-    return function () {
-      return false
-    }
+    return () => false
   }
-  retainObjects = retainObjects.map(function (key) {
-    return key.replace('\.', '\\.')
-  })
-  var retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
+  retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
+  const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
   /**
    * Test if a key should be retained as an object.
    * @param {string} currentKey - The key to test
@@ -59,7 +46,7 @@ var handleRetainObjects = function handleRetainObjects (retainObjects) {
    * @param {Object} results - The results object to add to
    * @returns {boolean}
    */
-  return function (currentKey, value, results) {
+  return (currentKey, value, results) => {
     if (!currentKey.match(retainRegex)) {
       return false
     }
@@ -78,12 +65,12 @@ var handleRetainObjects = function handleRetainObjects (retainObjects) {
  * @param {DotNotatedObject} [results={}] - The final array to return
  * @returns {DotNotatedObject} The dot-notated object
  */
-var performDotNotate = function performDotNotate (arrayObject, didRetain) {
-  var prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
-  var results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
-  for (var key in arrayObject) {
-    var value = arrayObject[key]
-    var currentKey = ''.concat(prepend).concat(key)
+const performDotNotate = function (arrayObject, didRetain) {
+  const prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
+  const results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+  for (const key in arrayObject) {
+    const value = arrayObject[key]
+    const currentKey = ''.concat(prepend).concat(key)
     if (didRetain(currentKey, value, results)) {
       continue
     }
@@ -104,8 +91,8 @@ var performDotNotate = function performDotNotate (arrayObject, didRetain) {
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {DotNotatedObject} The dot-notated object
  */
-var dotNotate = function dotNotate (arrayObject) {
-  var retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+const dotNotate = function (arrayObject) {
+  const retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
   return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
 }
 var _default = dotNotate

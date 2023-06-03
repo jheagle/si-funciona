@@ -1,12 +1,9 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.array.reduce.js')
-require('core-js/modules/es.object.to-string.js')
 require('core-js/modules/esnext.async-iterator.reduce.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
@@ -26,7 +23,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} [object={}] - The object reduce was called upon.
  * @returns {*}
  */
-
 /**
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
@@ -40,11 +36,9 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-var reduceObject = function reduceObject (obj, fn) {
-  var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
-  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
-    return (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2)
-  }, initialValue)
+const reduceObject = function (obj, fn) {
+  const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
+  return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
 }
 var _default = reduceObject
 exports.default = _default

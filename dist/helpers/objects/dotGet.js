@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -19,17 +18,17 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
  * @returns {*} The value of the property
  */
-var dotGet = function dotGet (arrayObject, dotNotation) {
-  var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
-  var key = (0, _strBefore.default)(dotNotation, '.')
-  var lastKey = !key
+const dotGet = function (arrayObject, dotNotation) {
+  const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+  let key = (0, _strBefore.default)(dotNotation, '.')
+  const lastKey = !key
   if (lastKey) {
     key = dotNotation
   }
   if (key === '*') {
-    var result = []
-    for (var wildKey in arrayObject) {
-      var wildValue = arrayObject[wildKey]
+    const result = []
+    for (const wildKey in arrayObject) {
+      const wildValue = arrayObject[wildKey]
       if (lastKey) {
         result[wildKey] = wildValue
         continue
@@ -48,7 +47,7 @@ var dotGet = function dotGet (arrayObject, dotNotation) {
   if (typeof arrayObject[key] === 'undefined') {
     return defaultValue
   }
-  var next = arrayObject[key]
+  const next = arrayObject[key]
   if (!(0, _isObject.default)(next)) {
     return defaultValue
   }

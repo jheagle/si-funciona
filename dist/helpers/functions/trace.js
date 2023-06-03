@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -17,9 +16,9 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
  */
-var trace = function trace (label) {
-  var useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
-  return function (value) {
+const trace = function (label) {
+  const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
+  return value => {
     // noinspection JSForgottenDebugStatementInspection
     console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
     return value

@@ -1,11 +1,9 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.object.assign.js')
 var _arrays = _interopRequireDefault(require('./helpers/arrays.js'))
 var _descriptors = _interopRequireDefault(require('./helpers/descriptors.js'))
 var _functions = _interopRequireDefault(require('./helpers/functions.js'))
@@ -21,8 +19,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module siFunciona
  */
 
-var siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
+const siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
 var _default = siFunciona
 exports.default = _default
-var root = void 0 || typeof window !== 'undefined' ? window : {}
+const root = void 0 || typeof window !== 'undefined' ? window : {}
 root.siFunciona = siFunciona

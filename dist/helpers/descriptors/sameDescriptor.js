@@ -1,18 +1,14 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.object.to-string.js')
 require('core-js/modules/esnext.async-iterator.every.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.async-iterator.some.js')
 require('core-js/modules/esnext.iterator.some.js')
-require('core-js/modules/es.array.includes.js')
-require('core-js/modules/es.string.includes.js')
 require('core-js/stable')
 /**
  * Check if the two descriptors are the same.
@@ -22,12 +18,6 @@ require('core-js/stable')
  * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
-var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
-  return descriptor1.details.every(function (detail, index) {
-    return detail.value.some(function (dVal) {
-      return descriptor2.details[index].value.includes(dVal)
-    })
-  })
-}
+const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
 var _default = sameDescriptor
 exports.default = _default

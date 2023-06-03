@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -21,18 +20,16 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @returns {Object}
  */
-var cloneObject = function cloneObject (object) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  var _ref$mapLimit = _ref.mapLimit
-  var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-  var _ref$depthLimit = _ref.depthLimit
-  var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  var _ref$relevancyRange = _ref.relevancyRange
-  var relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
+const cloneObject = function (object) {
+  const {
+    mapLimit = 100,
+    depthLimit = -1,
+    relevancyRange = 1000
+  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
   return (0, _mergeObjectsBase.default)({
-    mapLimit: mapLimit,
-    depthLimit: depthLimit,
-    relevancyRange: relevancyRange,
+    mapLimit,
+    depthLimit,
+    relevancyRange,
     useClone: true
   })(object)
 }

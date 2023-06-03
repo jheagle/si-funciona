@@ -1,11 +1,9 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.object.to-string.js')
 require('core-js/stable')
 var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
 var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
@@ -18,8 +16,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object} object
  * @returns {module:objectDescriptors~descriptor}
  */
-var describeObject = function describeObject (object) {
-  var descriptor = {
+const describeObject = object => {
+  const descriptor = {
     index: 0,
     details: [],
     length: 0,
@@ -28,10 +26,10 @@ var describeObject = function describeObject (object) {
     isArray: false,
     complete: false
   }
-  var keys = (0, _objectKeys.default)(object)
-  for (var i = 0; i < keys.length; ++i) {
-    var key = keys[i]
-    var newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
+  const keys = (0, _objectKeys.default)(object)
+  for (let i = 0; i < keys.length; ++i) {
+    const key = keys[i]
+    const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
     if (typeof key === 'number' && descriptor.details.length) {
       descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)
       descriptor.keys = [0]

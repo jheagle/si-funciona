@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -16,8 +15,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-var emptyObject = function emptyObject (item) {
-  return (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
-}
+const emptyObject = item => (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
 var _default = emptyObject
 exports.default = _default

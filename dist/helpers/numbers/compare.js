@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -17,8 +16,6 @@ require('core-js/stable')
  * @param {number} val2 - The second number to compare
  * @returns {number}
  */
-var compare = function compare (val1, val2) {
-  return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-}
+const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
 var _default = compare
 exports.default = _default

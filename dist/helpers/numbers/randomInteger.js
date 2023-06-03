@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -17,9 +16,9 @@ require('core-js/stable')
  * offset, 2 for range)
  * @returns {number}
  */
-var randomInteger = function randomInteger (range) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+const randomInteger = function (range) {
+  const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+  const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
   return (Math.floor(Math.random() * range) + offset) * interval
 }
 var _default = randomInteger

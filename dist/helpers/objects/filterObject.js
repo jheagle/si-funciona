@@ -1,16 +1,12 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.array.filter.js')
-require('core-js/modules/es.object.to-string.js')
 require('core-js/modules/esnext.async-iterator.filter.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.filter.js')
-require('core-js/modules/es.array.reduce.js')
 require('core-js/modules/esnext.async-iterator.reduce.js')
 require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
@@ -27,7 +23,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} [object] - The object filter was called upon.
  * @returns {boolean}
  */
-
 /**
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
@@ -39,9 +34,9 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-var filterObject = function filterObject (obj, fn) {
-  var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
+const filterObject = function (obj, fn) {
+  const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+  return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => {
     if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
       newObj[curr] = obj[curr]
     } else {

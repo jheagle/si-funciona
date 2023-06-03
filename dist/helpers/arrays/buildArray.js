@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -17,10 +16,10 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-var buildArray = function buildArray (item, length) {
-  var arr = []
+const buildArray = (item, length) => {
+  const arr = []
   while (arr.length < length) {
-    var cloned = (0, _cloneObject.default)(item)
+    const cloned = (0, _cloneObject.default)(item)
     arr.push(cloned)
   }
   return arr

@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/es.object.define-property.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
@@ -16,7 +15,7 @@ require('core-js/stable')
  * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-var setValue = function setValue (key, value, item) {
+const setValue = (key, value, item) => {
   item[key] = value
   return item
 }

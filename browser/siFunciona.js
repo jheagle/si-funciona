@@ -2,7 +2,6 @@
   1: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -32,18 +31,14 @@
       uniqueArray: _uniqueArray.default
     }
     exports.default = _default
-  }, { './arrays/addUniqueToArray.js': 2, './arrays/buildArray.js': 3, './arrays/buildArrayOfReferences.js': 4, './arrays/compareArrays.js': 5, './arrays/mergeArrays.js': 6, './arrays/uniqueArray.js': 7, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './arrays/addUniqueToArray.js': 2, './arrays/buildArray.js': 3, './arrays/buildArrayOfReferences.js': 4, './arrays/compareArrays.js': 5, './arrays/mergeArrays.js': 6, './arrays/uniqueArray.js': 7, 'core-js/stable': 613 }],
   2: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.includes.js')
-    require('core-js/modules/es.string.includes.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     /**
  * Having an array and a potential new array element, check if the element is in the array, if not append to array.
@@ -53,16 +48,13 @@
  * @param {Array} array - An array where an element may be appended.
  * @returns {Array|Buffer|*|string}
  */
-    var addUniqueToArray = function addUniqueToArray (item, array) {
-      return !array.includes(item) ? array.concat([item]) : array
-    }
+    const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
     var _default = addUniqueToArray
     exports.default = _default
-  }, { 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.includes.js': 337, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.string.includes.js': 487, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   3: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -79,21 +71,20 @@
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-    var buildArray = function buildArray (item, length) {
-      var arr = []
+    const buildArray = (item, length) => {
+      const arr = []
       while (arr.length < length) {
-        var cloned = (0, _cloneObject.default)(item)
+        const cloned = (0, _cloneObject.default)(item)
         arr.push(cloned)
       }
       return arr
     }
     var _default = buildArray
     exports.default = _default
-  }, { '../objects/cloneObject': 39, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { '../objects/cloneObject': 39, 'core-js/stable': 613 }],
   4: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -108,8 +99,8 @@
  * @param {number} length - The desired length of the array
  * @returns {Array.<*>}
  */
-    var buildArrayOfReferences = function buildArrayOfReferences (item, length) {
-      var arr = []
+    const buildArrayOfReferences = (item, length) => {
+      const arr = []
       while (arr.length < length) {
         arr.push(item)
       }
@@ -117,34 +108,20 @@
     }
     var _default = buildArrayOfReferences
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   5: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.array.slice.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.map.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.every.js')
     require('core-js/stable')
@@ -152,13 +129,6 @@
     var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
     /**
  * Store the comparison result for an element that may exist in either of compared arrays.
  * - value stores the element value from the arrays being compared
@@ -190,7 +160,6 @@
  * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
  * @property {Array.<number>} result - The results in the order of the compared arrays
  */
-
     /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2
@@ -249,91 +218,56 @@
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
-    var compareArrays = function compareArrays () {
+    const compareArrays = function () {
       for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
         arrays[_key] = arguments[_key]
       }
-      return _mergeArrays.default.apply(void 0, arrays).reduce(function (results, attr) {
-        var attrType = _typeof(attr)
-        var useArray = Array.isArray(attr)
-        var keys = arrays.map(function (array) {
-          return array.reduce(function (results, current, key) {
-            var currentType = _typeof(current)
-            if (attrType !== currentType) {
-              return results
-            }
-            if (!(0, _isObject.default)(attr)) {
-              return current === attr ? [].concat(_toConsumableArray(results), [key]) : results
-            }
-            if (useArray !== Array.isArray(current)) {
-              return results
-            }
-            var compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
-            return compareKeys.every(function (compare) {
-              return compare.result.every(function (result) {
-                return result === 0
-              })
-            }) ? [].concat(_toConsumableArray(results), [key]) : results
-          }, [])
-        })
-        var arrayResults = keys.map(function (array) {
-          return array.length ? 1 : -1
-        })
-        return [].concat(_toConsumableArray(results), [{
+      return (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
+        const attrType = typeof attr
+        const useArray = Array.isArray(attr)
+        const keys = arrays.map(array => array.reduce((results, current, key) => {
+          const currentType = typeof current
+          if (attrType !== currentType) {
+            return results
+          }
+          if (!(0, _isObject.default)(attr)) {
+            return current === attr ? [...results, key] : results
+          }
+          if (useArray !== Array.isArray(current)) {
+            return results
+          }
+          const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
+          return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
+        }, []))
+        const arrayResults = keys.map(array => array.length ? 1 : -1)
+        return [...results, {
           value: attr,
           keys: keys,
-          result: arrayResults.every(function (result) {
-            return result === 1
-          }) ? arrayResults.map(function (result) {
-              return 0
-            }) : arrayResults
-        }])
+          result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
+        }]
       }, [])
     }
     var _default = compareArrays
     exports.default = _default
-  }, { '../objects/isObject': 48, '../objects/objectKeys': 53, './mergeArrays': 6, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { '../objects/isObject': 48, '../objects/objectKeys': 53, './mergeArrays': 6, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   6: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.array.slice.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.array.concat.js')
-    require('core-js/modules/es.array.filter.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/es.array.includes.js')
-    require('core-js/modules/es.string.includes.js')
     require('core-js/stable')
     var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
     /**
  * Take multiple arrays and then filter all these into one unique array.
  * @function
@@ -341,33 +275,25 @@
  * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}
  */
-    var mergeArrays = function mergeArrays () {
+    const mergeArrays = function () {
       for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
         arrays[_key] = arguments[_key]
       }
-      return arrays.map(_uniqueArray.default).reduce(function (merged, arr) {
-        return [].concat(_toConsumableArray(merged), _toConsumableArray(arr.filter(function (attr) {
-          return !merged.includes(attr)
-        })))
-      }, [])
+      return arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
     }
     var _default = mergeArrays
     exports.default = _default
-  }, { './uniqueArray': 7, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.filter.js': 328, 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.includes.js': 337, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.includes.js': 487, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { './uniqueArray': 7, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   7: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.filter.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/es.array.index-of.js')
     require('core-js/stable')
     /**
  * Remove duplicate values from an array.
@@ -376,18 +302,13 @@
  * @param {Array} array - The array to make unique
  * @returns {Array}
  */
-    var uniqueArray = function uniqueArray (array) {
-      return array.filter(function (item, index) {
-        return array.indexOf(item) === index
-      })
-    }
+    const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
     var _default = uniqueArray
     exports.default = _default
-  }, { 'core-js/modules/es.array.filter.js': 328, 'core-js/modules/es.array.index-of.js': 338, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/stable': 613 }],
   8: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -429,35 +350,26 @@
       sameDescriptor: _sameDescriptor.default
     }
     exports.default = _default
-  }, { './descriptors/assignDescriptor.js': 9, './descriptors/assignDescriptorDetail.js': 10, './descriptors/checkClearValues.js': 11, './descriptors/checkDescriptorComplete.js': 12, './descriptors/cloneDescriptor.js': 13, './descriptors/cloneDescriptorDetail.js': 14, './descriptors/compareDescriptor.js': 15, './descriptors/describeObject.js': 16, './descriptors/describeObjectDetail.js': 17, './descriptors/describeObjectMap.js': 18, './descriptors/nextReference.js': 19, './descriptors/sameDescriptor.js': 20, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './descriptors/assignDescriptor.js': 9, './descriptors/assignDescriptorDetail.js': 10, './descriptors/checkClearValues.js': 11, './descriptors/checkDescriptorComplete.js': 12, './descriptors/cloneDescriptor.js': 13, './descriptors/cloneDescriptorDetail.js': 14, './descriptors/compareDescriptor.js': 15, './descriptors/describeObject.js': 16, './descriptors/describeObjectDetail.js': 17, './descriptors/describeObjectMap.js': 18, './descriptors/nextReference.js': 19, './descriptors/sameDescriptor.js': 20, 'core-js/stable': 613 }],
   9: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.iterator.js')
     require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.for-each.js')
-    require('core-js/modules/es.array.find.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/es.object.assign.js')
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.array.filter.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.filter.js')
     require('core-js/stable')
@@ -474,31 +386,25 @@
  * @param  {...module:objectDescriptors~descriptor} descriptors
  * @returns {module:objectDescriptors~descriptor}
  */
-    var assignDescriptor = function assignDescriptor (originalMap) {
+    const assignDescriptor = function (originalMap) {
       for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         descriptors[_key - 1] = arguments[_key]
       }
-      return descriptors.reduce(function (assignedDescriptor, descriptor) {
-        var detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
-        detailsDiff.forEach(function (diff) {
-          var existingDetail = assignedDescriptor.details.find(function (detail) {
-            return detail.key === diff.value
-          })
-          var newDetail = descriptor.details.find(function (detail) {
-            return detail.key === diff.value
-          })
-          if (diff.result.every(function (result) {
-            return result === 0
-          })) {
+      return descriptors.reduce((assignedDescriptor, descriptor) => {
+        const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
+        detailsDiff.forEach(diff => {
+          const existingDetail = assignedDescriptor.details.find(detail => detail.key === diff.value)
+          const newDetail = descriptor.details.find(detail => detail.key === diff.value)
+          if (diff.result.every(result => result === 0)) {
             assignedDescriptor.details[existingDetail.index] = (0, _assignDescriptorDetail.default)(existingDetail, newDetail)
             return assignedDescriptor
           }
-          var useDetail = diff[0] > 0 ? existingDetail : newDetail
+          const useDetail = diff[0] > 0 ? existingDetail : newDetail
           if (!useDetail) {
             assignedDescriptor.details[existingDetail.index].optional = true
             return assignedDescriptor
           }
-          var useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+          const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
           assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
             index: useIndex,
             optional: true
@@ -506,61 +412,33 @@
           assignedDescriptor.length = assignedDescriptor.length < assignedDescriptor.details.length ? assignedDescriptor.details.length : assignedDescriptor.length
           return assignedDescriptor
         })
-        assignedDescriptor.keys = (0, _uniqueArray.default)(assignedDescriptor.details.map(function (detail) {
-          return detail.key
-        }))
-        assignedDescriptor.references = (0, _uniqueArray.default)(assignedDescriptor.details.filter(function (detail) {
-          return detail.isReference
-        }).map(function (detail) {
-          return detail.index
-        }))
-        assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(function (detail) {
-          return typeof detail.key === 'number'
-        }) : assignedDescriptor.isArray
+        assignedDescriptor.keys = (0, _uniqueArray.default)(assignedDescriptor.details.map(detail => detail.key))
+        assignedDescriptor.references = (0, _uniqueArray.default)(assignedDescriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
+        assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(detail => typeof detail.key === 'number') : assignedDescriptor.isArray
         assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
         return assignedDescriptor
       }, (0, _cloneDescriptor.default)(originalMap))
     }
     var _default = assignDescriptor
     exports.default = _default
-  }, { '../arrays/compareArrays': 5, '../arrays/uniqueArray': 7, './assignDescriptorDetail': 10, './cloneDescriptor': 13, 'core-js/modules/es.array.filter.js': 328, 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.assign.js': 413, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.for-each.js': 593, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { '../arrays/compareArrays': 5, '../arrays/uniqueArray': 7, './assignDescriptorDetail': 10, './cloneDescriptor': 13, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   10: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.array.slice.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.concat.js')
-    require('core-js/modules/es.array.find.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
     var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
     /**
  * Assign properties from other details onto an existing detail.
  * @function
@@ -569,24 +447,20 @@
  * @param  {...module:objectDescriptors~descriptorDetail} details
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-    var assignDescriptorDetail = function assignDescriptorDetail (originalDetail) {
+    const assignDescriptorDetail = function (originalDetail) {
       for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         details[_key - 1] = arguments[_key]
       }
-      return details.reduce(function (existingDetail, newDetail) {
-        existingDetail.type = (0, _uniqueArray.default)([].concat(_toConsumableArray(existingDetail.type), _toConsumableArray(newDetail.type)))
-        existingDetail.value = (0, _uniqueArray.default)([].concat(_toConsumableArray(existingDetail.value), _toConsumableArray(newDetail.value)))
+      return details.reduce((existingDetail, newDetail) => {
+        existingDetail.type = (0, _uniqueArray.default)([...existingDetail.type, ...newDetail.type])
+        existingDetail.value = (0, _uniqueArray.default)([...existingDetail.value, ...newDetail.value])
         existingDetail.nullable = existingDetail.nullable || newDetail.nullable
         existingDetail.optional = existingDetail.optional || newDetail.optional
         existingDetail.circular = existingDetail.circular || newDetail.circular
         existingDetail.isReference = existingDetail.isReference || newDetail.isReference
         existingDetail.isInstance = existingDetail.isInstance || newDetail.isInstance
-        existingDetail.arrayReference = [existingDetail.arrayReference, newDetail.arrayReference].find(function (ref) {
-          return typeof ref === 'number'
-        })
-        existingDetail.objectReference = [existingDetail.objectReference, newDetail.objectReference].find(function (ref) {
-          return typeof ref === 'number'
-        })
+        existingDetail.arrayReference = [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number')
+        existingDetail.objectReference = [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
         existingDetail.arrayReference = typeof existingDetail.arrayReference === 'undefined' ? null : existingDetail.arrayReference
         existingDetail.objectReference = typeof existingDetail.objectReference === 'undefined' ? null : existingDetail.objectReference
         return existingDetail
@@ -594,16 +468,14 @@
     }
     var _default = assignDescriptorDetail
     exports.default = _default
-  }, { '../arrays/uniqueArray': 7, './cloneDescriptorDetail': 14, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { '../arrays/uniqueArray': 7, './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   11: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
@@ -617,24 +489,20 @@
  * @param {boolean} [keepValues=false]
  * @returns {module:objectDescriptors~descriptor}
  */
-    var checkClearValues = function checkClearValues (descriptor) {
-      var keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-      return (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(function (detail) {
-        return (0, _setValue.default)('value', [], detail)
-      }) : descriptor.details, descriptor)
+    const checkClearValues = function (descriptor) {
+      const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+      return (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
     }
     var _default = checkClearValues
     exports.default = _default
-  }, { '../objects/setValue': 57, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 612 }],
+  }, { '../objects/setValue': 57, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 613 }],
   12: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
@@ -650,29 +518,19 @@
  * @param {module:objectDescriptors~descriptor} descriptor
  * @returns {module:objectDescriptors~descriptor}
  */
-    var checkDescriptorComplete = function checkDescriptorComplete (descriptor) {
-      return (0, _setValue.default)('complete', descriptor.references.every(function (refId) {
-        return [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(function (ref) {
-          return typeof ref === 'number'
-        })
-      }), descriptor)
-    }
+    const checkDescriptorComplete = descriptor => (0, _setValue.default)('complete', descriptor.references.every(refId => [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(ref => typeof ref === 'number')), descriptor)
     var _default = checkDescriptorComplete
     exports.default = _default
-  }, { '../objects/setValue': 57, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/stable': 612 }],
+  }, { '../objects/setValue': 57, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/stable': 613 }],
   13: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.array.iterator.js')
     require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
@@ -684,38 +542,30 @@
  * @param {module:objectDescriptors~descriptor} originalMap
  * @returns {module:objectDescriptors~descriptor}
  */
-    var cloneDescriptor = function cloneDescriptor (originalMap) {
-      var copyMap = {}
+    const cloneDescriptor = originalMap => {
+      const copyMap = {}
       copyMap.index = originalMap.index || 0
       copyMap.details = originalMap.details.map(_cloneDescriptorDetail.default)
       copyMap.length = originalMap.length
-      copyMap.keys = originalMap.keys.map(function (key) {
-        return key
-      })
-      copyMap.references = originalMap.references.map(function (reference) {
-        return reference
-      })
+      copyMap.keys = originalMap.keys.map(key => key)
+      copyMap.references = originalMap.references.map(reference => reference)
       copyMap.isArray = originalMap.isArray
       copyMap.complete = originalMap.complete
       return copyMap
     }
     var _default = cloneDescriptor
     exports.default = _default
-  }, { './cloneDescriptorDetail': 14, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   14: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.for-each.js')
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
@@ -728,37 +578,29 @@
  * @param {module:objectDescriptors~descriptorDetail} originalDetail
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-    var cloneDescriptorDetail = function cloneDescriptorDetail (originalDetail) {
-      var copyDetail = {};
-      (0, _objectKeys.default)(originalDetail).forEach(function (key) {
-        copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(function (value) {
-          return value
-        }) : originalDetail[key]
+    const cloneDescriptorDetail = originalDetail => {
+      const copyDetail = {};
+      (0, _objectKeys.default)(originalDetail).forEach(key => {
+        copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(value => value) : originalDetail[key]
       })
       return copyDetail
     }
     var _default = cloneDescriptorDetail
     exports.default = _default
-  }, { '../objects/objectKeys': 53, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/web.dom-collections.for-each.js': 593, 'core-js/stable': 612 }],
+  }, { '../objects/objectKeys': 53, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 613 }],
   15: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/es.array.iterator.js')
     require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.includes.js')
-    require('core-js/modules/es.string.includes.js')
     require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.some.js')
-    require('core-js/modules/es.array.find.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
@@ -770,37 +612,27 @@
  * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
-    var compareDescriptor = function compareDescriptor (descriptor1, descriptor2) {
+    const compareDescriptor = (descriptor1, descriptor2) => {
       if (descriptor1.isArray !== descriptor2.isArray) {
         return false
       }
       if (descriptor1.length === 0 || descriptor2.length === 0) {
         return descriptor1.length === descriptor2.length
       }
-      var smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
-      var largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
-      return smallerDescriptor.keys.every(function (key) {
-        return largerDescriptor.keys.includes(key)
-      }) ? smallerDescriptor.details.every(function (detail) {
-          return detail.type.some(function (type) {
-            return largerDescriptor.details.find(function (foundDetail) {
-              return foundDetail.key === detail.key
-            }).type.includes(type)
-          })
-        }) : false
+      const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
+      const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
+      return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
     }
     var _default = compareDescriptor
     exports.default = _default
-  }, { 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.array.includes.js': 337, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.includes.js': 487, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   16: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/stable')
     var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
     var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
@@ -813,8 +645,8 @@
  * @param {Object} object
  * @returns {module:objectDescriptors~descriptor}
  */
-    var describeObject = function describeObject (object) {
-      var descriptor = {
+    const describeObject = object => {
+      const descriptor = {
         index: 0,
         details: [],
         length: 0,
@@ -823,10 +655,10 @@
         isArray: false,
         complete: false
       }
-      var keys = (0, _objectKeys.default)(object)
-      for (var i = 0; i < keys.length; ++i) {
-        var key = keys[i]
-        var newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
+      const keys = (0, _objectKeys.default)(object)
+      for (let i = 0; i < keys.length; ++i) {
+        const key = keys[i]
+        const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
         if (typeof key === 'number' && descriptor.details.length) {
           descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)
           descriptor.keys = [0]
@@ -847,28 +679,19 @@
     }
     var _default = describeObject
     exports.default = _default
-  }, { '../objects/objectKeys': 53, './assignDescriptorDetail': 10, './describeObjectDetail': 17, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/stable': 612 }],
+  }, { '../objects/objectKeys': 53, './assignDescriptorDetail': 10, './describeObjectDetail': 17, 'core-js/stable': 613 }],
   17: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _emptyObject = _interopRequireDefault(require('../objects/emptyObject'))
     var _isCloneable = _interopRequireDefault(require('../objects/isCloneable'))
     var _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
     /**
  * Trace an object's attribute and provide details about it.
  * @function
@@ -878,10 +701,10 @@
  * @param {number} [index=0]
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-    var describeObjectDetail = function describeObjectDetail (value) {
-      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
-      var type = _typeof(value)
+    const describeObjectDetail = function (value) {
+      const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+      const index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+      const type = typeof value
       return {
         index: index,
         key: key,
@@ -898,22 +721,17 @@
     }
     var _default = describeObjectDetail
     exports.default = _default
-  }, { '../objects/emptyObject': 44, '../objects/isCloneable': 46, '../objects/isInstanceObject': 47, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { '../objects/emptyObject': 44, '../objects/isCloneable': 46, '../objects/isInstanceObject': 47, 'core-js/stable': 613 }],
   18: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.for-each.js')
-    require('core-js/modules/es.array.find-index.js')
-    require('core-js/modules/es.array.find.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
@@ -936,31 +754,25 @@
  * @param {boolean} [options.keepValues=false]
  * @returns {module:objectDescriptors~descriptorMap}
  */
-    var describeObjectMap = function describeObjectMap (object) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
-      var _ref$depthLimit = _ref.depthLimit
-      var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      var _ref$keepValues = _ref.keepValues
-      var keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
-      var descriptorMap = [(0, _describeObject.default)(object)]
+    const describeObjectMap = function (object) {
+      const {
+        mapLimit = 1000000000,
+        depthLimit = -1,
+        keepValues = false
+      } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+      const descriptorMap = [(0, _describeObject.default)(object)]
       descriptorMap[0].index = 0
-      var describeReferences = function describeReferences (descriptor, currentDetail) {
-        var limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
-        var returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (returnMap) {
-          return returnMap
-        }
-        var index = descriptorMap.length
-        var nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
-        var nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
+      const describeReferences = function (descriptor, currentDetail) {
+        let limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
+        const returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : returnMap => returnMap
+        let index = descriptorMap.length
+        const nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
+        const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
         if (currentDetail) {
-          var vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
-          vals.forEach(function (val) {
-            var tempDescriptor = (0, _describeObject.default)(val)
-            var existingDescriptorIndex = descriptorMap.findIndex(function (existingDescriptor) {
-              return (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor)
-            })
+          const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+          vals.forEach(val => {
+            const tempDescriptor = (0, _describeObject.default)(val)
+            const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
             if (existingDescriptorIndex >= 0) {
               index = existingDescriptorIndex
               if (tempDescriptor.length && (0, _sameDescriptor.default)(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
@@ -988,15 +800,11 @@
               descriptorMap[index] = descriptorMap[index] ? (0, _assignDescriptor.default)(descriptorMap[index], tempDescriptor) : tempDescriptor
             }
             descriptorMap[descriptor.index] = (0, _assignDescriptor.default)(descriptorMap[descriptor.index], descriptor)
-            currentDetail = descriptorMap[descriptor.index].details.find(function (detail) {
-              return detail.key === currentDetail.key
-            })
+            currentDetail = descriptorMap[descriptor.index].details.find(detail => detail.key === currentDetail.key)
             if (!currentDetail.circular) {
-              var newReference = (0, _nextReference.default)(tempDescriptor, -1)
-              var newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
-              return describeReferences(tempDescriptor, newDetail, --limit, function (returnMap) {
-                return describeReferences(descriptor, nextDetail, --limit)
-              })
+              const newReference = (0, _nextReference.default)(tempDescriptor, -1)
+              const newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
+              return describeReferences(tempDescriptor, newDetail, --limit, returnMap => describeReferences(descriptor, nextDetail, --limit))
             }
           })
         }
@@ -1004,8 +812,8 @@
         descriptorMap[descriptor.index] = (0, _checkClearValues.default)(descriptorMap[descriptor.index], keepValues)
         return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap)
       }
-      var descriptor = descriptorMap[0]
-      var currentReference = (0, _nextReference.default)(descriptor, -1)
+      const descriptor = descriptorMap[0]
+      const currentReference = (0, _nextReference.default)(descriptor, -1)
       if (typeof currentReference === 'undefined') {
         descriptorMap[0] = (0, _assignDescriptor.default)(descriptorMap[0], (0, _checkDescriptorComplete.default)(descriptor))
         descriptorMap[0] = (0, _checkClearValues.default)(descriptorMap[0], keepValues)
@@ -1015,30 +823,20 @@
     }
     var _default = describeObjectMap
     exports.default = _default
-  }, { './assignDescriptor': 9, './checkClearValues': 11, './checkDescriptorComplete': 12, './compareDescriptor': 15, './describeObject': 16, './nextReference': 19, './sameDescriptor': 20, 'core-js/modules/es.array.find-index.js': 329, 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/web.dom-collections.for-each.js': 593, 'core-js/stable': 612 }],
+  }, { './assignDescriptor': 9, './checkClearValues': 11, './checkDescriptorComplete': 12, './compareDescriptor': 15, './describeObject': 16, './nextReference': 19, './sameDescriptor': 20, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/stable': 613 }],
   19: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.find.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
     /**
  * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
  * @function
@@ -1047,37 +845,31 @@
  * @param {number} currentReference
  * @returns {number|undefined}
  */
-    var nextReference = function nextReference (descriptor, currentReference) {
-      return descriptor.references.find(function (nextRef) {
-        if (nextRef <= currentReference) {
-          return false
-        }
-        var val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
-        if (_typeof(val) !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
-          return false
-        }
-        return !!(0, _objectKeys.default)(val).length
-      })
-    }
+    const nextReference = (descriptor, currentReference) => descriptor.references.find(nextRef => {
+      if (nextRef <= currentReference) {
+        return false
+      }
+      const val = descriptor.details[nextRef].value[descriptor.details[nextRef].value.length - 1]
+      if (typeof val !== 'object' || val === null || typeof val === 'undefined' || descriptor.details[nextRef].circular || descriptor.details[nextRef].isInstance) {
+        return false
+      }
+      return !!(0, _objectKeys.default)(val).length
+    })
     var _default = nextReference
     exports.default = _default
-  }, { '../objects/objectKeys': 53, 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { '../objects/objectKeys': 53, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/stable': 613 }],
   20: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
     require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.some.js')
-    require('core-js/modules/es.array.includes.js')
-    require('core-js/modules/es.string.includes.js')
     require('core-js/stable')
     /**
  * Check if the two descriptors are the same.
@@ -1087,20 +879,13 @@
  * @param {module:objectDescriptors~descriptor} descriptor2
  * @returns {boolean}
  */
-    var sameDescriptor = function sameDescriptor (descriptor1, descriptor2) {
-      return descriptor1.details.every(function (detail, index) {
-        return detail.value.some(function (dVal) {
-          return descriptor2.details[index].value.includes(dVal)
-        })
-      })
-    }
+    const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
     var _default = sameDescriptor
     exports.default = _default
-  }, { 'core-js/modules/es.array.includes.js': 337, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.includes.js': 487, 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/esnext.async-iterator.every.js': 575, 'core-js/modules/esnext.async-iterator.some.js': 581, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.every.js': 583, 'core-js/modules/esnext.iterator.some.js': 589, 'core-js/stable': 613 }],
   21: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1138,33 +923,16 @@
       trace: _trace.default
     }
     exports.default = _default
-  }, { './functions/callWithParams.js': 22, './functions/curry.js': 23, './functions/delay.js': 24, './functions/onBodyLoad.js': 25, './functions/pipe.js': 26, './functions/preloadParams.js': 27, './functions/queueManager.js': 28, './functions/queueTimeout.js': 29, './functions/relevancyFilter.js': 30, './functions/trace.js': 31, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './functions/callWithParams.js': 22, './functions/curry.js': 23, './functions/delay.js': 24, './functions/onBodyLoad.js': 25, './functions/pipe.js': 26, './functions/preloadParams.js': 27, './functions/queueManager.js': 28, './functions/queueTimeout.js': 29, './functions/relevancyFilter.js': 30, './functions/trace.js': 31, 'core-js/stable': 613 }],
   22: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.slice.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
     /**
  * Given a function, call with the correct number of paramters from an array of possible parameters.
  * @function
@@ -1174,23 +942,22 @@
  * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
  * @returns {*}
  */
-    var callWithParams = function callWithParams (fn) {
-      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-      var minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
-      return fn.apply(void 0, _toConsumableArray(params.slice(0, fn.length || minimum)))
+    const callWithParams = function (fn) {
+      const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+      const minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
+      return fn(...params.slice(0, fn.length || minimum))
     }
     var _default = callWithParams
     exports.default = _default
-  }, { 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   23: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.concat.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Return a curried version of the passed function.
@@ -1201,32 +968,27 @@
  * @param {Function} fn - Receives a function to be curried
  * @returns {Function|*}
  */
-    var curry = function curry (fn) {
-      return function () {
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key]
+    const curry = fn => function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key]
+      }
+      return args.length >= fn.length ? fn(...args) : function () {
+        for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          a[_key2] = arguments[_key2]
         }
-        return args.length >= fn.length ? fn.apply(void 0, args) : function () {
-          for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-            a[_key2] = arguments[_key2]
-          }
-          return curry(fn).apply(void 0, [].concat(args, a))
-        }
+        return curry(fn)(...[...args, ...a])
       }
     }
     var _default = curry
     exports.default = _default
-  }, { 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   24: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.promise.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     /**
@@ -1236,7 +998,6 @@
  * @property {Promise} resolver
  * @property {Function} cancel
  */
-
     /**
  * Provide a timeout which returns a promise.
  * @function
@@ -1244,18 +1005,16 @@
  * @param {number} time - Delay in milliseconds
  * @returns {module:functionHelpers~delayHandler}
  */
-    var delay = function delay () {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
-      var cancel = function cancel () {
-        return undefined
-      }
+    const delay = function () {
+      const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+      let cancel = () => undefined
       return {
-        resolver: new Promise(function (resolve, reject) {
+        resolver: new Promise((resolve, reject) => {
           if (isNaN(time)) {
             reject(new Error('Invalid delay: '.concat(time)))
           } else {
-            var timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
-            cancel = function cancel () {
+            const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+            cancel = () => {
               clearTimeout(timeoutId)
               reject(new Error('Cancelled delay: '.concat(time)))
             }
@@ -1266,11 +1025,10 @@
     }
     var _default = delay
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.promise.js': 449, 'core-js/stable': 612, 'regenerator-runtime/runtime': 614 }],
+  }, { 'core-js/stable': 613, 'regenerator-runtime/runtime': 615 }],
   25: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1278,14 +1036,12 @@
     require('core-js/stable')
     var _queueManager = _interopRequireDefault(require('./queueManager'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    var queue = []
-    var manager = (0, _queueManager.default)()
-    var observer = null
-    var doReset = function doReset () {
-      return observer = null
-    }
-    var initializeObserver = function initializeObserver () {
-      observer = new MutationObserver(function () {
+    const queue = []
+    const manager = (0, _queueManager.default)()
+    let observer = null
+    const doReset = () => observer = null
+    const initializeObserver = () => {
+      observer = new MutationObserver(() => {
         if (document.body) {
           while (queue.length) {
             manager(queue.shift())
@@ -1308,8 +1064,8 @@
  * @param {boolean} [reset=false]
  * @returns {Array.<Function>}
  */
-    var onBodyLoad = function onBodyLoad (callback) {
-      var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+    const onBodyLoad = function (callback) {
+      const reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
       if (reset) {
         doReset()
       }
@@ -1321,17 +1077,14 @@
     }
     var _default = onBodyLoad
     exports.default = _default
-  }, { './queueManager': 28, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './queueManager': 28, 'core-js/stable': 613 }],
   26: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
@@ -1344,46 +1097,24 @@
  * @param {...Function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
-    var pipe = function pipe () {
+    const pipe = function () {
       for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
         fns[_key] = arguments[_key]
       }
-      return function (x) {
-        return fns.reduce(function (y, f) {
-          return f(y)
-        }, x)
-      }
+      return x => fns.reduce((y, f) => f(y), x)
     }
     var _default = pipe
     exports.default = _default
-  }, { 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   27: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.array.slice.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.splice.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
     /**
  * The return function which takes the missing parameter in order to call the preloaded function.
  * @typedef {Function} module:functionHelpers~callWithMissing
@@ -1391,7 +1122,6 @@
  * @param {*} missing - The missing parameter to be applied
  * @returns {*}
  */
-
     /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
@@ -1402,57 +1132,27 @@
  * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
  * @returns {module:functionHelpers~callWithMissing}
  */
-    var preloadParams = function preloadParams (fn) {
-      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-      var unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
-      return function (missing) {
+    const preloadParams = function (fn) {
+      const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+      const unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+      return missing => {
         params.splice(unassignedParam, 0, missing)
-        return fn.apply(void 0, _toConsumableArray(params))
+        return fn(...params)
       }
     }
     var _default = preloadParams
     exports.default = _default
-  }, { 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.array.splice.js': 353, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613 }],
   28: [function (require, module, exports) {
     'use strict'
 
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/es.array.from.js')
-    require('core-js/modules/es.array.slice.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.regexp.test.js')
-    require('core-js/modules/es.object.define-property.js')
-    require('core-js/modules/es.symbol.async-iterator.js')
-    require('core-js/modules/es.symbol.to-string-tag.js')
-    require('core-js/modules/es.json.to-string-tag.js')
-    require('core-js/modules/es.math.to-string-tag.js')
-    require('core-js/modules/es.object.get-prototype-of.js')
-    require('core-js/modules/esnext.async-iterator.for-each.js')
-    require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.for-each.js')
-    require('core-js/modules/es.object.set-prototype-of.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.promise.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
-    function _regeneratorRuntime () { 'use strict'; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime () { return exports }; var exports = {}; var Op = Object.prototype; var hasOwn = Op.hasOwnProperty; var defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value }; var $Symbol = typeof Symbol === 'function' ? Symbol : {}; var iteratorSymbol = $Symbol.iterator || '@@iterator'; var asyncIteratorSymbol = $Symbol.asyncIterator || '@@asyncIterator'; var toStringTagSymbol = $Symbol.toStringTag || '@@toStringTag'; function define (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key] } try { define({}, '') } catch (err) { define = function define (obj, key, value) { return obj[key] = value } } function wrap (innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator; var generator = Object.create(protoGenerator.prototype); var context = new Context(tryLocsList || []); return defineProperty(generator, '_invoke', { value: makeInvokeMethod(innerFn, self, context) }), generator } function tryCatch (fn, obj, arg) { try { return { type: 'normal', arg: fn.call(obj, arg) } } catch (err) { return { type: 'throw', arg: err } } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator () {} function GeneratorFunction () {} function GeneratorFunctionPrototype () {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this }); var getProto = Object.getPrototypeOf; var NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods (prototype) { ['next', 'throw', 'return'].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg) }) }) } function AsyncIterator (generator, PromiseImpl) { function invoke (method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if (record.type !== 'throw') { var result = record.arg; var value = result.value; return value && _typeof(value) == 'object' && hasOwn.call(value, '__await') ? PromiseImpl.resolve(value.__await).then(function (value) { invoke('next', value, resolve, reject) }, function (err) { invoke('throw', err, resolve, reject) }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result) }, function (error) { return invoke('throw', error, resolve, reject) }) } reject(record.arg) } var previousPromise; defineProperty(this, '_invoke', { value: function value (method, arg) { function callInvokeWithMethodAndArg () { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject) }) } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg() } }) } function makeInvokeMethod (innerFn, self, context) { var state = 'suspendedStart'; return function (method, arg) { if (state === 'executing') throw new Error('Generator is already running'); if (state === 'completed') { if (method === 'throw') throw arg; return doneResult() } for (context.method = method, context.arg = arg; ;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult } } if (context.method === 'next') context.sent = context._sent = context.arg; else if (context.method === 'throw') { if (state === 'suspendedStart') throw state = 'completed', context.arg; context.dispatchException(context.arg) } else context.method === 'return' && context.abrupt('return', context.arg); state = 'executing'; var record = tryCatch(innerFn, self, context); if (record.type === 'normal') { if (state = context.done ? 'completed' : 'suspendedYield', record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done } } record.type === 'throw' && (state = 'completed', context.method = 'throw', context.arg = record.arg) } } } function maybeInvokeDelegate (delegate, context) { var methodName = context.method; var method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, methodName === 'throw' && delegate.iterator.return && (context.method = 'return', context.arg = undefined, maybeInvokeDelegate(delegate, context), context.method === 'throw') || methodName !== 'return' && (context.method = 'throw', context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if (record.type === 'throw') return context.method = 'throw', context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, context.method !== 'return' && (context.method = 'next', context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = 'throw', context.arg = new TypeError('iterator result is not an object'), context.delegate = null, ContinueSentinel) } function pushTryEntry (locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry) } function resetTryEntry (entry) { var record = entry.completion || {}; record.type = 'normal', delete record.arg, entry.completion = record } function Context (tryLocsList) { this.tryEntries = [{ tryLoc: 'root' }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0) } function values (iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if (typeof iterable.next === 'function') return iterable; if (!isNaN(iterable.length)) { var i = -1; var next = function next () { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next }; return next.next = next } } return { next: doneResult } } function doneResult () { return { value: undefined, done: !0 } } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, 'constructor', { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, 'constructor', { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, 'GeneratorFunction'), exports.isGeneratorFunction = function (genFun) { var ctor = typeof genFun === 'function' && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || (ctor.displayName || ctor.name) === 'GeneratorFunction') }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, 'GeneratorFunction')), genFun.prototype = Object.create(Gp), genFun }, exports.awrap = function (arg) { return { __await: arg } }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next() }) }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, 'Generator'), define(Gp, iteratorSymbol, function () { return this }), define(Gp, 'toString', function () { return '[object Generator]' }), exports.keys = function (val) { var object = Object(val); var keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next () { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next } return next.done = !0, next } }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset (skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = 'next', this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) name.charAt(0) === 't' && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined) }, stop: function stop () { this.done = !0; var rootRecord = this.tryEntries[0].completion; if (rootRecord.type === 'throw') throw rootRecord.arg; return this.rval }, dispatchException: function dispatchException (exception) { if (this.done) throw exception; var context = this; function handle (loc, caught) { return record.type = 'throw', record.arg = exception, context.next = loc, caught && (context.method = 'next', context.arg = undefined), !!caught } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; var record = entry.completion; if (entry.tryLoc === 'root') return handle('end'); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, 'catchLoc'); var hasFinally = hasOwn.call(entry, 'finallyLoc'); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc) } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0) } else { if (!hasFinally) throw new Error('try statement without catch or finally'); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc) } } } }, abrupt: function abrupt (type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, 'finallyLoc') && this.prev < entry.finallyLoc) { var finallyEntry = entry; break } } finallyEntry && (type === 'break' || type === 'continue') && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = 'next', this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record) }, complete: function complete (record, afterLoc) { if (record.type === 'throw') throw record.arg; return record.type === 'break' || record.type === 'continue' ? this.next = record.arg : record.type === 'return' ? (this.rval = this.arg = record.arg, this.method = 'return', this.next = 'end') : record.type === 'normal' && afterLoc && (this.next = afterLoc), ContinueSentinel }, finish: function finish (finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel } }, catch: function _catch (tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if (record.type === 'throw') { var thrown = record.arg; resetTryEntry(entry) } return thrown } } throw new Error('illegal catch attempt') }, delegateYield: function delegateYield (iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, this.method === 'next' && (this.arg = undefined), ContinueSentinel } }, exports }
-    function _toConsumableArray (arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread() }
-    function _nonIterableSpread () { throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.') }
-    function _unsupportedIterableToArray (o, minLen) { if (!o) return; if (typeof o === 'string') return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === 'Object' && o.constructor) n = o.constructor.name; if (n === 'Map' || n === 'Set') return Array.from(o); if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen) }
-    function _iterableToArray (iter) { if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter) }
-    function _arrayWithoutHoles (arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr) }
-    function _arrayLikeToArray (arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2 }
     /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
  * @typedef {Function} module:functionHelpers~queueManagerHandle
@@ -1461,7 +1161,6 @@
  * @param  {...*} args - Arguments to be passed to the function once it is ready
  * @returns {Promise}
  */
-
     /**
  * Manage functions to run sequentially.
  * @function
@@ -1469,40 +1168,26 @@
  * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-    var queueManager = function queueManager () {
-      var queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
-      var isRunning = false
+    const queueManager = function () {
+      const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+      let isRunning = false
       return function (fn) {
         for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
           args[_key - 1] = arguments[_key]
         }
-        var runNextItem = function runNextItem () {
+        const runNextItem = () => {
           if (queue.length && !isRunning) {
             isRunning = true
-            var toRun = queue.shift()
+            const toRun = queue.shift()
             toRun.generator.next(toRun.item)
           }
           return queue
         }
-        return new Promise(function (resolve, reject) {
-          var generator = /* #__PURE__ */_regeneratorRuntime().mark(function _callee () {
-            var item
-            return _regeneratorRuntime().wrap(function _callee$ (_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2
-                    return
-                  case 2:
-                    item = _context.sent
-                    return _context.abrupt('return', typeof item.fn === 'function' ? resolve(item.fn.apply(item, _toConsumableArray(item.args))) : reject(item))
-                  case 4:
-                  case 'end':
-                    return _context.stop()
-                }
-              }
-            }, _callee)
-          })()
+        return new Promise((resolve, reject) => {
+          const generator = (function * () {
+            const item = yield
+            return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
+          }())
           generator.next()
           queue.push({
             item: {
@@ -1512,7 +1197,7 @@
             generator: generator
           })
           runNextItem()
-        }).then(function (resolvedResult) {
+        }).then(resolvedResult => {
           isRunning = false
           runNextItem()
           return resolvedResult
@@ -1521,15 +1206,15 @@
     }
     var _default = queueManager
     exports.default = _default
-  }, { 'core-js/modules/es.array.from.js': 336, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.json.to-string-tag.js': 379, 'core-js/modules/es.math.to-string-tag.js': 398, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.get-prototype-of.js': 426, 'core-js/modules/es.object.set-prototype-of.js': 438, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.promise.js': 449, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.test.js': 472, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.async-iterator.js': 512, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/es.symbol.to-string-tag.js': 528, 'core-js/modules/esnext.async-iterator.for-each.js': 578, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.for-each.js': 586, 'core-js/modules/web.dom-collections.for-each.js': 593, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612, 'regenerator-runtime/runtime': 614 }],
+  }, { 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613, 'regenerator-runtime/runtime': 615 }],
   29: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     var _delay = _interopRequireDefault(require('./delay'))
@@ -1544,7 +1229,6 @@
  * @param {...*} args - Arguments to be passed to the callback once it is implemented.
  * @returns {Promise}
  */
-
     /**
  * Manage functions to run sequentially with delays.
  * @function
@@ -1552,38 +1236,30 @@
  * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}
  */
-    var queueTimeout = function queueTimeout () {
-      var queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
-      var manager = queueManagerHandle || (0, _queueManager.default)()
+    const queueTimeout = function () {
+      const queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+      const manager = queueManagerHandle || (0, _queueManager.default)()
       return function (fn) {
-        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+        const time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
         for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
           args[_key - 2] = arguments[_key]
         }
-        return manager(function () {
-          return (0, _delay.default)(time).resolver.then(function () {
-            return fn.apply(void 0, args)
-          })
-        })
+        return manager(() => (0, _delay.default)(time).resolver.then(() => fn(...args)))
       }
     }
     var _default = queueTimeout
     exports.default = _default
-  }, { './delay': 24, './queueManager': 28, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612, 'regenerator-runtime/runtime': 614 }],
+  }, { './delay': 24, './queueManager': 28, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 613, 'regenerator-runtime/runtime': 615 }],
   30: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.filter.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
@@ -1599,7 +1275,6 @@
  * @typedef {Array.<relevanceObject>} relevanceMap
  * @memberOf module:functionHelpers
  */
-
     /**
  * Remove elements out of relevance range and update the max relevance.
  * @function
@@ -1610,31 +1285,27 @@
  * @param {int} [options.relevancyRange=100]
  * @returns {relevanceMap}
  */
-    var relevancyFilter = function relevancyFilter (map) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
-      var _ref$relevancyRange = _ref.relevancyRange
-      var relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
+    const relevancyFilter = function (map) {
+      const {
+        mapLimit = 1000,
+        relevancyRange = 100
+      } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
       if (map.length <= mapLimit) {
         return map
       }
-      var minRelevance = map.length - relevancyRange
-      var filtered = map.filter(function (reference) {
-        return reference.relevance >= minRelevance
-      })
-      return filtered.map(function (reference) {
+      const minRelevance = map.length - relevancyRange
+      const filtered = map.filter(reference => reference.relevance >= minRelevance)
+      return filtered.map(reference => {
         reference.relevance = reference.relevance > filtered.length ? filtered.length : reference.relevance
         return reference
       })
     }
     var _default = relevancyFilter
     exports.default = _default
-  }, { 'core-js/modules/es.array.filter.js': 328, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 612 }],
+  }, { 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 613 }],
   31: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1651,9 +1322,9 @@
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
  */
-    var trace = function trace (label) {
-      var useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
-      return function (value) {
+    const trace = function (label) {
+      const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
+      return value => {
         // noinspection JSForgottenDebugStatementInspection
         console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
         return value
@@ -1661,11 +1332,10 @@
     }
     var _default = trace
     exports.default = _default
-  }, { '../objects/cloneObject': 39, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612, 'regenerator-runtime/runtime': 614 }],
+  }, { '../objects/cloneObject': 39, 'core-js/stable': 613, 'regenerator-runtime/runtime': 615 }],
   32: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1693,11 +1363,10 @@
       randomNumber: _randomNumber.default
     }
     exports.default = _default
-  }, { './numbers/absoluteMax.js': 33, './numbers/absoluteMin.js': 34, './numbers/compare.js': 35, './numbers/randomInteger.js': 36, './numbers/randomNumber.js': 37, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './numbers/absoluteMax.js': 33, './numbers/absoluteMin.js': 34, './numbers/compare.js': 35, './numbers/randomInteger.js': 36, './numbers/randomNumber.js': 37, 'core-js/stable': 613 }],
   33: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1711,16 +1380,13 @@
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-    var absoluteMax = function absoluteMax (num1, num2) {
-      return Math.abs(num1) > Math.abs(num2) ? num1 : num2
-    }
+    const absoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
     var _default = absoluteMax
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   34: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1734,16 +1400,13 @@
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-    var absoluteMin = function absoluteMin (num1, num2) {
-      return Math.abs(num1) < Math.abs(num2) ? num1 : num2
-    }
+    const absoluteMin = (num1, num2) => Math.abs(num1) < Math.abs(num2) ? num1 : num2
     var _default = absoluteMin
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   35: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1760,16 +1423,13 @@
  * @param {number} val2 - The second number to compare
  * @returns {number}
  */
-    var compare = function compare (val1, val2) {
-      return val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-    }
+    const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
     var _default = compare
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   36: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1786,18 +1446,17 @@
  * offset, 2 for range)
  * @returns {number}
  */
-    var randomInteger = function randomInteger (range) {
-      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    const randomInteger = function (range) {
+      const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+      const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
       return (Math.floor(Math.random() * range) + offset) * interval
     }
     var _default = randomInteger
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   37: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1814,18 +1473,17 @@
  * offset, 2 for range)
  * @returns {number}
  */
-    var randomNumber = function randomNumber (range) {
-      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
+    const randomNumber = function (range) {
+      const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
+      const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
       return (Math.random() * range + offset) * interval
     }
     var _default = randomNumber
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   38: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1881,11 +1539,10 @@
       setValue: _setValue.default
     }
     exports.default = _default
-  }, { './objects/cloneObject.js': 39, './objects/dotGet.js': 40, './objects/dotNotate.js': 41, './objects/dotSet.js': 42, './objects/dotUnset.js': 43, './objects/emptyObject.js': 44, './objects/filterObject.js': 45, './objects/isCloneable.js': 46, './objects/isInstanceObject.js': 47, './objects/isObject.js': 48, './objects/mapObject.js': 49, './objects/mergeObjects.js': 50, './objects/mergeObjectsBase.js': 51, './objects/mergeObjectsMutable.js': 52, './objects/objectKeys.js': 53, './objects/objectValues.js': 54, './objects/reduceObject.js': 55, './objects/setAndReturnValue.js': 56, './objects/setValue.js': 57, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './objects/cloneObject.js': 39, './objects/dotGet.js': 40, './objects/dotNotate.js': 41, './objects/dotSet.js': 42, './objects/dotUnset.js': 43, './objects/emptyObject.js': 44, './objects/filterObject.js': 45, './objects/isCloneable.js': 46, './objects/isInstanceObject.js': 47, './objects/isObject.js': 48, './objects/mapObject.js': 49, './objects/mergeObjects.js': 50, './objects/mergeObjectsBase.js': 51, './objects/mergeObjectsMutable.js': 52, './objects/objectKeys.js': 53, './objects/objectValues.js': 54, './objects/reduceObject.js': 55, './objects/setAndReturnValue.js': 56, './objects/setValue.js': 57, 'core-js/stable': 613 }],
   39: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1906,28 +1563,25 @@
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @returns {Object}
  */
-    var cloneObject = function cloneObject (object) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-      var _ref$depthLimit = _ref.depthLimit
-      var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      var _ref$relevancyRange = _ref.relevancyRange
-      var relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
+    const cloneObject = function (object) {
+      const {
+        mapLimit = 100,
+        depthLimit = -1,
+        relevancyRange = 1000
+      } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
       return (0, _mergeObjectsBase.default)({
-        mapLimit: mapLimit,
-        depthLimit: depthLimit,
-        relevancyRange: relevancyRange,
+        mapLimit,
+        depthLimit,
+        relevancyRange,
         useClone: true
       })(object)
     }
     var _default = cloneObject
     exports.default = _default
-  }, { './mergeObjectsBase': 51, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './mergeObjectsBase': 51, 'core-js/stable': 613 }],
   40: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -1946,17 +1600,17 @@
  * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
  * @returns {*} The value of the property
  */
-    var dotGet = function dotGet (arrayObject, dotNotation) {
-      var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
-      var key = (0, _strBefore.default)(dotNotation, '.')
-      var lastKey = !key
+    const dotGet = function (arrayObject, dotNotation) {
+      const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+      let key = (0, _strBefore.default)(dotNotation, '.')
+      const lastKey = !key
       if (lastKey) {
         key = dotNotation
       }
       if (key === '*') {
-        var result = []
-        for (var wildKey in arrayObject) {
-          var wildValue = arrayObject[wildKey]
+        const result = []
+        for (const wildKey in arrayObject) {
+          const wildValue = arrayObject[wildKey]
           if (lastKey) {
             result[wildKey] = wildValue
             continue
@@ -1975,7 +1629,7 @@
       if (typeof arrayObject[key] === 'undefined') {
         return defaultValue
       }
-      var next = arrayObject[key]
+      const next = arrayObject[key]
       if (!(0, _isObject.default)(next)) {
         return defaultValue
       }
@@ -1983,25 +1637,17 @@
     }
     var _default = dotGet
     exports.default = _default
-  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/stable': 613 }],
   41: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.regexp.exec.js')
     require('core-js/modules/es.string.replace.js')
-    require('core-js/modules/es.regexp.constructor.js')
-    require('core-js/modules/es.regexp.sticky.js')
-    require('core-js/modules/es.regexp.to-string.js')
-    require('core-js/modules/es.string.match.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('./isObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -2017,7 +1663,6 @@
  * @typedef {Object.<DotNotationString, *>} DotNotatedObject
  * @memberOf module:objectHelpers
  */
-
     /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
@@ -2025,20 +1670,16 @@
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
-    var handleRetainObjects = function handleRetainObjects (retainObjects) {
+    const handleRetainObjects = retainObjects => {
       if (!retainObjects.length) {
         /**
      * Bypass the test function if there are no retainObjects.
      * @returns {false}
      */
-        return function () {
-          return false
-        }
+        return () => false
       }
-      retainObjects = retainObjects.map(function (key) {
-        return key.replace('\.', '\\.')
-      })
-      var retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
+      retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
+      const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
       /**
    * Test if a key should be retained as an object.
    * @param {string} currentKey - The key to test
@@ -2046,7 +1687,7 @@
    * @param {Object} results - The results object to add to
    * @returns {boolean}
    */
-      return function (currentKey, value, results) {
+      return (currentKey, value, results) => {
         if (!currentKey.match(retainRegex)) {
           return false
         }
@@ -2065,12 +1706,12 @@
  * @param {DotNotatedObject} [results={}] - The final array to return
  * @returns {DotNotatedObject} The dot-notated object
  */
-    var performDotNotate = function performDotNotate (arrayObject, didRetain) {
-      var prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
-      var results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
-      for (var key in arrayObject) {
-        var value = arrayObject[key]
-        var currentKey = ''.concat(prepend).concat(key)
+    const performDotNotate = function (arrayObject, didRetain) {
+      const prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
+      const results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+      for (const key in arrayObject) {
+        const value = arrayObject[key]
+        const currentKey = ''.concat(prepend).concat(key)
         if (didRetain(currentKey, value, results)) {
           continue
         }
@@ -2091,17 +1732,16 @@
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {DotNotatedObject} The dot-notated object
  */
-    var dotNotate = function dotNotate (arrayObject) {
-      var retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+    const dotNotate = function (arrayObject) {
+      const retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
       return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
     }
     var _default = dotNotate
     exports.default = _default
-  }, { './isObject': 48, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.regexp.constructor.js': 467, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.regexp.sticky.js': 471, 'core-js/modules/es.regexp.to-string.js': 473, 'core-js/modules/es.string.match.js': 492, 'core-js/modules/es.string.replace.js': 498, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 612 }],
+  }, { './isObject': 48, 'core-js/modules/es.string.replace.js': 498, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 613 }],
   42: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2120,16 +1760,16 @@
  * @param {*} value - The default value to return if the property is not found
  * @returns {Object} The modified object
  */
-    var dotSet = function dotSet (arrayObject, dotNotation) {
+    const dotSet = function (arrayObject, dotNotation) {
       var _arrayObject$key
-      var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
-      var key = (0, _strBefore.default)(dotNotation, '.')
-      var lastKey = !key
+      const value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+      let key = (0, _strBefore.default)(dotNotation, '.')
+      const lastKey = !key
       if (lastKey) {
         key = dotNotation
       }
       if (key === '*') {
-        for (var wildKey in arrayObject) {
+        for (const wildKey in arrayObject) {
           if (lastKey) {
             arrayObject[wildKey] = value
             continue
@@ -2145,17 +1785,16 @@
         arrayObject[dotNotation] = value
         return arrayObject
       }
-      var next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+      const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
       arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
       return arrayObject
     }
     var _default = dotSet
     exports.default = _default
-  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/stable': 613 }],
   43: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2173,15 +1812,15 @@
  * @param {string} dotNotation - The path for the property
  * @returns {Object} The modified object
  */
-    var dotUnset = function dotUnset (arrayObject, dotNotation) {
+    const dotUnset = (arrayObject, dotNotation) => {
       var _arrayObject$key
-      var key = (0, _strBefore.default)(dotNotation, '.')
-      var lastKey = !key
+      let key = (0, _strBefore.default)(dotNotation, '.')
+      const lastKey = !key
       if (lastKey) {
         key = dotNotation
       }
       if (key === '*') {
-        for (var wildKey in arrayObject) {
+        for (const wildKey in arrayObject) {
           if (lastKey) {
             delete arrayObject[wildKey]
             continue
@@ -2197,17 +1836,16 @@
         delete arrayObject[dotNotation]
         return arrayObject
       }
-      var next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+      const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
       arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
       return arrayObject
     }
     var _default = dotUnset
     exports.default = _default
-  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { '../strings/strAfter': 62, '../strings/strBefore': 64, './isObject': 48, 'core-js/stable': 613 }],
   44: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2223,26 +1861,20 @@
  * @param {Object|Array} item - Object or Array to test
  * @returns {boolean}
  */
-    var emptyObject = function emptyObject (item) {
-      return (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
-    }
+    const emptyObject = item => (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
     var _default = emptyObject
     exports.default = _default
-  }, { './isObject': 48, './objectKeys': 53, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './isObject': 48, './objectKeys': 53, 'core-js/stable': 613 }],
   45: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.filter.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/es.array.reduce.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
@@ -2259,7 +1891,6 @@
  * @param {Object|Array} [object] - The object filter was called upon.
  * @returns {boolean}
  */
-
     /**
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
@@ -2271,9 +1902,9 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-    var filterObject = function filterObject (obj, fn) {
-      var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
+    const filterObject = function (obj, fn) {
+      const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+      return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => {
         if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
           newObj[curr] = obj[curr]
         } else {
@@ -2284,26 +1915,17 @@
     }
     var _default = filterObject
     exports.default = _default
-  }, { '../functions/callWithParams': 22, './objectKeys': 53, 'core-js/modules/es.array.filter.js': 328, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { '../functions/callWithParams': 22, './objectKeys': 53, 'core-js/modules/esnext.async-iterator.filter.js': 576, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.filter.js': 584, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   46: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _isInstanceObject = _interopRequireDefault(require('./isInstanceObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
     /**
  * Determine if the value is a reference instance
  * @function
@@ -2311,21 +1933,17 @@
  * @param {Array|Object|*} value
  * @returns {boolean}
  */
-    var isCloneable = function isCloneable (value) {
-      return _typeof(value) === 'object' && value !== null && !(0, _isInstanceObject.default)(value)
-    }
+    const isCloneable = value => typeof value === 'object' && value !== null && !(0, _isInstanceObject.default)(value)
     var _default = isCloneable
     exports.default = _default
-  }, { './isInstanceObject': 47, 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { './isInstanceObject': 47, 'core-js/stable': 613 }],
   47: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.includes.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('./isObject'))
     var _objectKeys = _interopRequireDefault(require('./objectKeys'))
@@ -2337,7 +1955,7 @@
  * @param {Object|Array} object
  * @returns {boolean}
  */
-    var isInstanceObject = function isInstanceObject (object) {
+    const isInstanceObject = object => {
       if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
         return false
       }
@@ -2348,24 +1966,15 @@
     }
     var _default = isInstanceObject
     exports.default = _default
-  }, { './isObject': 48, './objectKeys': 53, 'core-js/modules/es.array.includes.js': 337, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './isObject': 48, './objectKeys': 53, 'core-js/stable': 613 }],
   48: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.symbol.js')
-    require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.symbol.iterator.js')
-    require('core-js/modules/es.array.iterator.js')
-    require('core-js/modules/es.string.iterator.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
-    function _typeof (obj) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj }, _typeof(obj) }
     /**
  * Check if the provided thing is an object / array.
  * @function
@@ -2373,25 +1982,19 @@
  * @param {*} object
  * @returns {boolean}
  */
-    var isObject = function isObject (object) {
-      return _typeof(object) === 'object' && object !== null
-    }
+    const isObject = object => typeof object === 'object' && object !== null
     var _default = isObject
     exports.default = _default
-  }, { 'core-js/modules/es.array.iterator.js': 340, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/es.string.iterator.js': 489, 'core-js/modules/es.symbol.description.js': 514, 'core-js/modules/es.symbol.iterator.js': 518, 'core-js/modules/es.symbol.js': 519, 'core-js/modules/web.dom-collections.iterator.js': 594, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   49: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
@@ -2409,7 +2012,6 @@
  * @param {Object|Array} [object] - The object map was called upon.
  * @returns {*}
  */
-
     /**
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
  * If an array is passed in instead then it will perform standard map(). It is recommended to
@@ -2421,19 +2023,16 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-    var mapObject = function mapObject (obj, fn) {
-      var thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
-        return (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj)
-      }, {})
+    const mapObject = function (obj, fn) {
+      const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
+      return Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
     }
     var _default = mapObject
     exports.default = _default
-  }, { '../functions/callWithParams': 22, './objectKeys': 53, './setValue': 57, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { '../functions/callWithParams': 22, './objectKeys': 53, './setValue': 57, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   50: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2449,29 +2048,24 @@
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-    var mergeObjects = (0, _mergeObjectsBase.default)({
+    const mergeObjects = (0, _mergeObjectsBase.default)({
       useClone: true
     })
     var _default = mergeObjects
     exports.default = _default
-  }, { './mergeObjectsBase': 51, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './mergeObjectsBase': 51, 'core-js/stable': 613 }],
   51: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.find.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
@@ -2487,7 +2081,6 @@
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-
     /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
@@ -2503,30 +2096,26 @@
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback}
  */
-    var mergeObjectsBase = function mergeObjectsBase () {
-      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-      var _ref$mapLimit = _ref.mapLimit
-      var mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-      var _ref$depthLimit = _ref.depthLimit
-      var depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      var _ref$relevancyRange = _ref.relevancyRange
-      var relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
-      var _ref$map = _ref.map
-      var map = _ref$map === void 0 ? [] : _ref$map
-      var _ref$useClone = _ref.useClone
-      var useClone = _ref$useClone === void 0 ? false : _ref$useClone
+    const mergeObjectsBase = function () {
+      let {
+        mapLimit = 100,
+        depthLimit = -1,
+        relevancyRange = 1000,
+        map = [],
+        useClone = false
+      } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
       return function () {
         for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
           objects[_key] = arguments[_key]
         }
-        var firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+        const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
         if (objects.length < 1) {
           return firstObject
         }
         if (depthLimit === 0) {
           return firstObject
         }
-        return objects.reduce(function (newObj, arg) {
+        return objects.reduce((newObj, arg) => {
           if (!arg) {
             return newObj
           }
@@ -2536,15 +2125,13 @@
             relevance: map.length
           })
           map = (0, _relevancyFilter.default)(map, {
-            mapLimit: mapLimit,
-            relevancyRange: relevancyRange
+            mapLimit,
+            relevancyRange
           })
-          return (0, _reduceObject.default)(arg, function (returnObj, value, key) {
+          return (0, _reduceObject.default)(arg, (returnObj, value, key) => {
             if ((0, _isCloneable.default)(value)) {
-              var objectValue = newObj[key]
-              var exists = map.find(function (existing) {
-                return existing.source === value
-              })
+              let objectValue = newObj[key]
+              const exists = map.find(existing => existing.source === value)
               if (exists) {
                 exists.relevance = map.length + 1
                 return (0, _setValue.default)(key, exists.object, returnObj)
@@ -2554,11 +2141,11 @@
               }
               if ((0, _isCloneable.default)(objectValue)) {
                 return (0, _setValue.default)(key, mergeObjectsBase({
-                  mapLimit: mapLimit,
+                  mapLimit,
                   depthLimit: depthLimit - 1,
-                  relevancyRange: relevancyRange,
-                  map: map,
-                  useClone: useClone
+                  relevancyRange,
+                  map,
+                  useClone
                 })(objectValue, value), returnObj)
               }
               map.push({
@@ -2567,8 +2154,8 @@
                 relevance: map.length
               })
               map = (0, _relevancyFilter.default)(map, {
-                mapLimit: mapLimit,
-                relevancyRange: relevancyRange
+                mapLimit,
+                relevancyRange
               })
             }
             return (0, _setValue.default)(key, value, returnObj)
@@ -2578,11 +2165,10 @@
     }
     var _default = mergeObjectsBase
     exports.default = _default
-  }, { '../functions/relevancyFilter.js': 30, './isCloneable.js': 46, './reduceObject.js': 55, './setValue.js': 57, 'core-js/modules/es.array.find.js': 332, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { '../functions/relevancyFilter.js': 30, './isCloneable.js': 46, './reduceObject.js': 55, './setValue.js': 57, 'core-js/modules/esnext.async-iterator.find.js': 577, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.find.js': 585, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   52: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2598,20 +2184,17 @@
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-    var mergeObjectsMutable = (0, _mergeObjectsBase.default)()
+    const mergeObjectsMutable = (0, _mergeObjectsBase.default)()
     var _default = mergeObjectsMutable
     exports.default = _default
-  }, { './mergeObjectsBase': 51, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './mergeObjectsBase': 51, 'core-js/stable': 613 }],
   53: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.get-own-property-names.js')
-    require('core-js/modules/es.parse-int.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('./isObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -2624,19 +2207,19 @@
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}
  */
-    var objectKeys = function objectKeys (object) {
-      var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+    const objectKeys = function (object) {
+      const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
       if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
         return []
       }
       if (includeInherited) {
-        var propNames = Object.getOwnPropertyNames(object)
+        const propNames = Object.getOwnPropertyNames(object)
         if (propNames.length) {
           return propNames
         }
       }
-      var keys = []
-      for (var key in object) {
+      const keys = []
+      for (const key in object) {
         if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
           if (Array.isArray(object)) {
             keys.push(parseInt(key))
@@ -2649,16 +2232,14 @@
     }
     var _default = objectKeys
     exports.default = _default
-  }, { './isObject': 48, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.get-own-property-names.js': 424, 'core-js/modules/es.parse-int.js': 442, 'core-js/stable': 612 }],
+  }, { './isObject': 48, 'core-js/stable': 613 }],
   54: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.map.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
@@ -2673,25 +2254,20 @@
  * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
-    var objectValues = function objectValues (object) {
-      var includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-      return (0, _objectKeys.default)(object, includeInherited).map(function (key) {
-        return object[key]
-      })
+    const objectValues = function (object) {
+      const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+      return (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
     }
     var _default = objectValues
     exports.default = _default
-  }, { './objectKeys': 53, 'core-js/modules/es.array.map.js': 343, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 612 }],
+  }, { './objectKeys': 53, 'core-js/modules/esnext.async-iterator.map.js': 579, 'core-js/modules/esnext.iterator.map.js': 587, 'core-js/stable': 613 }],
   55: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
@@ -2711,7 +2287,6 @@
  * @param {Object|Array} [object={}] - The object reduce was called upon.
  * @returns {*}
  */
-
     /**
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
@@ -2725,19 +2300,16 @@
  * array without an initial value is an error.
  * @returns {Object|Array}
  */
-    var reduceObject = function reduceObject (obj, fn) {
-      var initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
-      return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce(function (newObj, curr) {
-        return (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2)
-      }, initialValue)
+    const reduceObject = function (obj, fn) {
+      const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
+      return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
     }
     var _default = reduceObject
     exports.default = _default
-  }, { '../functions/callWithParams': 22, './objectKeys': 53, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { '../functions/callWithParams': 22, './objectKeys': 53, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   56: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2752,17 +2324,16 @@
  * @param {*} value - Any value to be applied to the key
  * @returns {*}
  */
-    var setAndReturnValue = function setAndReturnValue (item, key, value) {
+    const setAndReturnValue = (item, key, value) => {
       item[key] = value
       return value
     }
     var _default = setAndReturnValue
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   57: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2778,17 +2349,16 @@
  * @param {Object|Array} item - An object or array to be updated
  * @returns {Object|Array}
  */
-    var setValue = function setValue (key, value, item) {
+    const setValue = (key, value, item) => {
       item[key] = value
       return item
     }
     var _default = setValue
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   58: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
@@ -2826,21 +2396,17 @@
       words: _words.default
     }
     exports.default = _default
-  }, { './strings/camelCase.js': 59, './strings/kabobCase.js': 60, './strings/snakeCase.js': 61, './strings/strAfter.js': 62, './strings/strAfterLast.js': 63, './strings/strBefore.js': 64, './strings/strBeforeLast.js': 65, './strings/titleCase.js': 66, './strings/ucFirst.js': 67, './strings/words.js': 68, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { './strings/camelCase.js': 59, './strings/kabobCase.js': 60, './strings/snakeCase.js': 61, './strings/strAfter.js': 62, './strings/strAfterLast.js': 63, './strings/strBefore.js': 64, './strings/strBeforeLast.js': 65, './strings/titleCase.js': 66, './strings/ucFirst.js': 67, './strings/words.js': 68, 'core-js/stable': 613 }],
   59: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     var _ucFirst = _interopRequireDefault(require('./ucFirst.js'))
     var _words = _interopRequireDefault(require('./words.js'))
@@ -2852,28 +2418,20 @@
  * @param {string} str
  * @returns {string}
  */
-    var camelCase = function camelCase (str) {
-      return (0, _words.default)(str).reduce(function (camel, part) {
-        return camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase()
-      }, '')
-    }
+    const camelCase = str => (0, _words.default)(str).reduce((camel, part) => camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase(), '')
     var _default = camelCase
     exports.default = _default
-  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   60: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     var _words = _interopRequireDefault(require('./words.js'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -2884,28 +2442,20 @@
  * @param {string} str
  * @returns {string}
  */
-    var kabobCase = function kabobCase (str) {
-      return (0, _words.default)(str).reduce(function (kabob, part) {
-        return kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase()
-      }, '')
-    }
+    const kabobCase = str => (0, _words.default)(str).reduce((kabob, part) => kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase(), '')
     var _default = kabobCase
     exports.default = _default
-  }, { './words.js': 68, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   61: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     var _words = _interopRequireDefault(require('./words.js'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -2916,97 +2466,80 @@
  * @param {string} str
  * @returns {string}
  */
-    var snakeCase = function snakeCase (str) {
-      return (0, _words.default)(str).reduce(function (snake, part) {
-        return snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase()
-      }, '')
-    }
+    const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')
     var _default = snakeCase
     exports.default = _default
-  }, { './words.js': 68, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   62: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.index-of.js')
     require('core-js/stable')
-    var strAfter = function strAfter (str, search) {
-      var index = str.indexOf(search)
+    const strAfter = (str, search) => {
+      const index = str.indexOf(search)
       return index === -1 ? '' : str.substring(index + search.length)
     }
     var _default = strAfter
     exports.default = _default
-  }, { 'core-js/modules/es.array.index-of.js': 338, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   63: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.last-index-of.js')
     require('core-js/stable')
-    var strAfterLast = function strAfterLast (str, search) {
-      var index = str.lastIndexOf(search)
+    const strAfterLast = (str, search) => {
+      const index = str.lastIndexOf(search)
       return index === -1 ? '' : str.substring(index + search.length)
     }
     var _default = strAfterLast
     exports.default = _default
-  }, { 'core-js/modules/es.array.last-index-of.js': 342, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   64: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.index-of.js')
-    require('core-js/modules/es.array.slice.js')
     require('core-js/stable')
-    var strBefore = function strBefore (str, search) {
-      var index = str.indexOf(search)
+    const strBefore = (str, search) => {
+      const index = str.indexOf(search)
       return index === -1 ? '' : str.slice(0, index)
     }
     var _default = strBefore
     exports.default = _default
-  }, { 'core-js/modules/es.array.index-of.js': 338, 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   65: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.last-index-of.js')
     require('core-js/stable')
-    var strBeforeLast = function strBeforeLast (str, search) {
-      var index = str.lastIndexOf(search)
+    const strBeforeLast = (str, search) => {
+      const index = str.lastIndexOf(search)
       return index === -1 ? '' : str.substring(0, index)
     }
     var _default = strBeforeLast
     exports.default = _default
-  }, { 'core-js/modules/es.array.last-index-of.js': 342, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   66: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.reduce.js')
-    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/es.array.concat.js')
     require('core-js/stable')
     var _ucFirst = _interopRequireDefault(require('./ucFirst.js'))
     var _words = _interopRequireDefault(require('./words.js'))
@@ -3018,23 +2551,17 @@
  * @param {string} str
  * @returns {string}
  */
-    var titleCase = function titleCase (str) {
-      return (0, _words.default)(str).reduce(function (title, part) {
-        return title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part)
-      }, '')
-    }
+    const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')
     var _default = titleCase
     exports.default = _default
-  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/es.array.concat.js': 324, 'core-js/modules/es.array.reduce.js': 347, 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.object.to-string.js': 439, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 612 }],
+  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 580, 'core-js/modules/esnext.iterator.constructor.js': 582, 'core-js/modules/esnext.iterator.reduce.js': 588, 'core-js/stable': 613 }],
   67: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.array.slice.js')
     require('core-js/stable')
     /**
  * Given a string, make the first character uppercase and the rest lowercase.
@@ -3043,22 +2570,17 @@
  * @param {string} str
  * @returns {string}
  */
-    var ucFirst = function ucFirst (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-    }
+    const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
     var _default = ucFirst
     exports.default = _default
-  }, { 'core-js/modules/es.array.slice.js': 349, 'core-js/modules/es.object.define-property.js': 417, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   68: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.string.match.js')
     require('core-js/stable')
     /**
  * Split a string into sets of numbers or letters.
@@ -3067,21 +2589,17 @@
  * @param {string} str
  * @returns {array}
  */
-    var words = function words (str) {
-      return str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
-    }
+    const words = str => str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
     var _default = words
     exports.default = _default
-  }, { 'core-js/modules/es.object.define-property.js': 417, 'core-js/modules/es.regexp.exec.js': 469, 'core-js/modules/es.string.match.js': 492, 'core-js/stable': 612 }],
+  }, { 'core-js/stable': 613 }],
   69: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.object.define-property.js')
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.object.assign.js')
     var _arrays = _interopRequireDefault(require('./helpers/arrays.js'))
     var _descriptors = _interopRequireDefault(require('./helpers/descriptors.js'))
     var _functions = _interopRequireDefault(require('./helpers/functions.js'))
@@ -3097,12 +2615,12 @@
  * @module siFunciona
  */
 
-    var siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
+    const siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
     var _default = siFunciona
     exports.default = _default
-    var root = void 0 || typeof window !== 'undefined' ? window : {}
+    const root = void 0 || typeof window !== 'undefined' ? window : {}
     root.siFunciona = siFunciona
-  }, { './helpers/arrays.js': 1, './helpers/descriptors.js': 8, './helpers/functions.js': 21, './helpers/numbers.js': 32, './helpers/objects.js': 38, './helpers/strings.js': 58, 'core-js/modules/es.object.assign.js': 413, 'core-js/modules/es.object.define-property.js': 417 }],
+  }, { './helpers/arrays.js': 1, './helpers/descriptors.js': 8, './helpers/functions.js': 21, './helpers/numbers.js': 32, './helpers/objects.js': 38, './helpers/strings.js': 58 }],
   70: [function (require, module, exports) {
     var isCallable = require('../internals/is-callable')
     var tryToString = require('../internals/try-to-string')
@@ -4384,13 +3902,14 @@
       var IS_EVERY = TYPE == 2
       var IS_SOME = TYPE == 3
       return function (object, fn, target) {
+        anObject(object)
+        var MAPPING = fn !== undefined
+        if (MAPPING || !IS_TO_ARRAY) aCallable(fn)
         var record = getIteratorDirect(object)
         var Promise = getBuiltIn('Promise')
         var iterator = record.iterator
         var next = record.next
         var counter = 0
-        var MAPPING = fn !== undefined
-        if (MAPPING || !IS_TO_ARRAY) aCallable(fn)
 
         return new Promise(function (resolve, reject) {
           var ifAbruptCloseAsyncIterator = function (error) {
@@ -4510,8 +4029,10 @@
     // `AsyncIterator.prototype.map` method
     // https://github.com/tc39/proposal-iterator-helpers
     module.exports = function map (mapper) {
+      anObject(this)
+      aCallable(mapper)
       return new AsyncIteratorProxy(getIteratorDirect(this), {
-        mapper: aCallable(mapper)
+        mapper: mapper
       })
     }
   }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/async-iterator-close': 101, '../internals/async-iterator-create-proxy': 102, '../internals/create-iter-result-object': 118, '../internals/function-call': 163, '../internals/get-iterator-direct': 169, '../internals/is-object': 197 }],
@@ -5510,7 +5031,7 @@
         module.exports = typeof process !== 'undefined' && classof(process) == 'process'
       }).call(this)
     }).call(this, require('_process'))
-  }, { '../internals/classof-raw': 109, _process: 613 }],
+  }, { '../internals/classof-raw': 109, _process: 614 }],
   144: [function (require, module, exports) {
     var userAgent = require('../internals/engine-user-agent')
 
@@ -5989,15 +5510,14 @@
   }, { '../internals/global': 175, '../internals/is-callable': 191 }],
   169: [function (require, module, exports) {
     var aCallable = require('../internals/a-callable')
-    var anObject = require('../internals/an-object')
 
     module.exports = function (obj) {
       return {
         iterator: obj,
-        next: aCallable(anObject(obj).next)
+        next: aCallable(obj.next)
       }
     }
-  }, { '../internals/a-callable': 70, '../internals/an-object': 76 }],
+  }, { '../internals/a-callable': 70 }],
   170: [function (require, module, exports) {
     var classof = require('../internals/classof')
     var getMethod = require('../internals/get-method')
@@ -6135,7 +5655,7 @@
   check(typeof self === 'object' && self) ||
   check(typeof global === 'object' && global) ||
   // eslint-disable-next-line no-new-func -- fallback
-  (function () { return this })() || Function('return this')()
+  (function () { return this })() || this || Function('return this')()
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, {}],
@@ -7021,8 +6541,10 @@
     // `Iterator.prototype.map` method
     // https://github.com/tc39/proposal-iterator-helpers
     module.exports = function map (mapper) {
+      anObject(this)
+      aCallable(mapper)
       return new IteratorProxy(getIteratorDirect(this), {
-        mapper: aCallable(mapper)
+        mapper: mapper
       })
     }
   }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/call-with-safe-iteration-closing': 107, '../internals/function-call': 163, '../internals/get-iterator-direct': 169, '../internals/iterator-create-proxy': 204 }],
@@ -8368,9 +7890,7 @@
       add: uncurryThis(SetPrototype.add),
       has: uncurryThis(SetPrototype.has),
       remove: uncurryThis(SetPrototype.delete),
-      proto: SetPrototype,
-      $has: SetPrototype.has,
-      $keys: SetPrototype.keys
+      proto: SetPrototype
     }
   }, { '../internals/function-uncurry-this': 167 }],
   264: [function (require, module, exports) {
@@ -8433,10 +7953,10 @@
     (module.exports = function (key, value) {
       return store[key] || (store[key] = value !== undefined ? value : {})
     })('versions', []).push({
-      version: '3.29.1',
+      version: '3.30.2',
       mode: IS_PURE ? 'pure' : 'global',
       copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.29.1/LICENSE',
+      license: 'https://github.com/zloirock/core-js/blob/v3.30.2/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/is-pure': 198, '../internals/shared-store': 267 }],
@@ -8848,17 +8368,22 @@
     /* eslint-disable es/no-symbol -- required for testing */
     var V8_VERSION = require('../internals/engine-v8-version')
     var fails = require('../internals/fails')
+    var global = require('../internals/global')
+
+    var $String = global.String
 
     // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
     module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
       var symbol = Symbol()
       // Chrome 38 Symbol has incorrect toString conversion
       // `get-own-property-symbols` polyfill symbols converted to object are not Symbol instances
-      return !String(symbol) || !(Object(symbol) instanceof Symbol) ||
+      // nb: Do not call `String` directly to avoid this being optimized out to `symbol+''` which will,
+      // of course, fail.
+      return !$String(symbol) || !(Object(symbol) instanceof Symbol) ||
     // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
     !Symbol.sham && V8_VERSION && V8_VERSION < 41
     })
-  }, { '../internals/engine-v8-version': 146, '../internals/fails': 155 }],
+  }, { '../internals/engine-v8-version': 146, '../internals/fails': 155, '../internals/global': 175 }],
   282: [function (require, module, exports) {
     var call = require('../internals/function-call')
     var getBuiltIn = require('../internals/get-built-in')
@@ -10045,6 +9570,7 @@
     var SKIPS_HOLES = true
 
     // Shouldn't skip holes
+    // eslint-disable-next-line es/no-array-prototype-findindex -- testing
     if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () { SKIPS_HOLES = false })
 
     // `Array.prototype.findIndex` method
@@ -10100,6 +9626,7 @@
     var SKIPS_HOLES = true
 
     // Shouldn't skip holes
+    // eslint-disable-next-line es/no-array-prototype-find -- testing
     if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false })
 
     // `Array.prototype.find` method
@@ -16531,8 +16058,10 @@
     // https://github.com/tc39/proposal-async-iterator-helpers
     $({ target: 'AsyncIterator', proto: true, real: true }, {
       filter: function filter (predicate) {
+        anObject(this)
+        aCallable(predicate)
         return new AsyncIteratorProxy(getIteratorDirect(this), {
-          predicate: aCallable(predicate)
+          predicate: predicate
         })
       }
     })
@@ -16591,13 +16120,14 @@
     // https://github.com/tc39/proposal-async-iterator-helpers
     $({ target: 'AsyncIterator', proto: true, real: true }, {
       reduce: function reduce (reducer /* , initialValue */) {
+        anObject(this)
+        aCallable(reducer)
         var record = getIteratorDirect(this)
         var iterator = record.iterator
         var next = record.next
         var noInitial = arguments.length < 2
         var accumulator = noInitial ? undefined : arguments[1]
         var counter = 0
-        aCallable(reducer)
 
         return new Promise(function (resolve, reject) {
           var ifAbruptCloseAsyncIterator = function (error) {
@@ -16703,21 +16233,23 @@
     var $ = require('../internals/export')
     var iterate = require('../internals/iterate')
     var aCallable = require('../internals/a-callable')
+    var anObject = require('../internals/an-object')
     var getIteratorDirect = require('../internals/get-iterator-direct')
 
     // `Iterator.prototype.every` method
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       every: function every (predicate) {
+        anObject(this)
+        aCallable(predicate)
         var record = getIteratorDirect(this)
         var counter = 0
-        aCallable(predicate)
         return !iterate(record, function (value, stop) {
           if (!predicate(value, counter++)) return stop()
         }, { IS_RECORD: true, INTERRUPTED: true }).stopped
       }
     })
-  }, { '../internals/a-callable': 70, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
+  }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
   584: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
@@ -16746,8 +16278,10 @@
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       filter: function filter (predicate) {
+        anObject(this)
+        aCallable(predicate)
         return new IteratorProxy(getIteratorDirect(this), {
-          predicate: aCallable(predicate)
+          predicate: predicate
         })
       }
     })
@@ -16757,41 +16291,45 @@
     var $ = require('../internals/export')
     var iterate = require('../internals/iterate')
     var aCallable = require('../internals/a-callable')
+    var anObject = require('../internals/an-object')
     var getIteratorDirect = require('../internals/get-iterator-direct')
 
     // `Iterator.prototype.find` method
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       find: function find (predicate) {
+        anObject(this)
+        aCallable(predicate)
         var record = getIteratorDirect(this)
         var counter = 0
-        aCallable(predicate)
         return iterate(record, function (value, stop) {
           if (predicate(value, counter++)) return stop(value)
         }, { IS_RECORD: true, INTERRUPTED: true }).result
       }
     })
-  }, { '../internals/a-callable': 70, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
+  }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
   586: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
     var iterate = require('../internals/iterate')
     var aCallable = require('../internals/a-callable')
+    var anObject = require('../internals/an-object')
     var getIteratorDirect = require('../internals/get-iterator-direct')
 
     // `Iterator.prototype.forEach` method
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       forEach: function forEach (fn) {
+        anObject(this)
+        aCallable(fn)
         var record = getIteratorDirect(this)
         var counter = 0
-        aCallable(fn)
         iterate(record, function (value) {
           fn(value, counter++)
         }, { IS_RECORD: true })
       }
     })
-  }, { '../internals/a-callable': 70, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
+  }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
   587: [function (require, module, exports) {
     var $ = require('../internals/export')
     var map = require('../internals/iterator-map')
@@ -16807,6 +16345,7 @@
     var $ = require('../internals/export')
     var iterate = require('../internals/iterate')
     var aCallable = require('../internals/a-callable')
+    var anObject = require('../internals/an-object')
     var getIteratorDirect = require('../internals/get-iterator-direct')
 
     var $TypeError = TypeError
@@ -16815,8 +16354,9 @@
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       reduce: function reduce (reducer /* , initialValue */) {
-        var record = getIteratorDirect(this)
+        anObject(this)
         aCallable(reducer)
+        var record = getIteratorDirect(this)
         var noInitial = arguments.length < 2
         var accumulator = noInitial ? undefined : arguments[1]
         var counter = 0
@@ -16833,27 +16373,29 @@
         return accumulator
       }
     })
-  }, { '../internals/a-callable': 70, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
+  }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
   589: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
     var iterate = require('../internals/iterate')
     var aCallable = require('../internals/a-callable')
+    var anObject = require('../internals/an-object')
     var getIteratorDirect = require('../internals/get-iterator-direct')
 
     // `Iterator.prototype.some` method
     // https://github.com/tc39/proposal-iterator-helpers
     $({ target: 'Iterator', proto: true, real: true }, {
       some: function some (predicate) {
+        anObject(this)
+        aCallable(predicate)
         var record = getIteratorDirect(this)
         var counter = 0
-        aCallable(predicate)
         return iterate(record, function (value, stop) {
           if (predicate(value, counter++)) return stop()
         }, { IS_RECORD: true, INTERRUPTED: true }).stopped
       }
     })
-  }, { '../internals/a-callable': 70, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
+  }, { '../internals/a-callable': 70, '../internals/an-object': 76, '../internals/export': 154, '../internals/get-iterator-direct': 169, '../internals/iterate': 201 }],
   590: [function (require, module, exports) {
     var $ = require('../internals/export')
     var global = require('../internals/global')
@@ -17518,6 +17060,11 @@
       throw new DOMException((action || 'Cloning') + ' of ' + type + ' cannot be properly polyfilled in this engine', DATA_CLONE_ERROR)
     }
 
+    var tryNativeRestrictedStructuredClone = function (value, type) {
+      if (!nativeRestrictedStructuredClone) throwUnpolyfillable(type)
+      return nativeRestrictedStructuredClone(value)
+    }
+
     var createDataTransfer = function () {
       var dataTransfer
       try {
@@ -17638,10 +17185,23 @@
               structuredCloneInternal(value.p4, map)
             )
           } catch (error) {
-            if (nativeRestrictedStructuredClone) {
-              cloned = nativeRestrictedStructuredClone(value)
-            } else throwUnpolyfillable(type)
+            cloned = tryNativeRestrictedStructuredClone(value, type)
           }
+          break
+        case 'File':
+          if (nativeRestrictedStructuredClone) {
+            try {
+              cloned = nativeRestrictedStructuredClone(value)
+              // NodeJS 20.0.0 bug, https://github.com/nodejs/node/issues/47612
+              if (classof(cloned) !== type) cloned = undefined
+            } catch (error) { /* empty */ }
+          }
+          if (!cloned) {
+            try {
+              cloned = new File([value], value.name, value)
+            } catch (error) { /* empty */ }
+          }
+          if (!cloned) throwUnpolyfillable(type)
           break
         case 'FileList':
           dataTransfer = createDataTransfer()
@@ -17650,9 +17210,7 @@
               dataTransfer.items.add(structuredCloneInternal(value[i], map))
             }
             cloned = dataTransfer.files
-          } else if (nativeRestrictedStructuredClone) {
-            cloned = nativeRestrictedStructuredClone(value)
-          } else throwUnpolyfillable(type)
+          } else cloned = tryNativeRestrictedStructuredClone(value, type)
           break
         case 'ImageData':
           // Safari 9 ImageData is a constructor, but typeof ImageData is 'object'
@@ -17664,9 +17222,7 @@
               { colorSpace: value.colorSpace }
             )
           } catch (error) {
-            if (nativeRestrictedStructuredClone) {
-              cloned = nativeRestrictedStructuredClone(value)
-            } else throwUnpolyfillable(type)
+            cloned = tryNativeRestrictedStructuredClone(value, type)
           } break
         default:
           if (nativeRestrictedStructuredClone) {
@@ -17758,12 +17314,6 @@
                   cloned = value.clone()
                 } catch (error) {
                   throwUncloneable(type)
-                } break
-              case 'File':
-                try {
-                  cloned = new File([value], value.name, value)
-                } catch (error) {
-                  throwUnpolyfillable(type)
                 } break
               case 'CropTarget':
               case 'CryptoKey':
@@ -18348,6 +17898,37 @@
     }
   }, { '../internals/define-built-in-accessor': 124, '../internals/descriptors': 129, '../internals/function-uncurry-this': 167 }],
   609: [function (require, module, exports) {
+    var $ = require('../internals/export')
+    var getBuiltIn = require('../internals/get-built-in')
+    var fails = require('../internals/fails')
+    var validateArgumentsLength = require('../internals/validate-arguments-length')
+    var toString = require('../internals/to-string')
+    var USE_NATIVE_URL = require('../internals/url-constructor-detection')
+
+    var URL = getBuiltIn('URL')
+
+    // https://github.com/nodejs/node/issues/47505
+    // https://github.com/denoland/deno/issues/18893
+    var THROWS_WITHOUT_ARGUMENTS = USE_NATIVE_URL && fails(function () {
+      URL.canParse()
+    })
+
+    // `URL.canParse` method
+    // https://url.spec.whatwg.org/#dom-url-canparse
+    $({ target: 'URL', stat: true, forced: !THROWS_WITHOUT_ARGUMENTS }, {
+      canParse: function canParse (url) {
+        var length = validateArgumentsLength(arguments.length, 1)
+        var urlString = toString(url)
+        var base = length < 2 || arguments[1] === undefined ? undefined : toString(arguments[1])
+        try {
+          return !!new URL(urlString, base)
+        } catch (error) {
+          return false
+        }
+      }
+    })
+  }, { '../internals/export': 154, '../internals/fails': 155, '../internals/get-built-in': 168, '../internals/to-string': 298, '../internals/url-constructor-detection': 307, '../internals/validate-arguments-length': 310 }],
+  610: [function (require, module, exports) {
     'use strict'
     // TODO: in core-js@4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
     require('../modules/es.string.iterator')
@@ -19395,11 +18976,11 @@
       URL: URLConstructor
     })
   }, { '../internals/an-instance': 75, '../internals/array-from': 85, '../internals/array-slice-simple': 94, '../internals/define-built-in': 125, '../internals/define-built-in-accessor': 124, '../internals/descriptors': 129, '../internals/export': 154, '../internals/function-bind-context': 160, '../internals/function-uncurry-this': 167, '../internals/global': 175, '../internals/has-own-property': 176, '../internals/internal-state': 187, '../internals/object-assign': 225, '../internals/set-to-string-tag': 265, '../internals/string-multibyte': 271, '../internals/string-punycode-to-ascii': 274, '../internals/to-string': 298, '../internals/url-constructor-detection': 307, '../internals/validate-arguments-length': 310, '../modules/es.string.iterator': 489, '../modules/web.url-search-params.constructor': 606 }],
-  610: [function (require, module, exports) {
+  611: [function (require, module, exports) {
     // TODO: Remove this module from `core-js@4` since it's replaced to module below
     require('../modules/web.url.constructor')
-  }, { '../modules/web.url.constructor': 609 }],
-  611: [function (require, module, exports) {
+  }, { '../modules/web.url.constructor': 610 }],
+  612: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
     var call = require('../internals/function-call')
@@ -19412,7 +18993,7 @@
       }
     })
   }, { '../internals/export': 154, '../internals/function-call': 163 }],
-  612: [function (require, module, exports) {
+  613: [function (require, module, exports) {
     require('../modules/es.symbol')
     require('../modules/es.symbol.description')
     require('../modules/es.symbol.async-iterator')
@@ -19666,13 +19247,14 @@
     require('../modules/web.structured-clone')
     require('../modules/web.timers')
     require('../modules/web.url')
+    require('../modules/web.url.can-parse')
     require('../modules/web.url.to-json')
     require('../modules/web.url-search-params')
     require('../modules/web.url-search-params.size')
 
     module.exports = require('../internals/path')
-  }, { '../internals/path': 245, '../modules/es.aggregate-error': 319, '../modules/es.aggregate-error.cause': 317, '../modules/es.array-buffer.constructor': 320, '../modules/es.array-buffer.is-view': 321, '../modules/es.array-buffer.slice': 322, '../modules/es.array.at': 323, '../modules/es.array.concat': 324, '../modules/es.array.copy-within': 325, '../modules/es.array.every': 326, '../modules/es.array.fill': 327, '../modules/es.array.filter': 328, '../modules/es.array.find': 332, '../modules/es.array.find-index': 329, '../modules/es.array.find-last': 331, '../modules/es.array.find-last-index': 330, '../modules/es.array.flat': 334, '../modules/es.array.flat-map': 333, '../modules/es.array.for-each': 335, '../modules/es.array.from': 336, '../modules/es.array.includes': 337, '../modules/es.array.index-of': 338, '../modules/es.array.is-array': 339, '../modules/es.array.iterator': 340, '../modules/es.array.join': 341, '../modules/es.array.last-index-of': 342, '../modules/es.array.map': 343, '../modules/es.array.of': 344, '../modules/es.array.push': 345, '../modules/es.array.reduce': 347, '../modules/es.array.reduce-right': 346, '../modules/es.array.reverse': 348, '../modules/es.array.slice': 349, '../modules/es.array.some': 350, '../modules/es.array.sort': 351, '../modules/es.array.species': 352, '../modules/es.array.splice': 353, '../modules/es.array.to-reversed': 354, '../modules/es.array.to-sorted': 355, '../modules/es.array.to-spliced': 356, '../modules/es.array.unscopables.flat': 358, '../modules/es.array.unscopables.flat-map': 357, '../modules/es.array.unshift': 359, '../modules/es.array.with': 360, '../modules/es.data-view': 362, '../modules/es.date.get-year': 363, '../modules/es.date.now': 364, '../modules/es.date.set-year': 365, '../modules/es.date.to-gmt-string': 366, '../modules/es.date.to-iso-string': 367, '../modules/es.date.to-json': 368, '../modules/es.date.to-primitive': 369, '../modules/es.date.to-string': 370, '../modules/es.error.cause': 371, '../modules/es.error.to-string': 372, '../modules/es.escape': 373, '../modules/es.function.bind': 374, '../modules/es.function.has-instance': 375, '../modules/es.function.name': 376, '../modules/es.global-this': 377, '../modules/es.json.stringify': 378, '../modules/es.json.to-string-tag': 379, '../modules/es.map': 381, '../modules/es.math.acosh': 382, '../modules/es.math.asinh': 383, '../modules/es.math.atanh': 384, '../modules/es.math.cbrt': 385, '../modules/es.math.clz32': 386, '../modules/es.math.cosh': 387, '../modules/es.math.expm1': 388, '../modules/es.math.fround': 389, '../modules/es.math.hypot': 390, '../modules/es.math.imul': 391, '../modules/es.math.log10': 392, '../modules/es.math.log1p': 393, '../modules/es.math.log2': 394, '../modules/es.math.sign': 395, '../modules/es.math.sinh': 396, '../modules/es.math.tanh': 397, '../modules/es.math.to-string-tag': 398, '../modules/es.math.trunc': 399, '../modules/es.number.constructor': 400, '../modules/es.number.epsilon': 401, '../modules/es.number.is-finite': 402, '../modules/es.number.is-integer': 403, '../modules/es.number.is-nan': 404, '../modules/es.number.is-safe-integer': 405, '../modules/es.number.max-safe-integer': 406, '../modules/es.number.min-safe-integer': 407, '../modules/es.number.parse-float': 408, '../modules/es.number.parse-int': 409, '../modules/es.number.to-exponential': 410, '../modules/es.number.to-fixed': 411, '../modules/es.number.to-precision': 412, '../modules/es.object.assign': 413, '../modules/es.object.create': 414, '../modules/es.object.define-getter': 415, '../modules/es.object.define-properties': 416, '../modules/es.object.define-property': 417, '../modules/es.object.define-setter': 418, '../modules/es.object.entries': 419, '../modules/es.object.freeze': 420, '../modules/es.object.from-entries': 421, '../modules/es.object.get-own-property-descriptor': 422, '../modules/es.object.get-own-property-descriptors': 423, '../modules/es.object.get-own-property-names': 424, '../modules/es.object.get-prototype-of': 426, '../modules/es.object.has-own': 427, '../modules/es.object.is': 431, '../modules/es.object.is-extensible': 428, '../modules/es.object.is-frozen': 429, '../modules/es.object.is-sealed': 430, '../modules/es.object.keys': 432, '../modules/es.object.lookup-getter': 433, '../modules/es.object.lookup-setter': 434, '../modules/es.object.prevent-extensions': 435, '../modules/es.object.proto': 436, '../modules/es.object.seal': 437, '../modules/es.object.set-prototype-of': 438, '../modules/es.object.to-string': 439, '../modules/es.object.values': 440, '../modules/es.parse-float': 441, '../modules/es.parse-int': 442, '../modules/es.promise': 449, '../modules/es.promise.all-settled': 443, '../modules/es.promise.any': 445, '../modules/es.promise.finally': 448, '../modules/es.reflect.apply': 453, '../modules/es.reflect.construct': 454, '../modules/es.reflect.define-property': 455, '../modules/es.reflect.delete-property': 456, '../modules/es.reflect.get': 459, '../modules/es.reflect.get-own-property-descriptor': 457, '../modules/es.reflect.get-prototype-of': 458, '../modules/es.reflect.has': 460, '../modules/es.reflect.is-extensible': 461, '../modules/es.reflect.own-keys': 462, '../modules/es.reflect.prevent-extensions': 463, '../modules/es.reflect.set': 465, '../modules/es.reflect.set-prototype-of': 464, '../modules/es.reflect.to-string-tag': 466, '../modules/es.regexp.constructor': 467, '../modules/es.regexp.dot-all': 468, '../modules/es.regexp.exec': 469, '../modules/es.regexp.flags': 470, '../modules/es.regexp.sticky': 471, '../modules/es.regexp.test': 472, '../modules/es.regexp.to-string': 473, '../modules/es.set': 475, '../modules/es.string.anchor': 476, '../modules/es.string.at-alternative': 477, '../modules/es.string.big': 478, '../modules/es.string.blink': 479, '../modules/es.string.bold': 480, '../modules/es.string.code-point-at': 481, '../modules/es.string.ends-with': 482, '../modules/es.string.fixed': 483, '../modules/es.string.fontcolor': 484, '../modules/es.string.fontsize': 485, '../modules/es.string.from-code-point': 486, '../modules/es.string.includes': 487, '../modules/es.string.italics': 488, '../modules/es.string.iterator': 489, '../modules/es.string.link': 490, '../modules/es.string.match': 492, '../modules/es.string.match-all': 491, '../modules/es.string.pad-end': 493, '../modules/es.string.pad-start': 494, '../modules/es.string.raw': 495, '../modules/es.string.repeat': 496, '../modules/es.string.replace': 498, '../modules/es.string.replace-all': 497, '../modules/es.string.search': 499, '../modules/es.string.small': 500, '../modules/es.string.split': 501, '../modules/es.string.starts-with': 502, '../modules/es.string.strike': 503, '../modules/es.string.sub': 504, '../modules/es.string.substr': 505, '../modules/es.string.sup': 506, '../modules/es.string.trim': 511, '../modules/es.string.trim-end': 507, '../modules/es.string.trim-start': 510, '../modules/es.symbol': 519, '../modules/es.symbol.async-iterator': 512, '../modules/es.symbol.description': 514, '../modules/es.symbol.has-instance': 516, '../modules/es.symbol.is-concat-spreadable': 517, '../modules/es.symbol.iterator': 518, '../modules/es.symbol.match': 522, '../modules/es.symbol.match-all': 521, '../modules/es.symbol.replace': 523, '../modules/es.symbol.search': 524, '../modules/es.symbol.species': 525, '../modules/es.symbol.split': 526, '../modules/es.symbol.to-primitive': 527, '../modules/es.symbol.to-string-tag': 528, '../modules/es.symbol.unscopables': 529, '../modules/es.typed-array.at': 530, '../modules/es.typed-array.copy-within': 531, '../modules/es.typed-array.every': 532, '../modules/es.typed-array.fill': 533, '../modules/es.typed-array.filter': 534, '../modules/es.typed-array.find': 538, '../modules/es.typed-array.find-index': 535, '../modules/es.typed-array.find-last': 537, '../modules/es.typed-array.find-last-index': 536, '../modules/es.typed-array.float32-array': 539, '../modules/es.typed-array.float64-array': 540, '../modules/es.typed-array.for-each': 541, '../modules/es.typed-array.from': 542, '../modules/es.typed-array.includes': 543, '../modules/es.typed-array.index-of': 544, '../modules/es.typed-array.int16-array': 545, '../modules/es.typed-array.int32-array': 546, '../modules/es.typed-array.int8-array': 547, '../modules/es.typed-array.iterator': 548, '../modules/es.typed-array.join': 549, '../modules/es.typed-array.last-index-of': 550, '../modules/es.typed-array.map': 551, '../modules/es.typed-array.of': 552, '../modules/es.typed-array.reduce': 554, '../modules/es.typed-array.reduce-right': 553, '../modules/es.typed-array.reverse': 555, '../modules/es.typed-array.set': 556, '../modules/es.typed-array.slice': 557, '../modules/es.typed-array.some': 558, '../modules/es.typed-array.sort': 559, '../modules/es.typed-array.subarray': 560, '../modules/es.typed-array.to-locale-string': 561, '../modules/es.typed-array.to-reversed': 562, '../modules/es.typed-array.to-sorted': 563, '../modules/es.typed-array.to-string': 564, '../modules/es.typed-array.uint16-array': 565, '../modules/es.typed-array.uint32-array': 566, '../modules/es.typed-array.uint8-array': 567, '../modules/es.typed-array.uint8-clamped-array': 568, '../modules/es.typed-array.with': 569, '../modules/es.unescape': 570, '../modules/es.weak-map': 572, '../modules/es.weak-set': 574, '../modules/web.atob': 590, '../modules/web.btoa': 591, '../modules/web.dom-collections.for-each': 593, '../modules/web.dom-collections.iterator': 594, '../modules/web.dom-exception.constructor': 595, '../modules/web.dom-exception.stack': 596, '../modules/web.dom-exception.to-string-tag': 597, '../modules/web.immediate': 598, '../modules/web.queue-microtask': 599, '../modules/web.self': 600, '../modules/web.structured-clone': 604, '../modules/web.timers': 605, '../modules/web.url': 610, '../modules/web.url-search-params': 607, '../modules/web.url-search-params.size': 608, '../modules/web.url.to-json': 611 }],
-  613: [function (require, module, exports) {
+  }, { '../internals/path': 245, '../modules/es.aggregate-error': 319, '../modules/es.aggregate-error.cause': 317, '../modules/es.array-buffer.constructor': 320, '../modules/es.array-buffer.is-view': 321, '../modules/es.array-buffer.slice': 322, '../modules/es.array.at': 323, '../modules/es.array.concat': 324, '../modules/es.array.copy-within': 325, '../modules/es.array.every': 326, '../modules/es.array.fill': 327, '../modules/es.array.filter': 328, '../modules/es.array.find': 332, '../modules/es.array.find-index': 329, '../modules/es.array.find-last': 331, '../modules/es.array.find-last-index': 330, '../modules/es.array.flat': 334, '../modules/es.array.flat-map': 333, '../modules/es.array.for-each': 335, '../modules/es.array.from': 336, '../modules/es.array.includes': 337, '../modules/es.array.index-of': 338, '../modules/es.array.is-array': 339, '../modules/es.array.iterator': 340, '../modules/es.array.join': 341, '../modules/es.array.last-index-of': 342, '../modules/es.array.map': 343, '../modules/es.array.of': 344, '../modules/es.array.push': 345, '../modules/es.array.reduce': 347, '../modules/es.array.reduce-right': 346, '../modules/es.array.reverse': 348, '../modules/es.array.slice': 349, '../modules/es.array.some': 350, '../modules/es.array.sort': 351, '../modules/es.array.species': 352, '../modules/es.array.splice': 353, '../modules/es.array.to-reversed': 354, '../modules/es.array.to-sorted': 355, '../modules/es.array.to-spliced': 356, '../modules/es.array.unscopables.flat': 358, '../modules/es.array.unscopables.flat-map': 357, '../modules/es.array.unshift': 359, '../modules/es.array.with': 360, '../modules/es.data-view': 362, '../modules/es.date.get-year': 363, '../modules/es.date.now': 364, '../modules/es.date.set-year': 365, '../modules/es.date.to-gmt-string': 366, '../modules/es.date.to-iso-string': 367, '../modules/es.date.to-json': 368, '../modules/es.date.to-primitive': 369, '../modules/es.date.to-string': 370, '../modules/es.error.cause': 371, '../modules/es.error.to-string': 372, '../modules/es.escape': 373, '../modules/es.function.bind': 374, '../modules/es.function.has-instance': 375, '../modules/es.function.name': 376, '../modules/es.global-this': 377, '../modules/es.json.stringify': 378, '../modules/es.json.to-string-tag': 379, '../modules/es.map': 381, '../modules/es.math.acosh': 382, '../modules/es.math.asinh': 383, '../modules/es.math.atanh': 384, '../modules/es.math.cbrt': 385, '../modules/es.math.clz32': 386, '../modules/es.math.cosh': 387, '../modules/es.math.expm1': 388, '../modules/es.math.fround': 389, '../modules/es.math.hypot': 390, '../modules/es.math.imul': 391, '../modules/es.math.log10': 392, '../modules/es.math.log1p': 393, '../modules/es.math.log2': 394, '../modules/es.math.sign': 395, '../modules/es.math.sinh': 396, '../modules/es.math.tanh': 397, '../modules/es.math.to-string-tag': 398, '../modules/es.math.trunc': 399, '../modules/es.number.constructor': 400, '../modules/es.number.epsilon': 401, '../modules/es.number.is-finite': 402, '../modules/es.number.is-integer': 403, '../modules/es.number.is-nan': 404, '../modules/es.number.is-safe-integer': 405, '../modules/es.number.max-safe-integer': 406, '../modules/es.number.min-safe-integer': 407, '../modules/es.number.parse-float': 408, '../modules/es.number.parse-int': 409, '../modules/es.number.to-exponential': 410, '../modules/es.number.to-fixed': 411, '../modules/es.number.to-precision': 412, '../modules/es.object.assign': 413, '../modules/es.object.create': 414, '../modules/es.object.define-getter': 415, '../modules/es.object.define-properties': 416, '../modules/es.object.define-property': 417, '../modules/es.object.define-setter': 418, '../modules/es.object.entries': 419, '../modules/es.object.freeze': 420, '../modules/es.object.from-entries': 421, '../modules/es.object.get-own-property-descriptor': 422, '../modules/es.object.get-own-property-descriptors': 423, '../modules/es.object.get-own-property-names': 424, '../modules/es.object.get-prototype-of': 426, '../modules/es.object.has-own': 427, '../modules/es.object.is': 431, '../modules/es.object.is-extensible': 428, '../modules/es.object.is-frozen': 429, '../modules/es.object.is-sealed': 430, '../modules/es.object.keys': 432, '../modules/es.object.lookup-getter': 433, '../modules/es.object.lookup-setter': 434, '../modules/es.object.prevent-extensions': 435, '../modules/es.object.proto': 436, '../modules/es.object.seal': 437, '../modules/es.object.set-prototype-of': 438, '../modules/es.object.to-string': 439, '../modules/es.object.values': 440, '../modules/es.parse-float': 441, '../modules/es.parse-int': 442, '../modules/es.promise': 449, '../modules/es.promise.all-settled': 443, '../modules/es.promise.any': 445, '../modules/es.promise.finally': 448, '../modules/es.reflect.apply': 453, '../modules/es.reflect.construct': 454, '../modules/es.reflect.define-property': 455, '../modules/es.reflect.delete-property': 456, '../modules/es.reflect.get': 459, '../modules/es.reflect.get-own-property-descriptor': 457, '../modules/es.reflect.get-prototype-of': 458, '../modules/es.reflect.has': 460, '../modules/es.reflect.is-extensible': 461, '../modules/es.reflect.own-keys': 462, '../modules/es.reflect.prevent-extensions': 463, '../modules/es.reflect.set': 465, '../modules/es.reflect.set-prototype-of': 464, '../modules/es.reflect.to-string-tag': 466, '../modules/es.regexp.constructor': 467, '../modules/es.regexp.dot-all': 468, '../modules/es.regexp.exec': 469, '../modules/es.regexp.flags': 470, '../modules/es.regexp.sticky': 471, '../modules/es.regexp.test': 472, '../modules/es.regexp.to-string': 473, '../modules/es.set': 475, '../modules/es.string.anchor': 476, '../modules/es.string.at-alternative': 477, '../modules/es.string.big': 478, '../modules/es.string.blink': 479, '../modules/es.string.bold': 480, '../modules/es.string.code-point-at': 481, '../modules/es.string.ends-with': 482, '../modules/es.string.fixed': 483, '../modules/es.string.fontcolor': 484, '../modules/es.string.fontsize': 485, '../modules/es.string.from-code-point': 486, '../modules/es.string.includes': 487, '../modules/es.string.italics': 488, '../modules/es.string.iterator': 489, '../modules/es.string.link': 490, '../modules/es.string.match': 492, '../modules/es.string.match-all': 491, '../modules/es.string.pad-end': 493, '../modules/es.string.pad-start': 494, '../modules/es.string.raw': 495, '../modules/es.string.repeat': 496, '../modules/es.string.replace': 498, '../modules/es.string.replace-all': 497, '../modules/es.string.search': 499, '../modules/es.string.small': 500, '../modules/es.string.split': 501, '../modules/es.string.starts-with': 502, '../modules/es.string.strike': 503, '../modules/es.string.sub': 504, '../modules/es.string.substr': 505, '../modules/es.string.sup': 506, '../modules/es.string.trim': 511, '../modules/es.string.trim-end': 507, '../modules/es.string.trim-start': 510, '../modules/es.symbol': 519, '../modules/es.symbol.async-iterator': 512, '../modules/es.symbol.description': 514, '../modules/es.symbol.has-instance': 516, '../modules/es.symbol.is-concat-spreadable': 517, '../modules/es.symbol.iterator': 518, '../modules/es.symbol.match': 522, '../modules/es.symbol.match-all': 521, '../modules/es.symbol.replace': 523, '../modules/es.symbol.search': 524, '../modules/es.symbol.species': 525, '../modules/es.symbol.split': 526, '../modules/es.symbol.to-primitive': 527, '../modules/es.symbol.to-string-tag': 528, '../modules/es.symbol.unscopables': 529, '../modules/es.typed-array.at': 530, '../modules/es.typed-array.copy-within': 531, '../modules/es.typed-array.every': 532, '../modules/es.typed-array.fill': 533, '../modules/es.typed-array.filter': 534, '../modules/es.typed-array.find': 538, '../modules/es.typed-array.find-index': 535, '../modules/es.typed-array.find-last': 537, '../modules/es.typed-array.find-last-index': 536, '../modules/es.typed-array.float32-array': 539, '../modules/es.typed-array.float64-array': 540, '../modules/es.typed-array.for-each': 541, '../modules/es.typed-array.from': 542, '../modules/es.typed-array.includes': 543, '../modules/es.typed-array.index-of': 544, '../modules/es.typed-array.int16-array': 545, '../modules/es.typed-array.int32-array': 546, '../modules/es.typed-array.int8-array': 547, '../modules/es.typed-array.iterator': 548, '../modules/es.typed-array.join': 549, '../modules/es.typed-array.last-index-of': 550, '../modules/es.typed-array.map': 551, '../modules/es.typed-array.of': 552, '../modules/es.typed-array.reduce': 554, '../modules/es.typed-array.reduce-right': 553, '../modules/es.typed-array.reverse': 555, '../modules/es.typed-array.set': 556, '../modules/es.typed-array.slice': 557, '../modules/es.typed-array.some': 558, '../modules/es.typed-array.sort': 559, '../modules/es.typed-array.subarray': 560, '../modules/es.typed-array.to-locale-string': 561, '../modules/es.typed-array.to-reversed': 562, '../modules/es.typed-array.to-sorted': 563, '../modules/es.typed-array.to-string': 564, '../modules/es.typed-array.uint16-array': 565, '../modules/es.typed-array.uint32-array': 566, '../modules/es.typed-array.uint8-array': 567, '../modules/es.typed-array.uint8-clamped-array': 568, '../modules/es.typed-array.with': 569, '../modules/es.unescape': 570, '../modules/es.weak-map': 572, '../modules/es.weak-set': 574, '../modules/web.atob': 590, '../modules/web.btoa': 591, '../modules/web.dom-collections.for-each': 593, '../modules/web.dom-collections.iterator': 594, '../modules/web.dom-exception.constructor': 595, '../modules/web.dom-exception.stack': 596, '../modules/web.dom-exception.to-string-tag': 597, '../modules/web.immediate': 598, '../modules/web.queue-microtask': 599, '../modules/web.self': 600, '../modules/web.structured-clone': 604, '../modules/web.timers': 605, '../modules/web.url': 611, '../modules/web.url-search-params': 607, '../modules/web.url-search-params.size': 608, '../modules/web.url.can-parse': 609, '../modules/web.url.to-json': 612 }],
+  614: [function (require, module, exports) {
     // shim for using process in browser
     var process = module.exports = {}
 
@@ -19853,7 +19435,7 @@
     }
     process.umask = function () { return 0 }
   }, {}],
-  614: [function (require, module, exports) {
+  615: [function (require, module, exports) {
     /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
