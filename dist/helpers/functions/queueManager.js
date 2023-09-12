@@ -8,14 +8,6 @@ require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 /**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} module:functionHelpers~queueManagerHandle
- * @memberOf module:functionHelpers
- * @param {Function} fn - A function to enqueue
- * @param  {...*} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
- */
-/**
  * Manage functions to run sequentially.
  * @function
  * @memberOf module:functionHelpers

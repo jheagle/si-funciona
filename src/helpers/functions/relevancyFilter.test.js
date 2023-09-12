@@ -1,4 +1,4 @@
-import relevancyFilter from './relevancyFilter.js'
+import relevancyFilter from './relevancyFilter'
 
 describe('relevancyFilter', () => {
   test('map length less than mapLimit returns without filtering', () => {

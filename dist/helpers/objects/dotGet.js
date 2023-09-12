@@ -20,6 +20,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  */
 const dotGet = function (arrayObject, dotNotation) {
   const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+  var _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -28,25 +29,30 @@ const dotGet = function (arrayObject, dotNotation) {
   if (key === '*') {
     const result = []
     for (const wildKey in arrayObject) {
+      // @ts-ignore
       const wildValue = arrayObject[wildKey]
       if (lastKey) {
+        // @ts-ignore
         result[wildKey] = wildValue
         continue
       }
       if (!(0, _isObject.default)(wildValue)) {
         continue
       }
+      // @ts-ignore
       result[wildKey] = dotGet(wildValue, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
     }
     return result
   }
   if (lastKey) {
-    var _arrayObject$dotNotat
-    return (_arrayObject$dotNotat = arrayObject[dotNotation]) !== null && _arrayObject$dotNotat !== void 0 ? _arrayObject$dotNotat : defaultValue
+    // @ts-ignore
+    return (_a = arrayObject[dotNotation]) !== null && _a !== void 0 ? _a : defaultValue
   }
+  // @ts-ignore
   if (typeof arrayObject[key] === 'undefined') {
     return defaultValue
   }
+  // @ts-ignore
   const next = arrayObject[key]
   if (!(0, _isObject.default)(next)) {
     return defaultValue

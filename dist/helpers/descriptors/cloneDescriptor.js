@@ -19,12 +19,19 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  */
 const cloneDescriptor = originalMap => {
   const copyMap = {}
+  // @ts-ignore
   copyMap.index = originalMap.index || 0
+  // @ts-ignore
   copyMap.details = originalMap.details.map(_cloneDescriptorDetail.default)
+  // @ts-ignore
   copyMap.length = originalMap.length
+  // @ts-ignore
   copyMap.keys = originalMap.keys.map(key => key)
+  // @ts-ignore
   copyMap.references = originalMap.references.map(reference => reference)
+  // @ts-ignore
   copyMap.isArray = originalMap.isArray
+  // @ts-ignore
   copyMap.complete = originalMap.complete
   return copyMap
 }

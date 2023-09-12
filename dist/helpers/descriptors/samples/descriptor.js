@@ -7,17 +7,6 @@ exports.default = void 0
 var _descriptorDetail = _interopRequireDefault(require('./descriptorDetail'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
- * @typedef {Object} module:objectDescriptors~descriptor
- * @memberOf module:objectDescriptors
- * @property {number} index
- * @property {Array.<module:objectDescriptors~descriptorDetail>} details
- * @property {number} length
- * @property {Array.<string|number>} keys
- * @property {Array.<number>} references
- * @property {boolean} isArray
- * @property {boolean} complete
- */
-/**
  * @type {module:objectDescriptors~descriptor}
  * @memberOf module:objectDescriptors
  */

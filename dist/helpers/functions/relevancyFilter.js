@@ -11,18 +11,6 @@ require('core-js/modules/esnext.async-iterator.map.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/stable')
 /**
- * An object having an integer valued property named 'relevance'.
- * @typedef {Object} relevanceObject
- * @memberOf module:functionHelpers
- * @property {int} relevance
- */
-
-/**
- * A map of relevanceObjects which can be manipulated to filter results.
- * @typedef {Array.<relevanceObject>} relevanceMap
- * @memberOf module:functionHelpers
- */
-/**
  * Remove elements out of relevance range and update the max relevance.
  * @function
  * @memberOf module:functionHelpers

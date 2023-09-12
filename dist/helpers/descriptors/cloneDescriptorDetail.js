@@ -22,6 +22,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 const cloneDescriptorDetail = originalDetail => {
   const copyDetail = {};
   (0, _objectKeys.default)(originalDetail).forEach(key => {
+    // @ts-ignore
     copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(value => value) : originalDetail[key]
   })
   return copyDetail

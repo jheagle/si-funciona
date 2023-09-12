@@ -6,7 +6,7 @@
 
 <dl>
 <dt><a href="#module_siFunciona">siFunciona</a></dt>
-<dd><p>All of the siFunciona system functions for stringing together functions and simplifying logic.</p>
+<dd><p>All the siFunciona system functions for stringing together functions and simplifying logic.</p>
 </dd>
 <dt><a href="#module_stringHelpers">stringHelpers</a></dt>
 <dd><p>Manage how strings are manipulated with these utilities.</p>
@@ -31,7 +31,7 @@
 <a name="module_siFunciona"></a>
 
 ## siFunciona
-All of the siFunciona system functions for stringing together functions and simplifying logic.
+All the siFunciona system functions for stringing together functions and simplifying logic.
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
@@ -47,6 +47,10 @@ Manage how strings are manipulated with these utilities.
     * [.words(str)](#module_stringHelpers.words) ⇒ <code>array</code>
     * [.ucFirst(str)](#module_stringHelpers.ucFirst) ⇒ <code>string</code>
     * [.titleCase(str)](#module_stringHelpers.titleCase) ⇒ <code>string</code>
+    * [.strBeforeLast(str, search)](#module_stringHelpers.strBeforeLast) ⇒ <code>string</code>
+    * [.strBefore(str, search)](#module_stringHelpers.strBefore) ⇒ <code>string</code>
+    * [.strAfterLast(str, search)](#module_stringHelpers.strAfterLast) ⇒ <code>string</code>
+    * [.strAfter(str, search)](#module_stringHelpers.strAfter) ⇒ <code>string</code>
     * [.snakeCase(str)](#module_stringHelpers.snakeCase) ⇒ <code>string</code>
     * [.kabobCase(str)](#module_stringHelpers.kabobCase) ⇒ <code>string</code>
     * [.camelCase(str)](#module_stringHelpers.camelCase) ⇒ <code>string</code>
@@ -83,6 +87,54 @@ Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert 
 | Param | Type |
 | --- | --- |
 | str | <code>string</code> | 
+
+<a name="module_stringHelpers.strBeforeLast"></a>
+
+### stringHelpers.strBeforeLast(str, search) ⇒ <code>string</code>
+Retrieve the string part after the last search match.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+| search | <code>string</code> | 
+
+<a name="module_stringHelpers.strBefore"></a>
+
+### stringHelpers.strBefore(str, search) ⇒ <code>string</code>
+Retrieve the string part before the search match.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+| search | <code>string</code> | 
+
+<a name="module_stringHelpers.strAfterLast"></a>
+
+### stringHelpers.strAfterLast(str, search) ⇒ <code>string</code>
+Retrieve the string part after the last search match.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+| search | <code>string</code> | 
+
+<a name="module_stringHelpers.strAfter"></a>
+
+### stringHelpers.strAfter(str, search) ⇒ <code>string</code>
+Retrieve the string part after the search match.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+| search | <code>string</code> | 
 
 <a name="module_stringHelpers.snakeCase"></a>
 
@@ -129,11 +181,11 @@ Simplify working with object by providing array-like parsing. Also, provides clo
     * _static_
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
-        * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>Object</code> \| <code>Array</code>
+        * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>\*</code>
         * [.objectValues(object, [includeInherited])](#module_objectHelpers.objectValues) ⇒ <code>Array</code>
         * [.objectKeys(object, [includeInherited])](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
         * [.mergeObjectsMutable(...objects)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>\*</code>
-        * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ [<code>mergeObjectsCallback</code>](#module_objectHelpers..mergeObjectsCallback)
+        * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ <code>module:objectHelpers~mergeObjectsCallback</code> \| <code>mergeObjectsCallback</code>
         * [.mergeObjects(...objects)](#module_objectHelpers.mergeObjects) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isObject(object)](#module_objectHelpers.isObject) ⇒ <code>boolean</code>
@@ -146,20 +198,15 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.dotNotate(arrayObject, [retainObjects])](#module_objectHelpers.dotNotate) ⇒ <code>DotNotatedObject</code>
         * [.dotGet(arrayObject, dotNotation, [defaultValue])](#module_objectHelpers.dotGet) ⇒ <code>\*</code>
         * [.cloneObject(object, [options])](#module_objectHelpers.cloneObject) ⇒ <code>Object</code>
-        * [.DotNotationString](#module_objectHelpers.DotNotationString) : <code>string</code>
-        * [.DotNotatedObject](#module_objectHelpers.DotNotatedObject) : <code>Object.&lt;DotNotationString, \*&gt;</code>
     * _inner_
         * [~handleRetainObjects([retainObjects])](#module_objectHelpers..handleRetainObjects) ⇒ <code>function</code>
         * [~performDotNotate(arrayObject, didRetain, [prepend], [results])](#module_objectHelpers..performDotNotate) ⇒ <code>DotNotatedObject</code>
-        * [~reduceCallback](#module_objectHelpers..reduceCallback) ⇒ <code>\*</code>
-        * [~mergeObjectsCallback](#module_objectHelpers..mergeObjectsCallback) ⇒ <code>\*</code>
-        * [~mapCallback](#module_objectHelpers..mapCallback) ⇒ <code>\*</code>
-        * [~filterCallback](#module_objectHelpers..filterCallback) ⇒ <code>boolean</code>
 
 <a name="module_objectHelpers.setValue"></a>
 
 ### objectHelpers.setValue(key, value, item) ⇒ <code>Object</code> \| <code>Array</code>
-Set a value on an item, then return the item.NOTE: Argument order designed for usage with pipe
+Set a value on an item, then return the item.
+NOTE: Argument order designed for usage with pipe
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -184,21 +231,24 @@ Set a value on an item, then return the value
 
 <a name="module_objectHelpers.reduceObject"></a>
 
-### objectHelpers.reduceObject(obj, fn, [initialValue]) ⇒ <code>Object</code> \| <code>Array</code>
-This function is intended to replicate behaviour of the Array.reduce() function but for Objects.If an array is passed in instead then it will perform standard reduce(). It is recommended toalways use the standard reduce() function when it is known that the object is actually an array.
+### objectHelpers.reduceObject(obj, fn, [initialValue]) ⇒ <code>\*</code>
+This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
+If an array is passed in instead then it will perform standard reduce(). It is recommended to
+always use the standard reduce() function when it is known that the object is actually an array.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be filtered |
-| fn | [<code>reduceCallback</code>](#module_objectHelpers..reduceCallback) \| <code>function</code> | The function to be processed for each filtered property |
+| fn | <code>module:objectHelpers~reduceCallback</code> \| <code>function</code> \| <code>reduceCallback</code> | The function to be processed for each filtered property |
 | [initialValue] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty array without an initial value is an error. |
 
 <a name="module_objectHelpers.objectValues"></a>
 
 ### objectHelpers.objectValues(object, [includeInherited]) ⇒ <code>Array</code>
-Get an array of values from any object or array. Will return empty array when invalid or there are no values.Optional flag will include the inherited values from prototype chain when set.
+Get an array of values from any object or array. Will return empty array when invalid or there are no values.
+Optional flag will include the inherited values from prototype chain when set.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -210,7 +260,8 @@ Get an array of values from any object or array. Will return empty array when in
 <a name="module_objectHelpers.objectKeys"></a>
 
 ### objectHelpers.objectKeys(object, [includeInherited]) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
-Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.Optional flag will include the inherited keys from prototype chain when set.
+Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
+Optional flag will include the inherited keys from prototype chain when set.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -225,7 +276,7 @@ Get an array of keys from any object or array. Will return empty array when inva
 Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-**See**: [mergeObjectsCallback](#module_objectHelpers..mergeObjectsCallback)  
+**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -233,8 +284,11 @@ Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
 
 <a name="module_objectHelpers.mergeObjectsBase"></a>
 
-### objectHelpers.mergeObjectsBase([options]) ⇒ [<code>mergeObjectsCallback</code>](#module_objectHelpers..mergeObjectsCallback)
-Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.Objects having the same attributes will overwrite from last object to first.NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known tohave circular references. A high mapLimit may lead to heavy memory usage and slow performance.
+### objectHelpers.mergeObjectsBase([options]) ⇒ <code>module:objectHelpers~mergeObjectsCallback</code> \| <code>mergeObjectsCallback</code>
+Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
+Objects having the same attributes will overwrite from last object to first.
+NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
+have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -253,7 +307,7 @@ Perform a deep merge of objects. This will return a function that will combine a
 Uses mergeObjectsBase deep merge objects and arrays, merge by value.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-**See**: [mergeObjectsCallback](#module_objectHelpers..mergeObjectsCallback)  
+**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -262,14 +316,16 @@ Uses mergeObjectsBase deep merge objects and arrays, merge by value.
 <a name="module_objectHelpers.mapObject"></a>
 
 ### objectHelpers.mapObject(obj, fn, [thisArg]) ⇒ <code>Object</code> \| <code>Array</code>
-This function is intended to replicate behaviour of the Array.map() function but for Objects.If an array is passed in instead then it will perform standard map(). It is recommended toalways use the standard map() function when it is known that the object is actually an array.
+This function is intended to replicate behaviour of the Array.map() function but for Objects.
+If an array is passed in instead then it will perform standard map(). It is recommended to
+always use the standard map() function when it is known that the object is actually an array.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be mapped |
-| fn | [<code>mapCallback</code>](#module_objectHelpers..mapCallback) \| <code>function</code> | The function to be processed for each mapped property |
+| fn | <code>module:objectHelpers~mapCallback</code> \| <code>function</code> | The function to be processed for each mapped property |
 | [thisArg] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as this when executing callback. |
 
 <a name="module_objectHelpers.isObject"></a>
@@ -308,14 +364,16 @@ Determine if the value is a reference instance
 <a name="module_objectHelpers.filterObject"></a>
 
 ### objectHelpers.filterObject(obj, fn, [thisArg]) ⇒ <code>Object</code> \| <code>Array</code>
-This function is intended to replicate behaviour of the Array.filter() function but for Objects.If an array is passed in instead then it will perform standard filter(). It is recommended toalways use the standard filter() function when it is known that the object is actually an array.
+This function is intended to replicate behaviour of the Array.filter() function but for Objects.
+If an array is passed in instead then it will perform standard filter(). It is recommended to
+always use the standard filter() function when it is known that the object is actually an array.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>Object</code> \| <code>Array</code> | The Object (or Array) to be filtered |
-| fn | [<code>filterCallback</code>](#module_objectHelpers..filterCallback) \| <code>function</code> | The function to be processed for each filtered property |
+| fn | <code>module:objectHelpers~filterCallback</code> \| <code>function</code> | The function to be processed for each filtered property |
 | [thisArg] | <code>Object</code> \| <code>Array</code> | Optional. Value to use as this when executing callback. |
 
 <a name="module_objectHelpers.emptyObject"></a>
@@ -350,11 +408,11 @@ Set a nested property value an object.
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 **Returns**: <code>Object</code> - The modified object  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| arrayObject | <code>Object</code> |  | The array or object to set the property on |
-| dotNotation | <code>string</code> |  | The path for the property |
-| value | <code>\*</code> | <code></code> | The default value to return if the property is not found |
+| Param | Type | Description |
+| --- | --- | --- |
+| arrayObject | <code>Object</code> | The array or object to set the property on |
+| dotNotation | <code>string</code> | The path for the property |
+| value | <code>\*</code> | The default value to return if the property is not found |
 
 <a name="module_objectHelpers.dotNotate"></a>
 
@@ -386,7 +444,9 @@ Get a nested property value from an object.
 <a name="module_objectHelpers.cloneObject"></a>
 
 ### objectHelpers.cloneObject(object, [options]) ⇒ <code>Object</code>
-Clone objects for manipulation without data corruption, returns a copy of the provided object.NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known tohave circular references. A high mapLimit may lead to heavy memory usage and slow performance.
+Clone objects for manipulation without data corruption, returns a copy of the provided object.
+NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
+have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
 
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 
@@ -398,22 +458,6 @@ Clone objects for manipulation without data corruption, returns a copy of the pr
 | [options.depthLimit] | <code>number</code> | <code>-1</code> | Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited. |
 | [options.relevancyRange] | <code>number</code> | <code>1000</code> | Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed. |
 
-<a name="module_objectHelpers.DotNotationString"></a>
-
-### objectHelpers.DotNotationString : <code>string</code>
-A string representing the full-path to a property in an object. Each depth of the path is separated by a period.
-
-**Kind**: static typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-**Example**  
-```js
-'a.b.c'
-```
-<a name="module_objectHelpers.DotNotatedObject"></a>
-
-### objectHelpers.DotNotatedObject : <code>Object.&lt;DotNotationString, \*&gt;</code>
-An array or object where all properties have been flatted and keyed by a dot-notated string.
-
-**Kind**: static typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
 <a name="module_objectHelpers..handleRetainObjects"></a>
 
 ### objectHelpers~handleRetainObjects([retainObjects]) ⇒ <code>function</code>
@@ -441,57 +485,6 @@ The underlying logic function for converting arrays to dot-notation.
 | [prepend] | <code>DotNotationString</code> | <code>&#x27;&#x27;</code> | The path for the property being processed |
 | [results] | <code>DotNotatedObject</code> | <code>{}</code> | The final array to return |
 
-<a name="module_objectHelpers..reduceCallback"></a>
-
-### objectHelpers~reduceCallback ⇒ <code>\*</code>
-Function to execute on each property in the object, taking four arguments
-
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [accumulator] | <code>\*</code> | <code>{}</code> | The accumulator accumulates the callback's return values; it is the accumulated value previously returned in the last invocation of the callback, or initialValue, if supplied (see below). |
-| [currentProperty] | <code>\*</code> | <code>{}</code> | The current property being processed in the object. |
-| [currentIndex] | <code>string</code> | <code>0</code> | The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise. |
-| [object] | <code>Object</code> \| <code>Array</code> | <code>{}</code> | The object reduce was called upon. |
-
-<a name="module_objectHelpers..mergeObjectsCallback"></a>
-
-### objectHelpers~mergeObjectsCallback ⇒ <code>\*</code>
-Function that takes one or more objects and combines them into one.
-
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
-
-<a name="module_objectHelpers..mapCallback"></a>
-
-### objectHelpers~mapCallback ⇒ <code>\*</code>
-Function that produces a property of the new Object, taking three arguments
-
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| currentProperty | <code>\*</code> | The current property being processed in the object. |
-| [currentIndex] | <code>string</code> | The property name of the current property being processed in the object. |
-| [object] | <code>Object</code> \| <code>Array</code> | The object map was called upon. |
-
-<a name="module_objectHelpers..filterCallback"></a>
-
-### objectHelpers~filterCallback ⇒ <code>boolean</code>
-Function is a predicate, to test each property value of the object. Return true to keep the element, falseotherwise, taking three arguments
-
-**Kind**: inner typedef of [<code>objectHelpers</code>](#module_objectHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| currentProperty | <code>\*</code> | The current property being processed in the object. |
-| [currentIndex] | <code>string</code> | The property name of the current property being processed in the object. |
-| [object] | <code>Object</code> \| <code>Array</code> | The object filter was called upon. |
-
 <a name="module_numberHelpers"></a>
 
 ## numberHelpers
@@ -510,7 +503,8 @@ Some number comparators and random number generators.
 <a name="module_numberHelpers.randomNumber"></a>
 
 ### numberHelpers.randomNumber(range, [offset], [interval]) ⇒ <code>number</code>
-Create a single random number within provided range. And with optional offset,The distance between the result numbers can be adjusted with interval.
+Create a single random number within provided range. And with optional offset,
+The distance between the result numbers can be adjusted with interval.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
@@ -523,7 +517,8 @@ Create a single random number within provided range. And with optional offset,T
 <a name="module_numberHelpers.randomInteger"></a>
 
 ### numberHelpers.randomInteger(range, [offset], [interval]) ⇒ <code>number</code>
-Create a single random integer within provide range. And with optional offset,The distance between the result numbers can be adjusted with interval.
+Create a single random integer within provide range. And with optional offset,
+The distance between the result numbers can be adjusted with interval.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
@@ -536,7 +531,10 @@ Create a single random integer within provide range. And with optional offset,T
 <a name="module_numberHelpers.compare"></a>
 
 ### numberHelpers.compare(val1, val2) ⇒ <code>number</code>
-Compare two numbers and return:-1 to indicate val1 is less than val20 to indicate both values are the equal1 to indicate val1 is greater than val2
+Compare two numbers and return:
+-1 to indicate val1 is less than val2
+0 to indicate both values are the equal
+1 to indicate val1 is greater than val2
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
@@ -578,36 +576,28 @@ Manage how functions are called with these utilities.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [functionHelpers](#module_functionHelpers)
-    * _static_
-        * [.trace(label, useClone)](#module_functionHelpers.trace) ⇒ <code>function</code>
-        * [.relevancyFilter(map, [options])](#module_functionHelpers.relevancyFilter) ⇒ <code>relevanceMap</code>
-        * [.queueTimeout([queueManagerHandle])](#module_functionHelpers.queueTimeout) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
-        * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
-        * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
-        * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
-        * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
-        * [.delay(time)](#module_functionHelpers.delay) ⇒ [<code>delayHandler</code>](#module_functionHelpers..delayHandler)
-        * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
-        * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
-        * [.relevanceObject](#module_functionHelpers.relevanceObject) : <code>Object</code>
-        * [.relevanceMap](#module_functionHelpers.relevanceMap) : <code>Array.&lt;relevanceObject&gt;</code>
-    * _inner_
-        * [~queueTimeoutHandle](#module_functionHelpers..queueTimeoutHandle) ⇒ <code>Promise</code>
-        * [~queueManagerHandle](#module_functionHelpers..queueManagerHandle) ⇒ <code>Promise</code>
-        * [~callWithMissing](#module_functionHelpers..callWithMissing) ⇒ <code>\*</code>
-        * [~delayHandler](#module_functionHelpers..delayHandler) : <code>Object</code>
+    * [.trace(label, useClone)](#module_functionHelpers.trace) ⇒ <code>function</code>
+    * [.relevancyFilter(map, [options])](#module_functionHelpers.relevancyFilter) ⇒ <code>relevanceMap</code>
+    * [.queueTimeout([queueManagerHandle])](#module_functionHelpers.queueTimeout) ⇒ <code>module:functionHelpers~queueTimeoutHandle</code>
+    * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
+    * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ <code>module:functionHelpers~callWithMissing</code>
+    * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
+    * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
+    * [.delay(time)](#module_functionHelpers.delay) ⇒ <code>module:functionHelpers~delayHandler</code>
+    * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
+    * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
 
 <a name="module_functionHelpers.trace"></a>
 
 ### functionHelpers.trace(label, useClone) ⇒ <code>function</code>
-Output the a value with label to the console and return the value to not interrupt the code.
+Output the value with label to the console and return the value to not interrupt the code.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| label | <code>string</code> |  | Pass an identifying label of the value being output. |
-| useClone |  | <code>true</code> | Determines if the logged data should be a clone of the original to preserve state. |
+| Param | Type | Description |
+| --- | --- | --- |
+| label | <code>string</code> | Pass an identifying label of the value being output. |
+| useClone |  | Determines if the logged data should be a clone of the original to preserve state. |
 
 <a name="module_functionHelpers.relevancyFilter"></a>
 
@@ -625,18 +615,18 @@ Remove elements out of relevance range and update the max relevance.
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
-### functionHelpers.queueTimeout([queueManagerHandle]) ⇒ [<code>queueTimeoutHandle</code>](#module_functionHelpers..queueTimeoutHandle)
+### functionHelpers.queueTimeout([queueManagerHandle]) ⇒ <code>module:functionHelpers~queueTimeoutHandle</code>
 Manage functions to run sequentially with delays.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| [queueManagerHandle] | [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle) | <code></code> | 
+| [queueManagerHandle] | <code>module:functionHelpers~queueManagerHandle</code> | <code></code> | 
 
 <a name="module_functionHelpers.queueManager"></a>
 
-### functionHelpers.queueManager([queue]) ⇒ [<code>queueManagerHandle</code>](#module_functionHelpers..queueManagerHandle)
+### functionHelpers.queueManager([queue]) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
 Manage functions to run sequentially.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
@@ -647,8 +637,9 @@ Manage functions to run sequentially.
 
 <a name="module_functionHelpers.preloadParams"></a>
 
-### functionHelpers.preloadParams(fn, params, [unassignedParam]) ⇒ [<code>callWithMissing</code>](#module_functionHelpers..callWithMissing)
-Provide an array of parameters to be used with a function, allow the function to be called laterwith the missing parameter.
+### functionHelpers.preloadParams(fn, params, [unassignedParam]) ⇒ <code>module:functionHelpers~callWithMissing</code>
+Provide an array of parameters to be used with a function, allow the function to be called later
+with the missing parameter.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
@@ -661,7 +652,8 @@ Provide an array of parameters to be used with a function, allow the function to
 <a name="module_functionHelpers.pipe"></a>
 
 ### functionHelpers.pipe(...fns) ⇒ <code>\*</code>
-Take one or more function with a single parameter and return value.Pass a parameter and the value will be transformed by each function then returned.
+Take one or more function with a single parameter and return value.
+Pass a parameter and the value will be transformed by each function then returned.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
@@ -683,19 +675,21 @@ Prepare functions to be called once the body is available.
 
 <a name="module_functionHelpers.delay"></a>
 
-### functionHelpers.delay(time) ⇒ [<code>delayHandler</code>](#module_functionHelpers..delayHandler)
+### functionHelpers.delay(time) ⇒ <code>module:functionHelpers~delayHandler</code>
 Provide a timeout which returns a promise.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| time | <code>number</code> | <code>0</code> | Delay in milliseconds |
+| Param | Type | Description |
+| --- | --- | --- |
+| time | <code>number</code> | Delay in milliseconds |
 
 <a name="module_functionHelpers.curry"></a>
 
 ### functionHelpers.curry(fn) ⇒ <code>function</code> \| <code>\*</code>
-Return a curried version of the passed function.The returned function expects the same number of arguments minus the ones provided.fn is the name of the function being curried.
+Return a curried version of the passed function.
+The returned function expects the same number of arguments minus the ones provided.
+fn is the name of the function being curried.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
@@ -706,7 +700,7 @@ Return a curried version of the passed function.The returned function expects t
 <a name="module_functionHelpers.callWithParams"></a>
 
 ### functionHelpers.callWithParams(fn, params, [minimum]) ⇒ <code>\*</code>
-Given a function, call with the correct number of paramters from an array of possible parameters.
+Given a function, call with the correct number of parameters from an array of possible parameters.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
@@ -714,74 +708,7 @@ Given a function, call with the correct number of paramters from an array of pos
 | --- | --- | --- | --- |
 | fn | <code>function</code> |  | The function to be called |
 | params | <code>Array</code> |  | Array of possible function parameters |
-| [minimum] | <code>number</code> | <code>2</code> | Minimumn number of parameters to use in the function |
-
-<a name="module_functionHelpers.relevanceObject"></a>
-
-### functionHelpers.relevanceObject : <code>Object</code>
-An object having an integer valued property named 'relevance'.
-
-**Kind**: static typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| relevance | <code>int</code> | 
-
-<a name="module_functionHelpers.relevanceMap"></a>
-
-### functionHelpers.relevanceMap : <code>Array.&lt;relevanceObject&gt;</code>
-A map of relevanceObjects which can be manipulated to filter results.
-
-**Kind**: static typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-<a name="module_functionHelpers..queueTimeoutHandle"></a>
-
-### functionHelpers~queueTimeoutHandle ⇒ <code>Promise</code>
-Run Timeout functions one after the otherin queue.
-
-**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | A callback function to be performed at some time in the future. |
-| time | <code>number</code> | The time in milliseconds to delay. |
-| ...args | <code>\*</code> | Arguments to be passed to the callback once it is implemented. |
-
-<a name="module_functionHelpers..queueManagerHandle"></a>
-
-### functionHelpers~queueManagerHandle ⇒ <code>Promise</code>
-Each time queue handle is called the passed function is added to the queue to be called when ready.
-
-**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | A function to enqueue |
-| ...args | <code>\*</code> | Arguments to be passed to the function once it is ready |
-
-<a name="module_functionHelpers..callWithMissing"></a>
-
-### functionHelpers~callWithMissing ⇒ <code>\*</code>
-The return function which takes the missing parameter in order to call the preloaded function.
-
-**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| missing | <code>\*</code> | The missing parameter to be applied |
-
-<a name="module_functionHelpers..delayHandler"></a>
-
-### functionHelpers~delayHandler : <code>Object</code>
-Provide a way to cancel a request or attach a resolve event.
-
-**Kind**: inner typedef of [<code>functionHelpers</code>](#module_functionHelpers)  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| resolver | <code>Promise</code> | 
-| cancel | <code>function</code> | 
+| [minimum] | <code>number</code> | <code>2</code> | Minimum number of parameters to use in the function |
 
 <a name="module_objectDescriptors"></a>
 
@@ -792,43 +719,38 @@ Create a format to standardize every object into a specific template.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [objectDescriptors](#module_objectDescriptors)
-    * _static_
-        * [.mappedDescriptorMap](#module_objectDescriptors.mappedDescriptorMap) : [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
-        * [.descriptorMapSample](#module_objectDescriptors.descriptorMapSample) : [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
-        * [.descriptorDetailSample](#module_objectDescriptors.descriptorDetailSample) : [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
-        * [.descriptorSample](#module_objectDescriptors.descriptorSample) : [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-        * [.sameDescriptor(descriptor1, descriptor2)](#module_objectDescriptors.sameDescriptor) ⇒ <code>boolean</code>
-        * [.nextReference(descriptor, currentReference)](#module_objectDescriptors.nextReference) ⇒ <code>number</code> \| <code>undefined</code>
-        * [.describeObjectMap(object, [options])](#module_objectDescriptors.describeObjectMap) ⇒ [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
-        * [.describeObjectDetail(value, [key], [index])](#module_objectDescriptors.describeObjectDetail) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
-        * [.describeObject(object)](#module_objectDescriptors.describeObject) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-        * [.compareDescriptor(descriptor1, descriptor2)](#module_objectDescriptors.compareDescriptor) ⇒ <code>boolean</code>
-        * [.cloneDescriptorDetail(originalDetail)](#module_objectDescriptors.cloneDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
-        * [.cloneDescriptor(originalMap)](#module_objectDescriptors.cloneDescriptor) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-        * [.checkDescriptorComplete(descriptor)](#module_objectDescriptors.checkDescriptorComplete) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-        * [.checkClearValues(descriptor, [keepValues])](#module_objectDescriptors.checkClearValues) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-        * [.assignDescriptorDetail(originalDetail, ...details)](#module_objectDescriptors.assignDescriptorDetail) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
-        * [.assignDescriptor(originalMap, ...descriptors)](#module_objectDescriptors.assignDescriptor) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
-    * _inner_
-        * [~descriptorMap](#module_objectDescriptors..descriptorMap) : [<code>Array.&lt;descriptor&gt;</code>](#module_objectDescriptors..descriptor)
-        * [~descriptorDetail](#module_objectDescriptors..descriptorDetail) : <code>Object</code>
-        * [~descriptor](#module_objectDescriptors..descriptor) : <code>Object</code>
+    * [.mappedDescriptorMap](#module_objectDescriptors.mappedDescriptorMap) : <code>module:objectDescriptors~descriptorMap</code>
+    * [.descriptorMapSample](#module_objectDescriptors.descriptorMapSample) : <code>module:objectDescriptors~descriptorMap</code>
+    * [.descriptorDetailSample](#module_objectDescriptors.descriptorDetailSample) : <code>module:objectDescriptors~descriptorDetail</code>
+    * [.descriptorSample](#module_objectDescriptors.descriptorSample) : <code>module:objectDescriptors~descriptor</code>
+    * [.sameDescriptor(descriptor1, descriptor2)](#module_objectDescriptors.sameDescriptor) ⇒ <code>boolean</code>
+    * [.nextReference(descriptor, currentReference)](#module_objectDescriptors.nextReference) ⇒ <code>number</code> \| <code>undefined</code>
+    * [.describeObjectMap(object, [options])](#module_objectDescriptors.describeObjectMap) ⇒ <code>module:objectDescriptors~descriptorMap</code>
+    * [.describeObjectDetail(value, [key], [index])](#module_objectDescriptors.describeObjectDetail) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
+    * [.describeObject(object)](#module_objectDescriptors.describeObject) ⇒ <code>module:objectDescriptors~descriptor</code>
+    * [.compareDescriptor(descriptor1, descriptor2)](#module_objectDescriptors.compareDescriptor) ⇒ <code>boolean</code>
+    * [.cloneDescriptorDetail(originalDetail)](#module_objectDescriptors.cloneDescriptorDetail) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
+    * [.cloneDescriptor(originalMap)](#module_objectDescriptors.cloneDescriptor) ⇒ <code>module:objectDescriptors~descriptor</code>
+    * [.checkDescriptorComplete(descriptor)](#module_objectDescriptors.checkDescriptorComplete) ⇒ <code>module:objectDescriptors~descriptor</code>
+    * [.checkClearValues(descriptor, [keepValues])](#module_objectDescriptors.checkClearValues) ⇒ <code>module:objectDescriptors~descriptor</code>
+    * [.assignDescriptorDetail(originalDetail, ...details)](#module_objectDescriptors.assignDescriptorDetail) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
+    * [.assignDescriptor(originalMap, ...descriptors)](#module_objectDescriptors.assignDescriptor) ⇒ <code>module:objectDescriptors~descriptor</code>
 
 <a name="module_objectDescriptors.mappedDescriptorMap"></a>
 
-### objectDescriptors.mappedDescriptorMap : [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
+### objectDescriptors.mappedDescriptorMap : <code>module:objectDescriptors~descriptorMap</code>
 **Kind**: static constant of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 <a name="module_objectDescriptors.descriptorMapSample"></a>
 
-### objectDescriptors.descriptorMapSample : [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
+### objectDescriptors.descriptorMapSample : <code>module:objectDescriptors~descriptorMap</code>
 **Kind**: static constant of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 <a name="module_objectDescriptors.descriptorDetailSample"></a>
 
-### objectDescriptors.descriptorDetailSample : [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
+### objectDescriptors.descriptorDetailSample : <code>module:objectDescriptors~descriptorDetail</code>
 **Kind**: static constant of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 <a name="module_objectDescriptors.descriptorSample"></a>
 
-### objectDescriptors.descriptorSample : [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.descriptorSample : <code>module:objectDescriptors~descriptor</code>
 **Kind**: static constant of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 <a name="module_objectDescriptors.sameDescriptor"></a>
 
@@ -839,8 +761,8 @@ Check if the two descriptors are the same.
 
 | Param | Type |
 | --- | --- |
-| descriptor1 | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
-| descriptor2 | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
+| descriptor1 | <code>module:objectDescriptors~descriptor</code> | 
+| descriptor2 | <code>module:objectDescriptors~descriptor</code> | 
 
 <a name="module_objectDescriptors.nextReference"></a>
 
@@ -851,12 +773,12 @@ Find the index of the next module:objectDescriptors.descriptorDetail to build a 
 
 | Param | Type |
 | --- | --- |
-| descriptor | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
+| descriptor | <code>module:objectDescriptors~descriptor</code> | 
 | currentReference | <code>number</code> | 
 
 <a name="module_objectDescriptors.describeObjectMap"></a>
 
-### objectDescriptors.describeObjectMap(object, [options]) ⇒ [<code>descriptorMap</code>](#module_objectDescriptors..descriptorMap)
+### objectDescriptors.describeObjectMap(object, [options]) ⇒ <code>module:objectDescriptors~descriptorMap</code>
 Trace out the entire object including nested objects.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
@@ -871,7 +793,7 @@ Trace out the entire object including nested objects.
 
 <a name="module_objectDescriptors.describeObjectDetail"></a>
 
-### objectDescriptors.describeObjectDetail(value, [key], [index]) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
+### objectDescriptors.describeObjectDetail(value, [key], [index]) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
 Trace an object's attribute and provide details about it.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
@@ -884,7 +806,7 @@ Trace an object's attribute and provide details about it.
 
 <a name="module_objectDescriptors.describeObject"></a>
 
-### objectDescriptors.describeObject(object) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.describeObject(object) ⇒ <code>module:objectDescriptors~descriptor</code>
 Trace an object and return the descriptor which defines the object's structure and attributes.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
@@ -902,117 +824,77 @@ Check if two descriptors are the same or similar in that they have similar keys 
 
 | Param | Type |
 | --- | --- |
-| descriptor1 | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
-| descriptor2 | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
+| descriptor1 | <code>module:objectDescriptors~descriptor</code> | 
+| descriptor2 | <code>module:objectDescriptors~descriptor</code> | 
 
 <a name="module_objectDescriptors.cloneDescriptorDetail"></a>
 
-### objectDescriptors.cloneDescriptorDetail(originalDetail) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
+### objectDescriptors.cloneDescriptorDetail(originalDetail) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
 Get a new copy of an existing Descriptor Detail
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| originalDetail | [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail) | 
+| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | 
 
 <a name="module_objectDescriptors.cloneDescriptor"></a>
 
-### objectDescriptors.cloneDescriptor(originalMap) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.cloneDescriptor(originalMap) ⇒ <code>module:objectDescriptors~descriptor</code>
 Make a copy of an object descriptor so that the original will not be mutated.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
+| originalMap | <code>module:objectDescriptors~descriptor</code> | 
 
 <a name="module_objectDescriptors.checkDescriptorComplete"></a>
 
-### objectDescriptors.checkDescriptorComplete(descriptor) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.checkDescriptorComplete(descriptor) ⇒ <code>module:objectDescriptors~descriptor</code>
 Check if the descriptors references have all been built and set complete to true if they have.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| descriptor | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
+| descriptor | <code>module:objectDescriptors~descriptor</code> | 
 
 <a name="module_objectDescriptors.checkClearValues"></a>
 
-### objectDescriptors.checkClearValues(descriptor, [keepValues]) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.checkClearValues(descriptor, [keepValues]) ⇒ <code>module:objectDescriptors~descriptor</code>
 Check if we should clear the values on this descriptor
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type | Default |
 | --- | --- | --- |
-| descriptor | [<code>descriptor</code>](#module_objectDescriptors..descriptor) |  | 
+| descriptor | <code>module:objectDescriptors~descriptor</code> |  | 
 | [keepValues] | <code>boolean</code> | <code>false</code> | 
 
 <a name="module_objectDescriptors.assignDescriptorDetail"></a>
 
-### objectDescriptors.assignDescriptorDetail(originalDetail, ...details) ⇒ [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail)
+### objectDescriptors.assignDescriptorDetail(originalDetail, ...details) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
 Assign properties from other details onto an existing detail.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| originalDetail | [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail) | 
-| ...details | [<code>descriptorDetail</code>](#module_objectDescriptors..descriptorDetail) | 
+| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | 
+| ...details | <code>module:objectDescriptors~descriptorDetail</code> | 
 
 <a name="module_objectDescriptors.assignDescriptor"></a>
 
-### objectDescriptors.assignDescriptor(originalMap, ...descriptors) ⇒ [<code>descriptor</code>](#module_objectDescriptors..descriptor)
+### objectDescriptors.assignDescriptor(originalMap, ...descriptors) ⇒ <code>module:objectDescriptors~descriptor</code>
 Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
 | Param | Type |
 | --- | --- |
-| originalMap | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
-| ...descriptors | [<code>descriptor</code>](#module_objectDescriptors..descriptor) | 
-
-<a name="module_objectDescriptors..descriptorMap"></a>
-
-### objectDescriptors~descriptorMap : [<code>Array.&lt;descriptor&gt;</code>](#module_objectDescriptors..descriptor)
-**Kind**: inner typedef of [<code>objectDescriptors</code>](#module_objectDescriptors)  
-<a name="module_objectDescriptors..descriptorDetail"></a>
-
-### objectDescriptors~descriptorDetail : <code>Object</code>
-**Kind**: inner typedef of [<code>objectDescriptors</code>](#module_objectDescriptors)  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| index | <code>number</code> | 
-| key | <code>string</code> \| <code>number</code> | 
-| type | <code>Array.&lt;string&gt;</code> | 
-| value | <code>Array</code> | 
-| nullable | <code>boolean</code> | 
-| optional | <code>boolean</code> | 
-| circular | <code>boolean</code> | 
-| isReference | <code>boolean</code> | 
-| isInstance | <code>boolean</code> | 
-| arrayReference | <code>null</code> \| <code>number</code> | 
-| objectReference | <code>null</code> \| <code>number</code> | 
-
-<a name="module_objectDescriptors..descriptor"></a>
-
-### objectDescriptors~descriptor : <code>Object</code>
-**Kind**: inner typedef of [<code>objectDescriptors</code>](#module_objectDescriptors)  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| index | <code>number</code> | 
-| details | [<code>Array.&lt;descriptorDetail&gt;</code>](#module_objectDescriptors..descriptorDetail) | 
-| length | <code>number</code> | 
-| keys | <code>Array.&lt;(string\|number)&gt;</code> | 
-| references | <code>Array.&lt;number&gt;</code> | 
-| isArray | <code>boolean</code> | 
-| complete | <code>boolean</code> | 
+| originalMap | <code>module:objectDescriptors~descriptor</code> | 
+| ...descriptors | <code>module:objectDescriptors~descriptor</code> | 
 
 <a name="module_arrayHelpers"></a>
 
@@ -1023,15 +905,12 @@ Some simple utility functions for generating arrays or performing work on arrays
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [arrayHelpers](#module_arrayHelpers)
-    * _static_
-        * [.uniqueArray(array)](#module_arrayHelpers.uniqueArray) ⇒ <code>Array</code>
-        * [.mergeArrays(...arrays)](#module_arrayHelpers.mergeArrays) ⇒ <code>Array</code>
-        * [.compareArrays(...arrays)](#module_arrayHelpers.compareArrays) ⇒ [<code>Array.&lt;compareArrayResult&gt;</code>](#module_arrayHelpers..compareArrayResult)
-        * [.buildArrayOfReferences(item, length)](#module_arrayHelpers.buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
-        * [.buildArray(item, length)](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
-        * [.addUniqueToArray(item, array)](#module_arrayHelpers.addUniqueToArray) ⇒ <code>Array</code> \| <code>Buffer</code> \| <code>\*</code> \| <code>string</code>
-    * _inner_
-        * [~compareArrayResult](#module_arrayHelpers..compareArrayResult) : <code>Object.&lt;string, (string\|Array.&lt;number&gt;)&gt;</code>
+    * [.uniqueArray(array)](#module_arrayHelpers.uniqueArray) ⇒ <code>Array</code>
+    * [.mergeArrays(...arrays)](#module_arrayHelpers.mergeArrays) ⇒ <code>Array</code>
+    * [.compareArrays(...arrays)](#module_arrayHelpers.compareArrays) ⇒ <code>Array.&lt;module:arrayHelpers~compareArrayResult&gt;</code>
+    * [.buildArrayOfReferences(item, length)](#module_arrayHelpers.buildArrayOfReferences) ⇒ <code>Array.&lt;\*&gt;</code>
+    * [.buildArray(item, length)](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
+    * [.addUniqueToArray(item, array)](#module_arrayHelpers.addUniqueToArray) ⇒ <code>Array</code>
 
 <a name="module_arrayHelpers.uniqueArray"></a>
 
@@ -1057,8 +936,17 @@ Take multiple arrays and then filter all these into one unique array.
 
 <a name="module_arrayHelpers.compareArrays"></a>
 
-### arrayHelpers.compareArrays(...arrays) ⇒ [<code>Array.&lt;compareArrayResult&gt;</code>](#module_arrayHelpers..compareArrayResult)
-Compare two Arrays and return the Object where the value for each property is as follows:-1 to indicate val1 is less than val20 to indicate both values are the equal1 to indicate val1 is greater than val2The returned Object uses the element values as the property namesThis functions works by first creating a concatenated array of all unique values. Then for each unique values,convert to a string and use it as a new property name. Array filter each array checking if it has the unique value.Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn'tthe first length will be one or more and the second will be zero, if the both have the value then both will be oneor more.
+### arrayHelpers.compareArrays(...arrays) ⇒ <code>Array.&lt;module:arrayHelpers~compareArrayResult&gt;</code>
+Compare two Arrays and return the Object where the value for each property is as follows:
+-1 to indicate val1 is less than val2
+0 to indicate both values are the equal
+1 to indicate val1 is greater than val2
+The returned Object uses the element values as the property names
+This functions works by first creating a concatenated array of all unique values. Then for each unique values,
+convert to a string and use it as a new property name. Array filter each array checking if it has the unique value.
+Use the lengths of these filtered arrays to compare. So if the first array has the value and the second one doesn't
+the first length will be one or more and the second will be zero, if the both have the value then both will be one
+or more.
 
 **Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
@@ -1068,12 +956,52 @@ Compare two Arrays and return the Object where the value for each property is as
 
 **Example**  
 ```js
-// example of input and resulting outputcompareArrays(  ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],  ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1'])// unique array['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1', 'secondMismatch1']// result object[  {    value: 'match1',    keys: [[0], [0]],    result: [0, 0]  },  {    value: 'firstMismatch1',    keys: [[1], []],    result: [1, -1]  },  {    value: 'match2',    keys: [[2], [1]],    result: [0, 0]  },  {    value: 'firstMismatch2',    keys: [[3], []],    result: [1, -1]  },  {    value: 'badMatch1',    keys: [[4], [3, 4]],    result: [0, 0]  },  {    value: 'secondMismatch1',    keys: [[], [2]],    result: [-1, 1]  }]
+// example of input and resulting output
+compareArrays(
+  ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1'],
+  ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
+)
+// unique array
+['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1', 'secondMismatch1']
+// result object
+[
+  {
+    value: 'match1',
+    keys: [[0], [0]],
+    result: [0, 0]
+  },
+  {
+    value: 'firstMismatch1',
+    keys: [[1], []],
+    result: [1, -1]
+  },
+  {
+    value: 'match2',
+    keys: [[2], [1]],
+    result: [0, 0]
+  },
+  {
+    value: 'firstMismatch2',
+    keys: [[3], []],
+    result: [1, -1]
+  },
+  {
+    value: 'badMatch1',
+    keys: [[4], [3, 4]],
+    result: [0, 0]
+  },
+  {
+    value: 'secondMismatch1',
+    keys: [[], [2]],
+    result: [-1, 1]
+  }
+]
 ```
 <a name="module_arrayHelpers.buildArrayOfReferences"></a>
 
 ### arrayHelpers.buildArrayOfReferences(item, length) ⇒ <code>Array.&lt;\*&gt;</code>
-Leverage buildArrayBase to generate an array filled with references to the provided item.The length defines how long the array should be.
+Leverage buildArrayBase to generate an array filled with references to the provided item.
+The length defines how long the array should be.
 
 **Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
@@ -1085,7 +1013,8 @@ Leverage buildArrayBase to generate an array filled with references to the provi
 <a name="module_arrayHelpers.buildArray"></a>
 
 ### arrayHelpers.buildArray(item, length) ⇒ <code>Array.&lt;\*&gt;</code>
-Leverage buildArrayBase to generate an array filled with a copy of the provided item.The length defines how long the array should be.
+Leverage buildArrayBase to generate an array filled with a copy of the provided item.
+The length defines how long the array should be.
 
 **Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
@@ -1096,7 +1025,7 @@ Leverage buildArrayBase to generate an array filled with a copy of the provided 
 
 <a name="module_arrayHelpers.addUniqueToArray"></a>
 
-### arrayHelpers.addUniqueToArray(item, array) ⇒ <code>Array</code> \| <code>Buffer</code> \| <code>\*</code> \| <code>string</code>
+### arrayHelpers.addUniqueToArray(item, array) ⇒ <code>Array</code>
 Having an array and a potential new array element, check if the element is in the array, if not append to array.
 
 **Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
@@ -1106,21 +1035,3 @@ Having an array and a potential new array element, check if the element is in th
 | item | <code>\*</code> | An potential array element, possibly a DomItem |
 | array | <code>Array</code> | An array where an element may be appended. |
 
-<a name="module_arrayHelpers..compareArrayResult"></a>
-
-### arrayHelpers~compareArrayResult : <code>Object.&lt;string, (string\|Array.&lt;number&gt;)&gt;</code>
-Store the comparison result for an element that may exist in either of compared arrays.- value stores the element value from the arrays being compared- results has the comparison results where first index (0) is result for first compared array  and the second index (1) will be the result for the second compared array
-
-**Kind**: inner typedef of [<code>arrayHelpers</code>](#module_arrayHelpers)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| value | <code>string</code> | The element value being compared |
-| keys | <code>Array.&lt;Array.&lt;(string\|number)&gt;&gt;</code> | Keys in arrays associated with this value |
-| result | <code>Array.&lt;number&gt;</code> | The results in the order of the compared arrays |
-
-**Example**  
-```js
-// example of input and resulting outputconst arr1 = ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1']const arr2 = ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']// Taking the first element in both, then the value: 'match1' exists in both arrays// compareArrayResult will be { value: 'match1', result: [0, 0] }// First index of 0 indicates this value in the first array exists in the second array// Second index of 0 indicates this value in the second array exists in the first array// Taking the second element in the first array, then the value: 'firstMismatch1' exists in only the first array// compareArrayResult will be { value: 'firstMismatch1', result: [1, -1] }// First index of 1 indicates this value in the first array might need to be added to the second array// Second index of -1 indicates this value only exists in the first array// Taking the third element in the second array, then the value: 'secondMismatch1' exists in only the second array// compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }// First index of -1 indicates this value only exists in the second array// Second index of 1 indicates this value in the second array might need to be added to the first array
-```

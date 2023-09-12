@@ -11,7 +11,7 @@ require('core-js/stable')
  * @memberOf module:arrayHelpers
  * @param {*} item - An potential array element, possibly a DomItem
  * @param {Array} array - An array where an element may be appended.
- * @returns {Array|Buffer|*|string}
+ * @returns {Array}
  */
 const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
 var _default = addUniqueToArray

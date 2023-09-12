@@ -45,12 +45,12 @@ const assignDescriptor = function (originalMap) {
         assignedDescriptor.details[existingDetail.index] = (0, _assignDescriptorDetail.default)(existingDetail, newDetail)
         return assignedDescriptor
       }
-      const useDetail = diff[0] > 0 ? existingDetail : newDetail
+      const useDetail = diff.result[0] > 0 ? existingDetail : newDetail
       if (!useDetail) {
         assignedDescriptor.details[existingDetail.index].optional = true
         return assignedDescriptor
       }
-      const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+      const useIndex = diff.result[0] > 0 ? useDetail.index : assignedDescriptor.length
       assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
         index: useIndex,
         optional: true

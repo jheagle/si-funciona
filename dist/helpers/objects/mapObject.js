@@ -15,15 +15,6 @@ var _objectKeys = _interopRequireDefault(require('./objectKeys'))
 var _setValue = _interopRequireDefault(require('./setValue'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
- * Function that produces a property of the new Object, taking three arguments
- * @callback module:objectHelpers~mapCallback
- * @memberOf module:objectHelpers
- * @param {*} currentProperty - The current property being processed in the object.
- * @param {string} [currentIndex] - The property name of the current property being processed in the object.
- * @param {Object|Array} [object] - The object map was called upon.
- * @returns {*}
- */
-/**
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
  * If an array is passed in instead then it will perform standard map(). It is recommended to
  * always use the standard map() function when it is known that the object is actually an array.

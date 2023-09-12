@@ -18,7 +18,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {Object} The modified object
  */
 const dotUnset = (arrayObject, dotNotation) => {
-  var _arrayObject$key
+  var _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -27,21 +27,27 @@ const dotUnset = (arrayObject, dotNotation) => {
   if (key === '*') {
     for (const wildKey in arrayObject) {
       if (lastKey) {
+        // @ts-ignore
         delete arrayObject[wildKey]
         continue
       }
+      // @ts-ignore
       if (!(0, _isObject.default)(arrayObject[wildKey])) {
         continue
       }
+      // @ts-ignore
       dotUnset(arrayObject[wildKey], (0, _strAfter.default)(dotNotation, '.'))
     }
     return arrayObject
   }
   if (lastKey) {
+    // @ts-ignore
     delete arrayObject[dotNotation]
     return arrayObject
   }
-  const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+  // @ts-ignore
+  const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+  // @ts-ignore
   arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
   return arrayObject
 }

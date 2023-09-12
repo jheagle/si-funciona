@@ -5,11 +5,11 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 require('core-js/stable')
-var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
-var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
-var _compare = _interopRequireDefault(require('./numbers/compare.js'))
-var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
-var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
+var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
+var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
+var _compare = _interopRequireDefault(require('./numbers/compare'))
+var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
+var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Some number comparators and random number generators.

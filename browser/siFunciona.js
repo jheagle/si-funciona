@@ -7,12 +7,12 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray.js'))
-    var _buildArray = _interopRequireDefault(require('./arrays/buildArray.js'))
-    var _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences.js'))
-    var _compareArrays = _interopRequireDefault(require('./arrays/compareArrays.js'))
-    var _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays.js'))
-    var _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray.js'))
+    var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
+    var _buildArray = _interopRequireDefault(require('./arrays/buildArray'))
+    var _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences'))
+    var _compareArrays = _interopRequireDefault(require('./arrays/compareArrays'))
+    var _mergeArrays = _interopRequireDefault(require('./arrays/mergeArrays'))
+    var _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Some simple utility functions for generating arrays or performing work on arrays.
@@ -31,7 +31,7 @@
       uniqueArray: _uniqueArray.default
     }
     exports.default = _default
-  }, { './arrays/addUniqueToArray.js': 2, './arrays/buildArray.js': 3, './arrays/buildArrayOfReferences.js': 4, './arrays/compareArrays.js': 5, './arrays/mergeArrays.js': 6, './arrays/uniqueArray.js': 7, 'core-js/stable': 618 }],
+  }, { './arrays/addUniqueToArray': 2, './arrays/buildArray': 3, './arrays/buildArrayOfReferences': 4, './arrays/compareArrays': 5, './arrays/mergeArrays': 6, './arrays/uniqueArray': 7, 'core-js/stable': 618 }],
   2: [function (require, module, exports) {
     'use strict'
 
@@ -46,7 +46,7 @@
  * @memberOf module:arrayHelpers
  * @param {*} item - An potential array element, possibly a DomItem
  * @param {Array} array - An array where an element may be appended.
- * @returns {Array|Buffer|*|string}
+ * @returns {Array}
  */
     const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
     var _default = addUniqueToArray
@@ -129,37 +129,6 @@
     var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    /**
- * Store the comparison result for an element that may exist in either of compared arrays.
- * - value stores the element value from the arrays being compared
- * - results has the comparison results where first index (0) is result for first compared array
- *   and the second index (1) will be the result for the second compared array
- * @example
- * // example of input and resulting output
- *
- * const arr1 = ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1']
- * const arr2 = ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
- *
- * // Taking the first element in both, then the value: 'match1' exists in both arrays
- * // compareArrayResult will be { value: 'match1', result: [0, 0] }
- * // First index of 0 indicates this value in the first array exists in the second array
- * // Second index of 0 indicates this value in the second array exists in the first array
- *
- * // Taking the second element in the first array, then the value: 'firstMismatch1' exists in only the first array
- * // compareArrayResult will be { value: 'firstMismatch1', result: [1, -1] }
- * // First index of 1 indicates this value in the first array might need to be added to the second array
- * // Second index of -1 indicates this value only exists in the first array
- *
- * // Taking the third element in the second array, then the value: 'secondMismatch1' exists in only the second array
- * // compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }
- * // First index of -1 indicates this value only exists in the second array
- * // Second index of 1 indicates this value in the second array might need to be added to the first array
- * @typedef {Object.<string, string|Array.<number>>} module:arrayHelpers~compareArrayResult
- * @memberOf module:arrayHelpers
- * @property {string} value - The element value being compared
- * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
- * @property {Array.<number>} result - The results in the order of the compared arrays
- */
     /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2
@@ -314,18 +283,18 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor.js'))
-    var _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail.js'))
-    var _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues.js'))
-    var _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete.js'))
-    var _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor.js'))
-    var _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail.js'))
-    var _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor.js'))
-    var _describeObject = _interopRequireDefault(require('./descriptors/describeObject.js'))
-    var _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap.js'))
-    var _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail.js'))
-    var _nextReference = _interopRequireDefault(require('./descriptors/nextReference.js'))
-    var _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor.js'))
+    var _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
+    var _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
+    var _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues'))
+    var _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete'))
+    var _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor'))
+    var _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail'))
+    var _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor'))
+    var _describeObject = _interopRequireDefault(require('./descriptors/describeObject'))
+    var _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap'))
+    var _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail'))
+    var _nextReference = _interopRequireDefault(require('./descriptors/nextReference'))
+    var _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Create a format to standardize every object into a specific template.
@@ -350,7 +319,7 @@
       sameDescriptor: _sameDescriptor.default
     }
     exports.default = _default
-  }, { './descriptors/assignDescriptor.js': 9, './descriptors/assignDescriptorDetail.js': 10, './descriptors/checkClearValues.js': 11, './descriptors/checkDescriptorComplete.js': 12, './descriptors/cloneDescriptor.js': 13, './descriptors/cloneDescriptorDetail.js': 14, './descriptors/compareDescriptor.js': 15, './descriptors/describeObject.js': 16, './descriptors/describeObjectDetail.js': 17, './descriptors/describeObjectMap.js': 18, './descriptors/nextReference.js': 19, './descriptors/sameDescriptor.js': 20, 'core-js/stable': 618 }],
+  }, { './descriptors/assignDescriptor': 9, './descriptors/assignDescriptorDetail': 10, './descriptors/checkClearValues': 11, './descriptors/checkDescriptorComplete': 12, './descriptors/cloneDescriptor': 13, './descriptors/cloneDescriptorDetail': 14, './descriptors/compareDescriptor': 15, './descriptors/describeObject': 16, './descriptors/describeObjectDetail': 17, './descriptors/describeObjectMap': 18, './descriptors/nextReference': 19, './descriptors/sameDescriptor': 20, 'core-js/stable': 618 }],
   9: [function (require, module, exports) {
     'use strict'
 
@@ -399,12 +368,12 @@
             assignedDescriptor.details[existingDetail.index] = (0, _assignDescriptorDetail.default)(existingDetail, newDetail)
             return assignedDescriptor
           }
-          const useDetail = diff[0] > 0 ? existingDetail : newDetail
+          const useDetail = diff.result[0] > 0 ? existingDetail : newDetail
           if (!useDetail) {
             assignedDescriptor.details[existingDetail.index].optional = true
             return assignedDescriptor
           }
-          const useIndex = diff[0] > 0 ? useDetail.index : assignedDescriptor.length
+          const useIndex = diff.result[0] > 0 ? useDetail.index : assignedDescriptor.length
           assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
             index: useIndex,
             optional: true
@@ -544,12 +513,19 @@
  */
     const cloneDescriptor = originalMap => {
       const copyMap = {}
+      // @ts-ignore
       copyMap.index = originalMap.index || 0
+      // @ts-ignore
       copyMap.details = originalMap.details.map(_cloneDescriptorDetail.default)
+      // @ts-ignore
       copyMap.length = originalMap.length
+      // @ts-ignore
       copyMap.keys = originalMap.keys.map(key => key)
+      // @ts-ignore
       copyMap.references = originalMap.references.map(reference => reference)
+      // @ts-ignore
       copyMap.isArray = originalMap.isArray
+      // @ts-ignore
       copyMap.complete = originalMap.complete
       return copyMap
     }
@@ -581,6 +557,7 @@
     const cloneDescriptorDetail = originalDetail => {
       const copyDetail = {};
       (0, _objectKeys.default)(originalDetail).forEach(key => {
+        // @ts-ignore
         copyDetail[key] = Array.isArray(originalDetail[key]) ? originalDetail[key].map(value => value) : originalDetail[key]
       })
       return copyDetail
@@ -658,6 +635,7 @@
       const keys = (0, _objectKeys.default)(object)
       for (let i = 0; i < keys.length; ++i) {
         const key = keys[i]
+        // @ts-ignore
         const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
         if (typeof key === 'number' && descriptor.details.length) {
           descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)
@@ -771,6 +749,7 @@
         if (currentDetail) {
           const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
           vals.forEach(val => {
+            var _a, _b
             const tempDescriptor = (0, _describeObject.default)(val)
             const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
             if (existingDescriptorIndex >= 0) {
@@ -787,12 +766,10 @@
               return descriptorMap
             }
             if (tempDescriptor.isArray) {
-              var _currentDetail$arrayR
-              index = (_currentDetail$arrayR = currentDetail.arrayReference) !== null && _currentDetail$arrayR !== void 0 ? _currentDetail$arrayR : index
+              index = (_a = currentDetail.arrayReference) !== null && _a !== void 0 ? _a : index
               descriptor.details[currentDetail.index].arrayReference = index
             } else {
-              var _currentDetail$object
-              index = (_currentDetail$object = currentDetail.objectReference) !== null && _currentDetail$object !== void 0 ? _currentDetail$object : index
+              index = (_b = currentDetail.objectReference) !== null && _b !== void 0 ? _b : index
               descriptor.details[currentDetail.index].objectReference = index
             }
             tempDescriptor.index = index
@@ -891,16 +868,16 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _callWithParams = _interopRequireDefault(require('./functions/callWithParams.js'))
-    var _curry = _interopRequireDefault(require('./functions/curry.js'))
-    var _delay = _interopRequireDefault(require('./functions/delay.js'))
-    var _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad.js'))
-    var _pipe = _interopRequireDefault(require('./functions/pipe.js'))
-    var _preloadParams = _interopRequireDefault(require('./functions/preloadParams.js'))
-    var _queueManager = _interopRequireDefault(require('./functions/queueManager.js'))
-    var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout.js'))
-    var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter.js'))
-    var _trace = _interopRequireDefault(require('./functions/trace.js'))
+    var _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
+    var _curry = _interopRequireDefault(require('./functions/curry'))
+    var _delay = _interopRequireDefault(require('./functions/delay'))
+    var _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
+    var _pipe = _interopRequireDefault(require('./functions/pipe'))
+    var _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
+    var _queueManager = _interopRequireDefault(require('./functions/queueManager'))
+    var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
+    var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter'))
+    var _trace = _interopRequireDefault(require('./functions/trace'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Manage how functions are called with these utilities.
@@ -923,7 +900,7 @@
       trace: _trace.default
     }
     exports.default = _default
-  }, { './functions/callWithParams.js': 22, './functions/curry.js': 23, './functions/delay.js': 24, './functions/onBodyLoad.js': 25, './functions/pipe.js': 26, './functions/preloadParams.js': 27, './functions/queueManager.js': 28, './functions/queueTimeout.js': 29, './functions/relevancyFilter.js': 30, './functions/trace.js': 31, 'core-js/stable': 618 }],
+  }, { './functions/callWithParams': 22, './functions/curry': 23, './functions/delay': 24, './functions/onBodyLoad': 25, './functions/pipe': 26, './functions/preloadParams': 27, './functions/queueManager': 28, './functions/queueTimeout': 29, './functions/relevancyFilter': 30, './functions/trace': 31, 'core-js/stable': 618 }],
   22: [function (require, module, exports) {
     'use strict'
 
@@ -934,12 +911,12 @@
     require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
- * Given a function, call with the correct number of paramters from an array of possible parameters.
+ * Given a function, call with the correct number of parameters from an array of possible parameters.
  * @function
  * @memberOf module:functionHelpers
  * @param {Function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters
- * @param {number} [minimum=2] - Minimumn number of parameters to use in the function
+ * @param {number} [minimum=2] - Minimum number of parameters to use in the function
  * @returns {*}
  */
     const callWithParams = function (fn) {
@@ -992,13 +969,6 @@
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     /**
- * Provide a way to cancel a request or attach a resolve event.
- * @typedef {Object} module:functionHelpers~delayHandler
- * @memberOf module:functionHelpers
- * @property {Promise} resolver
- * @property {Function} cancel
- */
-    /**
  * Provide a timeout which returns a promise.
  * @function
  * @memberOf module:functionHelpers
@@ -1036,11 +1006,38 @@
     require('core-js/stable')
     var _queueManager = _interopRequireDefault(require('./queueManager'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+      function adopt (value) {
+        return value instanceof P ? value : new P(function (resolve) {
+          resolve(value)
+        })
+      }
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled (value) {
+          try {
+            step(generator.next(value))
+          } catch (e) {
+            reject(e)
+          }
+        }
+        function rejected (value) {
+          try {
+            step(generator.throw(value))
+          } catch (e) {
+            reject(e)
+          }
+        }
+        function step (result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected)
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next())
+      })
+    }
     const queue = []
     const manager = (0, _queueManager.default)()
     let observer = null
     const doReset = () => observer = null
-    const initializeObserver = () => {
+    const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * () {
       observer = new MutationObserver(() => {
         if (document.body) {
           while (queue.length) {
@@ -1054,8 +1051,7 @@
         childList: true
       })
       return observer
-    }
-
+    })
     /**
  * Prepare functions to be called once the body is available.
  * @function
@@ -1116,13 +1112,6 @@
     require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
- * The return function which takes the missing parameter in order to call the preloaded function.
- * @typedef {Function} module:functionHelpers~callWithMissing
- * @memberOf module:functionHelpers
- * @param {*} missing - The missing parameter to be applied
- * @returns {*}
- */
-    /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
  * @function
@@ -1153,14 +1142,6 @@
     require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
-    /**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Function} module:functionHelpers~queueManagerHandle
- * @memberOf module:functionHelpers
- * @param {Function} fn - A function to enqueue
- * @param  {...*} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
- */
     /**
  * Manage functions to run sequentially.
  * @function
@@ -1221,15 +1202,6 @@
     var _queueManager = _interopRequireDefault(require('./queueManager'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * Run Timeout functions one after the otherin queue.
- * @typedef {Function} module:functionHelpers~queueTimeoutHandle
- * @memberOf module:functionHelpers
- * @param {Function} fn - A callback function to be performed at some time in the future.
- * @param {number} time - The time in milliseconds to delay.
- * @param {...*} args - Arguments to be passed to the callback once it is implemented.
- * @returns {Promise}
- */
-    /**
  * Manage functions to run sequentially with delays.
  * @function
  * @memberOf module:functionHelpers
@@ -1263,18 +1235,6 @@
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
-    /**
- * An object having an integer valued property named 'relevance'.
- * @typedef {Object} relevanceObject
- * @memberOf module:functionHelpers
- * @property {int} relevance
- */
-
-    /**
- * A map of relevanceObjects which can be manipulated to filter results.
- * @typedef {Array.<relevanceObject>} relevanceMap
- * @memberOf module:functionHelpers
- */
     /**
  * Remove elements out of relevance range and update the max relevance.
  * @function
@@ -1315,7 +1275,7 @@
     var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * Output the a value with label to the console and return the value to not interrupt the code.
+ * Output the value with label to the console and return the value to not interrupt the code.
  * @function
  * @memberOf module:functionHelpers
  * @param {string} label - Pass an identifying label of the value being output.
@@ -1341,11 +1301,11 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax.js'))
-    var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin.js'))
-    var _compare = _interopRequireDefault(require('./numbers/compare.js'))
-    var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger.js'))
-    var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber.js'))
+    var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
+    var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
+    var _compare = _interopRequireDefault(require('./numbers/compare'))
+    var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
+    var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Some number comparators and random number generators.
@@ -1363,7 +1323,7 @@
       randomNumber: _randomNumber.default
     }
     exports.default = _default
-  }, { './numbers/absoluteMax.js': 33, './numbers/absoluteMin.js': 34, './numbers/compare.js': 35, './numbers/randomInteger.js': 36, './numbers/randomNumber.js': 37, 'core-js/stable': 618 }],
+  }, { './numbers/absoluteMax': 33, './numbers/absoluteMin': 34, './numbers/compare': 35, './numbers/randomInteger': 36, './numbers/randomNumber': 37, 'core-js/stable': 618 }],
   33: [function (require, module, exports) {
     'use strict'
 
@@ -1489,25 +1449,25 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _cloneObject = _interopRequireDefault(require('./objects/cloneObject.js'))
-    var _dotGet = _interopRequireDefault(require('./objects/dotGet.js'))
-    var _dotNotate = _interopRequireDefault(require('./objects/dotNotate.js'))
-    var _dotSet = _interopRequireDefault(require('./objects/dotSet.js'))
-    var _dotUnset = _interopRequireDefault(require('./objects/dotUnset.js'))
-    var _emptyObject = _interopRequireDefault(require('./objects/emptyObject.js'))
-    var _filterObject = _interopRequireDefault(require('./objects/filterObject.js'))
-    var _isCloneable = _interopRequireDefault(require('./objects/isCloneable.js'))
-    var _isInstanceObject = _interopRequireDefault(require('./objects/isInstanceObject.js'))
-    var _isObject = _interopRequireDefault(require('./objects/isObject.js'))
-    var _mapObject = _interopRequireDefault(require('./objects/mapObject.js'))
-    var _mergeObjects = _interopRequireDefault(require('./objects/mergeObjects.js'))
-    var _mergeObjectsBase = _interopRequireDefault(require('./objects/mergeObjectsBase.js'))
-    var _mergeObjectsMutable = _interopRequireDefault(require('./objects/mergeObjectsMutable.js'))
-    var _objectKeys = _interopRequireDefault(require('./objects/objectKeys.js'))
-    var _objectValues = _interopRequireDefault(require('./objects/objectValues.js'))
-    var _reduceObject = _interopRequireDefault(require('./objects/reduceObject.js'))
-    var _setAndReturnValue = _interopRequireDefault(require('./objects/setAndReturnValue.js'))
-    var _setValue = _interopRequireDefault(require('./objects/setValue.js'))
+    var _cloneObject = _interopRequireDefault(require('./objects/cloneObject'))
+    var _dotGet = _interopRequireDefault(require('./objects/dotGet'))
+    var _dotNotate = _interopRequireDefault(require('./objects/dotNotate'))
+    var _dotSet = _interopRequireDefault(require('./objects/dotSet'))
+    var _dotUnset = _interopRequireDefault(require('./objects/dotUnset'))
+    var _emptyObject = _interopRequireDefault(require('./objects/emptyObject'))
+    var _filterObject = _interopRequireDefault(require('./objects/filterObject'))
+    var _isCloneable = _interopRequireDefault(require('./objects/isCloneable'))
+    var _isInstanceObject = _interopRequireDefault(require('./objects/isInstanceObject'))
+    var _isObject = _interopRequireDefault(require('./objects/isObject'))
+    var _mapObject = _interopRequireDefault(require('./objects/mapObject'))
+    var _mergeObjects = _interopRequireDefault(require('./objects/mergeObjects'))
+    var _mergeObjectsBase = _interopRequireDefault(require('./objects/mergeObjectsBase'))
+    var _mergeObjectsMutable = _interopRequireDefault(require('./objects/mergeObjectsMutable'))
+    var _objectKeys = _interopRequireDefault(require('./objects/objectKeys'))
+    var _objectValues = _interopRequireDefault(require('./objects/objectValues'))
+    var _reduceObject = _interopRequireDefault(require('./objects/reduceObject'))
+    var _setAndReturnValue = _interopRequireDefault(require('./objects/setAndReturnValue'))
+    var _setValue = _interopRequireDefault(require('./objects/setValue'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
@@ -1539,7 +1499,7 @@
       setValue: _setValue.default
     }
     exports.default = _default
-  }, { './objects/cloneObject.js': 39, './objects/dotGet.js': 40, './objects/dotNotate.js': 41, './objects/dotSet.js': 42, './objects/dotUnset.js': 43, './objects/emptyObject.js': 44, './objects/filterObject.js': 45, './objects/isCloneable.js': 46, './objects/isInstanceObject.js': 47, './objects/isObject.js': 48, './objects/mapObject.js': 49, './objects/mergeObjects.js': 50, './objects/mergeObjectsBase.js': 51, './objects/mergeObjectsMutable.js': 52, './objects/objectKeys.js': 53, './objects/objectValues.js': 54, './objects/reduceObject.js': 55, './objects/setAndReturnValue.js': 56, './objects/setValue.js': 57, 'core-js/stable': 618 }],
+  }, { './objects/cloneObject': 39, './objects/dotGet': 40, './objects/dotNotate': 41, './objects/dotSet': 42, './objects/dotUnset': 43, './objects/emptyObject': 44, './objects/filterObject': 45, './objects/isCloneable': 46, './objects/isInstanceObject': 47, './objects/isObject': 48, './objects/mapObject': 49, './objects/mergeObjects': 50, './objects/mergeObjectsBase': 51, './objects/mergeObjectsMutable': 52, './objects/objectKeys': 53, './objects/objectValues': 54, './objects/reduceObject': 55, './objects/setAndReturnValue': 56, './objects/setValue': 57, 'core-js/stable': 618 }],
   39: [function (require, module, exports) {
     'use strict'
 
@@ -1602,6 +1562,7 @@
  */
     const dotGet = function (arrayObject, dotNotation) {
       const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+      var _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -1610,25 +1571,30 @@
       if (key === '*') {
         const result = []
         for (const wildKey in arrayObject) {
+          // @ts-ignore
           const wildValue = arrayObject[wildKey]
           if (lastKey) {
+            // @ts-ignore
             result[wildKey] = wildValue
             continue
           }
           if (!(0, _isObject.default)(wildValue)) {
             continue
           }
+          // @ts-ignore
           result[wildKey] = dotGet(wildValue, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
         }
         return result
       }
       if (lastKey) {
-        var _arrayObject$dotNotat
-        return (_arrayObject$dotNotat = arrayObject[dotNotation]) !== null && _arrayObject$dotNotat !== void 0 ? _arrayObject$dotNotat : defaultValue
+        // @ts-ignore
+        return (_a = arrayObject[dotNotation]) !== null && _a !== void 0 ? _a : defaultValue
       }
+      // @ts-ignore
       if (typeof arrayObject[key] === 'undefined') {
         return defaultValue
       }
+      // @ts-ignore
       const next = arrayObject[key]
       if (!(0, _isObject.default)(next)) {
         return defaultValue
@@ -1652,31 +1618,20 @@
     var _isObject = _interopRequireDefault(require('./isObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * A string representing the full-path to a property in an object. Each depth of the path is separated by a period.
- * @example 'a.b.c'
- * @typedef {string} DotNotationString
- * @memberOf module:objectHelpers
- */
-
-    /**
- * An array or object where all properties have been flatted and keyed by a dot-notated string.
- * @typedef {Object.<DotNotationString, *>} DotNotatedObject
- * @memberOf module:objectHelpers
- */
-    /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
  * @memberOf module:objectHelpers
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
-    const handleRetainObjects = retainObjects => {
+    const handleRetainObjects = function () {
+      let retainObjects = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
       if (!retainObjects.length) {
         /**
      * Bypass the test function if there are no retainObjects.
      * @returns {false}
      */
-        return () => false
+        return (currentKey, value, results) => false
       }
       retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
       const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
@@ -1691,11 +1646,11 @@
         if (!currentKey.match(retainRegex)) {
           return false
         }
+        // @ts-ignore
         results[currentKey] = value
         return true
       }
     }
-
     /**
  * The underlying logic function for converting arrays to dot-notation.
  * @inner
@@ -1709,7 +1664,9 @@
     const performDotNotate = function (arrayObject, didRetain) {
       const prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
       const results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+      // @ts-ignore
       for (const key in arrayObject) {
+        // @ts-ignore
         const value = arrayObject[key]
         const currentKey = ''.concat(prepend).concat(key)
         if (didRetain(currentKey, value, results)) {
@@ -1723,7 +1680,6 @@
       }
       return results
     }
-
     /**
  * Convert an array or object to a single dimensional associative array with dot notation.
  * @function
@@ -1761,8 +1717,8 @@
  * @returns {Object} The modified object
  */
     const dotSet = function (arrayObject, dotNotation) {
-      var _arrayObject$key
       const value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+      var _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -1771,21 +1727,27 @@
       if (key === '*') {
         for (const wildKey in arrayObject) {
           if (lastKey) {
+            // @ts-ignore
             arrayObject[wildKey] = value
             continue
           }
+          // @ts-ignore
           if (!(0, _isObject.default)(arrayObject[wildKey])) {
             continue
           }
+          // @ts-ignore
           dotSet(arrayObject[wildKey], (0, _strAfter.default)(dotNotation, '.'), value)
         }
         return arrayObject
       }
       if (lastKey) {
+        // @ts-ignore
         arrayObject[dotNotation] = value
         return arrayObject
       }
-      const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+      // @ts-ignore
+      const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+      // @ts-ignore
       arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
       return arrayObject
     }
@@ -1813,7 +1775,7 @@
  * @returns {Object} The modified object
  */
     const dotUnset = (arrayObject, dotNotation) => {
-      var _arrayObject$key
+      var _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -1822,21 +1784,27 @@
       if (key === '*') {
         for (const wildKey in arrayObject) {
           if (lastKey) {
+            // @ts-ignore
             delete arrayObject[wildKey]
             continue
           }
+          // @ts-ignore
           if (!(0, _isObject.default)(arrayObject[wildKey])) {
             continue
           }
+          // @ts-ignore
           dotUnset(arrayObject[wildKey], (0, _strAfter.default)(dotNotation, '.'))
         }
         return arrayObject
       }
       if (lastKey) {
+        // @ts-ignore
         delete arrayObject[dotNotation]
         return arrayObject
       }
-      const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+      // @ts-ignore
+      const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+      // @ts-ignore
       arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
       return arrayObject
     }
@@ -1881,16 +1849,6 @@
     var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
     var _objectKeys = _interopRequireDefault(require('./objectKeys'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    /**
- * Function is a predicate, to test each property value of the object. Return true to keep the element, false
- * otherwise, taking three arguments
- * @callback module:objectHelpers~filterCallback
- * @memberOf module:objectHelpers
- * @param {*} currentProperty - The current property being processed in the object.
- * @param {string} [currentIndex] - The property name of the current property being processed in the object.
- * @param {Object|Array} [object] - The object filter was called upon.
- * @returns {boolean}
- */
     /**
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
@@ -2004,15 +1962,6 @@
     var _setValue = _interopRequireDefault(require('./setValue'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * Function that produces a property of the new Object, taking three arguments
- * @callback module:objectHelpers~mapCallback
- * @memberOf module:objectHelpers
- * @param {*} currentProperty - The current property being processed in the object.
- * @param {string} [currentIndex] - The property name of the current property being processed in the object.
- * @param {Object|Array} [object] - The object map was called upon.
- * @returns {*}
- */
-    /**
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
  * If an array is passed in instead then it will perform standard map(). It is recommended to
  * always use the standard map() function when it is known that the object is actually an array.
@@ -2069,18 +2018,11 @@
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
-    var _isCloneable = _interopRequireDefault(require('./isCloneable.js'))
-    var _reduceObject = _interopRequireDefault(require('./reduceObject.js'))
-    var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter.js'))
-    var _setValue = _interopRequireDefault(require('./setValue.js'))
+    var _isCloneable = _interopRequireDefault(require('./isCloneable'))
+    var _reduceObject = _interopRequireDefault(require('./reduceObject'))
+    var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter'))
+    var _setValue = _interopRequireDefault(require('./setValue'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-    /**
- * Function that takes one or more objects and combines them into one.
- * @typedef {Function} module:objectHelpers~mergeObjectsCallback
- * @memberOf module:objectHelpers
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
- */
     /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
@@ -2094,7 +2036,7 @@
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @param {Iterable|array} [options.map=[]] - A predetermined list of references gathered (to be passed to itself during recursion).
  * @param {boolean} [options.useClone=false]
- * @returns {module:objectHelpers~mergeObjectsCallback}
+ * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
     const mergeObjectsBase = function () {
       let {
@@ -2165,7 +2107,7 @@
     }
     var _default = mergeObjectsBase
     exports.default = _default
-  }, { '../functions/relevancyFilter.js': 30, './isCloneable.js': 46, './reduceObject.js': 55, './setValue.js': 57, 'core-js/modules/esnext.async-iterator.find.js': 580, 'core-js/modules/esnext.async-iterator.map.js': 582, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.find.js': 588, 'core-js/modules/esnext.iterator.map.js': 590, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
+  }, { '../functions/relevancyFilter': 30, './isCloneable': 46, './reduceObject': 55, './setValue': 57, 'core-js/modules/esnext.async-iterator.find.js': 580, 'core-js/modules/esnext.async-iterator.map.js': 582, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.find.js': 588, 'core-js/modules/esnext.iterator.map.js': 590, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
   52: [function (require, module, exports) {
     'use strict'
 
@@ -2276,29 +2218,17 @@
     var _objectKeys = _interopRequireDefault(require('./objectKeys'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * Function to execute on each property in the object, taking four arguments
- * @callback module:objectHelpers~reduceCallback
- * @memberOf module:objectHelpers
- * @param {*} [accumulator={}] - The accumulator accumulates the callback's return values; it is the accumulated
- * value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
- * @param {*} [currentProperty={}] - The current property being processed in the object.
- * @param {string} [currentIndex=0] - The index of the current element being processed in the array. Starts at index
- * 0, if an initialValue is provided, and at index 1 otherwise.
- * @param {Object|Array} [object={}] - The object reduce was called upon.
- * @returns {*}
- */
-    /**
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
  * always use the standard reduce() function when it is known that the object is actually an array.
  * @function
  * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~reduceCallback|Function} fn - The function to be processed for each filtered property
+ * @param {module:objectHelpers~reduceCallback|Function|reduceCallback} fn - The function to be processed for each filtered property
  * @param {Object|Array} [initialValue] - Optional. Value to use as the first argument to the first call of the
  * callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty
  * array without an initial value is an error.
- * @returns {Object|Array}
+ * @returns {*}
  */
     const reduceObject = function (obj, fn) {
       const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
@@ -2350,6 +2280,7 @@
  * @returns {Object|Array}
  */
     const setValue = (key, value, item) => {
+      // @ts-ignore
       item[key] = value
       return item
     }
@@ -2364,16 +2295,16 @@
     })
     exports.default = void 0
     require('core-js/stable')
-    var _camelCase = _interopRequireDefault(require('./strings/camelCase.js'))
-    var _kabobCase = _interopRequireDefault(require('./strings/kabobCase.js'))
-    var _snakeCase = _interopRequireDefault(require('./strings/snakeCase.js'))
-    var _strAfter = _interopRequireDefault(require('./strings/strAfter.js'))
-    var _strAfterLast = _interopRequireDefault(require('./strings/strAfterLast.js'))
-    var _strBefore = _interopRequireDefault(require('./strings/strBefore.js'))
-    var _strBeforeLast = _interopRequireDefault(require('./strings/strBeforeLast.js'))
-    var _titleCase = _interopRequireDefault(require('./strings/titleCase.js'))
-    var _ucFirst = _interopRequireDefault(require('./strings/ucFirst.js'))
-    var _words = _interopRequireDefault(require('./strings/words.js'))
+    var _camelCase = _interopRequireDefault(require('./strings/camelCase'))
+    var _kabobCase = _interopRequireDefault(require('./strings/kabobCase'))
+    var _snakeCase = _interopRequireDefault(require('./strings/snakeCase'))
+    var _strAfter = _interopRequireDefault(require('./strings/strAfter'))
+    var _strAfterLast = _interopRequireDefault(require('./strings/strAfterLast'))
+    var _strBefore = _interopRequireDefault(require('./strings/strBefore'))
+    var _strBeforeLast = _interopRequireDefault(require('./strings/strBeforeLast'))
+    var _titleCase = _interopRequireDefault(require('./strings/titleCase'))
+    var _ucFirst = _interopRequireDefault(require('./strings/ucFirst'))
+    var _words = _interopRequireDefault(require('./strings/words'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Manage how strings are manipulated with these utilities.
@@ -2396,7 +2327,7 @@
       words: _words.default
     }
     exports.default = _default
-  }, { './strings/camelCase.js': 59, './strings/kabobCase.js': 60, './strings/snakeCase.js': 61, './strings/strAfter.js': 62, './strings/strAfterLast.js': 63, './strings/strBefore.js': 64, './strings/strBeforeLast.js': 65, './strings/titleCase.js': 66, './strings/ucFirst.js': 67, './strings/words.js': 68, 'core-js/stable': 618 }],
+  }, { './strings/camelCase': 59, './strings/kabobCase': 60, './strings/snakeCase': 61, './strings/strAfter': 62, './strings/strAfterLast': 63, './strings/strBefore': 64, './strings/strBeforeLast': 65, './strings/titleCase': 66, './strings/ucFirst': 67, './strings/words': 68, 'core-js/stable': 618 }],
   59: [function (require, module, exports) {
     'use strict'
 
@@ -2408,8 +2339,8 @@
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
-    var _ucFirst = _interopRequireDefault(require('./ucFirst.js'))
-    var _words = _interopRequireDefault(require('./words.js'))
+    var _ucFirst = _interopRequireDefault(require('./ucFirst'))
+    var _words = _interopRequireDefault(require('./words'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.
@@ -2421,7 +2352,7 @@
     const camelCase = str => (0, _words.default)(str).reduce((camel, part) => camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase(), '')
     var _default = camelCase
     exports.default = _default
-  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
+  }, { './ucFirst': 67, './words': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
   60: [function (require, module, exports) {
     'use strict'
 
@@ -2433,7 +2364,7 @@
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
-    var _words = _interopRequireDefault(require('./words.js'))
+    var _words = _interopRequireDefault(require('./words'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-case.
@@ -2445,7 +2376,7 @@
     const kabobCase = str => (0, _words.default)(str).reduce((kabob, part) => kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase(), '')
     var _default = kabobCase
     exports.default = _default
-  }, { './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
+  }, { './words': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
   61: [function (require, module, exports) {
     'use strict'
 
@@ -2457,7 +2388,7 @@
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
-    var _words = _interopRequireDefault(require('./words.js'))
+    var _words = _interopRequireDefault(require('./words'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
@@ -2469,7 +2400,7 @@
     const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')
     var _default = snakeCase
     exports.default = _default
-  }, { './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
+  }, { './words': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
   62: [function (require, module, exports) {
     'use strict'
 
@@ -2478,6 +2409,14 @@
     })
     exports.default = void 0
     require('core-js/stable')
+    /**
+ * Retrieve the string part after the search match.
+ * @function
+ * @memberOf module:stringHelpers
+ * @param {string} str
+ * @param {string} search
+ * @returns {string}
+ */
     const strAfter = (str, search) => {
       const index = str.indexOf(search)
       return index === -1 ? '' : str.substring(index + search.length)
@@ -2493,6 +2432,14 @@
     })
     exports.default = void 0
     require('core-js/stable')
+    /**
+ * Retrieve the string part after the last search match.
+ * @function
+ * @memberOf module:stringHelpers
+ * @param {string} str
+ * @param {string} search
+ * @returns {string}
+ */
     const strAfterLast = (str, search) => {
       const index = str.lastIndexOf(search)
       return index === -1 ? '' : str.substring(index + search.length)
@@ -2508,6 +2455,14 @@
     })
     exports.default = void 0
     require('core-js/stable')
+    /**
+ * Retrieve the string part before the search match.
+ * @function
+ * @memberOf module:stringHelpers
+ * @param {string} str
+ * @param {string} search
+ * @returns {string}
+ */
     const strBefore = (str, search) => {
       const index = str.indexOf(search)
       return index === -1 ? '' : str.slice(0, index)
@@ -2523,6 +2478,14 @@
     })
     exports.default = void 0
     require('core-js/stable')
+    /**
+ * Retrieve the string part after the last search match.
+ * @function
+ * @memberOf module:stringHelpers
+ * @param {string} str
+ * @param {string} search
+ * @returns {string}
+ */
     const strBeforeLast = (str, search) => {
       const index = str.lastIndexOf(search)
       return index === -1 ? '' : str.substring(0, index)
@@ -2541,8 +2504,8 @@
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
-    var _ucFirst = _interopRequireDefault(require('./ucFirst.js'))
-    var _words = _interopRequireDefault(require('./words.js'))
+    var _ucFirst = _interopRequireDefault(require('./ucFirst'))
+    var _words = _interopRequireDefault(require('./words'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
@@ -2554,7 +2517,7 @@
     const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')
     var _default = titleCase
     exports.default = _default
-  }, { './ucFirst.js': 67, './words.js': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
+  }, { './ucFirst': 67, './words': 68, 'core-js/modules/esnext.async-iterator.reduce.js': 583, 'core-js/modules/esnext.iterator.constructor.js': 585, 'core-js/modules/esnext.iterator.reduce.js': 591, 'core-js/stable': 618 }],
   67: [function (require, module, exports) {
     'use strict'
 
@@ -2600,15 +2563,15 @@
       value: true
     })
     exports.default = void 0
-    var _arrays = _interopRequireDefault(require('./helpers/arrays.js'))
-    var _descriptors = _interopRequireDefault(require('./helpers/descriptors.js'))
-    var _functions = _interopRequireDefault(require('./helpers/functions.js'))
-    var _numbers = _interopRequireDefault(require('./helpers/numbers.js'))
-    var _objects = _interopRequireDefault(require('./helpers/objects.js'))
-    var _strings = _interopRequireDefault(require('./helpers/strings.js'))
+    var _arrays = _interopRequireDefault(require('./helpers/arrays'))
+    var _descriptors = _interopRequireDefault(require('./helpers/descriptors'))
+    var _functions = _interopRequireDefault(require('./helpers/functions'))
+    var _numbers = _interopRequireDefault(require('./helpers/numbers'))
+    var _objects = _interopRequireDefault(require('./helpers/objects'))
+    var _strings = _interopRequireDefault(require('./helpers/strings'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
     /**
- * All of the siFunciona system functions for stringing together functions and simplifying logic.
+ * All the siFunciona system functions for stringing together functions and simplifying logic.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
@@ -2618,9 +2581,14 @@
     const siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
     var _default = siFunciona
     exports.default = _default
-    const root = void 0 || typeof window !== 'undefined' ? window : {}
-    root.siFunciona = siFunciona
-  }, { './helpers/arrays.js': 1, './helpers/descriptors.js': 8, './helpers/functions.js': 21, './helpers/numbers.js': 32, './helpers/objects.js': 38, './helpers/strings.js': 58 }],
+    if (void 0) {
+      // @ts-ignore
+      (void 0).siFunciona = siFunciona
+    } else if (typeof window !== 'undefined') {
+      // @ts-ignore
+      window.siFunciona = siFunciona
+    }
+  }, { './helpers/arrays': 1, './helpers/descriptors': 8, './helpers/functions': 21, './helpers/numbers': 32, './helpers/objects': 38, './helpers/strings': 58 }],
   70: [function (require, module, exports) {
     'use strict'
     var isCallable = require('../internals/is-callable')
@@ -4152,7 +4120,9 @@
     } catch (error) { /* empty */ }
 
     module.exports = function (exec, SKIP_CLOSING) {
-      if (!SKIP_CLOSING && !SAFE_CLOSING) return false
+      try {
+        if (!SKIP_CLOSING && !SAFE_CLOSING) return false
+      } catch (error) { return false } // workaround of old WebKit + `eval` bug
       var ITERATION_SUPPORT = false
       try {
         var object = {}
@@ -5347,7 +5317,10 @@
           re[SYMBOL] = /./[SYMBOL]
         }
 
-        re.exec = function () { execCalled = true; return null }
+        re.exec = function () {
+          execCalled = true
+          return null
+        }
 
         re[SYMBOL]('')
         return !execCalled
@@ -5848,7 +5821,7 @@
           exponent = eMax
         } else if (exponent + eBias >= 1) {
           mantissa = roundToEven((number * c - 1) * pow(2, mantissaLength))
-          exponent = exponent + eBias
+          exponent += eBias
         } else {
           mantissa = roundToEven(number * pow(2, eBias - 1) * pow(2, mantissaLength))
           exponent = 0
@@ -5897,8 +5870,8 @@
       } else if (exponent === eMax) {
         return mantissa ? NaN : s ? -Infinity : Infinity
       } else {
-        mantissa = mantissa + pow(2, mantissaLength)
-        exponent = exponent - eBias
+        mantissa += pow(2, mantissaLength)
+        exponent -= eBias
       } return (s ? -1 : 1) * mantissa * pow(2, exponent - mantissaLength)
     }
 
@@ -6575,12 +6548,15 @@
 
       var getIterationMethod = function (KIND) {
         if (KIND === DEFAULT && defaultIterator) return defaultIterator
-        if (!BUGGY_SAFARI_ITERATORS && KIND in IterablePrototype) return IterablePrototype[KIND]
+        if (!BUGGY_SAFARI_ITERATORS && KIND && KIND in IterablePrototype) return IterablePrototype[KIND]
+
         switch (KIND) {
           case KEYS: return function keys () { return new IteratorConstructor(this, KIND) }
           case VALUES: return function values () { return new IteratorConstructor(this, KIND) }
           case ENTRIES: return function entries () { return new IteratorConstructor(this, KIND) }
-        } return function () { return new IteratorConstructor(this) }
+        }
+
+        return function () { return new IteratorConstructor(this) }
       }
 
       var TO_STRING_TAG = NAME + ' Iterator'
@@ -6819,6 +6795,7 @@
     // https://tc39.es/ecma262/#sec-math.expm1
     module.exports = (!$expm1 ||
   // Old FF bug
+  // eslint-disable-next-line no-loss-of-precision -- required for old engines
   $expm1(10) > 22025.465794806719 || $expm1(10) < 22025.4657948067165168 ||
   // Tor Browser bug
   $expm1(-2e-17) !== -2e-17
@@ -8139,10 +8116,10 @@
     (module.exports = function (key, value) {
       return store[key] || (store[key] = value !== undefined ? value : {})
     })('versions', []).push({
-      version: '3.32.1',
+      version: '3.32.2',
       mode: IS_PURE ? 'pure' : 'global',
       copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.32.1/LICENSE',
+      license: 'https://github.com/zloirock/core-js/blob/v3.32.2/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/is-pure': 198, '../internals/shared-store': 267 }],
@@ -8410,7 +8387,7 @@
             var q = delta
             var k = base
             while (true) {
-              var t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
+              var t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias
               if (q < t) break
               var qMinusT = q - t
               var baseMinusT = base - t
@@ -11523,9 +11500,20 @@
           if (third === 88 || third === 120) return NaN // Number('+0x1') should be NaN, old V8 fix
         } else if (first === 48) {
           switch (charCodeAt(it, 1)) {
-            case 66: case 98: radix = 2; maxCode = 49; break // fast equal of /^0b[01]+$/i
-            case 79: case 111: radix = 8; maxCode = 55; break // fast equal of /^0o[0-7]+$/i
-            default: return +it
+            // fast equal of /^0b[01]+$/i
+            case 66:
+            case 98:
+              radix = 2
+              maxCode = 49
+              break
+            // fast equal of /^0o[0-7]+$/i
+            case 79:
+            case 111:
+              radix = 8
+              maxCode = 55
+              break
+            default:
+              return +it
           }
           digits = stringSlice(it, 2)
           length = digits.length
@@ -13462,7 +13450,7 @@
       for (; index <= length; index++) {
         chr = charAt(string, index)
         if (chr === '\\') {
-          chr = chr + charAt(string, ++index)
+          chr += charAt(string, ++index)
         } else if (chr === ']') {
           brackets = false
         } else if (!brackets) {
@@ -17466,7 +17454,7 @@
         var set1 = new global.Set([7])
         var set2 = structuredCloneImplementation(set1)
         var number = structuredCloneImplementation(Object(7))
-        return set2 === set1 || !set2.has(7) || typeof number !== 'object' || number !== 7
+        return set2 === set1 || !set2.has(7) || typeof number !== 'object' || +number !== 7
       }) && structuredCloneImplementation
     }
 

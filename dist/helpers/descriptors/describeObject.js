@@ -29,6 +29,7 @@ const describeObject = object => {
   const keys = (0, _objectKeys.default)(object)
   for (let i = 0; i < keys.length; ++i) {
     const key = keys[i]
+    // @ts-ignore
     const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
     if (typeof key === 'number' && descriptor.details.length) {
       descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)

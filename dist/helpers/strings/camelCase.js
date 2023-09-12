@@ -8,8 +8,8 @@ require('core-js/modules/esnext.async-iterator.reduce.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
-var _ucFirst = _interopRequireDefault(require('./ucFirst.js'))
-var _words = _interopRequireDefault(require('./words.js'))
+var _ucFirst = _interopRequireDefault(require('./ucFirst'))
+var _words = _interopRequireDefault(require('./words'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.

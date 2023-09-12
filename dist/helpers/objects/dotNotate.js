@@ -11,31 +11,20 @@ require('core-js/stable')
 var _isObject = _interopRequireDefault(require('./isObject'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
- * A string representing the full-path to a property in an object. Each depth of the path is separated by a period.
- * @example 'a.b.c'
- * @typedef {string} DotNotationString
- * @memberOf module:objectHelpers
- */
-
-/**
- * An array or object where all properties have been flatted and keyed by a dot-notated string.
- * @typedef {Object.<DotNotationString, *>} DotNotatedObject
- * @memberOf module:objectHelpers
- */
-/**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
  * @memberOf module:objectHelpers
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
-const handleRetainObjects = retainObjects => {
+const handleRetainObjects = function () {
+  let retainObjects = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
   if (!retainObjects.length) {
     /**
      * Bypass the test function if there are no retainObjects.
      * @returns {false}
      */
-    return () => false
+    return (currentKey, value, results) => false
   }
   retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
   const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
@@ -50,11 +39,11 @@ const handleRetainObjects = retainObjects => {
     if (!currentKey.match(retainRegex)) {
       return false
     }
+    // @ts-ignore
     results[currentKey] = value
     return true
   }
 }
-
 /**
  * The underlying logic function for converting arrays to dot-notation.
  * @inner
@@ -68,7 +57,9 @@ const handleRetainObjects = retainObjects => {
 const performDotNotate = function (arrayObject, didRetain) {
   const prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
   const results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+  // @ts-ignore
   for (const key in arrayObject) {
+    // @ts-ignore
     const value = arrayObject[key]
     const currentKey = ''.concat(prepend).concat(key)
     if (didRetain(currentKey, value, results)) {
@@ -82,7 +73,6 @@ const performDotNotate = function (arrayObject, didRetain) {
   }
   return results
 }
-
 /**
  * Convert an array or object to a single dimensional associative array with dot notation.
  * @function

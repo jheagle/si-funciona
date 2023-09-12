@@ -7,13 +7,6 @@ exports.default = void 0
 require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 /**
- * The return function which takes the missing parameter in order to call the preloaded function.
- * @typedef {Function} module:functionHelpers~callWithMissing
- * @memberOf module:functionHelpers
- * @param {*} missing - The missing parameter to be applied
- * @returns {*}
- */
-/**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
  * @function

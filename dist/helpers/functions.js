@@ -5,16 +5,16 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 require('core-js/stable')
-var _callWithParams = _interopRequireDefault(require('./functions/callWithParams.js'))
-var _curry = _interopRequireDefault(require('./functions/curry.js'))
-var _delay = _interopRequireDefault(require('./functions/delay.js'))
-var _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad.js'))
-var _pipe = _interopRequireDefault(require('./functions/pipe.js'))
-var _preloadParams = _interopRequireDefault(require('./functions/preloadParams.js'))
-var _queueManager = _interopRequireDefault(require('./functions/queueManager.js'))
-var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout.js'))
-var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter.js'))
-var _trace = _interopRequireDefault(require('./functions/trace.js'))
+var _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
+var _curry = _interopRequireDefault(require('./functions/curry'))
+var _delay = _interopRequireDefault(require('./functions/delay'))
+var _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
+var _pipe = _interopRequireDefault(require('./functions/pipe'))
+var _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
+var _queueManager = _interopRequireDefault(require('./functions/queueManager'))
+var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
+var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter'))
+var _trace = _interopRequireDefault(require('./functions/trace'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Manage how functions are called with these utilities.

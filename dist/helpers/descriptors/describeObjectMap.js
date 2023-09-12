@@ -46,6 +46,7 @@ const describeObjectMap = function (object) {
     if (currentDetail) {
       const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
       vals.forEach(val => {
+        var _a, _b
         const tempDescriptor = (0, _describeObject.default)(val)
         const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
         if (existingDescriptorIndex >= 0) {
@@ -62,12 +63,10 @@ const describeObjectMap = function (object) {
           return descriptorMap
         }
         if (tempDescriptor.isArray) {
-          var _currentDetail$arrayR
-          index = (_currentDetail$arrayR = currentDetail.arrayReference) !== null && _currentDetail$arrayR !== void 0 ? _currentDetail$arrayR : index
+          index = (_a = currentDetail.arrayReference) !== null && _a !== void 0 ? _a : index
           descriptor.details[currentDetail.index].arrayReference = index
         } else {
-          var _currentDetail$object
-          index = (_currentDetail$object = currentDetail.objectReference) !== null && _currentDetail$object !== void 0 ? _currentDetail$object : index
+          index = (_b = currentDetail.objectReference) !== null && _b !== void 0 ? _b : index
           descriptor.details[currentDetail.index].objectReference = index
         }
         tempDescriptor.index = index

@@ -16,6 +16,7 @@ require('core-js/stable')
  * @returns {Object|Array}
  */
 const setValue = (key, value, item) => {
+  // @ts-ignore
   item[key] = value
   return item
 }

@@ -12,18 +12,11 @@ require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/modules/esnext.async-iterator.find.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/stable')
-var _isCloneable = _interopRequireDefault(require('./isCloneable.js'))
-var _reduceObject = _interopRequireDefault(require('./reduceObject.js'))
-var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter.js'))
-var _setValue = _interopRequireDefault(require('./setValue.js'))
+var _isCloneable = _interopRequireDefault(require('./isCloneable'))
+var _reduceObject = _interopRequireDefault(require('./reduceObject'))
+var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter'))
+var _setValue = _interopRequireDefault(require('./setValue'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-/**
- * Function that takes one or more objects and combines them into one.
- * @typedef {Function} module:objectHelpers~mergeObjectsCallback
- * @memberOf module:objectHelpers
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
- */
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
@@ -37,7 +30,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @param {Iterable|array} [options.map=[]] - A predetermined list of references gathered (to be passed to itself during recursion).
  * @param {boolean} [options.useClone=false]
- * @returns {module:objectHelpers~mergeObjectsCallback}
+ * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
 const mergeObjectsBase = function () {
   let {

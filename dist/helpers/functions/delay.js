@@ -7,13 +7,6 @@ exports.default = void 0
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 /**
- * Provide a way to cancel a request or attach a resolve event.
- * @typedef {Object} module:functionHelpers~delayHandler
- * @memberOf module:functionHelpers
- * @property {Promise} resolver
- * @property {Function} cancel
- */
-/**
  * Provide a timeout which returns a promise.
  * @function
  * @memberOf module:functionHelpers

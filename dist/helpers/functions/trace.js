@@ -9,7 +9,7 @@ require('regenerator-runtime/runtime')
 var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
- * Output the a value with label to the console and return the value to not interrupt the code.
+ * Output the value with label to the console and return the value to not interrupt the code.
  * @function
  * @memberOf module:functionHelpers
  * @param {string} label - Pass an identifying label of the value being output.

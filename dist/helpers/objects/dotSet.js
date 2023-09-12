@@ -19,8 +19,8 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {Object} The modified object
  */
 const dotSet = function (arrayObject, dotNotation) {
-  var _arrayObject$key
   const value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+  var _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -29,21 +29,27 @@ const dotSet = function (arrayObject, dotNotation) {
   if (key === '*') {
     for (const wildKey in arrayObject) {
       if (lastKey) {
+        // @ts-ignore
         arrayObject[wildKey] = value
         continue
       }
+      // @ts-ignore
       if (!(0, _isObject.default)(arrayObject[wildKey])) {
         continue
       }
+      // @ts-ignore
       dotSet(arrayObject[wildKey], (0, _strAfter.default)(dotNotation, '.'), value)
     }
     return arrayObject
   }
   if (lastKey) {
+    // @ts-ignore
     arrayObject[dotNotation] = value
     return arrayObject
   }
-  const next = (_arrayObject$key = arrayObject[key]) !== null && _arrayObject$key !== void 0 ? _arrayObject$key : []
+  // @ts-ignore
+  const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+  // @ts-ignore
   arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
   return arrayObject
 }
