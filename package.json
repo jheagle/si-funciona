@@ -10,7 +10,8 @@
     "funcional",
     "ayudas",
     "utilidades",
-    "general"
+    "general",
+    "typescript"
   ],
   "version": "2.0.1",
   "license": "GPL-3.0-or-later",
@@ -29,7 +30,6 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "gulp-rename": "^2.0.0",
     "npm": "^10.1.0"
   },
   "devDependencies": {
