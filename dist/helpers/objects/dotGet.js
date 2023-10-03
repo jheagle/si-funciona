@@ -59,5 +59,4 @@ const dotGet = function (arrayObject, dotNotation) {
   }
   return dotGet(next, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
 }
-var _default = dotGet
-exports.default = _default
+var _default = exports.default = dotGet

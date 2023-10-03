@@ -24,5 +24,4 @@ const buildArray = (item, length) => {
   }
   return arr
 }
-var _default = buildArray
-exports.default = _default
+var _default = exports.default = buildArray

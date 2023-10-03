@@ -33,5 +33,4 @@ const cloneObject = function (object) {
     useClone: true
   })(object)
 }
-var _default = cloneObject
-exports.default = _default
+var _default = exports.default = cloneObject

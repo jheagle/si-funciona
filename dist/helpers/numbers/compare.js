@@ -17,5 +17,4 @@ require('core-js/stable')
  * @returns {number}
  */
 const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-var _default = compare
-exports.default = _default
+var _default = exports.default = compare

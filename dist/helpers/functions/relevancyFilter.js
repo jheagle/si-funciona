@@ -35,5 +35,4 @@ const relevancyFilter = function (map) {
     return reference
   })
 }
-var _default = relevancyFilter
-exports.default = _default
+var _default = exports.default = relevancyFilter

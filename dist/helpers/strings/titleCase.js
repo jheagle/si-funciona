@@ -19,5 +19,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {string}
  */
 const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')
-var _default = titleCase
-exports.default = _default
+var _default = exports.default = titleCase

@@ -21,5 +21,4 @@ const checkClearValues = function (descriptor) {
   const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
   return (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
 }
-var _default = checkClearValues
-exports.default = _default
+var _default = exports.default = checkClearValues

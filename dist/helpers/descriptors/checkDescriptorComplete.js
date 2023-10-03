@@ -20,5 +20,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {module:objectDescriptors~descriptor}
  */
 const checkDescriptorComplete = descriptor => (0, _setValue.default)('complete', descriptor.references.every(refId => [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(ref => typeof ref === 'number')), descriptor)
-var _default = checkDescriptorComplete
-exports.default = _default
+var _default = exports.default = checkDescriptorComplete

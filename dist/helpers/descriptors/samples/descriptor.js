@@ -19,5 +19,4 @@ const descriptorSample = {
   isArray: false,
   complete: true
 }
-var _default = descriptorSample
-exports.default = _default
+var _default = exports.default = descriptorSample

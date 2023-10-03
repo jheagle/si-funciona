@@ -53,5 +53,4 @@ const dotSet = function (arrayObject, dotNotation) {
   arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
   return arrayObject
 }
-var _default = dotSet
-exports.default = _default
+var _default = exports.default = dotSet

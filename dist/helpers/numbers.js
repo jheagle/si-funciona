@@ -19,11 +19,10 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module numberHelpers
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   absoluteMax: _absoluteMax.default,
   absoluteMin: _absoluteMin.default,
   compare: _compare.default,
   randomInteger: _randomInteger.default,
   randomNumber: _randomNumber.default
 }
-exports.default = _default

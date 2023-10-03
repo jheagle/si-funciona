@@ -20,5 +20,4 @@ const callWithParams = function (fn) {
   const minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
   return fn(...params.slice(0, fn.length || minimum))
 }
-var _default = callWithParams
-exports.default = _default
+var _default = exports.default = callWithParams

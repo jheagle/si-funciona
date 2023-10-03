@@ -24,7 +24,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module functionHelpers
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   callWithParams: _callWithParams.default,
   curry: _curry.default,
   delay: _delay.default,
@@ -36,4 +36,3 @@ var _default = {
   relevancyFilter: _relevancyFilter.default,
   trace: _trace.default
 }
-exports.default = _default

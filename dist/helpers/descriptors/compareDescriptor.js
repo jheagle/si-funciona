@@ -32,5 +32,4 @@ const compareDescriptor = (descriptor1, descriptor2) => {
   const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
   return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
 }
-var _default = compareDescriptor
-exports.default = _default
+var _default = exports.default = compareDescriptor

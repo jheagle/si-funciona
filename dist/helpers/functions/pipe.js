@@ -22,5 +22,4 @@ const pipe = function () {
   }
   return x => fns.reduce((y, f) => f(y), x)
 }
-var _default = pipe
-exports.default = _default
+var _default = exports.default = pipe

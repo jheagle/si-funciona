@@ -51,5 +51,4 @@ const dotUnset = (arrayObject, dotNotation) => {
   arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
   return arrayObject
 }
-var _default = dotUnset
-exports.default = _default
+var _default = exports.default = dotUnset

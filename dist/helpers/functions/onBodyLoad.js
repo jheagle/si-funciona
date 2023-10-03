@@ -72,5 +72,4 @@ const onBodyLoad = function (callback) {
   }
   return queue
 }
-var _default = onBodyLoad
-exports.default = _default
+var _default = exports.default = onBodyLoad

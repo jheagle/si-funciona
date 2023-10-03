@@ -13,5 +13,4 @@ require('core-js/stable')
  * @returns {boolean}
  */
 const isObject = object => typeof object === 'object' && object !== null
-var _default = isObject
-exports.default = _default
+var _default = exports.default = isObject

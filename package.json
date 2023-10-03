@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "js-build-tools": "^2.2.5",
+    "js-build-tools": "^2.2.7",
     "jsdoc": "^4.0.2",
     "standard": "^17.1.0"
   },

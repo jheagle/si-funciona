@@ -18,5 +18,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {string}
  */
 const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')
-var _default = snakeCase
-exports.default = _default
+var _default = exports.default = snakeCase

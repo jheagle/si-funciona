@@ -39,5 +39,4 @@ const objectKeys = function (object) {
   }
   return keys
 }
-var _default = objectKeys
-exports.default = _default
+var _default = exports.default = objectKeys

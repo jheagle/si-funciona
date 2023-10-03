@@ -26,5 +26,4 @@ const curry = fn => function () {
     return curry(fn)(...[...args, ...a])
   }
 }
-var _default = curry
-exports.default = _default
+var _default = exports.default = curry

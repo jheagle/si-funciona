@@ -19,5 +19,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {string}
  */
 const camelCase = str => (0, _words.default)(str).reduce((camel, part) => camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase(), '')
-var _default = camelCase
-exports.default = _default
+var _default = exports.default = camelCase

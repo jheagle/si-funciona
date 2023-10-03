@@ -19,5 +19,4 @@ require('core-js/stable')
  * @returns {boolean}
  */
 const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
-var _default = sameDescriptor
-exports.default = _default
+var _default = exports.default = sameDescriptor

@@ -104,5 +104,4 @@ const compareArrays = function () {
     }]
   }, [])
 }
-var _default = compareArrays
-exports.default = _default
+var _default = exports.default = compareArrays

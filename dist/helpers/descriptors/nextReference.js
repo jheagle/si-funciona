@@ -28,5 +28,4 @@ const nextReference = (descriptor, currentReference) => descriptor.references.fi
   }
   return !!(0, _objectKeys.default)(val).length
 })
-var _default = nextReference
-exports.default = _default
+var _default = exports.default = nextReference

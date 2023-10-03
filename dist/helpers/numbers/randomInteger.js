@@ -21,5 +21,4 @@ const randomInteger = function (range) {
   const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
   return (Math.floor(Math.random() * range) + offset) * interval
 }
-var _default = randomInteger
-exports.default = _default
+var _default = exports.default = randomInteger

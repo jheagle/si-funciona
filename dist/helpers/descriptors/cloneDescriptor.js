@@ -35,5 +35,4 @@ const cloneDescriptor = originalMap => {
   copyMap.complete = originalMap.complete
   return copyMap
 }
-var _default = cloneDescriptor
-exports.default = _default
+var _default = exports.default = cloneDescriptor

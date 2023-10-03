@@ -18,5 +18,4 @@ const setAndReturnValue = (item, key, value) => {
   item[key] = value
   return value
 }
-var _default = setAndReturnValue
-exports.default = _default
+var _default = exports.default = setAndReturnValue

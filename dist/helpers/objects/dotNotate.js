@@ -85,5 +85,4 @@ const dotNotate = function (arrayObject) {
   const retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
   return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
 }
-var _default = dotNotate
-exports.default = _default
+var _default = exports.default = dotNotate

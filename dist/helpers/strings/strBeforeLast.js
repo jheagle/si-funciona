@@ -17,5 +17,4 @@ const strBeforeLast = (str, search) => {
   const index = str.lastIndexOf(search)
   return index === -1 ? '' : str.substring(0, index)
 }
-var _default = strBeforeLast
-exports.default = _default
+var _default = exports.default = strBeforeLast

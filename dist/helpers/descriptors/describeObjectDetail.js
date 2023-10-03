@@ -36,5 +36,4 @@ const describeObjectDetail = function (value) {
     objectReference: null
   }
 }
-var _default = describeObjectDetail
-exports.default = _default
+var _default = exports.default = describeObjectDetail

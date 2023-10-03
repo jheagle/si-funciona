@@ -28,5 +28,4 @@ const mergeArrays = function () {
   }
   return arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
 }
-var _default = mergeArrays
-exports.default = _default
+var _default = exports.default = mergeArrays

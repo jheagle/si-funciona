@@ -21,5 +21,4 @@ const buildArrayOfReferences = (item, length) => {
   }
   return arr
 }
-var _default = buildArrayOfReferences
-exports.default = _default
+var _default = exports.default = buildArrayOfReferences

@@ -14,5 +14,4 @@ require('core-js/stable')
  * @returns {number}
  */
 const absoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
-var _default = absoluteMax
-exports.default = _default
+var _default = exports.default = absoluteMax

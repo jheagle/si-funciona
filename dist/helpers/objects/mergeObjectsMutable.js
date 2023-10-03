@@ -16,5 +16,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {*}
  */
 const mergeObjectsMutable = (0, _mergeObjectsBase.default)()
-var _default = mergeObjectsMutable
-exports.default = _default
+var _default = exports.default = mergeObjectsMutable

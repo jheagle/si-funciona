@@ -24,5 +24,4 @@ const isInstanceObject = object => {
   }
   return object.constructor.name !== 'Array' && (0, _objectKeys.default)(object, true).length > (0, _objectKeys.default)(object).length
 }
-var _default = isInstanceObject
-exports.default = _default
+var _default = exports.default = isInstanceObject

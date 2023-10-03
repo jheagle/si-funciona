@@ -28,5 +28,4 @@ const queueTimeout = function () {
     return manager(() => (0, _delay.default)(time).resolver.then(() => fn(...args)))
   }
 }
-var _default = queueTimeout
-exports.default = _default
+var _default = exports.default = queueTimeout

@@ -17,5 +17,4 @@ const strAfterLast = (str, search) => {
   const index = str.lastIndexOf(search)
   return index === -1 ? '' : str.substring(index + search.length)
 }
-var _default = strAfterLast
-exports.default = _default
+var _default = exports.default = strAfterLast

@@ -99,5 +99,4 @@ const mergeObjectsBase = function () {
     }, firstObject || {})
   }
 }
-var _default = mergeObjectsBase
-exports.default = _default
+var _default = exports.default = mergeObjectsBase

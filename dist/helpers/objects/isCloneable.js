@@ -15,5 +15,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {boolean}
  */
 const isCloneable = value => typeof value === 'object' && value !== null && !(0, _isInstanceObject.default)(value)
-var _default = isCloneable
-exports.default = _default
+var _default = exports.default = isCloneable

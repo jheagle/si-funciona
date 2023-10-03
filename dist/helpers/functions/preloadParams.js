@@ -24,5 +24,4 @@ const preloadParams = function (fn) {
     return fn(...params)
   }
 }
-var _default = preloadParams
-exports.default = _default
+var _default = exports.default = preloadParams

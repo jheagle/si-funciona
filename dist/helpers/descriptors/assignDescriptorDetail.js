@@ -41,5 +41,4 @@ const assignDescriptorDetail = function (originalDetail) {
     return existingDetail
   }, (0, _cloneDescriptorDetail.default)(originalDetail))
 }
-var _default = assignDescriptorDetail
-exports.default = _default
+var _default = exports.default = assignDescriptorDetail

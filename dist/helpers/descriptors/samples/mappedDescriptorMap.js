@@ -281,5 +281,4 @@ const mappedDescriptorMap = [{
   isArray: true,
   complete: true
 }]
-var _default = mappedDescriptorMap
-exports.default = _default
+var _default = exports.default = mappedDescriptorMap

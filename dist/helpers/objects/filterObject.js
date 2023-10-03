@@ -35,5 +35,4 @@ const filterObject = function (obj, fn) {
     return newObj
   }, {})
 }
-var _default = filterObject
-exports.default = _default
+var _default = exports.default = filterObject

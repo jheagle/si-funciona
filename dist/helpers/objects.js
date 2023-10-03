@@ -33,7 +33,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module objectHelpers
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   cloneObject: _cloneObject.default,
   dotGet: _dotGet.default,
   dotNotate: _dotNotate.default,
@@ -54,4 +54,3 @@ var _default = {
   setAndReturnValue: _setAndReturnValue.default,
   setValue: _setValue.default
 }
-exports.default = _default

@@ -13,5 +13,4 @@ require('core-js/stable')
  * @returns {string}
  */
 const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-var _default = ucFirst
-exports.default = _default
+var _default = exports.default = ucFirst

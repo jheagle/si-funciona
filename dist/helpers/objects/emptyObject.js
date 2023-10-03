@@ -16,5 +16,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {boolean}
  */
 const emptyObject = item => (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
-var _default = emptyObject
-exports.default = _default
+var _default = exports.default = emptyObject

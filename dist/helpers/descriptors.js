@@ -26,7 +26,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module objectDescriptors
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   assignDescriptor: _assignDescriptor.default,
   assignDescriptorDetail: _assignDescriptorDetail.default,
   checkClearValues: _checkClearValues.default,
@@ -40,4 +40,3 @@ var _default = {
   nextReference: _nextReference.default,
   sameDescriptor: _sameDescriptor.default
 }
-exports.default = _default

@@ -95,5 +95,4 @@ const describeObjectMap = function (object) {
   }
   return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
 }
-var _default = describeObjectMap
-exports.default = _default
+var _default = exports.default = describeObjectMap

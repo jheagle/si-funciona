@@ -14,5 +14,4 @@ require('core-js/stable')
  * @returns {Array}
  */
 const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
-var _default = addUniqueToArray
-exports.default = _default
+var _default = exports.default = addUniqueToArray

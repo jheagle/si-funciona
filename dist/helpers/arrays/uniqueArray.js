@@ -16,5 +16,4 @@ require('core-js/stable')
  * @returns {Array}
  */
 const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
-var _default = uniqueArray
-exports.default = _default
+var _default = exports.default = uniqueArray

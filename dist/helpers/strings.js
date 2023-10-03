@@ -24,7 +24,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module stringHelpers
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   camelCase: _camelCase.default,
   kabobCase: _kabobCase.default,
   snakeCase: _snakeCase.default,
@@ -36,4 +36,3 @@ var _default = {
   ucFirst: _ucFirst.default,
   words: _words.default
 }
-exports.default = _default

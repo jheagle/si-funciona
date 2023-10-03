@@ -22,5 +22,4 @@ const objectValues = function (object) {
   const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
   return (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
 }
-var _default = objectValues
-exports.default = _default
+var _default = exports.default = objectValues

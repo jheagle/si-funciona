@@ -27,5 +27,4 @@ const cloneDescriptorDetail = originalDetail => {
   })
   return copyDetail
 }
-var _default = cloneDescriptorDetail
-exports.default = _default
+var _default = exports.default = cloneDescriptorDetail

@@ -18,5 +18,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 const mergeObjects = (0, _mergeObjectsBase.default)({
   useClone: true
 })
-var _default = mergeObjects
-exports.default = _default
+var _default = exports.default = mergeObjects

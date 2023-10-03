@@ -50,5 +50,4 @@ const queueManager = function () {
     })
   }
 }
-var _default = queueManager
-exports.default = _default
+var _default = exports.default = queueManager

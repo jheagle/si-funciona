@@ -20,7 +20,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @module arrayHelpers
  * @memberOf module:siFunciona
  */
-var _default = {
+var _default = exports.default = {
   addUniqueToArray: _addUniqueToArray.default,
   buildArray: _buildArray.default,
   buildArrayOfReferences: _buildArrayOfReferences.default,
@@ -28,4 +28,3 @@ var _default = {
   mergeArrays: _mergeArrays.default,
   uniqueArray: _uniqueArray.default
 }
-exports.default = _default

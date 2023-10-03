@@ -17,5 +17,4 @@ const strBefore = (str, search) => {
   const index = str.indexOf(search)
   return index === -1 ? '' : str.slice(0, index)
 }
-var _default = strBefore
-exports.default = _default
+var _default = exports.default = strBefore

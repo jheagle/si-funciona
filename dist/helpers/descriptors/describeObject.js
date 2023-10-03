@@ -49,5 +49,4 @@ const describeObject = object => {
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
-var _default = describeObject
-exports.default = _default
+var _default = exports.default = describeObject

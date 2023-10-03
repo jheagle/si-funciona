@@ -24,5 +24,4 @@ const trace = function (label) {
     return value
   }
 }
-var _default = trace
-exports.default = _default
+var _default = exports.default = trace

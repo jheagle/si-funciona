@@ -11,5 +11,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @memberOf module:objectDescriptors
  */
 const descriptorMapSample = [_descriptor.default]
-var _default = descriptorMapSample
-exports.default = _default
+var _default = exports.default = descriptorMapSample

@@ -31,5 +31,4 @@ const delay = function () {
     cancel: cancel
   }
 }
-var _default = delay
-exports.default = _default
+var _default = exports.default = delay

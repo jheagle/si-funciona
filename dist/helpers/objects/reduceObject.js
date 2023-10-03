@@ -28,5 +28,4 @@ const reduceObject = function (obj, fn) {
   const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
   return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
 }
-var _default = reduceObject
-exports.default = _default
+var _default = exports.default = reduceObject

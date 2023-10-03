@@ -18,5 +18,4 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * @returns {string}
  */
 const kabobCase = str => (0, _words.default)(str).reduce((kabob, part) => kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase(), '')
-var _default = kabobCase
-exports.default = _default
+var _default = exports.default = kabobCase

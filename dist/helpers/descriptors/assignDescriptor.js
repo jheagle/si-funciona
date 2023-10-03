@@ -65,5 +65,4 @@ const assignDescriptor = function (originalMap) {
     return assignedDescriptor
   }, (0, _cloneDescriptor.default)(originalMap))
 }
-var _default = assignDescriptor
-exports.default = _default
+var _default = exports.default = assignDescriptor

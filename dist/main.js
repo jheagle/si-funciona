@@ -20,8 +20,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  */
 
 const siFunciona = Object.assign({}, _arrays.default, _descriptors.default, _functions.default, _numbers.default, _objects.default, _strings.default)
-var _default = siFunciona
-exports.default = _default
+var _default = exports.default = siFunciona
 if (void 0) {
   // @ts-ignore
   (void 0).siFunciona = siFunciona

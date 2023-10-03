@@ -13,5 +13,4 @@ require('core-js/stable')
  * @returns {array}
  */
 const words = str => str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
-var _default = words
-exports.default = _default
+var _default = exports.default = words
