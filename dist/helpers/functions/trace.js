@@ -20,7 +20,7 @@ const trace = function (label) {
   const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
   return value => {
     // noinspection JSForgottenDebugStatementInspection
-    console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
+    console.info(`${label}: `, useClone ? (0, _cloneObject.default)(value) : value)
     return value
   }
 }

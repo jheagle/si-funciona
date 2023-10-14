@@ -19,12 +19,12 @@ const delay = function () {
   return {
     resolver: new Promise((resolve, reject) => {
       if (isNaN(time)) {
-        reject(new Error('Invalid delay: '.concat(time)))
+        reject(new Error(`Invalid delay: ${time}`))
       } else {
-        const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+        const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`)
         cancel = () => {
           clearTimeout(timeoutId)
-          reject(new Error('Cancelled delay: '.concat(time)))
+          reject(new Error(`Cancelled delay: ${time}`))
         }
       }
     }),

@@ -115,7 +115,6 @@
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.async-iterator.every.js')
@@ -213,7 +212,7 @@
       }, [])
     }
     var _default = exports.default = compareArrays
-  }, { '../objects/isObject': 48, '../objects/objectKeys': 53, './mergeArrays': 6, 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { '../objects/isObject': 48, '../objects/objectKeys': 53, './mergeArrays': 6, 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/stable': 623 }],
   6: [function (require, module, exports) {
     'use strict'
 
@@ -226,7 +225,6 @@
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.filter.js')
     require('core-js/stable')
@@ -246,7 +244,7 @@
       return arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
     }
     var _default = exports.default = mergeArrays
-  }, { './uniqueArray': 7, 'core-js/modules/esnext.async-iterator.filter.js': 584, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.filter.js': 592, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { './uniqueArray': 7, 'core-js/modules/esnext.async-iterator.filter.js': 584, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.filter.js': 592, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/stable': 623 }],
   7: [function (require, module, exports) {
     'use strict'
 
@@ -322,7 +320,6 @@
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.for-each.js')
     require('core-js/modules/esnext.async-iterator.find.js')
@@ -381,7 +378,7 @@
       }, (0, _cloneDescriptor.default)(originalMap))
     }
     var _default = exports.default = assignDescriptor
-  }, { '../arrays/compareArrays': 5, '../arrays/uniqueArray': 7, './assignDescriptorDetail': 10, './cloneDescriptor': 13, 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.filter.js': 584, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.for-each.js': 586, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.filter.js': 592, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.for-each.js': 594, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { '../arrays/compareArrays': 5, '../arrays/uniqueArray': 7, './assignDescriptorDetail': 10, './cloneDescriptor': 13, 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.filter.js': 584, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.for-each.js': 586, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.filter.js': 592, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.for-each.js': 594, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/stable': 623 }],
   10: [function (require, module, exports) {
     'use strict'
 
@@ -392,7 +389,6 @@
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/stable')
@@ -427,7 +423,7 @@
       }, (0, _cloneDescriptorDetail.default)(originalDetail))
     }
     var _default = exports.default = assignDescriptorDetail
-  }, { '../arrays/uniqueArray': 7, './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { '../arrays/uniqueArray': 7, './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.reduce.js': 588, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.reduce.js': 596, 'core-js/stable': 623 }],
   11: [function (require, module, exports) {
     'use strict'
 
@@ -488,7 +484,6 @@
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -518,7 +513,7 @@
       return copyMap
     }
     var _default = exports.default = cloneDescriptor
-  }, { './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { './cloneDescriptorDetail': 14, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/stable': 623 }],
   14: [function (require, module, exports) {
     'use strict'
 
@@ -561,7 +556,6 @@
     require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.some.js')
     require('core-js/modules/esnext.async-iterator.find.js')
@@ -587,7 +581,7 @@
       return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
     }
     var _default = exports.default = compareDescriptor
-  }, { 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.some.js': 589, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.some.js': 597, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { 'core-js/modules/esnext.async-iterator.every.js': 583, 'core-js/modules/esnext.async-iterator.find.js': 585, 'core-js/modules/esnext.async-iterator.some.js': 589, 'core-js/modules/esnext.iterator.constructor.js': 590, 'core-js/modules/esnext.iterator.every.js': 591, 'core-js/modules/esnext.iterator.find.js': 593, 'core-js/modules/esnext.iterator.some.js': 597, 'core-js/stable': 623 }],
   16: [function (require, module, exports) {
     'use strict'
 
@@ -887,7 +881,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
@@ -904,7 +897,7 @@
       return fn(...params.slice(0, fn.length || minimum))
     }
     var _default = exports.default = callWithParams
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { 'core-js/stable': 623 }],
   23: [function (require, module, exports) {
     'use strict'
 
@@ -912,7 +905,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Return a curried version of the passed function.
@@ -935,7 +927,7 @@
       }
     }
     var _default = exports.default = curry
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { 'core-js/stable': 623 }],
   24: [function (require, module, exports) {
     'use strict'
 
@@ -958,12 +950,12 @@
       return {
         resolver: new Promise((resolve, reject) => {
           if (isNaN(time)) {
-            reject(new Error('Invalid delay: '.concat(time)))
+            reject(new Error(`Invalid delay: ${time}`))
           } else {
-            const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+            const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`)
             cancel = () => {
               clearTimeout(timeoutId)
-              reject(new Error('Cancelled delay: '.concat(time)))
+              reject(new Error(`Cancelled delay: ${time}`))
             }
           }
         }),
@@ -1083,7 +1075,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
@@ -1104,7 +1095,7 @@
       }
     }
     var _default = exports.default = preloadParams
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623 }],
+  }, { 'core-js/stable': 623 }],
   28: [function (require, module, exports) {
     'use strict'
 
@@ -1112,7 +1103,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     /**
@@ -1159,7 +1149,7 @@
       }
     }
     var _default = exports.default = queueManager
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623, 'regenerator-runtime/runtime': 624 }],
+  }, { 'core-js/stable': 623, 'regenerator-runtime/runtime': 624 }],
   29: [function (require, module, exports) {
     'use strict'
 
@@ -1167,7 +1157,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     var _delay = _interopRequireDefault(require('./delay'))
@@ -1192,7 +1181,7 @@
       }
     }
     var _default = exports.default = queueTimeout
-  }, { './delay': 24, './queueManager': 28, 'core-js/modules/web.dom-collections.iterator.js': 602, 'core-js/stable': 623, 'regenerator-runtime/runtime': 624 }],
+  }, { './delay': 24, './queueManager': 28, 'core-js/stable': 623, 'regenerator-runtime/runtime': 624 }],
   30: [function (require, module, exports) {
     'use strict'
 
@@ -1256,7 +1245,7 @@
       const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
       return value => {
         // noinspection JSForgottenDebugStatementInspection
-        console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
+        console.info(`${label}: `, useClone ? (0, _cloneObject.default)(value) : value)
         return value
       }
     }
@@ -1573,7 +1562,6 @@
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/es.string.replace.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('./isObject'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -1594,7 +1582,7 @@
         return (currentKey, value, results) => false
       }
       retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
-      const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
+      const retainRegex = new RegExp(`(${retainObjects.join('|')})$`)
       /**
    * Test if a key should be retained as an object.
    * @param {string} currentKey - The key to test
@@ -1628,12 +1616,12 @@
       for (const key in arrayObject) {
         // @ts-ignore
         const value = arrayObject[key]
-        const currentKey = ''.concat(prepend).concat(key)
+        const currentKey = `${prepend}${key}`
         if (didRetain(currentKey, value, results)) {
           continue
         }
         if ((0, _isObject.default)(value)) {
-          performDotNotate(value, didRetain, ''.concat(currentKey, '.'), results)
+          performDotNotate(value, didRetain, `${currentKey}.`, results)
           continue
         }
         results[currentKey] = value
@@ -1653,7 +1641,7 @@
       return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
     }
     var _default = exports.default = dotNotate
-  }, { './isObject': 48, 'core-js/modules/es.string.replace.js': 505, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/stable': 623 }],
+  }, { './isObject': 48, 'core-js/modules/esnext.async-iterator.map.js': 587, 'core-js/modules/esnext.iterator.map.js': 595, 'core-js/stable': 623 }],
   42: [function (require, module, exports) {
     'use strict'
 
