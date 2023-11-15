@@ -1,5 +1,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
+import { callableLater, IsQueue, queuedItem } from '../arrays/BasicQueue'
+import makeBasicQueue from './makeBasicQueue'
 
 /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
@@ -11,27 +13,26 @@ import 'regenerator-runtime/runtime'
  */
 export type queueManagerHandle = (fn: Function, ...args: any) => Promise<any>
 
-type callableLater = { fn?: Function, args?: Array<any> }
-
-export type queuedItem = {
-  item: callableLater
-  generator: Generator
-}
-
 /**
  * Manage functions to run sequentially.
  * @function
  * @memberOf module:functionHelpers
- * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-const queueManager = (queue: Array<queuedItem> = []): queueManagerHandle => {
+const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => {
+  if (Array.isArray(queue)) {
+    queue = makeBasicQueue(queue)
+  }
+  if (queue === null) {
+    queue = makeBasicQueue()
+  }
   let isRunning = false
   return (fn: Function, ...args: any): Promise<any> => {
     const runNextItem = () => {
-      if (queue.length && !isRunning) {
+      if (!queue.empty() && !isRunning) {
         isRunning = true
-        const toRun = queue.shift()
+        const toRun = queue.dequeue()
         toRun.generator.next(toRun.item)
       }
       return queue
@@ -42,7 +43,7 @@ const queueManager = (queue: Array<queuedItem> = []): queueManagerHandle => {
         return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
       })()
       generator.next()
-      queue.push({
+      queue.enqueue({
         item: { fn: fn, args: args },
         generator: generator
       })

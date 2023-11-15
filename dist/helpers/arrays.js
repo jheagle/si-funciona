@@ -6,6 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/stable')
 var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
+var _BasicQueue = _interopRequireDefault(require('./arrays/BasicQueue'))
 var _buildArray = _interopRequireDefault(require('./arrays/buildArray'))
 var _buildArrayOfReferences = _interopRequireDefault(require('./arrays/buildArrayOfReferences'))
 var _compareArrays = _interopRequireDefault(require('./arrays/compareArrays'))
@@ -22,6 +23,7 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  */
 var _default = exports.default = {
   addUniqueToArray: _addUniqueToArray.default,
+  BasicQueue: _BasicQueue.default,
   buildArray: _buildArray.default,
   buildArrayOfReferences: _buildArrayOfReferences.default,
   compareArrays: _compareArrays.default,

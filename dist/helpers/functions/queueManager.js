@@ -6,24 +6,32 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/stable')
 require('regenerator-runtime/runtime')
+var _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
+function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Manage functions to run sequentially.
  * @function
  * @memberOf module:functionHelpers
- * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
 const queueManager = function () {
-  const queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+  let queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+  if (Array.isArray(queue)) {
+    queue = (0, _makeBasicQueue.default)(queue)
+  }
+  if (queue === null) {
+    queue = (0, _makeBasicQueue.default)()
+  }
   let isRunning = false
   return function (fn) {
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key]
     }
     const runNextItem = () => {
-      if (queue.length && !isRunning) {
+      if (!queue.empty() && !isRunning) {
         isRunning = true
-        const toRun = queue.shift()
+        const toRun = queue.dequeue()
         toRun.generator.next(toRun.item)
       }
       return queue
@@ -34,7 +42,7 @@ const queueManager = function () {
         return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
       }())
       generator.next()
-      queue.push({
+      queue.enqueue({
         item: {
           fn: fn,
           args: args

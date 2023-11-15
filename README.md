@@ -583,6 +583,7 @@ Manage how functions are called with these utilities.
     * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ <code>module:functionHelpers~callWithMissing</code>
     * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
     * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
+    * [.makeBasicQueue(initialQueue)](#module_functionHelpers.makeBasicQueue) ⇒ <code>IsQueue</code>
     * [.delay(time)](#module_functionHelpers.delay) ⇒ <code>module:functionHelpers~delayHandler</code>
     * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
     * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
@@ -633,7 +634,7 @@ Manage functions to run sequentially.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [queue] | <code>Iterable</code> \| <code>array</code> | <code>[]</code> | The iterable that can be used to store queued functions |
+| [queue] | <code>IsQueue</code> | <code>[]</code> | The iterable that can be used to store queued functions |
 
 <a name="module_functionHelpers.preloadParams"></a>
 
@@ -672,6 +673,17 @@ Prepare functions to be called once the body is available.
 | --- | --- | --- |
 | callback | <code>function</code> |  | 
 | [reset] | <code>boolean</code> | <code>false</code> | 
+
+<a name="module_functionHelpers.makeBasicQueue"></a>
+
+### functionHelpers.makeBasicQueue(initialQueue) ⇒ <code>IsQueue</code>
+Create an instance of a basic queue.
+
+**Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
+
+| Param | Type |
+| --- | --- |
+| initialQueue | <code>Array</code> | 
 
 <a name="module_functionHelpers.delay"></a>
 
@@ -905,6 +917,12 @@ Some simple utility functions for generating arrays or performing work on arrays
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [arrayHelpers](#module_arrayHelpers)
+    * [.BasicQueue](#module_arrayHelpers.BasicQueue)
+        * [.dequeue()](#module_arrayHelpers.BasicQueue+dequeue) ⇒ <code>queuedItem</code> \| <code>\*</code>
+        * [.empty()](#module_arrayHelpers.BasicQueue+empty) ⇒ <code>boolean</code>
+        * [.enqueue(data)](#module_arrayHelpers.BasicQueue+enqueue) ⇒ <code>BasicQueue</code>
+        * [.peek()](#module_arrayHelpers.BasicQueue+peek) ⇒ <code>queuedItem</code> \| <code>\*</code>
+        * [.size()](#module_arrayHelpers.BasicQueue+size) ⇒ <code>number</code>
     * [.uniqueArray(array)](#module_arrayHelpers.uniqueArray) ⇒ <code>Array</code>
     * [.mergeArrays(...arrays)](#module_arrayHelpers.mergeArrays) ⇒ <code>Array</code>
     * [.compareArrays(...arrays)](#module_arrayHelpers.compareArrays) ⇒ <code>Array.&lt;module:arrayHelpers~compareArrayResult&gt;</code>
@@ -912,6 +930,55 @@ Some simple utility functions for generating arrays or performing work on arrays
     * [.buildArray(item, length)](#module_arrayHelpers.buildArray) ⇒ <code>Array.&lt;\*&gt;</code>
     * [.addUniqueToArray(item, array)](#module_arrayHelpers.addUniqueToArray) ⇒ <code>Array</code>
 
+<a name="module_arrayHelpers.BasicQueue"></a>
+
+### arrayHelpers.BasicQueue
+Class BasicQueue is a functional example of a queue to be used with queueManager.
+
+**Kind**: static class of [<code>arrayHelpers</code>](#module_arrayHelpers)  
+
+* [.BasicQueue](#module_arrayHelpers.BasicQueue)
+    * [.dequeue()](#module_arrayHelpers.BasicQueue+dequeue) ⇒ <code>queuedItem</code> \| <code>\*</code>
+    * [.empty()](#module_arrayHelpers.BasicQueue+empty) ⇒ <code>boolean</code>
+    * [.enqueue(data)](#module_arrayHelpers.BasicQueue+enqueue) ⇒ <code>BasicQueue</code>
+    * [.peek()](#module_arrayHelpers.BasicQueue+peek) ⇒ <code>queuedItem</code> \| <code>\*</code>
+    * [.size()](#module_arrayHelpers.BasicQueue+size) ⇒ <code>number</code>
+
+<a name="module_arrayHelpers.BasicQueue+dequeue"></a>
+
+#### basicQueue.dequeue() ⇒ <code>queuedItem</code> \| <code>\*</code>
+Remove and return the next item in the queue
+
+**Kind**: instance method of [<code>BasicQueue</code>](#module_arrayHelpers.BasicQueue)  
+<a name="module_arrayHelpers.BasicQueue+empty"></a>
+
+#### basicQueue.empty() ⇒ <code>boolean</code>
+Check if the queue is empty
+
+**Kind**: instance method of [<code>BasicQueue</code>](#module_arrayHelpers.BasicQueue)  
+<a name="module_arrayHelpers.BasicQueue+enqueue"></a>
+
+#### basicQueue.enqueue(data) ⇒ <code>BasicQueue</code>
+Add an item to the end of the queue
+
+**Kind**: instance method of [<code>BasicQueue</code>](#module_arrayHelpers.BasicQueue)  
+
+| Param | Type |
+| --- | --- |
+| data | <code>queuedItem</code> \| <code>\*</code> | 
+
+<a name="module_arrayHelpers.BasicQueue+peek"></a>
+
+#### basicQueue.peek() ⇒ <code>queuedItem</code> \| <code>\*</code>
+Retrieve the next item from the queue
+
+**Kind**: instance method of [<code>BasicQueue</code>](#module_arrayHelpers.BasicQueue)  
+<a name="module_arrayHelpers.BasicQueue+size"></a>
+
+#### basicQueue.size() ⇒ <code>number</code>
+Get the quantity of items in the queue
+
+**Kind**: instance method of [<code>BasicQueue</code>](#module_arrayHelpers.BasicQueue)  
 <a name="module_arrayHelpers.uniqueArray"></a>
 
 ### arrayHelpers.uniqueArray(array) ⇒ <code>Array</code>

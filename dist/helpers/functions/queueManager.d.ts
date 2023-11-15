@@ -1,5 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import { IsQueue, queuedItem } from '../arrays/BasicQueue';
 /**
  * Each time queue handle is called the passed function is added to the queue to be called when ready.
  * @typedef {Function} module:functionHelpers~queueManagerHandle
@@ -9,20 +10,12 @@ import 'regenerator-runtime/runtime';
  * @returns {Promise}
  */
 export type queueManagerHandle = (fn: Function, ...args: any) => Promise<any>;
-type callableLater = {
-    fn?: Function;
-    args?: Array<any>;
-};
-export type queuedItem = {
-    item: callableLater;
-    generator: Generator;
-};
 /**
  * Manage functions to run sequentially.
  * @function
  * @memberOf module:functionHelpers
- * @param {Iterable|array} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-declare const queueManager: (queue?: Array<queuedItem>) => queueManagerHandle;
+declare const queueManager: (queue?: IsQueue<queuedItem>) => queueManagerHandle;
 export default queueManager;

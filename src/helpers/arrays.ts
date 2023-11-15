@@ -9,6 +9,7 @@
 
 import 'core-js/stable'
 import addUniqueToArray from './arrays/addUniqueToArray'
+import BasicQueue from './arrays/BasicQueue'
 import buildArray from './arrays/buildArray'
 import buildArrayOfReferences from './arrays/buildArrayOfReferences'
 import compareArrays from './arrays/compareArrays'
@@ -17,6 +18,7 @@ import uniqueArray from './arrays/uniqueArray'
 
 export default {
   addUniqueToArray,
+  BasicQueue,
   buildArray,
   buildArrayOfReferences,
   compareArrays,

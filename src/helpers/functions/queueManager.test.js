@@ -12,7 +12,7 @@ describe('queueManager', () => {
     const function3 = value => testArray.push(value) && (test3() || value)
     const function4 = value => testArray.push(value) && (test4() || value)
     expect.assertions(5)
-    const manager = queueManager([])
+    const manager = queueManager()
     Promise.all([
       manager(function1, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
       manager(function2, 'two').then(result => expect(test2).toHaveBeenCalled() || result),

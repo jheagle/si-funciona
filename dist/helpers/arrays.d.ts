@@ -7,8 +7,10 @@
  * @memberOf module:siFunciona
  */
 import 'core-js/stable';
+import BasicQueue from './arrays/BasicQueue';
 declare const _default: {
     addUniqueToArray: (item: any, array: any[]) => any[];
+    BasicQueue: typeof BasicQueue;
     buildArray: (item: any, length: number) => any[];
     buildArrayOfReferences: (item: any, length: number) => any[];
     compareArrays: (...arrays: any[][]) => import("./arrays/compareArrays").compareArrayResultMap;

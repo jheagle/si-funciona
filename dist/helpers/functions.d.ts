@@ -14,10 +14,11 @@ declare const _default: {
         resolver: Promise<any>;
         cancel: () => void;
     };
+    makeBasicQueue: (initialQueue?: any) => import("./arrays/BasicQueue").IsQueue<any>;
     onBodyLoad: (callback: Function, reset?: boolean) => Function[];
     pipe: (...fns: Function[]) => any;
     preloadParams: (fn: Function, params?: any[], unassignedParam?: number) => (missing: any) => any;
-    queueManager: (queue?: import("./functions/queueManager").queuedItem[]) => import("./functions/queueManager").queueManagerHandle;
+    queueManager: (queue?: import("./arrays/BasicQueue").IsQueue<import("./arrays/BasicQueue").queuedItem>) => import("./functions/queueManager").queueManagerHandle;
     queueTimeout: (queueManagerHandle?: import("./functions/queueManager").queueManagerHandle) => (fn: Function, time: number, ...args: any) => Promise<any>;
     relevancyFilter: (map: import("./functions/relevancyFilter").relevanceMap, { mapLimit, relevancyRange }?: {
         mapLimit?: number;

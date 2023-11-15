@@ -30,11 +30,11 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "npm": "^10.2.0"
+    "npm": "^10.2.3"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "js-build-tools": "^2.2.8",
+    "js-build-tools": "^2.2.10",
     "jsdoc": "^4.0.2",
     "standard": "^17.1.0"
   },
