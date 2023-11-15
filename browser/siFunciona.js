@@ -1219,7 +1219,10 @@
           if (!queue.empty() && !isRunning) {
             isRunning = true
             const toRun = queue.dequeue()
-            toRun.generator.next(toRun.item)
+            if (toRun.generator && toRun.item) {
+              // Ensure the returned result has both the generator and the item to be valid
+              toRun.generator.next(toRun.item)
+            }
           }
           return queue
         }

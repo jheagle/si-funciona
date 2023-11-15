@@ -1,6 +1,5 @@
 import queueManager from './queueManager'
 import queueTimeout from './queueTimeout'
-import { logObject } from 'js-build-tools/functions/testHelpers'
 
 describe('queueTimeout', () => {
   test('takes multiple functions and processes sequentially them after provided timeouts', () => {
