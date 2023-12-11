@@ -580,6 +580,10 @@ Manage how functions are called with these utilities.
     * [.relevancyFilter(map, [options])](#module_functionHelpers.relevancyFilter) ⇒ <code>relevanceMap</code>
     * [.queueTimeout([queueManagerHandle])](#module_functionHelpers.queueTimeout) ⇒ <code>module:functionHelpers~queueTimeoutHandle</code>
     * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
+        * [~makeQueuedRunnable(resolve, reject, fn, ...args)](#module_functionHelpers.queueManager..makeQueuedRunnable) ⇒ <code>queuedRunnable</code>
+        * [~postRun(result)](#module_functionHelpers.queueManager..postRun) ⇒ <code>\*</code>
+        * [~runNextItem()](#module_functionHelpers.queueManager..runNextItem) ⇒ <code>IteratorYieldResult</code> \| <code>null</code>
+        * [~pushAnother(fn, ...args)](#module_functionHelpers.queueManager..pushAnother) ⇒
     * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ <code>module:functionHelpers~callWithMissing</code>
     * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
     * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
@@ -635,6 +639,57 @@ Manage functions to run sequentially.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [queue] | <code>IsQueue</code> | <code>[]</code> | The iterable that can be used to store queued functions |
+
+
+* [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
+    * [~makeQueuedRunnable(resolve, reject, fn, ...args)](#module_functionHelpers.queueManager..makeQueuedRunnable) ⇒ <code>queuedRunnable</code>
+    * [~postRun(result)](#module_functionHelpers.queueManager..postRun) ⇒ <code>\*</code>
+    * [~runNextItem()](#module_functionHelpers.queueManager..runNextItem) ⇒ <code>IteratorYieldResult</code> \| <code>null</code>
+    * [~pushAnother(fn, ...args)](#module_functionHelpers.queueManager..pushAnother) ⇒
+
+<a name="module_functionHelpers.queueManager..makeQueuedRunnable"></a>
+
+#### queueManager~makeQueuedRunnable(resolve, reject, fn, ...args) ⇒ <code>queuedRunnable</code>
+Convert a function to a queueable object.
+
+**Kind**: inner method of [<code>queueManager</code>](#module_functionHelpers.queueManager)  
+
+| Param | Type |
+| --- | --- |
+| resolve | <code>Promise.resolve</code> | 
+| reject | <code>Promise.reject</code> | 
+| fn | <code>function</code> | 
+| ...args | <code>\*</code> | 
+
+<a name="module_functionHelpers.queueManager..postRun"></a>
+
+#### queueManager~postRun(result) ⇒ <code>\*</code>
+After an item is run, THEN run this function to reset isRunning
+
+**Kind**: inner method of [<code>queueManager</code>](#module_functionHelpers.queueManager)  
+
+| Param | Type |
+| --- | --- |
+| result | <code>\*</code> | 
+
+<a name="module_functionHelpers.queueManager..runNextItem"></a>
+
+#### queueManager~runNextItem() ⇒ <code>IteratorYieldResult</code> \| <code>null</code>
+When ready, runs the next queued runnable generator.
+
+**Kind**: inner method of [<code>queueManager</code>](#module_functionHelpers.queueManager)  
+<a name="module_functionHelpers.queueManager..pushAnother"></a>
+
+#### queueManager~pushAnother(fn, ...args) ⇒
+Add a function into the queue to be run when ready.
+
+**Kind**: inner method of [<code>queueManager</code>](#module_functionHelpers.queueManager)  
+**Returns**: Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | The function to run when ready |
+| ...args | <code>\*</code> | Optional arguments to apply when the function is ready to be run |
 
 <a name="module_functionHelpers.preloadParams"></a>
 

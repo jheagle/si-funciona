@@ -23,7 +23,8 @@ type queueTimeoutHandle = (fn: Function, time: number, ...args: any) => Promise<
  */
 const queueTimeout = (queueManagerHandle: queueManagerHandle = null): queueTimeoutHandle => {
   const manager: queueManagerHandle = queueManagerHandle || queueManager()
-  return (fn: Function, time: number = 0, ...args: any): Promise<any> => manager(() => delay(time).resolver.then(() => fn(...args)))
+  manager.start()
+  return (fn: Function, time: number = 0, ...args: any): Promise<any> => manager.push(() => delay(time).resolver.then(() => fn(...args)))
 }
 
 export default queueTimeout

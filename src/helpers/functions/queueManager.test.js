@@ -1,23 +1,38 @@
 import queueManager from './queueManager'
+import Queue from 'collect-your-stuff/dist/collections/queue/Queue'
 
 describe('queueManager', () => {
   test('takes multiple functions and processes sequentially', done => {
     const testArray = []
-    const test1 = jest.fn()
-    const test2 = jest.fn()
-    const test3 = jest.fn()
-    const test4 = jest.fn()
-    const function1 = value => testArray.push(value) && (test1() || value)
-    const function2 = value => testArray.push(value) && (test2() || value)
-    const function3 = value => testArray.push(value) && (test3() || value)
-    const function4 = value => testArray.push(value) && (test4() || value)
+    const testDidRun = jest.fn()
+    const testFunction = value => testArray.push(value) && (testDidRun() || value)
     expect.assertions(5)
     const manager = queueManager()
+    manager.start()
     Promise.all([
-      manager(function1, 'one').then(result => expect(test1).toHaveBeenCalled() || result),
-      manager(function2, 'two').then(result => expect(test2).toHaveBeenCalled() || result),
-      manager(function3, 'three').then(result => expect(test3).toHaveBeenCalled() || result),
-      manager(function4, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
+      manager.push(testFunction, 'one').then(result => expect(testDidRun).toHaveBeenCalled() || result),
+      manager.push(testFunction, 'two').then(result => expect(testDidRun).toHaveBeenCalled() || result),
+      manager.push(testFunction, 'three').then(result => expect(testDidRun).toHaveBeenCalled() || result),
+      manager.push(testFunction, 'four').then(result => expect(testDidRun).toHaveBeenCalled() || result)
     ]).then(result => expect(testArray).toEqual(result) || done())
+  })
+
+  test('can use alternative Queue and run more after sequence', () => {
+    expect.assertions(1)
+    const testArray = []
+    const testFunction = value => complete => {
+      testArray.push(value)
+      return complete
+    }
+    let queueToUse = [testFunction('one'), testFunction('two'), testFunction('three'), testFunction('four')]
+    queueToUse = Queue.fromArray(queueToUse)
+    const manager = queueManager(queueToUse)
+    manager.start()
+    manager.push(testFunction('five'))
+    manager.push(
+      complete => {
+        expect(testArray).toEqual(['one', 'two', 'three', 'four', 'five'])
+        return complete
+      })
   })
 })

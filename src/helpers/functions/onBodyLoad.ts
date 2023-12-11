@@ -3,6 +3,7 @@ import queueManager from './queueManager'
 
 const queue: Array<Function> = []
 const manager = queueManager()
+manager.start()
 let observer: MutationObserver | null = null
 const doReset = (): void => observer = null
 const initializeObserver = async () => {
@@ -10,7 +11,7 @@ const initializeObserver = async () => {
     () => {
       if (document.body) {
         while (queue.length) {
-          manager(queue.shift())
+          manager.push(queue.shift())
         }
         observer.disconnect()
         doReset()

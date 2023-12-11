@@ -36,13 +36,14 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 }
 const queue = []
 const manager = (0, _queueManager.default)()
+manager.start()
 let observer = null
 const doReset = () => observer = null
 const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * () {
   observer = new MutationObserver(() => {
     if (document.body) {
       while (queue.length) {
-        manager(queue.shift())
+        manager.push(queue.shift())
       }
       observer.disconnect()
       doReset()
