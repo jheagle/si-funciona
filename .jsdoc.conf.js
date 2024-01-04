@@ -1,10 +1,3 @@
-'use strict'
+const jsDocBase = require('js-build-tools/jsdoc.base')
 
-module.exports = {
-  plugins: ['plugins/markdown'],
-  source: {
-    include: 'dist',
-    includePattern: '.+\\.js(doc|x)?$',
-    excludePattern: '((^|\\/|\\\\)_|.+\\.test\\..*)'
-  },
-}
+module.exports = jsDocBase
