@@ -5,7 +5,6 @@ import { descriptorDetail } from './samples/descriptorDetail'
 
 /**
  * Check if we should clear the values on this descriptor
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor
  * @param {boolean} [keepValues=false]

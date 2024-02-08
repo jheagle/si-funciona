@@ -9,8 +9,7 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.filter.js')
 require('core-js/stable')
 /**
- * Remove duplicate values from an array.
- * @function uniqueArray
+ * Remove duplicate values from an array. uniqueArray
  * @memberOf module:arrayHelpers
  * @param {Array} array - The array to make unique
  * @returns {Array}

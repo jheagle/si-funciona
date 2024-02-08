@@ -3,7 +3,6 @@ import words from './words'
 
 /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
- * @function
  * @memberOf module:stringHelpers
  * @param {string} str
  * @returns {string}

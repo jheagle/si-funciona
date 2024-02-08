@@ -4,7 +4,6 @@ import { descriptor } from './samples/descriptor'
 
 /**
  * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor
  * @param {number} currentReference

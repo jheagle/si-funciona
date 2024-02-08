@@ -8,7 +8,6 @@ require('core-js/stable')
 /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
- * @function
  * @memberOf module:functionHelpers
  * @param {Function} fn - The function to be called
  * @param {Array} params - The parameters to preload

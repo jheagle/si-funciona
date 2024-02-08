@@ -4,7 +4,6 @@ import { descriptorDetail } from './samples/descriptorDetail'
 
 /**
  * Check if the two descriptors are the same.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor1
  * @param {module:objectDescriptors~descriptor} descriptor2

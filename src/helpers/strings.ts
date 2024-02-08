@@ -10,6 +10,9 @@
 import 'core-js/stable'
 import camelCase from './strings/camelCase'
 import kabobCase from './strings/kabobCase'
+import makeFilepath from './strings/makeFilepath'
+import makeRelativePath from './strings/makeRelativePath'
+import regexEscape from './strings/regexEscape'
 import snakeCase from './strings/snakeCase'
 import strAfter from './strings/strAfter'
 import strAfterLast from './strings/strAfterLast'
@@ -22,6 +25,9 @@ import words from './strings/words'
 export default {
   camelCase,
   kabobCase,
+  makeFilepath,
+  makeRelativePath,
+  regexEscape,
   snakeCase,
   strAfter,
   strAfterLast,

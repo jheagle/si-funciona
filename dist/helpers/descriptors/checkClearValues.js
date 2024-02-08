@@ -11,7 +11,6 @@ var _setValue = _interopRequireDefault(require('../objects/setValue'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Check if we should clear the values on this descriptor
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor
  * @param {boolean} [keepValues=false]

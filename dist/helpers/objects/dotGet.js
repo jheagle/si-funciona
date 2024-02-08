@@ -11,7 +11,6 @@ var _strBefore = _interopRequireDefault(require('../strings/strBefore'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Get a nested property value from an object.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to get the property from
  * @param {string} dotNotation - The path to the property

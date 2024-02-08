@@ -7,6 +7,9 @@ exports.default = void 0
 require('core-js/stable')
 var _camelCase = _interopRequireDefault(require('./strings/camelCase'))
 var _kabobCase = _interopRequireDefault(require('./strings/kabobCase'))
+var _makeFilepath = _interopRequireDefault(require('./strings/makeFilepath'))
+var _makeRelativePath = _interopRequireDefault(require('./strings/makeRelativePath'))
+var _regexEscape = _interopRequireDefault(require('./strings/regexEscape'))
 var _snakeCase = _interopRequireDefault(require('./strings/snakeCase'))
 var _strAfter = _interopRequireDefault(require('./strings/strAfter'))
 var _strAfterLast = _interopRequireDefault(require('./strings/strAfterLast'))
@@ -27,6 +30,9 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
 var _default = exports.default = {
   camelCase: _camelCase.default,
   kabobCase: _kabobCase.default,
+  makeFilepath: _makeFilepath.default,
+  makeRelativePath: _makeRelativePath.default,
+  regexEscape: _regexEscape.default,
   snakeCase: _snakeCase.default,
   strAfter: _strAfter.default,
   strAfterLast: _strAfterLast.default,

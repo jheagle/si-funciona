@@ -11,7 +11,6 @@ var _strBefore = _interopRequireDefault(require('../strings/strBefore'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Unset a nested property value an object.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to set the property on
  * @param {string} dotNotation - The path for the property

@@ -15,7 +15,6 @@ var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Assign properties from other details onto an existing detail.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptorDetail} originalDetail
  * @param  {...module:objectDescriptors~descriptorDetail} details

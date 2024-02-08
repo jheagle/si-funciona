@@ -14,7 +14,6 @@ require('core-js/modules/esnext.iterator.find.js')
 require('core-js/stable')
 /**
  * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor1
  * @param {module:objectDescriptors~descriptor} descriptor2

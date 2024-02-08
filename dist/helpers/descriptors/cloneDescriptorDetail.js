@@ -14,7 +14,6 @@ var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Get a new copy of an existing Descriptor Detail
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptorDetail} originalDetail
  * @returns {module:objectDescriptors~descriptorDetail}

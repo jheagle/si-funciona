@@ -39,7 +39,6 @@ export type queueManagerHandle = {
 };
 /**
  * Manage functions to run sequentially.
- * @function
  * @memberOf module:functionHelpers
  * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}

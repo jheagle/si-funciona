@@ -89,7 +89,6 @@ export type compareArrayResultMap = Array<compareArrayResult>;
  *   }
  * ]
  *
- * @function
  * @memberOf module:arrayHelpers
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}

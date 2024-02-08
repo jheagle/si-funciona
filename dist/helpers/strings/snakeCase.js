@@ -12,7 +12,6 @@ var _words = _interopRequireDefault(require('./words'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
- * @function
  * @memberOf module:stringHelpers
  * @param {string} str
  * @returns {string}

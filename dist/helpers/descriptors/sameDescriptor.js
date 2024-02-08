@@ -12,7 +12,6 @@ require('core-js/modules/esnext.iterator.some.js')
 require('core-js/stable')
 /**
  * Check if the two descriptors are the same.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor1
  * @param {module:objectDescriptors~descriptor} descriptor2

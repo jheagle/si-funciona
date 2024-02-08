@@ -52,6 +52,9 @@ Manage how strings are manipulated with these utilities.
     * [.strAfterLast(str, search)](#module_stringHelpers.strAfterLast) ⇒ <code>string</code>
     * [.strAfter(str, search)](#module_stringHelpers.strAfter) ⇒ <code>string</code>
     * [.snakeCase(str)](#module_stringHelpers.snakeCase) ⇒ <code>string</code>
+    * [.regexEscape(str)](#module_stringHelpers.regexEscape) ⇒ <code>string</code>
+    * [.makeRelativePath(fromFile, toFile)](#module_stringHelpers.makeRelativePath) ⇒ <code>string</code>
+    * [.makeFilepath(root, [append])](#module_stringHelpers.makeFilepath) ⇒ <code>string</code>
     * [.kabobCase(str)](#module_stringHelpers.kabobCase) ⇒ <code>string</code>
     * [.camelCase(str)](#module_stringHelpers.camelCase) ⇒ <code>string</code>
 
@@ -147,6 +150,41 @@ Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_cas
 | --- | --- |
 | str | <code>string</code> | 
 
+<a name="module_stringHelpers.regexEscape"></a>
+
+### stringHelpers.regexEscape(str) ⇒ <code>string</code>
+Take a string and escape the regex characters.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| str | <code>string</code> | 
+
+<a name="module_stringHelpers.makeRelativePath"></a>
+
+### stringHelpers.makeRelativePath(fromFile, toFile) ⇒ <code>string</code>
+Compare two file paths and simplify them to a relative path.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type |
+| --- | --- |
+| fromFile | <code>string</code> | 
+| toFile | <code>string</code> | 
+
+<a name="module_stringHelpers.makeFilepath"></a>
+
+### stringHelpers.makeFilepath(root, [append]) ⇒ <code>string</code>
+Format the given path so that it does not have trailing slashes and also correctly appends a path.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| root | <code>string</code> |  | 
+| [append] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 
+
 <a name="module_stringHelpers.kabobCase"></a>
 
 ### stringHelpers.kabobCase(str) ⇒ <code>string</code>
@@ -179,14 +217,14 @@ Simplify working with object by providing array-like parsing. Also, provides clo
 
 * [objectHelpers](#module_objectHelpers)
     * _static_
+        * [.mergeObjectsMutable](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>\*</code>
+        * [.mergeObjects](#module_objectHelpers.mergeObjects) ⇒ <code>\*</code>
         * [.setValue(key, value, item)](#module_objectHelpers.setValue) ⇒ <code>Object</code> \| <code>Array</code>
         * [.setAndReturnValue(item, key, value)](#module_objectHelpers.setAndReturnValue) ⇒ <code>\*</code>
         * [.reduceObject(obj, fn, [initialValue])](#module_objectHelpers.reduceObject) ⇒ <code>\*</code>
         * [.objectValues(object, [includeInherited])](#module_objectHelpers.objectValues) ⇒ <code>Array</code>
         * [.objectKeys(object, [includeInherited])](#module_objectHelpers.objectKeys) ⇒ <code>Array.&lt;(string\|number)&gt;</code>
-        * [.mergeObjectsMutable(...objects)](#module_objectHelpers.mergeObjectsMutable) ⇒ <code>\*</code>
         * [.mergeObjectsBase([options])](#module_objectHelpers.mergeObjectsBase) ⇒ <code>module:objectHelpers~mergeObjectsCallback</code> \| <code>mergeObjectsCallback</code>
-        * [.mergeObjects(...objects)](#module_objectHelpers.mergeObjects) ⇒ <code>\*</code>
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isObject(object)](#module_objectHelpers.isObject) ⇒ <code>boolean</code>
         * [.isInstanceObject(object)](#module_objectHelpers.isInstanceObject) ⇒ <code>boolean</code>
@@ -201,6 +239,30 @@ Simplify working with object by providing array-like parsing. Also, provides clo
     * _inner_
         * [~handleRetainObjects([retainObjects])](#module_objectHelpers..handleRetainObjects) ⇒ <code>function</code>
         * [~performDotNotate(arrayObject, didRetain, [prepend], [results])](#module_objectHelpers..performDotNotate) ⇒ <code>DotNotatedObject</code>
+
+<a name="module_objectHelpers.mergeObjectsMutable"></a>
+
+### objectHelpers.mergeObjectsMutable ⇒ <code>\*</code>
+Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
+
+<a name="module_objectHelpers.mergeObjects"></a>
+
+### objectHelpers.mergeObjects ⇒ <code>\*</code>
+Uses mergeObjectsBase deep merge objects and arrays, merge by value.
+
+**Kind**: static constant of [<code>objectHelpers</code>](#module_objectHelpers)  
+**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
 
 <a name="module_objectHelpers.setValue"></a>
 
@@ -270,18 +332,6 @@ Optional flag will include the inherited keys from prototype chain when set.
 | object | <code>Object</code> \| <code>Array</code> |  | 
 | [includeInherited] | <code>boolean</code> | <code>false</code> | 
 
-<a name="module_objectHelpers.mergeObjectsMutable"></a>
-
-### objectHelpers.mergeObjectsMutable(...objects) ⇒ <code>\*</code>
-Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
-
-**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
-
 <a name="module_objectHelpers.mergeObjectsBase"></a>
 
 ### objectHelpers.mergeObjectsBase([options]) ⇒ <code>module:objectHelpers~mergeObjectsCallback</code> \| <code>mergeObjectsCallback</code>
@@ -300,18 +350,6 @@ have circular references. A high mapLimit may lead to heavy memory usage and slo
 | [options.relevancyRange] | <code>number</code> | <code>1000</code> | Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed. |
 | [options.map] | <code>Iterable</code> \| <code>array</code> | <code>[]</code> | A predetermined list of references gathered (to be passed to itself during recursion). |
 | [options.useClone] | <code>boolean</code> | <code>false</code> |  |
-
-<a name="module_objectHelpers.mergeObjects"></a>
-
-### objectHelpers.mergeObjects(...objects) ⇒ <code>\*</code>
-Uses mergeObjectsBase deep merge objects and arrays, merge by value.
-
-**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
-**See**: [module:objectHelpers~mergeObjectsCallback](module:objectHelpers~mergeObjectsCallback)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...objects | <code>Object</code> | Provide a list of objects which will be merged starting from the end up into the first |
 
 <a name="module_objectHelpers.mapObject"></a>
 
@@ -1037,7 +1075,7 @@ Get the quantity of items in the queue
 <a name="module_arrayHelpers.uniqueArray"></a>
 
 ### arrayHelpers.uniqueArray(array) ⇒ <code>Array</code>
-Remove duplicate values from an array.
+Remove duplicate values from an array. uniqueArray
 
 **Kind**: static method of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 

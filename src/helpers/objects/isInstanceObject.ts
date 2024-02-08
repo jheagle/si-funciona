@@ -4,7 +4,6 @@ import objectKeys from './objectKeys'
 
 /**
  * Check if the current object has inherited properties.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object|Array} object
  * @returns {boolean}

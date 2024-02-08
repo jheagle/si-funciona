@@ -2,7 +2,6 @@ import 'core-js/stable';
 /**
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
- * @function
  * @memberOf module:numberHelpers
  * @param {number} range - Choose the breadth of the random number (0-100 would be 100 for range)
  * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 9 for range)

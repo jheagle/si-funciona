@@ -17,7 +17,6 @@ type filterCallback = (currentProperty: any, currentIndex: keyof filterableItem,
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
  * always use the standard filter() function when it is known that the object is actually an array.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be filtered
  * @param {module:objectHelpers~filterCallback|Function} fn - The function to be processed for each filtered property

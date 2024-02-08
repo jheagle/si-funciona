@@ -89,7 +89,6 @@ const performDotNotate = (arrayObject: dotNotateableItem, didRetain: Function, p
 
 /**
  * Convert an array or object to a single dimensional associative array with dot notation.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to dot-notate
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects

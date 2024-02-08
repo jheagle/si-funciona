@@ -11,7 +11,6 @@ var _queueManager = _interopRequireDefault(require('./queueManager'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Manage functions to run sequentially with delays.
- * @function
  * @memberOf module:functionHelpers
  * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}

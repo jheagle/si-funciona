@@ -7,7 +7,6 @@ exports.default = void 0
 require('core-js/stable')
 /**
  * Check if the provided thing is an object / array.
- * @function
  * @memberOf module:objectHelpers
  * @param {*} object
  * @returns {boolean}

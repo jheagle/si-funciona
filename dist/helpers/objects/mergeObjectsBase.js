@@ -22,7 +22,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * Objects having the same attributes will overwrite from last object to first.
  * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
  * have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} [options={}]
  * @param {number} [options.mapLimit=100] - Size of temporary reference array used in memory before assessing relevancy.

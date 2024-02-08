@@ -7,7 +7,6 @@ exports.default = void 0
 require('core-js/stable')
 /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
- * @function
  * @memberOf module:functionHelpers
  * @param {Function} fn - The function to be called
  * @param {Array} params - Array of possible function parameters

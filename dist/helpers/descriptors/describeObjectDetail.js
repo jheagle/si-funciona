@@ -11,7 +11,6 @@ var _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObj
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Trace an object's attribute and provide details about it.
- * @function
  * @memberOf module:objectDescriptors
  * @param {*} value
  * @param {string|number} [key=0]

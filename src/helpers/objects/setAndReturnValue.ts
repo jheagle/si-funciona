@@ -6,7 +6,6 @@ type settableItem = Array<any> | {
 
 /**
  * Set a value on an item, then return the value
- * @function
  * @memberOf module:objectHelpers
  * @param {Object|Array} item - An object or array to be updated
  * @param {string|number} key - The key on the item which will have its value set

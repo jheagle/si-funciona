@@ -10,6 +10,9 @@ import 'core-js/stable';
 declare const _default: {
     camelCase: (str: string) => string;
     kabobCase: (str: string) => string;
+    makeFilepath: (root: string, append?: string) => string;
+    makeRelativePath: (fromFile: string, toFile: string) => string;
+    regexEscape: (str: string) => string;
     snakeCase: (str: string) => string;
     strAfter: (str: string, search: string) => string;
     strAfterLast: (str: string, search: string) => string;

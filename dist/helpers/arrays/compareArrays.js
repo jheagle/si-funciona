@@ -69,7 +69,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  *   }
  * ]
  *
- * @function
  * @memberOf module:arrayHelpers
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}

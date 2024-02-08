@@ -12,7 +12,6 @@ require('core-js/modules/esnext.iterator.map.js')
 require('core-js/stable')
 /**
  * Remove elements out of relevance range and update the max relevance.
- * @function
  * @memberOf module:functionHelpers
  * @param {relevanceMap} map
  * @param {Object} [options={}]

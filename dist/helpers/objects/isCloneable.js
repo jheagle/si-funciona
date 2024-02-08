@@ -9,7 +9,6 @@ var _isInstanceObject = _interopRequireDefault(require('./isInstanceObject'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Determine if the value is a reference instance
- * @function
  * @memberOf module:objectHelpers
  * @param {Array|Object|*} value
  * @returns {boolean}

@@ -19,7 +19,6 @@ type reduceCallback = (accumulator: any, currentProperty: any, currentIndex: key
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
  * always use the standard reduce() function when it is known that the object is actually an array.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object|Array} obj - The Object (or Array) to be filtered
  * @param {module:objectHelpers~reduceCallback|Function|reduceCallback} fn - The function to be processed for each filtered property

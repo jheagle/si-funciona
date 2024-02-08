@@ -16,7 +16,6 @@ var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Take multiple arrays and then filter all these into one unique array.
- * @function
  * @memberOf module:arrayHelpers
  * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}

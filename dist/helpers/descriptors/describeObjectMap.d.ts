@@ -8,7 +8,6 @@ type describeObjectMapOptions = {
 };
 /**
  * Trace out the entire object including nested objects.
- * @function
  * @memberOf module:objectDescriptors
  * @param {Object|Array} object
  * @param {Object} [options={}]

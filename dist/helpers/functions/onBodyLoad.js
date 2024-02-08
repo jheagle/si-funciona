@@ -56,7 +56,6 @@ const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * ()
 })
 /**
  * Prepare functions to be called once the body is available.
- * @function
  * @memberOf module:functionHelpers
  * @param {Function} callback
  * @param {boolean} [reset=false]

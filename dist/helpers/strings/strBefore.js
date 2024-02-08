@@ -7,7 +7,6 @@ exports.default = void 0
 require('core-js/stable')
 /**
  * Retrieve the string part before the search match.
- * @function
  * @memberOf module:stringHelpers
  * @param {string} str
  * @param {string} search

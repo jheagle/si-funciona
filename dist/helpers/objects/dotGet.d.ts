@@ -2,7 +2,6 @@ import 'core-js/stable';
 import { dotNotateableItem, dotNotationString } from './dotNotate';
 /**
  * Get a nested property value from an object.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} arrayObject - The array or object to get the property from
  * @param {string} dotNotation - The path to the property

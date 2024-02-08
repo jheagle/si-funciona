@@ -1,7 +1,6 @@
 import 'core-js/stable';
 /**
  * Retrieve the string part before the search match.
- * @function
  * @memberOf module:stringHelpers
  * @param {string} str
  * @param {string} search

@@ -2,7 +2,6 @@ import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Check if the two descriptors are the same.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor1
  * @param {module:objectDescriptors~descriptor} descriptor2

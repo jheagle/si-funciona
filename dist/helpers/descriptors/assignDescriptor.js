@@ -25,7 +25,6 @@ var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} originalMap
  * @param  {...module:objectDescriptors~descriptor} descriptors

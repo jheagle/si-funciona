@@ -26,7 +26,6 @@ const initializeObserver = async () => {
 
 /**
  * Prepare functions to be called once the body is available.
- * @function
  * @memberOf module:functionHelpers
  * @param {Function} callback
  * @param {boolean} [reset=false]

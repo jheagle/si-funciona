@@ -12,7 +12,6 @@ var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
- * @function
  * @memberOf module:objectDescriptors
  * @param {module:objectDescriptors~descriptor} descriptor
  * @param {number} currentReference

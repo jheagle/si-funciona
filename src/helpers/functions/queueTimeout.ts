@@ -16,7 +16,6 @@ type queueTimeoutHandle = (fn: Function, time: number, ...args: any) => Promise<
 
 /**
  * Manage functions to run sequentially with delays.
- * @function
  * @memberOf module:functionHelpers
  * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}

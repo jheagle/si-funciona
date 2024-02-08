@@ -11,7 +11,6 @@ var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Trace an object and return the descriptor which defines the object's structure and attributes.
- * @function
  * @memberOf module:objectDescriptors
  * @param {Object} object
  * @returns {module:objectDescriptors~descriptor}

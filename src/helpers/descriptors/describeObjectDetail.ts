@@ -6,7 +6,6 @@ import { descriptorDetail } from './samples/descriptorDetail'
 
 /**
  * Trace an object's attribute and provide details about it.
- * @function
  * @memberOf module:objectDescriptors
  * @param {*} value
  * @param {string|number} [key=0]

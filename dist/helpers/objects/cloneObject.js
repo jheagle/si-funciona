@@ -11,7 +11,6 @@ function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { d
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
  * have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
- * @function
  * @memberOf module:objectHelpers
  * @param {Object} object - The original object that is being cloned
  * @param {Object} [options={}]

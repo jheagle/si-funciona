@@ -20,7 +20,6 @@ var _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 /**
  * Trace out the entire object including nested objects.
- * @function
  * @memberOf module:objectDescriptors
  * @param {Object|Array} object
  * @param {Object} [options={}]

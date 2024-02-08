@@ -15,7 +15,6 @@ type delayHandler = {
 
 /**
  * Provide a timeout which returns a promise.
- * @function
  * @memberOf module:functionHelpers
  * @param {number} time - Delay in milliseconds
  * @returns {module:functionHelpers~delayHandler}

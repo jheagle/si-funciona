@@ -11,7 +11,6 @@ export type describeableObject = Array<any> | {
 
 /**
  * Trace an object and return the descriptor which defines the object's structure and attributes.
- * @function
  * @memberOf module:objectDescriptors
  * @param {Object} object
  * @returns {module:objectDescriptors~descriptor}
