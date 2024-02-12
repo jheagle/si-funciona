@@ -3,7 +3,7 @@
  */
 
 import mergeObjects from './mergeObjects'
-import { circularObject } from 'js-build-tools/dist/testHelpers'
+import { circularObject } from 'test-filesystem'
 
 test('combine objects with circular references', () => {
   const anotherCircular = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
@@ -51,7 +51,7 @@ test('combining dom items', () => {
   }
   const newAttributes = {
     body: children[1],
-    children: children,
+    children,
     head: children[0],
     tagName: 'html'
   }
@@ -103,7 +103,7 @@ test('maintains first object when second matching object is empty', () => {
   const rootItem = {
     attributes: {},
     body: children[1],
-    children: children,
+    children,
     element: document,
     eventListeners: [],
     head: children[0],
@@ -172,7 +172,7 @@ test('domItem test can merge even with different property order', () => {
       element: document,
       eventListeners: {},
       parentItem: {},
-      children: children
+      children
     }
   domItem.children[0].parentItem = domItem
   domItem.children[1].parentItem = domItem

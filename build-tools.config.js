@@ -1,5 +1,12 @@
 module.exports = {
-  browserName: 'siFunciona',
-  readmeSearch: 'dist/**/!(*.min).js',
-  useTsConfig: 'tsconfig.json',
+  browser: {
+    name: 'siFunciona'
+  },
+  readme: {
+    from: 'dist/**/!(*.min).js'
+  },
+  typescript: {
+    config: 'tsconfig.json',
+    enabled: true
+  }
 }

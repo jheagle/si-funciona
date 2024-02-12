@@ -173,13 +173,13 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.every.js')
+    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/esnext.async-iterator.map.js')
-    require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.every.js')
+    require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('../objects/isObject'))
     var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
@@ -280,13 +280,13 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.filter.js')
+    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/esnext.async-iterator.map.js')
-    require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.filter.js')
+    require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
     function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
@@ -375,19 +375,19 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.every.js')
+    require('core-js/modules/esnext.async-iterator.filter.js')
+    require('core-js/modules/esnext.async-iterator.find.js')
+    require('core-js/modules/esnext.async-iterator.for-each.js')
+    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/esnext.async-iterator.for-each.js')
-    require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/esnext.async-iterator.find.js')
-    require('core-js/modules/esnext.iterator.find.js')
-    require('core-js/modules/esnext.async-iterator.every.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/esnext.async-iterator.map.js')
-    require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/esnext.async-iterator.filter.js')
     require('core-js/modules/esnext.iterator.filter.js')
+    require('core-js/modules/esnext.iterator.find.js')
+    require('core-js/modules/esnext.iterator.for-each.js')
+    require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
     var _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
@@ -443,11 +443,11 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
     var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
@@ -513,9 +513,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.every.js')
+    require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.some.js')
     require('core-js/stable')
     var _setValue = _interopRequireDefault(require('../objects/setValue'))
@@ -575,9 +575,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.for-each.js')
+    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
@@ -606,12 +606,12 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.every.js')
+    require('core-js/modules/esnext.async-iterator.find.js')
+    require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/esnext.async-iterator.some.js')
-    require('core-js/modules/esnext.iterator.some.js')
-    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
+    require('core-js/modules/esnext.iterator.some.js')
     require('core-js/stable')
     /**
  * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
@@ -733,11 +733,11 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
+    require('core-js/modules/esnext.iterator.for-each.js')
     require('core-js/stable')
     var _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
     var _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
@@ -865,9 +865,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.every.js')
+    require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.every.js')
-    require('core-js/modules/esnext.async-iterator.some.js')
     require('core-js/modules/esnext.iterator.some.js')
     require('core-js/stable')
     /**
@@ -1335,9 +1335,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.filter.js')
+    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/esnext.async-iterator.map.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
     /**
@@ -1917,9 +1917,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.filter.js')
+    require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
-    require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
@@ -2020,9 +2020,9 @@
     })
     exports.default = void 0
     require('core-js/modules/esnext.async-iterator.map.js')
-    require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
@@ -2074,13 +2074,13 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.async-iterator.map.js')
-    require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.async-iterator.reduce.js')
     require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/esnext.async-iterator.find.js')
     require('core-js/modules/esnext.iterator.find.js')
+    require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _isCloneable = _interopRequireDefault(require('./isCloneable'))
     var _reduceObject = _interopRequireDefault(require('./reduceObject'))
@@ -5391,7 +5391,7 @@
       } else if (STATIC) {
         target = global[TARGET] || defineGlobalProperty(TARGET, {})
       } else {
-        target = (global[TARGET] || {}).prototype
+        target = global[TARGET] && global[TARGET].prototype
       }
       if (target) {
         for (key in source) {
@@ -5429,7 +5429,7 @@
     'use strict'
     // TODO: Remove from `core-js@4` since it's moved to entry points
     require('../modules/es.regexp.exec')
-    var uncurryThis = require('../internals/function-uncurry-this-clause')
+    var call = require('../internals/function-call')
     var defineBuiltIn = require('../internals/define-built-in')
     var regexpExec = require('../internals/regexp-exec')
     var fails = require('../internals/fails')
@@ -5443,7 +5443,7 @@
       var SYMBOL = wellKnownSymbol(KEY)
 
       var DELEGATES_TO_SYMBOL = !fails(function () {
-        // String methods call symbol-named RegEp methods
+        // String methods call symbol-named RegExp methods
         var O = {}
         O[SYMBOL] = function () { return 7 }
         return ''[KEY](O) !== 7
@@ -5481,18 +5481,17 @@
     !DELEGATES_TO_EXEC ||
     FORCED
       ) {
-        var uncurriedNativeRegExpMethod = uncurryThis(/./[SYMBOL])
+        var nativeRegExpMethod = /./[SYMBOL]
         var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-          var uncurriedNativeMethod = uncurryThis(nativeMethod)
           var $exec = regexp.exec
           if ($exec === regexpExec || $exec === RegExpPrototype.exec) {
             if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
               // The native String method already delegates to @@method (this
               // polyfilled function), leasing to infinite recursion.
               // We avoid it by directly calling the native @@method method.
-              return { done: true, value: uncurriedNativeRegExpMethod(regexp, str, arg2) }
+              return { done: true, value: call(nativeRegExpMethod, regexp, str, arg2) }
             }
-            return { done: true, value: uncurriedNativeMethod(str, regexp, arg2) }
+            return { done: true, value: call(nativeMethod, str, regexp, arg2) }
           }
           return { done: false }
         })
@@ -5503,7 +5502,7 @@
 
       if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true)
     }
-  }, { '../internals/create-non-enumerable-property': 123, '../internals/define-built-in': 129, '../internals/fails': 158, '../internals/function-uncurry-this-clause': 169, '../internals/regexp-exec': 261, '../internals/well-known-symbol': 324, '../modules/es.regexp.exec': 482 }],
+  }, { '../internals/create-non-enumerable-property': 123, '../internals/define-built-in': 129, '../internals/fails': 158, '../internals/function-call': 166, '../internals/regexp-exec': 261, '../internals/well-known-symbol': 324, '../modules/es.regexp.exec': 482 }],
   160: [function (require, module, exports) {
     'use strict'
     var isArray = require('../internals/is-array')
@@ -6323,7 +6322,6 @@
     var inspectSource = require('../internals/inspect-source')
 
     var noop = function () { /* empty */ }
-    var empty = []
     var construct = getBuiltIn('Reflect', 'construct')
     var constructorRegExp = /^\s*(?:class|function)\b/
     var exec = uncurryThis(constructorRegExp.exec)
@@ -6332,7 +6330,7 @@
     var isConstructorModern = function isConstructor (argument) {
       if (!isCallable(argument)) return false
       try {
-        construct(noop, empty, argument)
+        construct(noop, [], argument)
         return true
       } catch (error) {
         return false
@@ -6906,7 +6904,7 @@
 
     var makeBuiltIn = module.exports = function (value, name, options) {
       if (stringSlice($String(name), 0, 7) === 'Symbol(') {
-        name = '[' + replace($String(name), /^Symbol\(([^)]*)\)/, '$1') + ']'
+        name = '[' + replace($String(name), /^Symbol\(([^)]*)\).*$/, '$1') + ']'
       }
       if (options && options.getter) name = 'get ' + name
       if (options && options.setter) name = 'set ' + name
@@ -8321,10 +8319,10 @@
     (module.exports = function (key, value) {
       return store[key] || (store[key] = value !== undefined ? value : {})
     })('versions', []).push({
-      version: '3.35.0',
+      version: '3.35.1',
       mode: IS_PURE ? 'pure' : 'global',
-      copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.35.0/LICENSE',
+      copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
+      license: 'https://github.com/zloirock/core-js/blob/v3.35.1/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/is-pure': 203, '../internals/shared-store': 276 }],
@@ -8997,7 +8995,8 @@
     // `ToLength` abstract operation
     // https://tc39.es/ecma262/#sec-tolength
     module.exports = function (argument) {
-      return argument > 0 ? min(toIntegerOrInfinity(argument), 0x1FFFFFFFFFFFFF) : 0 // 2 ** 53 - 1 == 9007199254740991
+      var len = toIntegerOrInfinity(argument)
+      return len > 0 ? min(len, 0x1FFFFFFFFFFFFF) : 0 // 2 ** 53 - 1 == 9007199254740991
     }
   }, { '../internals/to-integer-or-infinity': 299 }],
   301: [function (require, module, exports) {
@@ -14611,12 +14610,6 @@
     var stringSlice = uncurryThis(''.slice)
     var max = Math.max
 
-    var stringIndexOf = function (string, searchValue, fromIndex) {
-      if (fromIndex > string.length) return -1
-      if (searchValue === '') return fromIndex
-      return indexOf(string, searchValue, fromIndex)
-    }
-
     // `String.prototype.replaceAll` method
     // https://tc39.es/ecma262/#sec-string.prototype.replaceall
     $({ target: 'String', proto: true }, {
@@ -14645,14 +14638,14 @@
         if (!functionalReplace) replaceValue = toString(replaceValue)
         searchLength = searchString.length
         advanceBy = max(1, searchLength)
-        position = stringIndexOf(string, searchString, 0)
+        position = indexOf(string, searchString)
         while (position !== -1) {
           replacement = functionalReplace
             ? toString(replaceValue(searchString, position, string))
             : getSubstitution(searchString, string, position, [], undefined, replaceValue)
           result += stringSlice(string, endOfLastMatch, position) + replacement
           endOfLastMatch = position + searchLength
-          position = stringIndexOf(string, searchString, position + advanceBy)
+          position = position + advanceBy > string.length ? -1 : indexOf(string, searchString, position + advanceBy)
         }
         if (endOfLastMatch < string.length) {
           result += stringSlice(string, endOfLastMatch)
@@ -14861,31 +14854,25 @@
   }, { '../internals/create-html': 121, '../internals/export': 157, '../internals/string-html-forced': 279 }],
   515: [function (require, module, exports) {
     'use strict'
-    var apply = require('../internals/function-apply')
     var call = require('../internals/function-call')
     var uncurryThis = require('../internals/function-uncurry-this')
     var fixRegExpWellKnownSymbolLogic = require('../internals/fix-regexp-well-known-symbol-logic')
     var anObject = require('../internals/an-object')
     var isNullOrUndefined = require('../internals/is-null-or-undefined')
-    var isRegExp = require('../internals/is-regexp')
     var requireObjectCoercible = require('../internals/require-object-coercible')
     var speciesConstructor = require('../internals/species-constructor')
     var advanceStringIndex = require('../internals/advance-string-index')
     var toLength = require('../internals/to-length')
     var toString = require('../internals/to-string')
     var getMethod = require('../internals/get-method')
-    var arraySlice = require('../internals/array-slice')
-    var callRegExpExec = require('../internals/regexp-exec-abstract')
-    var regexpExec = require('../internals/regexp-exec')
+    var regExpExec = require('../internals/regexp-exec-abstract')
     var stickyHelpers = require('../internals/regexp-sticky-helpers')
     var fails = require('../internals/fails')
 
     var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y
     var MAX_UINT32 = 0xFFFFFFFF
     var min = Math.min
-    var $push = [].push
-    var exec = uncurryThis(/./.exec)
-    var push = uncurryThis($push)
+    var push = uncurryThis([].push)
     var stringSlice = uncurryThis(''.slice)
 
     // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
@@ -14899,60 +14886,20 @@
       return result.length !== 2 || result[0] !== 'a' || result[1] !== 'b'
     })
 
+    var BUGGY = 'abbc'.split(/(b)*/)[1] === 'c' ||
+  // eslint-disable-next-line regexp/no-empty-group -- required for testing
+  'test'.split(/(?:)/, -1).length !== 4 ||
+  'ab'.split(/(?:ab)*/).length !== 2 ||
+  '.'.split(/(.?)(.?)/).length !== 4 ||
+  // eslint-disable-next-line regexp/no-empty-capturing-group, regexp/no-empty-group -- required for testing
+  '.'.split(/()()/).length > 1 ||
+  ''.split(/.?/).length
+
     // @@split logic
     fixRegExpWellKnownSymbolLogic('split', function (SPLIT, nativeSplit, maybeCallNative) {
-      var internalSplit
-      if (
-        'abbc'.split(/(b)*/)[1] === 'c' ||
-    // eslint-disable-next-line regexp/no-empty-group -- required for testing
-    'test'.split(/(?:)/, -1).length !== 4 ||
-    'ab'.split(/(?:ab)*/).length !== 2 ||
-    '.'.split(/(.?)(.?)/).length !== 4 ||
-    // eslint-disable-next-line regexp/no-empty-capturing-group, regexp/no-empty-group -- required for testing
-    '.'.split(/()()/).length > 1 ||
-    ''.split(/.?/).length
-      ) {
-        // based on es5-shim implementation, need to rework it
-        internalSplit = function (separator, limit) {
-          var string = toString(requireObjectCoercible(this))
-          var lim = limit === undefined ? MAX_UINT32 : limit >>> 0
-          if (lim === 0) return []
-          if (separator === undefined) return [string]
-          // If `separator` is not a regex, use native split
-          if (!isRegExp(separator)) {
-            return call(nativeSplit, string, separator, lim)
-          }
-          var output = []
-          var flags = (separator.ignoreCase ? 'i' : '') +
-                  (separator.multiline ? 'm' : '') +
-                  (separator.unicode ? 'u' : '') +
-                  (separator.sticky ? 'y' : '')
-          var lastLastIndex = 0
-          // Make `global` and avoid `lastIndex` issues by working with a copy
-          var separatorCopy = new RegExp(separator.source, flags + 'g')
-          var match, lastIndex, lastLength
-          while (match = call(regexpExec, separatorCopy, string)) {
-            lastIndex = separatorCopy.lastIndex
-            if (lastIndex > lastLastIndex) {
-              push(output, stringSlice(string, lastLastIndex, match.index))
-              if (match.length > 1 && match.index < string.length) apply($push, output, arraySlice(match, 1))
-              lastLength = match[0].length
-              lastLastIndex = lastIndex
-              if (output.length >= lim) break
-            }
-            if (separatorCopy.lastIndex === match.index) separatorCopy.lastIndex++ // Avoid an infinite loop
-          }
-          if (lastLastIndex === string.length) {
-            if (lastLength || !exec(separatorCopy, '')) push(output, '')
-          } else push(output, stringSlice(string, lastLastIndex))
-          return output.length > lim ? arraySlice(output, 0, lim) : output
-        }
-      // Chakra, V8
-      } else if ('0'.split(undefined, 0).length) {
-        internalSplit = function (separator, limit) {
-          return separator === undefined && limit === 0 ? [] : call(nativeSplit, this, separator, limit)
-        }
-      } else internalSplit = nativeSplit
+      var internalSplit = '0'.split(undefined, 0).length ? function (separator, limit) {
+        return separator === undefined && limit === 0 ? [] : call(nativeSplit, this, separator, limit)
+      } : nativeSplit
 
       return [
         // `String.prototype.split` method
@@ -14972,30 +14919,30 @@
         function (string, limit) {
           var rx = anObject(this)
           var S = toString(string)
-          var res = maybeCallNative(internalSplit, rx, S, limit, internalSplit !== nativeSplit)
 
-          if (res.done) return res.value
+          if (!BUGGY) {
+            var res = maybeCallNative(internalSplit, rx, S, limit, internalSplit !== nativeSplit)
+            if (res.done) return res.value
+          }
 
           var C = speciesConstructor(rx, RegExp)
-
           var unicodeMatching = rx.unicode
           var flags = (rx.ignoreCase ? 'i' : '') +
                   (rx.multiline ? 'm' : '') +
                   (rx.unicode ? 'u' : '') +
                   (UNSUPPORTED_Y ? 'g' : 'y')
-
           // ^(? + rx + ) is needed, in combination with some S slicing, to
           // simulate the 'y' flag.
           var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags)
           var lim = limit === undefined ? MAX_UINT32 : limit >>> 0
           if (lim === 0) return []
-          if (S.length === 0) return callRegExpExec(splitter, S) === null ? [S] : []
+          if (S.length === 0) return regExpExec(splitter, S) === null ? [S] : []
           var p = 0
           var q = 0
           var A = []
           while (q < S.length) {
             splitter.lastIndex = UNSUPPORTED_Y ? 0 : q
-            var z = callRegExpExec(splitter, UNSUPPORTED_Y ? stringSlice(S, q) : S)
+            var z = regExpExec(splitter, UNSUPPORTED_Y ? stringSlice(S, q) : S)
             var e
             if (
               z === null ||
@@ -15016,8 +14963,8 @@
           return A
         }
       ]
-    }, !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC, UNSUPPORTED_Y)
-  }, { '../internals/advance-string-index': 79, '../internals/an-object': 81, '../internals/array-slice': 99, '../internals/fails': 158, '../internals/fix-regexp-well-known-symbol-logic': 159, '../internals/function-apply': 162, '../internals/function-call': 166, '../internals/function-uncurry-this': 170, '../internals/get-method': 177, '../internals/is-null-or-undefined': 200, '../internals/is-regexp': 204, '../internals/regexp-exec': 261, '../internals/regexp-exec-abstract': 260, '../internals/regexp-sticky-helpers': 264, '../internals/require-object-coercible': 267, '../internals/species-constructor': 278, '../internals/to-length': 300, '../internals/to-string': 307 }],
+    }, BUGGY || !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC, UNSUPPORTED_Y)
+  }, { '../internals/advance-string-index': 79, '../internals/an-object': 81, '../internals/fails': 158, '../internals/fix-regexp-well-known-symbol-logic': 159, '../internals/function-call': 166, '../internals/function-uncurry-this': 170, '../internals/get-method': 177, '../internals/is-null-or-undefined': 200, '../internals/regexp-exec-abstract': 260, '../internals/regexp-sticky-helpers': 264, '../internals/require-object-coercible': 267, '../internals/species-constructor': 278, '../internals/to-length': 300, '../internals/to-string': 307 }],
   516: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')

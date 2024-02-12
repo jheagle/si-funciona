@@ -2,7 +2,7 @@ import dotNotate from './dotNotate'
 import {
   circularObject,
   deepReferenceObject
-} from 'js-build-tools/dist/testHelpers'
+} from 'test-filesystem'
 
 describe('dotNotate', () => {
   test('describes a simple object', () => {
@@ -15,8 +15,8 @@ describe('dotNotate', () => {
       ]
     }
     expect(dotNotate(simpleObject)).toEqual({
-      'name': 'someName',
-      'age': 12,
+      name: 'someName',
+      age: 12,
       'array.0': 'someString',
       'array.1': 'anotherString'
     })
@@ -54,8 +54,8 @@ describe('dotNotate', () => {
       'object1.object2.array1.1': 'anotherString',
       'object1.array2.0': 89,
       'object1.array2.1': 32,
-      'title': 'Some Title',
-      'item': 45,
+      title: 'Some Title',
+      item: 45
     })
   })
 })

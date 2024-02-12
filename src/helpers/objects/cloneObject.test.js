@@ -11,7 +11,7 @@ import {
   linkedList,
   multiReferenceObject,
   nodeTree
-} from 'js-build-tools/dist/testHelpers'
+} from 'test-filesystem'
 
 describe('cloneObject', () => {
   test('produces a new copy of an object, changes to one object will not affect the original', () => {
@@ -127,7 +127,7 @@ describe('cloneObject', () => {
 
   test('can limit depth of circular references, using 2', () => {
     const result = cloneObject(circularObject, { depthLimit: 2 })
-    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    const expectResult = { name: 'root', parent: null, body: {}, head: {}, children: [] }
     expectResult.body = { name: 'body', parent: expectResult, children: [] }
     expectResult.head = { name: 'head', parent: expectResult, children: [] }
     expectResult.children = [expectResult.body, expectResult.head]
@@ -136,7 +136,7 @@ describe('cloneObject', () => {
 
   test('can limit depth of circular references, using 3', () => {
     const result = cloneObject(circularObject, { depthLimit: 3 })
-    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    const expectResult = { name: 'root', parent: null, body: {}, head: {}, children: [] }
     expectResult.body = { name: 'body', parent: expectResult, children: [{}, {}] }
     expectResult.head = { name: 'head', parent: expectResult, children: [{}, {}] }
     expectResult.children = [expectResult.body, expectResult.head]
@@ -145,7 +145,7 @@ describe('cloneObject', () => {
 
   test('can limit depth of circular references, using 4', () => {
     const result = cloneObject(circularObject, { depthLimit: 4 })
-    const expectResult = { name: 'root', parent: {}, body: {}, head: {}, children: [] }
+    const expectResult = { name: 'root', parent: null, body: {}, head: {}, children: [] }
     expectResult.body = { name: 'body', parent: expectResult, children: [] }
     expectResult.head = { name: 'head', parent: expectResult, children: [] }
     expectResult.children = [expectResult.body, expectResult.head]

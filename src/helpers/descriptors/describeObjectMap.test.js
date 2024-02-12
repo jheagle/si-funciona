@@ -10,7 +10,7 @@ import {
   linkedList,
   multiReferenceObject,
   nodeTree
-} from 'js-build-tools/dist/testHelpers'
+} from 'test-filesystem'
 
 describe('describeObjectMap', () => {
   test('can produce structure matching sample with single string detail', () => {
@@ -705,7 +705,7 @@ describe('describeObjectMap', () => {
             key: 'parent',
             type: ['object'],
             value: [],
-            nullable: false,
+            nullable: true,
             optional: false,
             circular: true,
             isReference: true,
@@ -808,7 +808,7 @@ describe('describeObjectMap', () => {
             key: 'parent',
             type: ['object'],
             value: [],
-            nullable: false,
+            nullable: true,
             optional: false,
             circular: false,
             isReference: true,

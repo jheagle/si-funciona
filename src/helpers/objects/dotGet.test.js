@@ -1,5 +1,5 @@
 import dotGet from './dotGet'
-import { circularObject, deepReferenceObject } from 'js-build-tools/dist/testHelpers'
+import { circularObject, deepReferenceObject } from 'test-filesystem'
 
 describe('dotGet', () => {
   test('retrieve a value at level 0 of the object', () => {
