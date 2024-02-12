@@ -13,7 +13,7 @@
     "general",
     "typescript"
   ],
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/jheagle/si-funciona/issues"
