@@ -7,6 +7,7 @@ exports.default = void 0
 require('core-js/modules/esnext.async-iterator.for-each.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.for-each.js')
+require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 var _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
@@ -83,7 +84,7 @@ const queueManager = function () {
         // Some run responses return an object with an 'error' property
         let errorMessage = 'Verify queued function implements "done()" state.'
         if ('error' in toRun && toRun.error) {
-          errorMessage = `[${toRun.error}]: ${errorMessage}`
+          errorMessage = '['.concat(toRun.error, ']: ').concat(errorMessage)
         }
         throw new Error(errorMessage)
       }

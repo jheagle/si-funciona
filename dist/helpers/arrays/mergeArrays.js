@@ -11,6 +11,7 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.filter.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
+require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }

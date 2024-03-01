@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.

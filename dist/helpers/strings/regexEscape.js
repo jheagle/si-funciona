@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.regexEscape = exports.default = void 0
+require('core-js/modules/es.string.replace.js')
 /**
  * Take a string and escape the regex characters.
  * @memberOf module:stringHelpers
