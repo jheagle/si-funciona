@@ -1,5 +1,5 @@
 import queueManager from './queueManager'
-import Queue from 'collect-your-stuff/dist/collections/queue/Queue'
+import { Queue } from 'collect-your-stuff/dist/collections/queue/Queue'
 
 describe('queueManager', () => {
   test('takes multiple functions and processes sequentially', done => {
