@@ -12,7 +12,7 @@ require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
 var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
 var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to

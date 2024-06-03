@@ -4,12 +4,11 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 var _delay = _interopRequireDefault(require('./delay'))
 var _queueManager = _interopRequireDefault(require('./queueManager'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage functions to run sequentially with delays.
  * @memberOf module:functionHelpers

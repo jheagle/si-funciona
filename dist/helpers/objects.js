@@ -24,7 +24,7 @@ var _objectValues = _interopRequireDefault(require('./objects/objectValues'))
 var _reduceObject = _interopRequireDefault(require('./objects/reduceObject'))
 var _setAndReturnValue = _interopRequireDefault(require('./objects/setAndReturnValue'))
 var _setValue = _interopRequireDefault(require('./objects/setValue'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
  * @file

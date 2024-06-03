@@ -10,7 +10,7 @@ require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
 var _ucFirst = _interopRequireDefault(require('./ucFirst'))
 var _words = _interopRequireDefault(require('./words'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
  * @memberOf module:stringHelpers

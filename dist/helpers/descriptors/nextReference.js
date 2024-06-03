@@ -9,7 +9,7 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/stable')
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
  * @memberOf module:objectDescriptors

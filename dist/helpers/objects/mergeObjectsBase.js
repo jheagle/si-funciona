@@ -16,7 +16,7 @@ var _isCloneable = _interopRequireDefault(require('./isCloneable'))
 var _reduceObject = _interopRequireDefault(require('./reduceObject'))
 var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter'))
 var _setValue = _interopRequireDefault(require('./setValue'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.

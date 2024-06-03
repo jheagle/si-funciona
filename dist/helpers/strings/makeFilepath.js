@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.makeFilepath = exports.default = void 0
 var _strBeforeLast = _interopRequireDefault(require('./strBeforeLast'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Format the given path so that it does not have trailing slashes and also correctly appends a path.
  * @memberOf module:stringHelpers
@@ -44,7 +44,7 @@ const makeFilepath = function (root) {
   if (!root) {
     return append
   }
-  return append ? ''.concat(root, '/').concat(append) : root
+  return append ? `${root}/${append}` : root
 }
 exports.makeFilepath = makeFilepath
 var _default = exports.default = makeFilepath

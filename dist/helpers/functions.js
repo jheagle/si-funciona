@@ -16,7 +16,7 @@ var _queueManager = _interopRequireDefault(require('./functions/queueManager'))
 var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
 var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter'))
 var _trace = _interopRequireDefault(require('./functions/trace'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage how functions are called with these utilities.
  * @file

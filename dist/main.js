@@ -10,7 +10,7 @@ var _functions = _interopRequireDefault(require('./helpers/functions'))
 var _numbers = _interopRequireDefault(require('./helpers/numbers'))
 var _objects = _interopRequireDefault(require('./helpers/objects'))
 var _strings = _interopRequireDefault(require('./helpers/strings'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * All the siFunciona system functions for stringing together functions and simplifying logic.
  * @file

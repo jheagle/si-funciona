@@ -11,12 +11,11 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 var _isObject = _interopRequireDefault(require('../objects/isObject'))
 var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
  * -1 to indicate val1 is less than val2

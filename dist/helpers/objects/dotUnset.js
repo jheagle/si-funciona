@@ -8,7 +8,7 @@ require('core-js/stable')
 var _isObject = _interopRequireDefault(require('./isObject'))
 var _strAfter = _interopRequireDefault(require('../strings/strAfter'))
 var _strBefore = _interopRequireDefault(require('../strings/strBefore'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Unset a nested property value an object.
  * @memberOf module:objectHelpers

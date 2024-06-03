@@ -8,7 +8,7 @@ require('core-js/stable')
 var _emptyObject = _interopRequireDefault(require('../objects/emptyObject'))
 var _isCloneable = _interopRequireDefault(require('../objects/isCloneable'))
 var _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Trace an object's attribute and provide details about it.
  * @memberOf module:objectDescriptors

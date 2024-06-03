@@ -18,7 +18,7 @@ var _strBeforeLast = _interopRequireDefault(require('./strings/strBeforeLast'))
 var _titleCase = _interopRequireDefault(require('./strings/titleCase'))
 var _ucFirst = _interopRequireDefault(require('./strings/ucFirst'))
 var _words = _interopRequireDefault(require('./strings/words'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage how strings are manipulated with these utilities.
  * @file

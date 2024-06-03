@@ -11,7 +11,7 @@ require('core-js/modules/esnext.iterator.for-each.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/stable')
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Get a new copy of an existing Descriptor Detail
  * @memberOf module:objectDescriptors

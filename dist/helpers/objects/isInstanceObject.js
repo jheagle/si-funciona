@@ -7,7 +7,7 @@ exports.default = void 0
 require('core-js/stable')
 var _isObject = _interopRequireDefault(require('./isObject'))
 var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Check if the current object has inherited properties.
  * @memberOf module:objectHelpers

@@ -9,11 +9,10 @@ require('core-js/modules/esnext.async-iterator.reduce.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
 var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Assign properties from other details onto an existing detail.
  * @memberOf module:objectDescriptors

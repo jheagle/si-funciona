@@ -17,7 +17,7 @@ var _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
 var _describeObject = _interopRequireDefault(require('./describeObject'))
 var _nextReference = _interopRequireDefault(require('./nextReference'))
 var _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Trace out the entire object including nested objects.
  * @memberOf module:objectDescriptors

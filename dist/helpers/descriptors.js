@@ -17,7 +17,7 @@ var _describeObjectMap = _interopRequireDefault(require('./descriptors/describeO
 var _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail'))
 var _nextReference = _interopRequireDefault(require('./descriptors/nextReference'))
 var _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Create a format to standardize every object into a specific template.
  * @file

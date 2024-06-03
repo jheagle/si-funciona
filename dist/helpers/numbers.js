@@ -10,7 +10,7 @@ var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
 var _compare = _interopRequireDefault(require('./numbers/compare'))
 var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
 var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Some number comparators and random number generators.
  * @file

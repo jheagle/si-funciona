@@ -6,7 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.makeRelativePath = exports.default = void 0
 var _strBefore = _interopRequireDefault(require('./strBefore'))
 var _strAfter = _interopRequireDefault(require('./strAfter'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Compare two file paths and simplify them to a relative path.
  * @memberOf module:stringHelpers
@@ -20,8 +20,8 @@ const makeRelativePath = (fromFile, toFile) => {
   let firstPart = (0, _strBefore.default)(nextPart, '/')
   let hasMatches = false
   while (firstPart && relativePath.startsWith(firstPart)) {
-    relativePath = (0, _strAfter.default)(relativePath, ''.concat(firstPart, '/'))
-    nextPart = (0, _strAfter.default)(nextPart, ''.concat(firstPart, '/'))
+    relativePath = (0, _strAfter.default)(relativePath, `${firstPart}/`)
+    nextPart = (0, _strAfter.default)(nextPart, `${firstPart}/`)
     firstPart = (0, _strBefore.default)(nextPart, '/')
     hasMatches = true
   }

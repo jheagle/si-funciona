@@ -11,7 +11,7 @@ require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.some.js')
 require('core-js/stable')
 var _setValue = _interopRequireDefault(require('../objects/setValue'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Check if the descriptors references have all been built and set complete to true if they have.
  * @memberOf module:objectDescriptors

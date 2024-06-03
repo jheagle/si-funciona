@@ -8,7 +8,7 @@ require('core-js/stable')
 var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
 var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Trace an object and return the descriptor which defines the object's structure and attributes.
  * @memberOf module:objectDescriptors

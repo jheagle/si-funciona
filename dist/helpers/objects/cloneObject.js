@@ -6,7 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/stable')
 var _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
  * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
