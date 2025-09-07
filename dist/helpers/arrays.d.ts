@@ -9,12 +9,12 @@
 import 'core-js/stable';
 import BasicQueue from './arrays/BasicQueue';
 declare const _default: {
-    addUniqueToArray: (item: any, array: any[]) => any[];
+    addUniqueToArray: (item: any, array: Array<any>) => Array<any>;
     BasicQueue: typeof BasicQueue;
-    buildArray: (item: any, length: number) => any[];
-    buildArrayOfReferences: (item: any, length: number) => any[];
-    compareArrays: (...arrays: any[][]) => import("./arrays/compareArrays").compareArrayResultMap;
-    mergeArrays: (...arrays: any[][]) => any[];
-    uniqueArray: (array: any[]) => any[];
+    buildArray: (item: any, length: number) => Array<any>;
+    buildArrayOfReferences: (item: any, length: number) => Array<any>;
+    compareArrays: (...arrays: Array<Array<any>>) => import("./arrays/compareArrays").compareArrayResultMap;
+    mergeArrays: (...arrays: Array<Array<any>>) => Array<any>;
+    uniqueArray: (array: Array<any>) => Array<any>;
 };
 export default _default;

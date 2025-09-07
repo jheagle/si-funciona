@@ -6,7 +6,7 @@ import 'core-js/stable';
  * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
  * @returns {*}
  */
-declare const mergeObjects: (...objects: Object[]) => any[] | {
+declare const mergeObjects: (...objects: Array<Object>) => any[] | {
     [k: string]: any;
     [k: number]: any;
 };

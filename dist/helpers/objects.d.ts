@@ -13,13 +13,13 @@ declare const _default: {
         depthLimit?: number;
         relevancyRange?: number;
     }) => object;
-    dotGet: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: string, defaultValue?: string) => any;
-    dotNotate: (arrayObject: object, retainObjects?: string[]) => {
+    dotGet: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: import("./objects/dotNotate").dotNotationString, defaultValue?: string | null) => any;
+    dotNotate: (arrayObject: object, retainObjects?: Array<import("./objects/dotNotate").dotNotationString>) => {
         [k: string]: any;
     };
-    dotSet: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: string, value?: any) => import("./objects/dotNotate").dotNotateableItem;
-    dotUnset: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: string) => import("./objects/dotNotate").dotNotateableItem;
-    emptyObject: (item: Object | any[]) => boolean;
+    dotSet: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: import("./objects/dotNotate").dotNotationString, value?: any) => import("./objects/dotNotate").dotNotateableItem;
+    dotUnset: (arrayObject: import("./objects/dotNotate").dotNotateableItem, dotNotation: import("./objects/dotNotate").dotNotationString) => import("./objects/dotNotate").dotNotateableItem;
+    emptyObject: (item: Array<any> | Object) => boolean;
     filterObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
@@ -33,8 +33,8 @@ declare const _default: {
         [k: string]: any;
         [k: number]: any;
     };
-    isCloneable: (value: any) => boolean;
-    isInstanceObject: (object: Object | any[]) => boolean;
+    isCloneable: (value: Array<any> | Object | any) => boolean;
+    isInstanceObject: (object: Array<any> | Object) => boolean;
     isObject: (object: any) => boolean;
     mapObject: (obj: any[] | {
         [k: string]: any;
@@ -49,7 +49,7 @@ declare const _default: {
         [k: string]: any;
         [k: number]: any;
     };
-    mergeObjects: (...objects: Object[]) => any[] | {
+    mergeObjects: (...objects: Array<Object>) => any[] | {
         [k: string]: any;
         [k: number]: any;
     };
@@ -59,22 +59,22 @@ declare const _default: {
         relevancyRange?: number;
         map?: import("./functions/relevancyFilter").relevanceMap;
         useClone?: boolean;
-    }) => (...objects: Object[]) => any[] | {
+    }) => (...objects: Array<Object>) => any[] | {
         [k: string]: any;
         [k: number]: any;
     };
-    mergeObjectsMutable: (...objects: Object[]) => any[] | {
+    mergeObjectsMutable: (...objects: Array<Object>) => any[] | {
         [k: string]: any;
         [k: number]: any;
     };
     objectKeys: (object: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, includeInherited?: boolean) => any[];
+    }, includeInherited?: boolean) => Array<any>;
     objectValues: (object: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, includeInherited?: boolean) => any[];
+    }, includeInherited?: boolean) => Array<any>;
     reduceObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
@@ -89,7 +89,7 @@ declare const _default: {
         [k: string]: any;
         [k: number]: any;
     }, key: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "at" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", value: any) => any;
-    setValue: (key: string | number, value: any, item: any[] | {
+    setValue: (key: number | string, value: any, item: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => any[] | {

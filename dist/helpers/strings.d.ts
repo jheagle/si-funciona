@@ -20,6 +20,6 @@ declare const _default: {
     strBeforeLast: (str: string, search: string) => string;
     titleCase: (str: string) => string;
     ucFirst: (str: string) => string;
-    words: (str: string) => string[];
+    words: (str: string) => Array<string>;
 };
 export default _default;

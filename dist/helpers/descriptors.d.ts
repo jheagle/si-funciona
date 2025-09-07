@@ -8,8 +8,8 @@
  */
 import 'core-js/stable';
 declare const _default: {
-    assignDescriptor: (originalMap: import("./descriptors/samples/descriptor").descriptor, ...descriptors: import("./descriptors/samples/descriptor").descriptor[]) => import("./descriptors/samples/descriptor").descriptor;
-    assignDescriptorDetail: (originalDetail: import("./descriptors/samples/descriptorDetail").descriptorDetail, ...details: import("./descriptors/samples/descriptorDetail").descriptorDetail[]) => import("./descriptors/samples/descriptorDetail").descriptorDetail;
+    assignDescriptor: (originalMap: import("./descriptors/samples/descriptor").descriptor, ...descriptors: Array<import("./descriptors/samples/descriptor").descriptor>) => import("./descriptors/samples/descriptor").descriptor;
+    assignDescriptorDetail: (originalDetail: import("./descriptors/samples/descriptorDetail").descriptorDetail, ...details: Array<import("./descriptors/samples/descriptorDetail").descriptorDetail>) => import("./descriptors/samples/descriptorDetail").descriptorDetail;
     checkClearValues: (descriptor: import("./descriptors/samples/descriptor").descriptor, keepValues?: boolean) => import("./descriptors/samples/descriptor").descriptor;
     checkDescriptorComplete: (descriptor: import("./descriptors/samples/descriptor").descriptor) => import("./descriptors/samples/descriptor").descriptor;
     cloneDescriptor: (originalMap: import("./descriptors/samples/descriptor").descriptor) => import("./descriptors/samples/descriptor").descriptor;
@@ -21,8 +21,8 @@ declare const _default: {
         depthLimit?: number;
         keepValues?: boolean;
     }) => import("./descriptors/samples/descriptorMap").descriptorMap;
-    describeObjectDetail: (value: any, key?: string | number, index?: number) => import("./descriptors/samples/descriptorDetail").descriptorDetail;
-    nextReference: (descriptor: import("./descriptors/samples/descriptor").descriptor, currentReference: number) => number;
+    describeObjectDetail: (value: any, key?: number | string, index?: number) => import("./descriptors/samples/descriptorDetail").descriptorDetail;
+    nextReference: (descriptor: import("./descriptors/samples/descriptor").descriptor, currentReference: number) => number | undefined;
     sameDescriptor: (descriptor1: import("./descriptors/samples/descriptor").descriptor, descriptor2: import("./descriptors/samples/descriptor").descriptor) => boolean;
 };
 export default _default;

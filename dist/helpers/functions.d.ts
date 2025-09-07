@@ -8,16 +8,16 @@
  */
 import 'core-js/stable';
 declare const _default: {
-    callWithParams: (fn: Function, params?: any[], minimum?: number) => any;
-    curry: (fn: Function) => any;
+    callWithParams: (fn: Function, params?: Array<any>, minimum?: number) => any;
+    curry: (fn: Function) => Function | any;
     delay: (time?: number) => {
         resolver: Promise<any>;
         cancel: () => void;
     };
-    makeBasicQueue: (initialQueue?: any) => import("./arrays/BasicQueue").IsQueue<any>;
-    onBodyLoad: (callback: Function, reset?: boolean) => Function[];
+    makeBasicQueue: (initialQueue?: import("./arrays/BasicQueue").queuedItem[] | any) => import("./arrays/BasicQueue").IsQueue<any>;
+    onBodyLoad: (callback: Function, reset?: boolean) => Array<Function>;
     pipe: (...fns: Function[]) => any;
-    preloadParams: (fn: Function, params?: any[], unassignedParam?: number) => (missing: any) => any;
+    preloadParams: (fn: Function, params?: Array<any>, unassignedParam?: number) => (missing: any) => any;
     queueManager: (queue?: import("./arrays/BasicQueue").IsQueue<import("./arrays/BasicQueue").queuedItem>) => import("./functions/queueManager").queueManagerHandle;
     queueTimeout: (queueManagerHandle?: import("./functions/queueManager").queueManagerHandle) => (fn: Function, time: number, ...args: any) => Promise<any>;
     relevancyFilter: (map: import("./functions/relevancyFilter").relevanceMap, { mapLimit, relevancyRange }?: {
