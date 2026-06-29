@@ -7,7 +7,6 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
 var _isCloneable = _interopRequireDefault(require('./isCloneable'))
 var _reduceObject = _interopRequireDefault(require('./reduceObject'))
@@ -29,13 +28,17 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
 const mergeObjectsBase = function () {
-  let {
-    mapLimit = 100,
-    depthLimit = -1,
-    relevancyRange = 1000,
-    map = [],
-    useClone = false
-  } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+  const _ref$mapLimit = _ref.mapLimit
+  const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
+  const _ref$depthLimit = _ref.depthLimit
+  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  const _ref$relevancyRange = _ref.relevancyRange
+  const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
+  const _ref$map = _ref.map
+  let map = _ref$map === void 0 ? [] : _ref$map
+  const _ref$useClone = _ref.useClone
+  const useClone = _ref$useClone === void 0 ? false : _ref$useClone
   return function () {
     for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
       objects[_key] = arguments[_key]

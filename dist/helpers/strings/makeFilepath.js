@@ -44,7 +44,7 @@ const makeFilepath = function (root) {
   if (!root) {
     return append
   }
-  return append ? `${root}/${append}` : root
+  return append ? ''.concat(root, '/').concat(append) : root
 }
 exports.makeFilepath = makeFilepath
 var _default = exports.default = makeFilepath

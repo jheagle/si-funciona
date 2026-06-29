@@ -20,11 +20,13 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {Object}
  */
 const cloneObject = function (object) {
-  const {
-    mapLimit = 100,
-    depthLimit = -1,
-    relevancyRange = 1000
-  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref$mapLimit = _ref.mapLimit
+  const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
+  const _ref$depthLimit = _ref.depthLimit
+  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  const _ref$relevancyRange = _ref.relevancyRange
+  const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
   return (0, _mergeObjectsBase.default)({
     mapLimit,
     depthLimit,

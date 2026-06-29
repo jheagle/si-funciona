@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+require('core-js/modules/es.array.includes.js')
 require('core-js/stable')
 /**
  * Having an array and a potential new array element, check if the element is in the array, if not append to array.

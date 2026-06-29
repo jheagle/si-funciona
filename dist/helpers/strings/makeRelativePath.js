@@ -20,8 +20,8 @@ const makeRelativePath = (fromFile, toFile) => {
   let firstPart = (0, _strBefore.default)(nextPart, '/')
   let hasMatches = false
   while (firstPart && relativePath.startsWith(firstPart)) {
-    relativePath = (0, _strAfter.default)(relativePath, `${firstPart}/`)
-    nextPart = (0, _strAfter.default)(nextPart, `${firstPart}/`)
+    relativePath = (0, _strAfter.default)(relativePath, ''.concat(firstPart, '/'))
+    nextPart = (0, _strAfter.default)(nextPart, ''.concat(firstPart, '/'))
     firstPart = (0, _strBefore.default)(nextPart, '/')
     hasMatches = true
   }

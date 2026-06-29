@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 var _delay = _interopRequireDefault(require('./delay'))

@@ -27,11 +27,13 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {module:objectDescriptors~descriptorMap}
  */
 const describeObjectMap = function (object) {
-  const {
-    mapLimit = 1000000000,
-    depthLimit = -1,
-    keepValues = false
-  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+  const _ref$mapLimit = _ref.mapLimit
+  const mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
+  const _ref$depthLimit = _ref.depthLimit
+  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
+  const _ref$keepValues = _ref.keepValues
+  const keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
   const descriptorMap = [(0, _describeObject.default)(object)]
   descriptorMap[0].index = 0
   const describeReferences = function (descriptor, currentDetail) {
