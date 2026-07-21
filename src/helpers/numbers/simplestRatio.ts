@@ -11,7 +11,9 @@ const simplestRatio = (...numbers: number[]): number[] => {
     if (numbers.length === 0) {
         return []
     }
-    const commonDivisor = numbers.reduce((num1: number, num2: number): number => greatestCommonDivisor(num1, num2), 0)
+    let commonDivisor = numbers.reduce((num1: number, num2: number): number => greatestCommonDivisor(num1, num2), 0)
+    // Set to positive so that when we divide the numbers they retain their +/-
+    commonDivisor = Math.abs(commonDivisor)
 
     return numbers.map((num) => num / commonDivisor)
 }

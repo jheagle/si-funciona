@@ -608,7 +608,7 @@ Helper for calculating the multiplier that would make each number relative to ea
 <a name="module_numberHelpers.greatestCommonDivisor"></a>
 
 ### numberHelpers.greatestCommonDivisor(num1, num2) ⇒ <code>number</code>
-Return the highest number than can be divided into both numbers.
+Return the highest number that can be divided into both numbers.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
