@@ -532,11 +532,26 @@ Some number comparators and random number generators.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [numberHelpers](#module_numberHelpers)
+    * [.simplestRatio(...numbers)](#module_numberHelpers.simplestRatio) ⇒ <code>Array.&lt;number&gt;</code>
     * [.randomNumber(range, [offset], [interval])](#module_numberHelpers.randomNumber) ⇒ <code>number</code>
     * [.randomInteger(range, [offset], [interval])](#module_numberHelpers.randomInteger) ⇒ <code>number</code>
+    * [.lowestCommonDenominator(num1, num2)](#module_numberHelpers.lowestCommonDenominator) ⇒ <code>number</code>
+    * [.leastCommonMultiple(num1, num2)](#module_numberHelpers.leastCommonMultiple) ⇒ <code>number</code>
+    * [.greatestCommonDivisor(num1, num2)](#module_numberHelpers.greatestCommonDivisor) ⇒ <code>number</code>
     * [.compare(val1, val2)](#module_numberHelpers.compare) ⇒ <code>number</code>
     * [.absoluteMin(num1, num2)](#module_numberHelpers.absoluteMin) ⇒ <code>number</code>
     * [.absoluteMax(num1, num2)](#module_numberHelpers.absoluteMax) ⇒ <code>number</code>
+
+<a name="module_numberHelpers.simplestRatio"></a>
+
+### numberHelpers.simplestRatio(...numbers) ⇒ <code>Array.&lt;number&gt;</code>
+Reduce several numbers to their simplest form / ratio
+
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...numbers | <code>number</code> | Array of numbers to simplify |
 
 <a name="module_numberHelpers.randomNumber"></a>
 
@@ -565,6 +580,42 @@ The distance between the result numbers can be adjusted with interval.
 | range | <code>number</code> |  | Choose the breadth of the random number (0-100 would be 100 for range) |
 | [offset] | <code>number</code> | <code>0</code> | Choose the starting number (1-10 would be 1 for offset, 9 for range) |
 | [interval] | <code>number</code> | <code>1</code> | Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for offset, 2 for range) |
+
+<a name="module_numberHelpers.lowestCommonDenominator"></a>
+
+### numberHelpers.lowestCommonDenominator(num1, num2) ⇒ <code>number</code>
+Helper for calculating the multiplier that would make each number relative to each other.
+
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| num1 | <code>number</code> | A number to compare |
+| num2 | <code>number</code> | Another number to be compared against |
+
+<a name="module_numberHelpers.leastCommonMultiple"></a>
+
+### numberHelpers.leastCommonMultiple(num1, num2) ⇒ <code>number</code>
+Helper for calculating the multiplier that would make each number relative to each other.
+
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| num1 | <code>number</code> | A number to compare |
+| num2 | <code>number</code> | Another number to be compared against |
+
+<a name="module_numberHelpers.greatestCommonDivisor"></a>
+
+### numberHelpers.greatestCommonDivisor(num1, num2) ⇒ <code>number</code>
+Return the highest number than can be divided into both numbers.
+
+**Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| num1 | <code>number</code> | First number to assess |
+| num2 | <code>number</code> | Second number to compare for common divisor |
 
 <a name="module_numberHelpers.compare"></a>
 
