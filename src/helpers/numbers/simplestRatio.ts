@@ -15,7 +15,8 @@ const simplestRatio = (...numbers: number[]): number[] => {
     // Set to positive so that when we divide the numbers they retain their +/-
     commonDivisor = Math.abs(commonDivisor)
 
-    return numbers.map((num) => num / commonDivisor)
+    // Simplify the numbers, handle zero
+    return numbers.map((num) => commonDivisor === 0 ? 0 : num / commonDivisor)
 }
 
 export default simplestRatio

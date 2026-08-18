@@ -30,7 +30,7 @@
     "watch:test": "gulp watchTest"
   },
   "dependencies": {
-    "npm": "^12.0.1"
+    "npm": "^12.0.2"
   },
   "devDependencies": {
     "collect-your-stuff": "^1.2.6",

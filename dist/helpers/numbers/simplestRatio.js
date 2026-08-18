@@ -23,6 +23,7 @@ const simplestRatio = function () {
   let commonDivisor = numbers.reduce((num1, num2) => (0, _greatestCommonDivisor.default)(num1, num2), 0)
   // Set to positive so that when we divide the numbers they retain their +/-
   commonDivisor = Math.abs(commonDivisor)
-  return numbers.map(num => num / commonDivisor)
+  // Simplify the numbers, handle zero
+  return numbers.map(num => commonDivisor === 0 ? 0 : num / commonDivisor)
 }
 var _default = exports.default = simplestRatio

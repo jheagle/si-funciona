@@ -25,4 +25,7 @@ describe('simplestRatio', () => {
   test('will find the simplest form for: 0,0,3', () => {
     expect(simplestRatio(0, 0, 3)).toEqual([0, 0, 1])
   })
+  test('all zeros will return zeros', () => {
+    expect(simplestRatio(0, 0, 0)).toEqual([0, 0, 0])
+  })
 })
