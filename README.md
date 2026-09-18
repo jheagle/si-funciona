@@ -30,6 +30,12 @@ been described is simply pointed to again instead of re-described.</p>
 <p>Start with <a href="#module_objectDescriptors.describeObjectMap">describeObjectMap</a>, which takes any real object or array and produces
 this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
 building blocks used internally, or useful once you already have descriptors to work with directly.</p>
+<p>The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+you whether they&#39;re the same shape and values even when they&#39;re different references entirely (see
+<a href="#module_objectDescriptors.sameDescriptor">sameDescriptor</a>/<a href="#module_objectDescriptors.compareDescriptor">compareDescriptor</a>) - useful
+anywhere you need to check that two objects genuinely match without caring whether they&#39;re literally the same
+instance. A descriptor also doubles as a flat, structured summary of an object&#39;s shape, which can be handy for
+discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).</p>
 </dd>
 <dt><a href="#module_arrayHelpers">arrayHelpers</a></dt>
 <dd><p>Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
@@ -895,6 +901,13 @@ been described is simply pointed to again instead of re-described.
 Start with [describeObjectMap](#module_objectDescriptors.describeObjectMap), which takes any real object or array and produces
 this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
 building blocks used internally, or useful once you already have descriptors to work with directly.
+
+The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+you whether they're the same shape and values even when they're different references entirely (see
+[sameDescriptor](#module_objectDescriptors.sameDescriptor)/[compareDescriptor](#module_objectDescriptors.compareDescriptor)) - useful
+anywhere you need to check that two objects genuinely match without caring whether they're literally the same
+instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
+discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  

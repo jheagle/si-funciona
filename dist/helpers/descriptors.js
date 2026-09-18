@@ -29,6 +29,13 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * Start with {@link module:objectDescriptors.describeObjectMap}, which takes any real object or array and produces
  * this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
  * building blocks used internally, or useful once you already have descriptors to work with directly.
+ *
+ * The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+ * you whether they're the same shape and values even when they're different references entirely (see
+ * {@link module:objectDescriptors.sameDescriptor}/{@link module:objectDescriptors.compareDescriptor}) - useful
+ * anywhere you need to check that two objects genuinely match without caring whether they're literally the same
+ * instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
+ * discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
