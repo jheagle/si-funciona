@@ -33,7 +33,7 @@
     "npm": "^12.0.2"
   },
   "devDependencies": {
-    "collect-your-stuff": "^1.2.6",
+    "collect-your-stuff": "^1.2.7",
     "gulp": "^5.0.1",
     "js-build-tools": "^4.1.1",
     "jsdoc": "^4.0.5",
