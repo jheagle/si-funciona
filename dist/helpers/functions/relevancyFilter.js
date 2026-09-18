@@ -17,12 +17,10 @@ require('core-js/stable')
  * @param {int} [options.relevancyRange=100]
  * @returns {relevanceMap}
  */
-const relevancyFilter = function (map) {
-  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  const _ref$mapLimit = _ref.mapLimit
-  const mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
-  const _ref$relevancyRange = _ref.relevancyRange
-  const relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
+const relevancyFilter = (map, {
+  mapLimit = 1000,
+  relevancyRange = 100
+} = {}) => {
   if (map.length <= mapLimit) {
     return map
   }

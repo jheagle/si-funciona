@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const camelCase: (str: string) => string;
 export default camelCase;
+//# sourceMappingURL=camelCase.d.ts.map

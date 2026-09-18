@@ -9,3 +9,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const compareDescriptor: (descriptor1: descriptor, descriptor2: descriptor) => boolean;
 export default compareDescriptor;
+//# sourceMappingURL=compareDescriptor.d.ts.map

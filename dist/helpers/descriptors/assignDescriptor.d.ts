@@ -9,3 +9,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const assignDescriptor: (originalMap: descriptor, ...descriptors: Array<descriptor>) => descriptor;
 export default assignDescriptor;
+//# sourceMappingURL=assignDescriptor.d.ts.map

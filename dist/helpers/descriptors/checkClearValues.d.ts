@@ -9,3 +9,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const checkClearValues: (descriptor: descriptor, keepValues?: boolean) => descriptor;
 export default checkClearValues;
+//# sourceMappingURL=checkClearValues.d.ts.map

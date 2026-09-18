@@ -12,3 +12,4 @@ type settableItem = Array<any> | {
  */
 declare const setAndReturnValue: (item: settableItem, key: keyof settableItem, value: any) => any;
 export default setAndReturnValue;
+//# sourceMappingURL=setAndReturnValue.d.ts.map

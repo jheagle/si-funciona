@@ -15,12 +15,9 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
  */
-const trace = function (label) {
-  const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
-  return value => {
-    // noinspection JSForgottenDebugStatementInspection
-    console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
-    return value
-  }
+const trace = (label, useClone = true) => value => {
+  // noinspection JSForgottenDebugStatementInspection
+  console.info(`${label}: `, useClone ? (0, _cloneObject.default)(value) : value)
+  return value
 }
 var _default = exports.default = trace

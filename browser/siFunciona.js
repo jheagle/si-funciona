@@ -46,8 +46,7 @@
  * @memberOf module:arrayHelpers
  */
     class BasicQueue {
-      constructor () {
-        const innerList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+      constructor (innerList = []) {
         this.innerList = innerList
       }
 
@@ -178,7 +177,6 @@
     require('core-js/modules/esnext.iterator.every.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _isObject = _interopRequireDefault(require('../objects/isObject'))
     var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
@@ -241,37 +239,32 @@
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
-    const compareArrays = function () {
-      for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
-        arrays[_key] = arguments[_key]
-      }
-      return (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
-        const attrType = typeof attr
-        const useArray = Array.isArray(attr)
-        const keys = arrays.map(array => array.reduce((results, current, key) => {
-          const currentType = typeof current
-          if (attrType !== currentType) {
-            return results
-          }
-          if (!(0, _isObject.default)(attr)) {
-            return current === attr ? [...results, key] : results
-          }
-          if (useArray !== Array.isArray(current)) {
-            return results
-          }
-          const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
-          return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
-        }, []))
-        const arrayResults = keys.map(array => array.length ? 1 : -1)
-        return [...results, {
-          value: attr,
-          keys: keys,
-          result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
-        }]
-      }, [])
-    }
+    const compareArrays = (...arrays) => (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
+      const attrType = typeof attr
+      const useArray = Array.isArray(attr)
+      const keys = arrays.map(array => array.reduce((results, current, key) => {
+        const currentType = typeof current
+        if (attrType !== currentType) {
+          return results
+        }
+        if (!(0, _isObject.default)(attr)) {
+          return current === attr ? [...results, key] : results
+        }
+        if (useArray !== Array.isArray(current)) {
+          return results
+        }
+        const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
+        return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
+      }, []))
+      const arrayResults = keys.map(array => array.length ? 1 : -1)
+      return [...results, {
+        value: attr,
+        keys: keys,
+        result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
+      }]
+    }, [])
     var _default = exports.default = compareArrays
-  }, { '../objects/isObject': 54, '../objects/objectKeys': 59, './mergeArrays': 7, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { '../objects/isObject': 54, '../objects/objectKeys': 59, './mergeArrays': 7, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   7: [function (require, module, exports) {
     'use strict'
 
@@ -282,8 +275,8 @@
     require('core-js/modules/es.array.includes.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.filter.js')
+    require('core-js/modules/esnext.iterator.map.js')
     require('core-js/modules/esnext.iterator.reduce.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _uniqueArray = _interopRequireDefault(require('./uniqueArray'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
@@ -293,14 +286,9 @@
  * @param {...Array} arrays - Provide multiple arrays to create one unique array
  * @returns {Array}
  */
-    const mergeArrays = function () {
-      for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
-        arrays[_key] = arguments[_key]
-      }
-      return arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
-    }
+    const mergeArrays = (...arrays) => arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
     var _default = exports.default = mergeArrays
-  }, { './uniqueArray': 8, 'core-js/modules/es.array.includes.js': 388, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.filter.js': 681, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { './uniqueArray': 8, 'core-js/modules/es.array.includes.js': 388, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.filter.js': 681, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   8: [function (require, module, exports) {
     'use strict'
 
@@ -377,7 +365,7 @@
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/modules/esnext.iterator.for-each.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
     var _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
@@ -391,41 +379,36 @@
  * @param  {...module:objectDescriptors~descriptor} descriptors
  * @returns {module:objectDescriptors~descriptor}
  */
-    const assignDescriptor = function (originalMap) {
-      for (var _len = arguments.length, descriptors = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        descriptors[_key - 1] = arguments[_key]
-      }
-      return descriptors.reduce((assignedDescriptor, descriptor) => {
-        const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
-        detailsDiff.forEach(diff => {
-          const existingDetail = assignedDescriptor.details.find(detail => detail.key === diff.value)
-          const newDetail = descriptor.details.find(detail => detail.key === diff.value)
-          if (diff.result.every(result => result === 0)) {
-            assignedDescriptor.details[existingDetail.index] = (0, _assignDescriptorDetail.default)(existingDetail, newDetail)
-            return assignedDescriptor
-          }
-          const useDetail = diff.result[0] > 0 ? existingDetail : newDetail
-          if (!useDetail) {
-            assignedDescriptor.details[existingDetail.index].optional = true
-            return assignedDescriptor
-          }
-          const useIndex = diff.result[0] > 0 ? useDetail.index : assignedDescriptor.length
-          assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
-            index: useIndex,
-            optional: true
-          })
-          assignedDescriptor.length = assignedDescriptor.length < assignedDescriptor.details.length ? assignedDescriptor.details.length : assignedDescriptor.length
+    const assignDescriptor = (originalMap, ...descriptors) => descriptors.reduce((assignedDescriptor, descriptor) => {
+      const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
+      detailsDiff.forEach(diff => {
+        const existingDetail = assignedDescriptor.details.find(detail => detail.key === diff.value)
+        const newDetail = descriptor.details.find(detail => detail.key === diff.value)
+        if (diff.result.every(result => result === 0)) {
+          assignedDescriptor.details[existingDetail.index] = (0, _assignDescriptorDetail.default)(existingDetail, newDetail)
           return assignedDescriptor
+        }
+        const useDetail = diff.result[0] > 0 ? existingDetail : newDetail
+        if (!useDetail) {
+          assignedDescriptor.details[existingDetail.index].optional = true
+          return assignedDescriptor
+        }
+        const useIndex = diff.result[0] > 0 ? useDetail.index : assignedDescriptor.length
+        assignedDescriptor.details[useIndex] = Object.assign({}, useDetail, {
+          index: useIndex,
+          optional: true
         })
-        assignedDescriptor.keys = (0, _uniqueArray.default)(assignedDescriptor.details.map(detail => detail.key))
-        assignedDescriptor.references = (0, _uniqueArray.default)(assignedDescriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
-        assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(detail => typeof detail.key === 'number') : assignedDescriptor.isArray
-        assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
+        assignedDescriptor.length = assignedDescriptor.length < assignedDescriptor.details.length ? assignedDescriptor.details.length : assignedDescriptor.length
         return assignedDescriptor
-      }, (0, _cloneDescriptor.default)(originalMap))
-    }
+      })
+      assignedDescriptor.keys = (0, _uniqueArray.default)(assignedDescriptor.details.map(detail => detail.key))
+      assignedDescriptor.references = (0, _uniqueArray.default)(assignedDescriptor.details.filter(detail => detail.isReference).map(detail => detail.index))
+      assignedDescriptor.isArray = assignedDescriptor.length ? assignedDescriptor.details.every(detail => typeof detail.key === 'number') : assignedDescriptor.isArray
+      assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
+      return assignedDescriptor
+    }, (0, _cloneDescriptor.default)(originalMap))
     var _default = exports.default = assignDescriptor
-  }, { '../arrays/compareArrays': 6, '../arrays/uniqueArray': 8, './assignDescriptorDetail': 11, './cloneDescriptor': 14, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.filter.js': 681, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.for-each.js': 683, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { '../arrays/compareArrays': 6, '../arrays/uniqueArray': 8, './assignDescriptorDetail': 11, './cloneDescriptor': 14, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.filter.js': 681, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.for-each.js': 683, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   11: [function (require, module, exports) {
     'use strict'
 
@@ -433,7 +416,8 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
     var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
@@ -445,27 +429,22 @@
  * @param  {...module:objectDescriptors~descriptorDetail} details
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-    const assignDescriptorDetail = function (originalDetail) {
-      for (var _len = arguments.length, details = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        details[_key - 1] = arguments[_key]
-      }
-      return details.reduce((existingDetail, newDetail) => {
-        existingDetail.type = (0, _uniqueArray.default)([...existingDetail.type, ...newDetail.type])
-        existingDetail.value = (0, _uniqueArray.default)([...existingDetail.value, ...newDetail.value])
-        existingDetail.nullable = existingDetail.nullable || newDetail.nullable
-        existingDetail.optional = existingDetail.optional || newDetail.optional
-        existingDetail.circular = existingDetail.circular || newDetail.circular
-        existingDetail.isReference = existingDetail.isReference || newDetail.isReference
-        existingDetail.isInstance = existingDetail.isInstance || newDetail.isInstance
-        existingDetail.arrayReference = [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number')
-        existingDetail.objectReference = [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
-        existingDetail.arrayReference = typeof existingDetail.arrayReference === 'undefined' ? null : existingDetail.arrayReference
-        existingDetail.objectReference = typeof existingDetail.objectReference === 'undefined' ? null : existingDetail.objectReference
-        return existingDetail
-      }, (0, _cloneDescriptorDetail.default)(originalDetail))
-    }
+    const assignDescriptorDetail = (originalDetail, ...details) => details.reduce((existingDetail, newDetail) => {
+      existingDetail.type = (0, _uniqueArray.default)([...existingDetail.type, ...newDetail.type])
+      existingDetail.value = (0, _uniqueArray.default)([...existingDetail.value, ...newDetail.value])
+      existingDetail.nullable = existingDetail.nullable || newDetail.nullable
+      existingDetail.optional = existingDetail.optional || newDetail.optional
+      existingDetail.circular = existingDetail.circular || newDetail.circular
+      existingDetail.isReference = existingDetail.isReference || newDetail.isReference
+      existingDetail.isInstance = existingDetail.isInstance || newDetail.isInstance
+      existingDetail.arrayReference = [existingDetail.arrayReference, newDetail.arrayReference].find(ref => typeof ref === 'number')
+      existingDetail.objectReference = [existingDetail.objectReference, newDetail.objectReference].find(ref => typeof ref === 'number')
+      existingDetail.arrayReference = typeof existingDetail.arrayReference === 'undefined' ? null : existingDetail.arrayReference
+      existingDetail.objectReference = typeof existingDetail.objectReference === 'undefined' ? null : existingDetail.objectReference
+      return existingDetail
+    }, (0, _cloneDescriptorDetail.default)(originalDetail))
     var _default = exports.default = assignDescriptorDetail
-  }, { '../arrays/uniqueArray': 8, './cloneDescriptorDetail': 15, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { '../arrays/uniqueArray': 8, './cloneDescriptorDetail': 15, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   12: [function (require, module, exports) {
     'use strict'
 
@@ -485,10 +464,7 @@
  * @param {boolean} [keepValues=false]
  * @returns {module:objectDescriptors~descriptor}
  */
-    const checkClearValues = function (descriptor) {
-      const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-      return (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
-    }
+    const checkClearValues = (descriptor, keepValues = false) => (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
     var _default = exports.default = checkClearValues
   }, { '../objects/setValue': 63, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
   13: [function (require, module, exports) {
@@ -521,7 +497,6 @@
     exports.default = void 0
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.map.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
@@ -550,7 +525,7 @@
       return copyMap
     }
     var _default = exports.default = cloneDescriptor
-  }, { './cloneDescriptorDetail': 15, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { './cloneDescriptorDetail': 15, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
   15: [function (require, module, exports) {
     'use strict'
 
@@ -592,7 +567,6 @@
     require('core-js/modules/esnext.iterator.every.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/modules/esnext.iterator.some.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
@@ -613,7 +587,7 @@
       return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
     }
     var _default = exports.default = compareDescriptor
-  }, { 'core-js/modules/es.array.includes.js': 388, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.some.js': 686, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { 'core-js/modules/es.array.includes.js': 388, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.every.js': 680, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.some.js': 686, 'core-js/stable': 713 }],
   17: [function (require, module, exports) {
     'use strict'
 
@@ -687,9 +661,7 @@
  * @param {number} [index=0]
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-    const describeObjectDetail = function (value) {
-      const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      const index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+    const describeObjectDetail = (value, key = 0, index = 0) => {
       const type = typeof value
       return {
         index: index,
@@ -736,19 +708,14 @@
  * @param {boolean} [options.keepValues=false]
  * @returns {module:objectDescriptors~descriptorMap}
  */
-    const describeObjectMap = function (object) {
-      const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      const _ref$mapLimit = _ref.mapLimit
-      const mapLimit = _ref$mapLimit === void 0 ? 1000000000 : _ref$mapLimit
-      const _ref$depthLimit = _ref.depthLimit
-      const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      const _ref$keepValues = _ref.keepValues
-      const keepValues = _ref$keepValues === void 0 ? false : _ref$keepValues
+    const describeObjectMap = (object, {
+      mapLimit = 1000000000,
+      depthLimit = -1,
+      keepValues = false
+    } = {}) => {
       const descriptorMap = [(0, _describeObject.default)(object)]
       descriptorMap[0].index = 0
-      const describeReferences = function (descriptor, currentDetail) {
-        let limit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1
-        const returnCallback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : returnMap => returnMap
+      const describeReferences = (descriptor, currentDetail, limit = -1, returnCallback = returnMap => returnMap) => {
         let index = descriptorMap.length
         const nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
         const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
@@ -908,7 +875,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
@@ -918,13 +884,9 @@
  * @param {number} [minimum=2] - Minimum number of parameters to use in the function
  * @returns {*}
  */
-    const callWithParams = function (fn) {
-      const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-      const minimum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2
-      return fn(...params.slice(0, fn.length || minimum))
-    }
+    const callWithParams = (fn, params = [], minimum = 2) => fn(...params.slice(0, fn.length || minimum))
     var _default = exports.default = callWithParams
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { 'core-js/stable': 713 }],
   24: [function (require, module, exports) {
     'use strict'
 
@@ -932,7 +894,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Return a curried version of the passed function.
@@ -942,19 +903,9 @@
  * @param {Function} fn - Receives a function to be curried
  * @returns {Function|*}
  */
-    const curry = fn => function () {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key]
-      }
-      return args.length >= fn.length ? fn(...args) : function () {
-        for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-          a[_key2] = arguments[_key2]
-        }
-        return curry(fn)(...[...args, ...a])
-      }
-    }
+    const curry = fn => (...args) => args.length >= fn.length ? fn(...args) : (...a) => curry(fn)(...[...args, ...a])
     var _default = exports.default = curry
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { 'core-js/stable': 713 }],
   25: [function (require, module, exports) {
     'use strict'
 
@@ -970,18 +921,17 @@
  * @param {number} time - Delay in milliseconds
  * @returns {module:functionHelpers~delayHandler}
  */
-    const delay = function () {
-      const time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0
+    const delay = (time = 0) => {
       let cancel = () => undefined
       return {
         resolver: new Promise((resolve, reject) => {
           if (isNaN(time)) {
-            reject(new Error('Invalid delay: '.concat(time)))
+            reject(new Error(`Invalid delay: ${time}`))
           } else {
-            const timeoutId = setTimeout(resolve, time, 'Delayed for: '.concat(time))
+            const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`)
             cancel = () => {
               clearTimeout(timeoutId)
-              reject(new Error('Cancelled delay: '.concat(time)))
+              reject(new Error(`Cancelled delay: ${time}`))
             }
           }
         }),
@@ -1006,8 +956,7 @@
  * @param {Array} initialQueue
  * @returns {IsQueue}
  */
-    const makeBasicQueue = function () {
-      const initialQueue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+    const makeBasicQueue = (initialQueue = []) => {
       return new _BasicQueue.default(initialQueue)
     }
     var _default = exports.default = makeBasicQueue
@@ -1076,8 +1025,7 @@
  * @param {boolean} [reset=false]
  * @returns {Array.<Function>}
  */
-    const onBodyLoad = function (callback) {
-      const reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+    const onBodyLoad = (callback, reset = false) => {
       if (reset) {
         doReset()
       }
@@ -1096,6 +1044,8 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     /**
  * Take one or more function with a single parameter and return value.
@@ -1104,14 +1054,9 @@
  * @param {...Function} fns - Takes a series of functions having the same parameter
  * @returns {*}
  */
-    const pipe = function () {
-      for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
-        fns[_key] = arguments[_key]
-      }
-      return x => fns.reduce((y, f) => f(y), x)
-    }
+    const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
     var _default = exports.default = pipe
-  }, { 'core-js/stable': 713 }],
+  }, { 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   29: [function (require, module, exports) {
     'use strict'
 
@@ -1119,7 +1064,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
@@ -1130,16 +1074,12 @@
  * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
  * @returns {module:functionHelpers~callWithMissing}
  */
-    const preloadParams = function (fn) {
-      const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-      const unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
-      return missing => {
-        params.splice(unassignedParam, 0, missing)
-        return fn(...params)
-      }
+    const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
+      params.splice(unassignedParam, 0, missing)
+      return fn(...params)
     }
     var _default = exports.default = preloadParams
-  }, { 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713 }],
+  }, { 'core-js/stable': 713 }],
   30: [function (require, module, exports) {
     'use strict'
 
@@ -1149,7 +1089,6 @@
     exports.default = void 0
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     var _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
@@ -1160,8 +1099,7 @@
  * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-    const queueManager = function () {
-      let queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+    const queueManager = (queue = null) => {
       let isRunning = false
       let isPaused = true
       /**
@@ -1172,16 +1110,13 @@
    * @param {...*} args
    * @returns {queuedRunnable}
    */
-      const makeQueuedRunnable = function (resolve, reject, fn) {
+      const makeQueuedRunnable = (resolve, reject, fn, ...args) => {
         const generator = (function * () {
           const item = yield
           return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
         }())
         // Prepare the generator to be used on the subsequent call
         generator.next()
-        for (var _len = arguments.length, args = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-          args[_key - 3] = arguments[_key]
-        }
         return {
           item: {
             fn: fn,
@@ -1226,7 +1161,7 @@
             // Some run responses return an object with an 'error' property
             let errorMessage = 'Verify queued function implements "done()" state.'
             if ('error' in toRun && toRun.error) {
-              errorMessage = '['.concat(toRun.error, ']: ').concat(errorMessage)
+              errorMessage = `[${toRun.error}]: ${errorMessage}`
             }
             throw new Error(errorMessage)
           }
@@ -1243,15 +1178,10 @@
    * @param {...*} args - Optional arguments to apply when the function is ready to be run
    * @returns Promise
    */
-      const pushAnother = function (fn) {
-        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-          args[_key2 - 1] = arguments[_key2]
-        }
-        return new Promise((resolve, reject) => {
-          queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args))
-          runNextItem()
-        }).then(postRun)
-      }
+      const pushAnother = (fn, ...args) => new Promise((resolve, reject) => {
+        queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args))
+        runNextItem()
+      }).then(postRun)
       if (Array.isArray(queue)) {
         const queueArray = queue
         queue = (0, _makeBasicQueue.default)()
@@ -1273,7 +1203,7 @@
       }
     }
     var _default = exports.default = queueManager
-  }, { './makeBasicQueue': 26, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.for-each.js': 683, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713, 'regenerator-runtime/runtime': 714 }],
+  }, { './makeBasicQueue': 26, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.for-each.js': 683, 'core-js/stable': 713, 'regenerator-runtime/runtime': 714 }],
   31: [function (require, module, exports) {
     'use strict'
 
@@ -1281,7 +1211,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/web.dom-collections.iterator.js')
     require('core-js/stable')
     require('regenerator-runtime/runtime')
     var _delay = _interopRequireDefault(require('./delay'))
@@ -1293,20 +1222,13 @@
  * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
  * @returns {module:functionHelpers~queueTimeoutHandle}
  */
-    const queueTimeout = function () {
-      const queueManagerHandle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+    const queueTimeout = (queueManagerHandle = null) => {
       const manager = queueManagerHandle || (0, _queueManager.default)()
       manager.start()
-      return function (fn) {
-        const time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-        for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-          args[_key - 2] = arguments[_key]
-        }
-        return manager.push(() => (0, _delay.default)(time).resolver.then(() => fn(...args)))
-      }
+      return (fn, time = 0, ...args) => manager.push(() => (0, _delay.default)(time).resolver.then(() => fn(...args)))
     }
     var _default = exports.default = queueTimeout
-  }, { './delay': 25, './queueManager': 30, 'core-js/modules/web.dom-collections.iterator.js': 691, 'core-js/stable': 713, 'regenerator-runtime/runtime': 714 }],
+  }, { './delay': 25, './queueManager': 30, 'core-js/stable': 713, 'regenerator-runtime/runtime': 714 }],
   32: [function (require, module, exports) {
     'use strict'
 
@@ -1327,12 +1249,10 @@
  * @param {int} [options.relevancyRange=100]
  * @returns {relevanceMap}
  */
-    const relevancyFilter = function (map) {
-      const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      const _ref$mapLimit = _ref.mapLimit
-      const mapLimit = _ref$mapLimit === void 0 ? 1000 : _ref$mapLimit
-      const _ref$relevancyRange = _ref.relevancyRange
-      const relevancyRange = _ref$relevancyRange === void 0 ? 100 : _ref$relevancyRange
+    const relevancyFilter = (map, {
+      mapLimit = 1000,
+      relevancyRange = 100
+    } = {}) => {
       if (map.length <= mapLimit) {
         return map
       }
@@ -1363,13 +1283,10 @@
  * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
  * @returns {function(*=)}
  */
-    const trace = function (label) {
-      const useClone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true
-      return value => {
-        // noinspection JSForgottenDebugStatementInspection
-        console.info(''.concat(label, ': '), useClone ? (0, _cloneObject.default)(value) : value)
-        return value
-      }
+    const trace = (label, useClone = true) => value => {
+      // noinspection JSForgottenDebugStatementInspection
+      console.info(`${label}: `, useClone ? (0, _cloneObject.default)(value) : value)
+      return value
     }
     var _default = exports.default = trace
   }, { '../objects/cloneObject': 45, 'core-js/stable': 713, 'regenerator-runtime/runtime': 714 }],
@@ -1513,6 +1430,8 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _leastCommonMultiple = _interopRequireDefault(require('./leastCommonMultiple'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
@@ -1523,14 +1442,9 @@
  * @param {number} num2 - Another number to be compared against
  * @returns {number}
  */
-    const lowestCommonDenominator = function () {
-      for (var _len = arguments.length, numbers = new Array(_len), _key = 0; _key < _len; _key++) {
-        numbers[_key] = arguments[_key]
-      }
-      return numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
-    }
+    const lowestCommonDenominator = (...numbers) => numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
     var _default = exports.default = lowestCommonDenominator
-  }, { './leastCommonMultiple': 39, 'core-js/stable': 713 }],
+  }, { './leastCommonMultiple': 39, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   41: [function (require, module, exports) {
     'use strict'
 
@@ -1549,11 +1463,7 @@
  * offset, 2 for range)
  * @returns {number}
  */
-    const randomInteger = function (range) {
-      const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
-      return (Math.floor(Math.random() * range) + offset) * interval
-    }
+    const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
     var _default = exports.default = randomInteger
   }, { 'core-js/stable': 713 }],
   42: [function (require, module, exports) {
@@ -1574,11 +1484,7 @@
  * offset, 2 for range)
  * @returns {number}
  */
-    const randomNumber = function (range) {
-      const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-      const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
-      return (Math.random() * range + offset) * interval
-    }
+    const randomNumber = (range, offset = 0, interval = 1) => (Math.random() * range + offset) * interval
     var _default = exports.default = randomNumber
   }, { 'core-js/stable': 713 }],
   43: [function (require, module, exports) {
@@ -1588,6 +1494,9 @@
       value: true
     })
     exports.default = void 0
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _greatestCommonDivisor = _interopRequireDefault(require('./greatestCommonDivisor'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
@@ -1597,10 +1506,7 @@
  * @param {...number} numbers - Array of numbers to simplify
  * @returns {Array.<number>}
  */
-    const simplestRatio = function () {
-      for (var _len = arguments.length, numbers = new Array(_len), _key = 0; _key < _len; _key++) {
-        numbers[_key] = arguments[_key]
-      }
+    const simplestRatio = (...numbers) => {
       if (numbers.length === 0) {
         return []
       }
@@ -1611,7 +1517,7 @@
       return numbers.map(num => commonDivisor === 0 ? 0 : num / commonDivisor)
     }
     var _default = exports.default = simplestRatio
-  }, { './greatestCommonDivisor': 38, 'core-js/stable': 713 }],
+  }, { './greatestCommonDivisor': 38, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   44: [function (require, module, exports) {
     'use strict'
 
@@ -1692,21 +1598,16 @@
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @returns {Object}
  */
-    const cloneObject = function (object) {
-      const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-      const _ref$mapLimit = _ref.mapLimit
-      const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-      const _ref$depthLimit = _ref.depthLimit
-      const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      const _ref$relevancyRange = _ref.relevancyRange
-      const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
-      return (0, _mergeObjectsBase.default)({
-        mapLimit,
-        depthLimit,
-        relevancyRange,
-        useClone: true
-      })(object)
-    }
+    const cloneObject = (object, {
+      mapLimit = 100,
+      depthLimit = -1,
+      relevancyRange = 1000
+    } = {}) => (0, _mergeObjectsBase.default)({
+      mapLimit,
+      depthLimit,
+      relevancyRange,
+      useClone: true
+    })(object)
     var _default = exports.default = cloneObject
   }, { './mergeObjectsBase': 57, 'core-js/stable': 713 }],
   46: [function (require, module, exports) {
@@ -1729,8 +1630,7 @@
  * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
  * @returns {*} The value of the property
  */
-    const dotGet = function (arrayObject, dotNotation) {
-      const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+    const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
       var _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
@@ -1779,9 +1679,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.regexp.constructor.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.string.replace.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.map.js')
     require('core-js/stable')
@@ -1794,8 +1691,7 @@
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {Function} The dot-notated array
  */
-    const handleRetainObjects = function () {
-      let retainObjects = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+    const handleRetainObjects = (retainObjects = []) => {
       if (!retainObjects.length) {
         /**
      * Bypass the test function if there are no retainObjects.
@@ -1804,7 +1700,7 @@
         return (currentKey, value, results) => false
       }
       retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
-      const retainRegex = new RegExp('('.concat(retainObjects.join('|'), ')$'))
+      const retainRegex = new RegExp(`(${retainObjects.join('|')})$`)
       /**
    * Test if a key should be retained as an object.
    * @param {string} currentKey - The key to test
@@ -1831,19 +1727,17 @@
  * @param {DotNotatedObject} [results={}] - The final array to return
  * @returns {DotNotatedObject} The dot-notated object
  */
-    const performDotNotate = function (arrayObject, didRetain) {
-      const prepend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ''
-      const results = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}
+    const performDotNotate = (arrayObject, didRetain, prepend = '', results = {}) => {
       // @ts-ignore
       for (const key in arrayObject) {
         // @ts-ignore
         const value = arrayObject[key]
-        const currentKey = ''.concat(prepend).concat(key)
+        const currentKey = `${prepend}${key}`
         if (didRetain(currentKey, value, results)) {
           continue
         }
         if ((0, _isObject.default)(value)) {
-          performDotNotate(value, didRetain, ''.concat(currentKey, '.'), results)
+          performDotNotate(value, didRetain, `${currentKey}.`, results)
           continue
         }
         results[currentKey] = value
@@ -1857,12 +1751,9 @@
  * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
  * @returns {DotNotatedObject} The dot-notated object
  */
-    const dotNotate = function (arrayObject) {
-      const retainObjects = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-      return performDotNotate(arrayObject, handleRetainObjects(retainObjects))
-    }
+    const dotNotate = (arrayObject, retainObjects = []) => performDotNotate(arrayObject, handleRetainObjects(retainObjects))
     var _default = exports.default = dotNotate
-  }, { './isObject': 54, 'core-js/modules/es.regexp.constructor.js': 550, 'core-js/modules/es.regexp.exec.js': 553, 'core-js/modules/es.string.replace.js': 590, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
+  }, { './isObject': 54, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
   48: [function (require, module, exports) {
     'use strict'
 
@@ -1883,8 +1774,7 @@
  * @param {*} value - The default value to return if the property is not found
  * @returns {Object} The modified object
  */
-    const dotSet = function (arrayObject, dotNotation) {
-      const value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+    const dotSet = (arrayObject, dotNotation, value = null) => {
       var _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
@@ -2019,17 +1909,14 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-    const filterObject = function (obj, fn) {
-      const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => {
-        if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
-          newObj[curr] = obj[curr]
-        } else {
-          delete newObj[curr]
-        }
-        return newObj
-      }, {})
-    }
+    const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj) ? obj.filter(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => {
+      if ((0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2)) {
+        newObj[curr] = obj[curr]
+      } else {
+        delete newObj[curr]
+      }
+      return newObj
+    }, {})
     var _default = exports.default = filterObject
   }, { '../functions/callWithParams': 23, './objectKeys': 59, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.filter.js': 681, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   52: [function (require, module, exports) {
@@ -2122,10 +2009,7 @@
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-    const mapObject = function (obj, fn) {
-      const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-      return Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
-    }
+    const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
     var _default = exports.default = mapObject
   }, { '../functions/callWithParams': 23, './objectKeys': 59, './setValue': 63, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   56: [function (require, module, exports) {
@@ -2160,6 +2044,7 @@
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.find.js')
     require('core-js/modules/esnext.iterator.map.js')
+    require('core-js/modules/esnext.iterator.reduce.js')
     require('core-js/stable')
     var _isCloneable = _interopRequireDefault(require('./isCloneable'))
     var _reduceObject = _interopRequireDefault(require('./reduceObject'))
@@ -2180,79 +2065,69 @@
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
-    const mergeObjectsBase = function () {
-      const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-      const _ref$mapLimit = _ref.mapLimit
-      const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-      const _ref$depthLimit = _ref.depthLimit
-      const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-      const _ref$relevancyRange = _ref.relevancyRange
-      const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
-      const _ref$map = _ref.map
-      let map = _ref$map === void 0 ? [] : _ref$map
-      const _ref$useClone = _ref.useClone
-      const useClone = _ref$useClone === void 0 ? false : _ref$useClone
-      return function () {
-        for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
-          objects[_key] = arguments[_key]
-        }
-        const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
-        if (objects.length < 1) {
-          return firstObject
-        }
-        if (depthLimit === 0) {
-          return firstObject
-        }
-        return objects.reduce((newObj, arg) => {
-          if (!arg) {
-            return newObj
-          }
-          map.push({
-            source: arg,
-            object: newObj,
-            relevance: map.length
-          })
-          map = (0, _relevancyFilter.default)(map, {
-            mapLimit,
-            relevancyRange
-          })
-          return (0, _reduceObject.default)(arg, (returnObj, value, key) => {
-            if ((0, _isCloneable.default)(value)) {
-              let objectValue = newObj[key]
-              const exists = map.find(existing => existing.source === value)
-              if (exists) {
-                exists.relevance = map.length + 1
-                return (0, _setValue.default)(key, exists.object, returnObj)
-              }
-              if (!(0, _isCloneable.default)(objectValue) || !objectValue) {
-                objectValue = useClone ? Array.isArray(value) ? [] : {} : value
-              }
-              if ((0, _isCloneable.default)(objectValue)) {
-                return (0, _setValue.default)(key, mergeObjectsBase({
-                  mapLimit,
-                  depthLimit: depthLimit - 1,
-                  relevancyRange,
-                  map,
-                  useClone
-                })(objectValue, value), returnObj)
-              }
-              map.push({
-                source: value,
-                object: objectValue,
-                relevance: map.length
-              })
-              map = (0, _relevancyFilter.default)(map, {
-                mapLimit,
-                relevancyRange
-              })
-            }
-            return (0, _setValue.default)(key, value, returnObj)
-          }, newObj)
-        }, firstObject || {})
+    const mergeObjectsBase = ({
+      mapLimit = 100,
+      depthLimit = -1,
+      relevancyRange = 1000,
+      map = [],
+      useClone = false
+    } = {}) => (...objects) => {
+      const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+      if (objects.length < 1) {
+        return firstObject
       }
+      if (depthLimit === 0) {
+        return firstObject
+      }
+      return objects.reduce((newObj, arg) => {
+        if (!arg) {
+          return newObj
+        }
+        map.push({
+          source: arg,
+          object: newObj,
+          relevance: map.length
+        })
+        map = (0, _relevancyFilter.default)(map, {
+          mapLimit,
+          relevancyRange
+        })
+        return (0, _reduceObject.default)(arg, (returnObj, value, key) => {
+          if ((0, _isCloneable.default)(value)) {
+            let objectValue = newObj[key]
+            const exists = map.find(existing => existing.source === value)
+            if (exists) {
+              exists.relevance = map.length + 1
+              return (0, _setValue.default)(key, exists.object, returnObj)
+            }
+            if (!(0, _isCloneable.default)(objectValue) || !objectValue) {
+              objectValue = useClone ? Array.isArray(value) ? [] : {} : value
+            }
+            if ((0, _isCloneable.default)(objectValue)) {
+              return (0, _setValue.default)(key, mergeObjectsBase({
+                mapLimit,
+                depthLimit: depthLimit - 1,
+                relevancyRange,
+                map,
+                useClone
+              })(objectValue, value), returnObj)
+            }
+            map.push({
+              source: value,
+              object: objectValue,
+              relevance: map.length
+            })
+            map = (0, _relevancyFilter.default)(map, {
+              mapLimit,
+              relevancyRange
+            })
+          }
+          return (0, _setValue.default)(key, value, returnObj)
+        }, newObj)
+      }, firstObject || {})
     }
     var _default = exports.default = mergeObjectsBase
-  }, { '../functions/relevancyFilter': 32, './isCloneable': 52, './reduceObject': 61, './setValue': 63, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
+  }, { '../functions/relevancyFilter': 32, './isCloneable': 52, './reduceObject': 61, './setValue': 63, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.find.js': 682, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   58: [function (require, module, exports) {
     'use strict'
 
@@ -2291,8 +2166,7 @@
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}
  */
-    const objectKeys = function (object) {
-      const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+    const objectKeys = (object, includeInherited = false) => {
       if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
         return []
       }
@@ -2336,10 +2210,7 @@
  * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
-    const objectValues = function (object) {
-      const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-      return (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
-    }
+    const objectValues = (object, includeInherited = false) => (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
     var _default = exports.default = objectValues
   }, { './objectKeys': 59, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.map.js': 684, 'core-js/stable': 713 }],
   61: [function (require, module, exports) {
@@ -2367,10 +2238,7 @@
  * array without an initial value is an error.
  * @returns {*}
  */
-    const reduceObject = function (obj, fn) {
-      const initialValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : obj[(0, _objectKeys.default)(obj)[0]] || obj[0]
-      return Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
-    }
+    const reduceObject = (obj, fn, initialValue = obj[(0, _objectKeys.default)(obj)[0]] || obj[0]) => Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
     var _default = exports.default = reduceObject
   }, { '../functions/callWithParams': 23, './objectKeys': 59, 'core-js/modules/esnext.iterator.constructor.js': 679, 'core-js/modules/esnext.iterator.reduce.js': 685, 'core-js/stable': 713 }],
   62: [function (require, module, exports) {
@@ -2524,8 +2392,7 @@
  * @param {string} [append='']
  * @returns {string}
  */
-    const makeFilepath = function (root) {
-      let append = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ''
+    const makeFilepath = (root, append = '') => {
       if (root.startsWith('./')) {
         root = root.slice(2)
       }
@@ -2555,7 +2422,7 @@
       if (!root) {
         return append
       }
-      return append ? ''.concat(root, '/').concat(append) : root
+      return append ? `${root}/${append}` : root
     }
     exports.makeFilepath = makeFilepath
     var _default = exports.default = makeFilepath
@@ -2583,8 +2450,8 @@
       let firstPart = (0, _strBefore.default)(nextPart, '/')
       let hasMatches = false
       while (firstPart && relativePath.startsWith(firstPart)) {
-        relativePath = (0, _strAfter.default)(relativePath, ''.concat(firstPart, '/'))
-        nextPart = (0, _strAfter.default)(nextPart, ''.concat(firstPart, '/'))
+        relativePath = (0, _strAfter.default)(relativePath, `${firstPart}/`)
+        nextPart = (0, _strAfter.default)(nextPart, `${firstPart}/`)
         firstPart = (0, _strBefore.default)(nextPart, '/')
         hasMatches = true
       }
@@ -2612,8 +2479,6 @@
       value: true
     })
     exports.regexEscape = exports.default = void 0
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.string.replace.js')
     /**
  * Take a string and escape the regex characters.
  * @memberOf module:stringHelpers
@@ -2623,7 +2488,7 @@
     const regexEscape = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     exports.regexEscape = regexEscape
     var _default = exports.default = regexEscape
-  }, { 'core-js/modules/es.regexp.exec.js': 553, 'core-js/modules/es.string.replace.js': 590 }],
+  }, {}],
   70: [function (require, module, exports) {
     'use strict'
 
@@ -2775,7 +2640,6 @@
       value: true
     })
     exports.default = void 0
-    require('core-js/modules/es.regexp.exec.js')
     require('core-js/stable')
     /**
  * Split a string into sets of numbers or letters.
@@ -2785,7 +2649,7 @@
  */
     const words = str => str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
     var _default = exports.default = words
-  }, { 'core-js/modules/es.regexp.exec.js': 553, 'core-js/stable': 713 }],
+  }, { 'core-js/stable': 713 }],
   78: [function (require, module, exports) {
     'use strict'
 

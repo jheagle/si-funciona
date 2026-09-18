@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
@@ -15,12 +14,8 @@ require('core-js/stable')
  * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
  * @returns {module:functionHelpers~callWithMissing}
  */
-const preloadParams = function (fn) {
-  const params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
-  const unassignedParam = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
-  return missing => {
-    params.splice(unassignedParam, 0, missing)
-    return fn(...params)
-  }
+const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
+  params.splice(unassignedParam, 0, missing)
+  return fn(...params)
 }
 var _default = exports.default = preloadParams

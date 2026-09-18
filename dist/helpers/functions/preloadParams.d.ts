@@ -18,3 +18,4 @@ type callWithMissing = (missing: any) => any;
  */
 declare const preloadParams: (fn: Function, params?: Array<any>, unassignedParam?: number) => callWithMissing;
 export default preloadParams;
+//# sourceMappingURL=preloadParams.d.ts.map

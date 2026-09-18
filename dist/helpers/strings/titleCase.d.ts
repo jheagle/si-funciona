@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const titleCase: (str: string) => string;
 export default titleCase;
+//# sourceMappingURL=titleCase.d.ts.map

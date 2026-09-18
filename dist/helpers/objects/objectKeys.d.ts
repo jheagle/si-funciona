@@ -12,3 +12,4 @@ type keyableItem = Array<any> | {
  */
 declare const objectKeys: (object: keyableItem, includeInherited?: boolean) => Array<any>;
 export default objectKeys;
+//# sourceMappingURL=objectKeys.d.ts.map

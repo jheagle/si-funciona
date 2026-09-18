@@ -6,7 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.for-each.js')
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 require('regenerator-runtime/runtime')
 var _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
@@ -17,8 +16,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
  * @returns {module:functionHelpers~queueManagerHandle}
  */
-const queueManager = function () {
-  let queue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null
+const queueManager = (queue = null) => {
   let isRunning = false
   let isPaused = true
   /**
@@ -29,16 +27,13 @@ const queueManager = function () {
    * @param {...*} args
    * @returns {queuedRunnable}
    */
-  const makeQueuedRunnable = function (resolve, reject, fn) {
+  const makeQueuedRunnable = (resolve, reject, fn, ...args) => {
     const generator = (function * () {
       const item = yield
       return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
     }())
     // Prepare the generator to be used on the subsequent call
     generator.next()
-    for (var _len = arguments.length, args = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-      args[_key - 3] = arguments[_key]
-    }
     return {
       item: {
         fn: fn,
@@ -83,7 +78,7 @@ const queueManager = function () {
         // Some run responses return an object with an 'error' property
         let errorMessage = 'Verify queued function implements "done()" state.'
         if ('error' in toRun && toRun.error) {
-          errorMessage = '['.concat(toRun.error, ']: ').concat(errorMessage)
+          errorMessage = `[${toRun.error}]: ${errorMessage}`
         }
         throw new Error(errorMessage)
       }
@@ -100,15 +95,10 @@ const queueManager = function () {
    * @param {...*} args - Optional arguments to apply when the function is ready to be run
    * @returns Promise
    */
-  const pushAnother = function (fn) {
-    for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-      args[_key2 - 1] = arguments[_key2]
-    }
-    return new Promise((resolve, reject) => {
-      queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args))
-      runNextItem()
-    }).then(postRun)
-  }
+  const pushAnother = (fn, ...args) => new Promise((resolve, reject) => {
+    queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args))
+    runNextItem()
+  }).then(postRun)
   if (Array.isArray(queue)) {
     const queueArray = queue
     queue = (0, _makeBasicQueue.default)()

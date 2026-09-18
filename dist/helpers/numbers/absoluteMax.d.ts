@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const absoluteMax: (num1: number, num2: number) => number;
 export default absoluteMax;
+//# sourceMappingURL=absoluteMax.d.ts.map

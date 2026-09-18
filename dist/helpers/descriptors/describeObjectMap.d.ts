@@ -18,3 +18,4 @@ type describeObjectMapOptions = {
  */
 declare const describeObjectMap: (object: describeableObject, { mapLimit, depthLimit, keepValues }?: describeObjectMapOptions) => descriptorMap;
 export default describeObjectMap;
+//# sourceMappingURL=describeObjectMap.d.ts.map

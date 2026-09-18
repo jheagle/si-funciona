@@ -9,3 +9,4 @@ import 'core-js/stable';
  */
 declare const buildArray: (item: any, length: number) => Array<any>;
 export default buildArray;
+//# sourceMappingURL=buildArray.d.ts.map

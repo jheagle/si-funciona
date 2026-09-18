@@ -4,6 +4,9 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
+require('core-js/modules/esnext.iterator.constructor.js')
+require('core-js/modules/esnext.iterator.map.js')
+require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
 var _greatestCommonDivisor = _interopRequireDefault(require('./greatestCommonDivisor'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
@@ -13,10 +16,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {...number} numbers - Array of numbers to simplify
  * @returns {Array.<number>}
  */
-const simplestRatio = function () {
-  for (var _len = arguments.length, numbers = new Array(_len), _key = 0; _key < _len; _key++) {
-    numbers[_key] = arguments[_key]
-  }
+const simplestRatio = (...numbers) => {
   if (numbers.length === 0) {
     return []
   }

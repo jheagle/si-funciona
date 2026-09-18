@@ -32,3 +32,4 @@ export type descriptorDetail = {
  */
 declare const descriptorDetailSample: descriptorDetail;
 export default descriptorDetailSample;
+//# sourceMappingURL=descriptorDetail.d.ts.map

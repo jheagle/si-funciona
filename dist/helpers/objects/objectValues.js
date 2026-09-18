@@ -17,8 +17,5 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {boolean} [includeInherited=false]
  * @returns {Array}
  */
-const objectValues = function (object) {
-  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-  return (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
-}
+const objectValues = (object, includeInherited = false) => (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
 var _default = exports.default = objectValues

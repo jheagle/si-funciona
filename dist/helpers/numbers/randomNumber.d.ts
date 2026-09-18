@@ -11,3 +11,4 @@ import 'core-js/stable';
  */
 declare const randomNumber: (range: number, offset?: number, interval?: number) => number;
 export default randomNumber;
+//# sourceMappingURL=randomNumber.d.ts.map

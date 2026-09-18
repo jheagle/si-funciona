@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const lowestCommonDenominator: (...numbers: number[]) => number;
 export default lowestCommonDenominator;
+//# sourceMappingURL=lowestCommonDenominator.d.ts.map

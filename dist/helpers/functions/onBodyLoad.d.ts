@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const onBodyLoad: (callback: Function, reset?: boolean) => Array<Function>;
 export default onBodyLoad;
+//# sourceMappingURL=onBodyLoad.d.ts.map

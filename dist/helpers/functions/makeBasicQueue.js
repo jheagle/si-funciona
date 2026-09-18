@@ -13,8 +13,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {Array} initialQueue
  * @returns {IsQueue}
  */
-const makeBasicQueue = function () {
-  const initialQueue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+const makeBasicQueue = (initialQueue = []) => {
   return new _BasicQueue.default(initialQueue)
 }
 var _default = exports.default = makeBasicQueue

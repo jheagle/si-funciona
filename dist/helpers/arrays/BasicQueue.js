@@ -10,8 +10,7 @@ require('core-js/stable')
  * @memberOf module:arrayHelpers
  */
 class BasicQueue {
-  constructor () {
-    const innerList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []
+  constructor (innerList = []) {
     this.innerList = innerList
   }
 

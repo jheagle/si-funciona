@@ -9,3 +9,4 @@ import 'core-js/stable';
  */
 declare const buildArrayOfReferences: (item: any, length: number) => Array<any>;
 export default buildArrayOfReferences;
+//# sourceMappingURL=buildArrayOfReferences.d.ts.map

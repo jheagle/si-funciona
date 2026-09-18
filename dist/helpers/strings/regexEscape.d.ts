@@ -6,3 +6,4 @@
  */
 export declare const regexEscape: (str: string) => string;
 export default regexEscape;
+//# sourceMappingURL=regexEscape.d.ts.map

@@ -13,3 +13,4 @@ type settableItem = Array<any> | {
  */
 declare const setValue: (key: number | string, value: any, item: settableItem) => settableItem;
 export default setValue;
+//# sourceMappingURL=setValue.d.ts.map

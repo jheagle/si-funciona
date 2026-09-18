@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const mergeArrays: (...arrays: Array<Array<any>>) => Array<any>;
 export default mergeArrays;
+//# sourceMappingURL=mergeArrays.d.ts.map

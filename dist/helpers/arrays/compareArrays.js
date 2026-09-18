@@ -8,7 +8,6 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/stable')
 var _isObject = _interopRequireDefault(require('../objects/isObject'))
 var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
@@ -71,33 +70,28 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {...Array} arrays - The arrays to compare
  * @returns {Array.<module:arrayHelpers~compareArrayResult>}
  */
-const compareArrays = function () {
-  for (var _len = arguments.length, arrays = new Array(_len), _key = 0; _key < _len; _key++) {
-    arrays[_key] = arguments[_key]
-  }
-  return (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
-    const attrType = typeof attr
-    const useArray = Array.isArray(attr)
-    const keys = arrays.map(array => array.reduce((results, current, key) => {
-      const currentType = typeof current
-      if (attrType !== currentType) {
-        return results
-      }
-      if (!(0, _isObject.default)(attr)) {
-        return current === attr ? [...results, key] : results
-      }
-      if (useArray !== Array.isArray(current)) {
-        return results
-      }
-      const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
-      return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
-    }, []))
-    const arrayResults = keys.map(array => array.length ? 1 : -1)
-    return [...results, {
-      value: attr,
-      keys: keys,
-      result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
-    }]
-  }, [])
-}
+const compareArrays = (...arrays) => (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
+  const attrType = typeof attr
+  const useArray = Array.isArray(attr)
+  const keys = arrays.map(array => array.reduce((results, current, key) => {
+    const currentType = typeof current
+    if (attrType !== currentType) {
+      return results
+    }
+    if (!(0, _isObject.default)(attr)) {
+      return current === attr ? [...results, key] : results
+    }
+    if (useArray !== Array.isArray(current)) {
+      return results
+    }
+    const compareKeys = useArray ? compareArrays(attr, current) : compareArrays((0, _objectKeys.default)(attr), (0, _objectKeys.default)(current))
+    return compareKeys.every(compare => compare.result.every(result => result === 0)) ? [...results, key] : results
+  }, []))
+  const arrayResults = keys.map(array => array.length ? 1 : -1)
+  return [...results, {
+    value: attr,
+    keys: keys,
+    result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
+  }]
+}, [])
 var _default = exports.default = compareArrays

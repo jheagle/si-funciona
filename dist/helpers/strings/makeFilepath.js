@@ -13,8 +13,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {string} [append='']
  * @returns {string}
  */
-const makeFilepath = function (root) {
-  let append = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ''
+const makeFilepath = (root, append = '') => {
   if (root.startsWith('./')) {
     root = root.slice(2)
   }
@@ -44,7 +43,7 @@ const makeFilepath = function (root) {
   if (!root) {
     return append
   }
-  return append ? ''.concat(root, '/').concat(append) : root
+  return append ? `${root}/${append}` : root
 }
 exports.makeFilepath = makeFilepath
 var _default = exports.default = makeFilepath

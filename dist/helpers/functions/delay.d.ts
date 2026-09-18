@@ -19,3 +19,4 @@ type delayHandler = {
  */
 declare const delay: (time?: number) => delayHandler;
 export default delay;
+//# sourceMappingURL=delay.d.ts.map

@@ -9,3 +9,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const sameDescriptor: (descriptor1: descriptor, descriptor2: descriptor) => boolean;
 export default sameDescriptor;
+//# sourceMappingURL=sameDescriptor.d.ts.map

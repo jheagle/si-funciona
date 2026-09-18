@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const emptyObject: (item: Array<any> | Object) => boolean;
 export default emptyObject;
+//# sourceMappingURL=emptyObject.d.ts.map

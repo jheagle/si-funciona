@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const pipe: (...fns: Function[]) => any;
 export default pipe;
+//# sourceMappingURL=pipe.d.ts.map

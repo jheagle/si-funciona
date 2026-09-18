@@ -17,8 +17,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
  * @returns {*} The value of the property
  */
-const dotGet = function (arrayObject, dotNotation) {
-  const defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null
+const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
   var _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key

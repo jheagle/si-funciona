@@ -59,3 +59,4 @@ declare class BasicQueue implements IsQueue<queuedItem> {
     size(): number;
 }
 export default BasicQueue;
+//# sourceMappingURL=BasicQueue.d.ts.map

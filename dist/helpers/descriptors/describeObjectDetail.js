@@ -17,9 +17,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {number} [index=0]
  * @returns {module:objectDescriptors~descriptorDetail}
  */
-const describeObjectDetail = function (value) {
-  const key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  const index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0
+const describeObjectDetail = (value, key = 0, index = 0) => {
   const type = typeof value
   return {
     index: index,

@@ -16,8 +16,5 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {boolean} [keepValues=false]
  * @returns {module:objectDescriptors~descriptor}
  */
-const checkClearValues = function (descriptor) {
-  const keepValues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
-  return (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
-}
+const checkClearValues = (descriptor, keepValues = false) => (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
 var _default = exports.default = checkClearValues

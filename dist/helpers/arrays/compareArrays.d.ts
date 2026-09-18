@@ -95,3 +95,4 @@ export type compareArrayResultMap = Array<compareArrayResult>;
  */
 declare const compareArrays: (...arrays: Array<Array<any>>) => compareArrayResultMap;
 export default compareArrays;
+//# sourceMappingURL=compareArrays.d.ts.map

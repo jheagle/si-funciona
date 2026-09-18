@@ -12,3 +12,4 @@ type arrayObjectItem = Array<any> | {
  */
 declare const objectValues: (object: arrayObjectItem, includeInherited?: boolean) => Array<any>;
 export default objectValues;
+//# sourceMappingURL=objectValues.d.ts.map

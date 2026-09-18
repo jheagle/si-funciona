@@ -26,3 +26,4 @@ type dotNotatedObject = {
  */
 declare const dotNotate: (arrayObject: object, retainObjects?: Array<dotNotationString>) => dotNotatedObject;
 export default dotNotate;
+//# sourceMappingURL=dotNotate.d.ts.map

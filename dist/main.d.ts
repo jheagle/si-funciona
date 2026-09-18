@@ -7,3 +7,4 @@
  */
 declare const siFunciona: any;
 export default siFunciona;
+//# sourceMappingURL=main.d.ts.map

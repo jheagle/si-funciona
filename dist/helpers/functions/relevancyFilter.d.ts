@@ -33,3 +33,4 @@ type relevancyFilterOptions = {
  */
 declare const relevancyFilter: (map: relevanceMap, { mapLimit, relevancyRange }?: relevancyFilterOptions) => relevanceMap;
 export default relevancyFilter;
+//# sourceMappingURL=relevancyFilter.d.ts.map

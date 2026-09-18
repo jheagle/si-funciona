@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const ucFirst: (str: string) => string;
 export default ucFirst;
+//# sourceMappingURL=ucFirst.d.ts.map

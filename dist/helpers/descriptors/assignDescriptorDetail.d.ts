@@ -9,3 +9,4 @@ import { descriptorDetail } from './samples/descriptorDetail';
  */
 declare const assignDescriptorDetail: (originalDetail: descriptorDetail, ...details: Array<descriptorDetail>) => descriptorDetail;
 export default assignDescriptorDetail;
+//# sourceMappingURL=assignDescriptorDetail.d.ts.map

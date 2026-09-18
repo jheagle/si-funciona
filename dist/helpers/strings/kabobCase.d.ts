@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const kabobCase: (str: string) => string;
 export default kabobCase;
+//# sourceMappingURL=kabobCase.d.ts.map
