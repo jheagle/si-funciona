@@ -7,7 +7,7 @@ exports.regexEscape = exports.default = void 0
 /**
  * Take a string and escape the regex characters.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to escape, so it can be used literally inside a `RegExp`.
  * @returns {string}
  */
 const regexEscape = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')

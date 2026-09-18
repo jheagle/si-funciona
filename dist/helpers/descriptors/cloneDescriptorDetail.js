@@ -11,10 +11,10 @@ require('core-js/stable')
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
- * Get a new copy of an existing Descriptor Detail
+ * Get a new copy of an existing descriptor detail so that the original will not be mutated.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptorDetail} originalDetail
- * @returns {module:objectDescriptors~descriptorDetail}
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail - The detail to copy.
+ * @returns {module:objectDescriptors~descriptorDetail} A new, independent copy.
  */
 const cloneDescriptorDetail = originalDetail => {
   const copyDetail = {};

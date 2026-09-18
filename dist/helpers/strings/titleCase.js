@@ -13,7 +13,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
 const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')

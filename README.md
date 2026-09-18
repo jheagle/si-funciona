@@ -21,10 +21,25 @@
 <dd><p>Manage how functions are called with these utilities.</p>
 </dd>
 <dt><a href="#module_objectDescriptors">objectDescriptors</a></dt>
-<dd><p>Create a format to standardize every object into a specific template.</p>
+<dd><p>A &quot;descriptor&quot; is a flat, serializable snapshot of an object or array&#39;s shape: for each property, its type(s),
+whether it&#39;s nullable, and - if the property&#39;s own value is itself an object/array - a reference to that nested
+value&#39;s own descriptor elsewhere in the same list, rather than nesting descriptors inside descriptors. This flat,
+reference-based structure is what lets these utilities walk deeply nested and even circular object graphs (an
+object that contains itself, directly or indirectly) without infinite recursion, since a value that&#39;s already
+been described is simply pointed to again instead of re-described.</p>
+<p>Start with <a href="#module_objectDescriptors.describeObjectMap">describeObjectMap</a>, which takes any real object or array and produces
+this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
+building blocks used internally, or useful once you already have descriptors to work with directly.</p>
+<p>The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+you whether they&#39;re the same shape and values even when they&#39;re different references entirely (see
+<a href="#module_objectDescriptors.sameDescriptor">sameDescriptor</a>/<a href="#module_objectDescriptors.compareDescriptor">compareDescriptor</a>) - useful
+anywhere you need to check that two objects genuinely match without caring whether they&#39;re literally the same
+instance. A descriptor also doubles as a flat, structured summary of an object&#39;s shape, which can be handy for
+discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).</p>
 </dd>
 <dt><a href="#module_arrayHelpers">arrayHelpers</a></dt>
-<dd><p>Some simple utility functions for generating arrays or performing work on arrays.</p>
+<dd><p>Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
+use with functionHelpers&#39; queueManager/queueTimeout.</p>
 </dd>
 </dl>
 
@@ -44,7 +59,7 @@ Manage how strings are manipulated with these utilities.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [stringHelpers](#module_stringHelpers)
-    * [.words(str)](#module_stringHelpers.words) ⇒ <code>array</code>
+    * [.words(str)](#module_stringHelpers.words) ⇒ <code>Array.&lt;string&gt;</code>
     * [.ucFirst(str)](#module_stringHelpers.ucFirst) ⇒ <code>string</code>
     * [.titleCase(str)](#module_stringHelpers.titleCase) ⇒ <code>string</code>
     * [.strBeforeLast(str, search)](#module_stringHelpers.strBeforeLast) ⇒ <code>string</code>
@@ -60,14 +75,15 @@ Manage how strings are manipulated with these utilities.
 
 <a name="module_stringHelpers.words"></a>
 
-### stringHelpers.words(str) ⇒ <code>array</code>
-Split a string into sets of numbers or letters.
+### stringHelpers.words(str) ⇒ <code>Array.&lt;string&gt;</code>
+Split a string into sets of numbers or letters - the shared tokenizer behind camelCase/kabobCase/snakeCase/
+titleCase, so each can rebuild the string in its own casing style.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to split. |
 
 <a name="module_stringHelpers.ucFirst"></a>
 
@@ -76,9 +92,9 @@ Given a string, make the first character uppercase and the rest lowercase.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to convert. |
 
 <a name="module_stringHelpers.titleCase"></a>
 
@@ -87,21 +103,22 @@ Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert 
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to convert. |
 
 <a name="module_stringHelpers.strBeforeLast"></a>
 
 ### stringHelpers.strBeforeLast(str, search) ⇒ <code>string</code>
-Retrieve the string part after the last search match.
+Retrieve the string part before the last search match.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+**Returns**: <code>string</code> - The portion of `str` before the last occurrence of `search`, or `''` if not found.  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
-| search | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to search within. |
+| search | <code>string</code> | The substring to search for. |
 
 <a name="module_stringHelpers.strBefore"></a>
 
@@ -109,11 +126,12 @@ Retrieve the string part after the last search match.
 Retrieve the string part before the search match.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+**Returns**: <code>string</code> - The portion of `str` before the first occurrence of `search`, or `''` if not found.  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
-| search | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to search within. |
+| search | <code>string</code> | The substring to search for. |
 
 <a name="module_stringHelpers.strAfterLast"></a>
 
@@ -121,11 +139,12 @@ Retrieve the string part before the search match.
 Retrieve the string part after the last search match.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+**Returns**: <code>string</code> - The portion of `str` after the last occurrence of `search`, or `''` if not found.  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
-| search | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to search within. |
+| search | <code>string</code> | The substring to search for. |
 
 <a name="module_stringHelpers.strAfter"></a>
 
@@ -133,11 +152,12 @@ Retrieve the string part after the last search match.
 Retrieve the string part after the search match.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+**Returns**: <code>string</code> - The portion of `str` after the first occurrence of `search`, or `''` if not found.  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
-| search | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to search within. |
+| search | <code>string</code> | The substring to search for. |
 
 <a name="module_stringHelpers.snakeCase"></a>
 
@@ -146,9 +166,9 @@ Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_cas
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to convert. |
 
 <a name="module_stringHelpers.regexEscape"></a>
 
@@ -157,9 +177,9 @@ Take a string and escape the regex characters.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to escape, so it can be used literally inside a `RegExp`. |
 
 <a name="module_stringHelpers.makeRelativePath"></a>
 
@@ -167,11 +187,12 @@ Take a string and escape the regex characters.
 Compare two file paths and simplify them to a relative path.
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+**Returns**: <code>string</code> - `toFile` expressed relative to `fromFile`.  
 
-| Param | Type |
-| --- | --- |
-| fromFile | <code>string</code> | 
-| toFile | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| fromFile | <code>string</code> | The path of the file the resulting relative path will be used from. |
+| toFile | <code>string</code> | The path of the file being referenced. |
 
 <a name="module_stringHelpers.makeFilepath"></a>
 
@@ -180,10 +201,10 @@ Format the given path so that it does not have trailing slashes and also correct
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| root | <code>string</code> |  | 
-| [append] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| root | <code>string</code> |  | The base path to start from. |
+| [append] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | A path to append to `root` - may itself use `./` or `../` segments. |
 
 <a name="module_stringHelpers.kabobCase"></a>
 
@@ -192,9 +213,9 @@ Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-cas
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to convert. |
 
 <a name="module_stringHelpers.camelCase"></a>
 
@@ -203,9 +224,9 @@ Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCas
 
 **Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
 
-| Param | Type |
-| --- | --- |
-| str | <code>string</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The string to convert. |
 
 <a name="module_objectHelpers"></a>
 
@@ -535,7 +556,7 @@ Some number comparators and random number generators.
     * [.simplestRatio(...numbers)](#module_numberHelpers.simplestRatio) ⇒ <code>Array.&lt;number&gt;</code>
     * [.randomNumber(range, [offset], [interval])](#module_numberHelpers.randomNumber) ⇒ <code>number</code>
     * [.randomInteger(range, [offset], [interval])](#module_numberHelpers.randomInteger) ⇒ <code>number</code>
-    * [.lowestCommonDenominator(num1, num2)](#module_numberHelpers.lowestCommonDenominator) ⇒ <code>number</code>
+    * [.lowestCommonDenominator(...numbers)](#module_numberHelpers.lowestCommonDenominator) ⇒ <code>number</code>
     * [.leastCommonMultiple(num1, num2)](#module_numberHelpers.leastCommonMultiple) ⇒ <code>number</code>
     * [.greatestCommonDivisor(num1, num2)](#module_numberHelpers.greatestCommonDivisor) ⇒ <code>number</code>
     * [.compare(val1, val2)](#module_numberHelpers.compare) ⇒ <code>number</code>
@@ -583,15 +604,15 @@ The distance between the result numbers can be adjusted with interval.
 
 <a name="module_numberHelpers.lowestCommonDenominator"></a>
 
-### numberHelpers.lowestCommonDenominator(num1, num2) ⇒ <code>number</code>
-Helper for calculating the multiplier that would make each number relative to each other.
+### numberHelpers.lowestCommonDenominator(...numbers) ⇒ <code>number</code>
+Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
+leastCommonMultiple.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| num1 | <code>number</code> | A number to compare |
-| num2 | <code>number</code> | Another number to be compared against |
+| ...numbers | <code>number</code> | Two or more numbers to find the lowest common denominator of. |
 
 <a name="module_numberHelpers.leastCommonMultiple"></a>
 
@@ -665,7 +686,7 @@ Manage how functions are called with these utilities.
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [functionHelpers](#module_functionHelpers)
-    * [.trace(label, useClone)](#module_functionHelpers.trace) ⇒ <code>function</code>
+    * [.trace(label, [useClone])](#module_functionHelpers.trace) ⇒ <code>function</code>
     * [.relevancyFilter(map, [options])](#module_functionHelpers.relevancyFilter) ⇒ <code>relevanceMap</code>
     * [.queueTimeout([queueManagerHandle])](#module_functionHelpers.queueTimeout) ⇒ <code>module:functionHelpers~queueTimeoutHandle</code>
     * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
@@ -676,22 +697,23 @@ Manage how functions are called with these utilities.
     * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ <code>module:functionHelpers~callWithMissing</code>
     * [.pipe(...fns)](#module_functionHelpers.pipe) ⇒ <code>\*</code>
     * [.onBodyLoad(callback, [reset])](#module_functionHelpers.onBodyLoad) ⇒ <code>Array.&lt;function()&gt;</code>
-    * [.makeBasicQueue(initialQueue)](#module_functionHelpers.makeBasicQueue) ⇒ <code>IsQueue</code>
+    * [.makeBasicQueue([initialQueue])](#module_functionHelpers.makeBasicQueue) ⇒ <code>IsQueue</code>
     * [.delay(time)](#module_functionHelpers.delay) ⇒ <code>module:functionHelpers~delayHandler</code>
     * [.curry(fn)](#module_functionHelpers.curry) ⇒ <code>function</code> \| <code>\*</code>
     * [.callWithParams(fn, params, [minimum])](#module_functionHelpers.callWithParams) ⇒ <code>\*</code>
 
 <a name="module_functionHelpers.trace"></a>
 
-### functionHelpers.trace(label, useClone) ⇒ <code>function</code>
-Output the value with label to the console and return the value to not interrupt the code.
+### functionHelpers.trace(label, [useClone]) ⇒ <code>function</code>
+Output the value with label to the console and return the value to not interrupt the code - useful for
+inspecting a value mid-pipe/mid-chain without altering the result.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | label | <code>string</code> |  | Pass an identifying label of the value being output. |
-| useClone |  | <code>true</code> | Determines if the logged data should be a clone of the original to preserve state. |
+| [useClone] | <code>boolean</code> | <code>true</code> | Determines if the logged data should be a clone of the original to preserve its state at the time of logging (rather than a live reference that may show later mutations). |
 
 <a name="module_functionHelpers.relevancyFilter"></a>
 
@@ -700,12 +722,12 @@ Remove elements out of relevance range and update the max relevance.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| map | <code>relevanceMap</code> |  | 
-| [options] | <code>Object</code> | <code>{}</code> | 
-| [options.mapLimit] | <code>int</code> | <code>1000</code> | 
-| [options.relevancyRange] | <code>int</code> | <code>100</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| map | <code>relevanceMap</code> |  |  |
+| [options] | <code>Object</code> | <code>{}</code> |  |
+| [options.mapLimit] | <code>number</code> | <code>1000</code> | Only filter once the map exceeds this many entries. |
+| [options.relevancyRange] | <code>number</code> | <code>100</code> | How many of the most-recent relevance values to keep. |
 
 <a name="module_functionHelpers.queueTimeout"></a>
 
@@ -727,7 +749,7 @@ Manage functions to run sequentially.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [queue] | <code>IsQueue</code> | <code>[]</code> | The iterable that can be used to store queued functions |
+| [queue] | <code>IsQueue</code> \| <code>Array</code> | <code></code> | The queue to manage. Pass a plain array to have it converted into a [BasicQueue](#module_arrayHelpers.BasicQueue) automatically, or a custom queue implementing `IsQueue`; omit it (or pass `null`) to have one created for you. |
 
 
 * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
@@ -820,14 +842,14 @@ Prepare functions to be called once the body is available.
 
 <a name="module_functionHelpers.makeBasicQueue"></a>
 
-### functionHelpers.makeBasicQueue(initialQueue) ⇒ <code>IsQueue</code>
+### functionHelpers.makeBasicQueue([initialQueue]) ⇒ <code>IsQueue</code>
 Create an instance of a basic queue.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type |
-| --- | --- |
-| initialQueue | <code>Array</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [initialQueue] | <code>Array</code> | <code>[]</code> | Items to pre-populate the queue with, in order. |
 
 <a name="module_functionHelpers.delay"></a>
 
@@ -869,7 +891,23 @@ Given a function, call with the correct number of parameters from an array of po
 <a name="module_objectDescriptors"></a>
 
 ## objectDescriptors
-Create a format to standardize every object into a specific template.
+A "descriptor" is a flat, serializable snapshot of an object or array's shape: for each property, its type(s),
+whether it's nullable, and - if the property's own value is itself an object/array - a reference to that nested
+value's own descriptor elsewhere in the same list, rather than nesting descriptors inside descriptors. This flat,
+reference-based structure is what lets these utilities walk deeply nested and even circular object graphs (an
+object that contains itself, directly or indirectly) without infinite recursion, since a value that's already
+been described is simply pointed to again instead of re-described.
+
+Start with [describeObjectMap](#module_objectDescriptors.describeObjectMap), which takes any real object or array and produces
+this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
+building blocks used internally, or useful once you already have descriptors to work with directly.
+
+The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+you whether they're the same shape and values even when they're different references entirely (see
+[sameDescriptor](#module_objectDescriptors.sameDescriptor)/[compareDescriptor](#module_objectDescriptors.compareDescriptor)) - useful
+anywhere you need to check that two objects genuinely match without caring whether they're literally the same
+instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
+discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
@@ -895,6 +933,10 @@ Create a format to standardize every object into a specific template.
 <a name="module_objectDescriptors.mappedDescriptorMap"></a>
 
 ### objectDescriptors.mappedDescriptorMap : <code>module:objectDescriptors~descriptorMap</code>
+A worked example descriptorMap, produced by describing a `descriptor` value itself (i.e. describing the shape of
+a descriptor) - useful as a realistic fixture showing what a multi-entry descriptorMap with actual references
+looks like, since `descriptorSample`/`descriptorMapSample` alone only demonstrate a trivial single-entry case.
+
 **Kind**: static constant of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 <a name="module_objectDescriptors.descriptorMapSample"></a>
 
@@ -911,88 +953,117 @@ Create a format to standardize every object into a specific template.
 <a name="module_objectDescriptors.sameDescriptor"></a>
 
 ### objectDescriptors.sameDescriptor(descriptor1, descriptor2) ⇒ <code>boolean</code>
-Check if the two descriptors are the same.
+Check if two descriptors describe the exact same underlying values (not just compatible types, like
+[compareDescriptor](#module_objectDescriptors.compareDescriptor) does) - used to detect genuine circular references, where a
+nested value's descriptor turns out to be identical to one of its own ancestors.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>boolean</code> - True if every detail's values match at the same position.  
 
-| Param | Type |
-| --- | --- |
-| descriptor1 | <code>module:objectDescriptors~descriptor</code> | 
-| descriptor2 | <code>module:objectDescriptors~descriptor</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| descriptor1 | <code>module:objectDescriptors~descriptor</code> | The first descriptor to compare. |
+| descriptor2 | <code>module:objectDescriptors~descriptor</code> | The second descriptor to compare. |
 
 <a name="module_objectDescriptors.nextReference"></a>
 
 ### objectDescriptors.nextReference(descriptor, currentReference) ⇒ <code>number</code> \| <code>undefined</code>
-Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
+Find the index (within `descriptor.details`) of the next referenced property - after `currentReference` - whose
+own nested object/array still needs its descriptor built. Used to walk through a descriptor's references one at
+a time while building out a descriptorMap.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>number</code> \| <code>undefined</code> - The next detail index to process, or `undefined` if none remain.  
 
-| Param | Type |
-| --- | --- |
-| descriptor | <code>module:objectDescriptors~descriptor</code> | 
-| currentReference | <code>number</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| descriptor | <code>module:objectDescriptors~descriptor</code> | The descriptor whose references to search. |
+| currentReference | <code>number</code> | The `details` index already processed - search continues after this one. |
 
 <a name="module_objectDescriptors.describeObjectMap"></a>
 
 ### objectDescriptors.describeObjectMap(object, [options]) ⇒ <code>module:objectDescriptors~descriptorMap</code>
-Trace out the entire object including nested objects.
+Trace out the entire object including nested objects, producing a flat descriptorMap - see the
+[objectDescriptors](#module_objectDescriptors) module description for what a descriptor represents and why it's flat. This is
+the main entry point into this module: start here to describe a real object/array before comparing, merging, or
+inspecting its structure with the other functions in this module.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| object | <code>Object</code> \| <code>Array</code> |  | 
-| [options] | <code>Object</code> | <code>{}</code> | 
-| [options.mapLimit] | <code>number</code> | <code>1000000000</code> | 
-| [options.depthLimit] | <code>number</code> | <code>-1</code> | 
-| [options.keepValues] | <code>boolean</code> | <code>false</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| object | <code>Object</code> \| <code>Array</code> |  | The real object or array to describe. |
+| [options] | <code>Object</code> | <code>{}</code> |  |
+| [options.mapLimit] | <code>number</code> | <code>1000000000</code> | Stop describing further nested references once the map reaches this many descriptors - a safety limit for extremely large or deeply-referenced structures. |
+| [options.depthLimit] | <code>number</code> | <code>-1</code> | How many levels of nested objects/arrays to describe; `-1` means no limit, `0` describes only the top level, etc. |
+| [options.keepValues] | <code>boolean</code> | <code>false</code> | By default, each detail's actual values are cleared once its descriptor is complete (to save memory) - set true to keep them. |
 
+**Example**  
+```js
+describeObjectMap({ name: 'example', tags: ['a', 'b'] })
+// [
+//   { index: 0, details: [...], length: 2, keys: ['name', 'tags'], references: [1], isArray: false, complete: true },
+//   { index: 1, details: [...], length: 2, keys: [0], references: [], isArray: true, complete: true }
+// ]
+// descriptorMap[0] describes the top-level object; its 'tags' property is a reference (references: [1]) to
+// descriptorMap[1], which separately describes that nested array. descriptorMap[1]'s own `length` (2) reflects
+// the array's actual length, but `keys` has only one entry (0) since both elements share the same type
+// ('string') and are described together by a single, representative descriptorDetail.
+```
 <a name="module_objectDescriptors.describeObjectDetail"></a>
 
 ### objectDescriptors.describeObjectDetail(value, [key], [index]) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
-Trace an object's attribute and provide details about it.
+Trace a single property's value and produce the descriptorDetail describing it (type, nullability, whether it
+references a nested object/array, etc.) - the per-property building block used by
+[describeObject](#module_objectDescriptors.describeObject).
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| value | <code>\*</code> |  | 
-| [key] | <code>string</code> \| <code>number</code> | <code>0</code> | 
-| [index] | <code>number</code> | <code>0</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| value | <code>\*</code> |  | The property's value to describe. |
+| [key] | <code>string</code> \| <code>number</code> | <code>0</code> | The property name (or array index) this value belongs to. |
+| [index] | <code>number</code> | <code>0</code> | This detail's intended position within its parent descriptor's `details` array. |
 
 <a name="module_objectDescriptors.describeObject"></a>
 
 ### objectDescriptors.describeObject(object) ⇒ <code>module:objectDescriptors~descriptor</code>
-Trace an object and return the descriptor which defines the object's structure and attributes.
+Trace a single object or array (not its nested objects/arrays - see
+[describeObjectMap](#module_objectDescriptors.describeObjectMap) for that) and return the descriptor which defines its own
+structure and attributes.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
 
-| Param | Type |
-| --- | --- |
-| object | <code>Object</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| object | <code>Object</code> \| <code>Array</code> | The object or array to describe. |
 
 <a name="module_objectDescriptors.compareDescriptor"></a>
 
 ### objectDescriptors.compareDescriptor(descriptor1, descriptor2) ⇒ <code>boolean</code>
-Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
+Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger
+one and their types line up - used to detect when a newly-described value actually matches a descriptor already
+in the map, so it can be pointed at instead of creating a duplicate.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>boolean</code> - True if the descriptors describe a compatible shape.  
 
-| Param | Type |
-| --- | --- |
-| descriptor1 | <code>module:objectDescriptors~descriptor</code> | 
-| descriptor2 | <code>module:objectDescriptors~descriptor</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| descriptor1 | <code>module:objectDescriptors~descriptor</code> | The first descriptor to compare. |
+| descriptor2 | <code>module:objectDescriptors~descriptor</code> | The second descriptor to compare. |
 
 <a name="module_objectDescriptors.cloneDescriptorDetail"></a>
 
 ### objectDescriptors.cloneDescriptorDetail(originalDetail) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
-Get a new copy of an existing Descriptor Detail
+Get a new copy of an existing descriptor detail so that the original will not be mutated.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptorDetail</code> - A new, independent copy.  
 
-| Param | Type |
-| --- | --- |
-| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | The detail to copy. |
 
 <a name="module_objectDescriptors.cloneDescriptor"></a>
 
@@ -1000,68 +1071,81 @@ Get a new copy of an existing Descriptor Detail
 Make a copy of an object descriptor so that the original will not be mutated.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptor</code> - A new, independent copy.  
 
-| Param | Type |
-| --- | --- |
-| originalMap | <code>module:objectDescriptors~descriptor</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| originalMap | <code>module:objectDescriptors~descriptor</code> | The descriptor to copy. |
 
 <a name="module_objectDescriptors.checkDescriptorComplete"></a>
 
 ### objectDescriptors.checkDescriptorComplete(descriptor) ⇒ <code>module:objectDescriptors~descriptor</code>
-Check if the descriptors references have all been built and set complete to true if they have.
+Check if every property this descriptor references (i.e. every nested object/array it points to) has actually
+had its own descriptor built yet, and set the descriptor's `complete` flag to true if so.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptor</code> - The same descriptor, with `complete` updated.  
 
-| Param | Type |
-| --- | --- |
-| descriptor | <code>module:objectDescriptors~descriptor</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| descriptor | <code>module:objectDescriptors~descriptor</code> | The descriptor to check. |
 
 <a name="module_objectDescriptors.checkClearValues"></a>
 
 ### objectDescriptors.checkClearValues(descriptor, [keepValues]) ⇒ <code>module:objectDescriptors~descriptor</code>
-Check if we should clear the values on this descriptor
+Once a descriptor is complete (all its references have been resolved), its details' actual `value` arrays are no
+longer needed to build the descriptor further - clear them to save memory, unless `keepValues` says otherwise.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptor</code> - The same descriptor, with `details[].value` cleared if applicable.  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| descriptor | <code>module:objectDescriptors~descriptor</code> |  | 
-| [keepValues] | <code>boolean</code> | <code>false</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| descriptor | <code>module:objectDescriptors~descriptor</code> |  | The descriptor to check. |
+| [keepValues] | <code>boolean</code> | <code>false</code> | Set true to keep the values even once the descriptor is complete. |
 
 <a name="module_objectDescriptors.assignDescriptorDetail"></a>
 
 ### objectDescriptors.assignDescriptorDetail(originalDetail, ...details) ⇒ <code>module:objectDescriptors~descriptorDetail</code>
-Assign properties from other details onto an existing detail.
+Assign properties from other details onto an existing detail, widening it (e.g. combining `type`/`value` arrays,
+OR-ing boolean flags like `nullable`/`optional`) rather than overwriting it - the per-property counterpart to
+[assignDescriptor](#module_objectDescriptors.assignDescriptor).
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptorDetail</code> - A new detail representing the merge of all of the above.  
 
-| Param | Type |
-| --- | --- |
-| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | 
-| ...details | <code>module:objectDescriptors~descriptorDetail</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| originalDetail | <code>module:objectDescriptors~descriptorDetail</code> | The base detail to merge onto (not mutated - a clone is merged and returned). |
+| ...details | <code>module:objectDescriptors~descriptorDetail</code> | One or more further details to merge in. |
 
 <a name="module_objectDescriptors.assignDescriptor"></a>
 
 ### objectDescriptors.assignDescriptor(originalMap, ...descriptors) ⇒ <code>module:objectDescriptors~descriptor</code>
 Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
+Used to widen a descriptor as more differently-shaped objects are described into it (e.g. array elements of
+different types), rather than replacing it outright.
 
 **Kind**: static method of [<code>objectDescriptors</code>](#module_objectDescriptors)  
+**Returns**: <code>module:objectDescriptors~descriptor</code> - A new descriptor representing the merge of all of the above.  
 
-| Param | Type |
-| --- | --- |
-| originalMap | <code>module:objectDescriptors~descriptor</code> | 
-| ...descriptors | <code>module:objectDescriptors~descriptor</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| originalMap | <code>module:objectDescriptors~descriptor</code> | The base descriptor to merge onto (not mutated - a clone is merged and returned). |
+| ...descriptors | <code>module:objectDescriptors~descriptor</code> | One or more further descriptors to merge in. |
 
 <a name="module_arrayHelpers"></a>
 
 ## arrayHelpers
-Some simple utility functions for generating arrays or performing work on arrays.
+Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
+use with functionHelpers' queueManager/queueTimeout.
 
 **Version**: 1.0.0  
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [arrayHelpers](#module_arrayHelpers)
     * [.BasicQueue](#module_arrayHelpers.BasicQueue)
+        * [new BasicQueue([innerList])](#new_module_arrayHelpers.BasicQueue_new)
         * [.dequeue()](#module_arrayHelpers.BasicQueue+dequeue) ⇒ <code>queuedItem</code> \| <code>\*</code>
         * [.empty()](#module_arrayHelpers.BasicQueue+empty) ⇒ <code>boolean</code>
         * [.enqueue(data)](#module_arrayHelpers.BasicQueue+enqueue) ⇒ <code>BasicQueue</code>
@@ -1082,11 +1166,20 @@ Class BasicQueue is a functional example of a queue to be used with queueManager
 **Kind**: static class of [<code>arrayHelpers</code>](#module_arrayHelpers)  
 
 * [.BasicQueue](#module_arrayHelpers.BasicQueue)
+    * [new BasicQueue([innerList])](#new_module_arrayHelpers.BasicQueue_new)
     * [.dequeue()](#module_arrayHelpers.BasicQueue+dequeue) ⇒ <code>queuedItem</code> \| <code>\*</code>
     * [.empty()](#module_arrayHelpers.BasicQueue+empty) ⇒ <code>boolean</code>
     * [.enqueue(data)](#module_arrayHelpers.BasicQueue+enqueue) ⇒ <code>BasicQueue</code>
     * [.peek()](#module_arrayHelpers.BasicQueue+peek) ⇒ <code>queuedItem</code> \| <code>\*</code>
     * [.size()](#module_arrayHelpers.BasicQueue+size) ⇒ <code>number</code>
+
+<a name="new_module_arrayHelpers.BasicQueue_new"></a>
+
+#### new BasicQueue([innerList])
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [innerList] | <code>Array</code> | <code>[]</code> | Items to pre-populate the queue with, in order. |
 
 <a name="module_arrayHelpers.BasicQueue+dequeue"></a>
 

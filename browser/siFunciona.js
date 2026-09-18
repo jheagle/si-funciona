@@ -16,7 +16,8 @@
     var _uniqueArray = _interopRequireDefault(require('./arrays/uniqueArray'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Some simple utility functions for generating arrays or performing work on arrays.
+ * Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
+ * use with functionHelpers' queueManager/queueTimeout.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
@@ -46,6 +47,9 @@
  * @memberOf module:arrayHelpers
  */
     class BasicQueue {
+      /**
+   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   */
       constructor (innerList = []) {
         this.innerList = innerList
       }
@@ -330,7 +334,23 @@
     var _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Create a format to standardize every object into a specific template.
+ * A "descriptor" is a flat, serializable snapshot of an object or array's shape: for each property, its type(s),
+ * whether it's nullable, and - if the property's own value is itself an object/array - a reference to that nested
+ * value's own descriptor elsewhere in the same list, rather than nesting descriptors inside descriptors. This flat,
+ * reference-based structure is what lets these utilities walk deeply nested and even circular object graphs (an
+ * object that contains itself, directly or indirectly) without infinite recursion, since a value that's already
+ * been described is simply pointed to again instead of re-described.
+ *
+ * Start with {@link module:objectDescriptors.describeObjectMap}, which takes any real object or array and produces
+ * this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
+ * building blocks used internally, or useful once you already have descriptors to work with directly.
+ *
+ * The concrete use this module has earned its keep on: describing two objects and comparing the results tells
+ * you whether they're the same shape and values even when they're different references entirely (see
+ * {@link module:objectDescriptors.sameDescriptor}/{@link module:objectDescriptors.compareDescriptor}) - useful
+ * anywhere you need to check that two objects genuinely match without caring whether they're literally the same
+ * instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
+ * discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0
@@ -374,10 +394,13 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
+ * Used to widen a descriptor as more differently-shaped objects are described into it (e.g. array elements of
+ * different types), rather than replacing it outright.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} originalMap
- * @param  {...module:objectDescriptors~descriptor} descriptors
- * @returns {module:objectDescriptors~descriptor}
+ * @param {module:objectDescriptors~descriptor} originalMap - The base descriptor to merge onto (not mutated - a
+ * clone is merged and returned).
+ * @param  {...module:objectDescriptors~descriptor} descriptors - One or more further descriptors to merge in.
+ * @returns {module:objectDescriptors~descriptor} A new descriptor representing the merge of all of the above.
  */
     const assignDescriptor = (originalMap, ...descriptors) => descriptors.reduce((assignedDescriptor, descriptor) => {
       const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
@@ -423,11 +446,14 @@
     var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Assign properties from other details onto an existing detail.
+ * Assign properties from other details onto an existing detail, widening it (e.g. combining `type`/`value` arrays,
+ * OR-ing boolean flags like `nullable`/`optional`) rather than overwriting it - the per-property counterpart to
+ * {@link module:objectDescriptors.assignDescriptor}.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptorDetail} originalDetail
- * @param  {...module:objectDescriptors~descriptorDetail} details
- * @returns {module:objectDescriptors~descriptorDetail}
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail - The base detail to merge onto (not mutated -
+ * a clone is merged and returned).
+ * @param  {...module:objectDescriptors~descriptorDetail} details - One or more further details to merge in.
+ * @returns {module:objectDescriptors~descriptorDetail} A new detail representing the merge of all of the above.
  */
     const assignDescriptorDetail = (originalDetail, ...details) => details.reduce((existingDetail, newDetail) => {
       existingDetail.type = (0, _uniqueArray.default)([...existingDetail.type, ...newDetail.type])
@@ -458,11 +484,12 @@
     var _setValue = _interopRequireDefault(require('../objects/setValue'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Check if we should clear the values on this descriptor
+ * Once a descriptor is complete (all its references have been resolved), its details' actual `value` arrays are no
+ * longer needed to build the descriptor further - clear them to save memory, unless `keepValues` says otherwise.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor
- * @param {boolean} [keepValues=false]
- * @returns {module:objectDescriptors~descriptor}
+ * @param {module:objectDescriptors~descriptor} descriptor - The descriptor to check.
+ * @param {boolean} [keepValues=false] - Set true to keep the values even once the descriptor is complete.
+ * @returns {module:objectDescriptors~descriptor} The same descriptor, with `details[].value` cleared if applicable.
  */
     const checkClearValues = (descriptor, keepValues = false) => (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
     var _default = exports.default = checkClearValues
@@ -480,10 +507,11 @@
     var _setValue = _interopRequireDefault(require('../objects/setValue'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Check if the descriptors references have all been built and set complete to true if they have.
+ * Check if every property this descriptor references (i.e. every nested object/array it points to) has actually
+ * had its own descriptor built yet, and set the descriptor's `complete` flag to true if so.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor
- * @returns {module:objectDescriptors~descriptor}
+ * @param {module:objectDescriptors~descriptor} descriptor - The descriptor to check.
+ * @returns {module:objectDescriptors~descriptor} The same descriptor, with `complete` updated.
  */
     const checkDescriptorComplete = descriptor => (0, _setValue.default)('complete', descriptor.references.every(refId => [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(ref => typeof ref === 'number')), descriptor)
     var _default = exports.default = checkDescriptorComplete
@@ -503,8 +531,8 @@
     /**
  * Make a copy of an object descriptor so that the original will not be mutated.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} originalMap
- * @returns {module:objectDescriptors~descriptor}
+ * @param {module:objectDescriptors~descriptor} originalMap - The descriptor to copy.
+ * @returns {module:objectDescriptors~descriptor} A new, independent copy.
  */
     const cloneDescriptor = originalMap => {
       const copyMap = {}
@@ -540,10 +568,10 @@
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Get a new copy of an existing Descriptor Detail
+ * Get a new copy of an existing descriptor detail so that the original will not be mutated.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptorDetail} originalDetail
- * @returns {module:objectDescriptors~descriptorDetail}
+ * @param {module:objectDescriptors~descriptorDetail} originalDetail - The detail to copy.
+ * @returns {module:objectDescriptors~descriptorDetail} A new, independent copy.
  */
     const cloneDescriptorDetail = originalDetail => {
       const copyDetail = {};
@@ -569,11 +597,13 @@
     require('core-js/modules/esnext.iterator.some.js')
     require('core-js/stable')
     /**
- * Check if two descriptors are the same or similar in that they have similar keys and the associated types are the same.
+ * Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger
+ * one and their types line up - used to detect when a newly-described value actually matches a descriptor already
+ * in the map, so it can be pointed at instead of creating a duplicate.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor1
- * @param {module:objectDescriptors~descriptor} descriptor2
- * @returns {boolean}
+ * @param {module:objectDescriptors~descriptor} descriptor1 - The first descriptor to compare.
+ * @param {module:objectDescriptors~descriptor} descriptor2 - The second descriptor to compare.
+ * @returns {boolean} True if the descriptors describe a compatible shape.
  */
     const compareDescriptor = (descriptor1, descriptor2) => {
       if (descriptor1.isArray !== descriptor2.isArray) {
@@ -601,9 +631,11 @@
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Trace an object and return the descriptor which defines the object's structure and attributes.
+ * Trace a single object or array (not its nested objects/arrays - see
+ * {@link module:objectDescriptors.describeObjectMap} for that) and return the descriptor which defines its own
+ * structure and attributes.
  * @memberOf module:objectDescriptors
- * @param {Object} object
+ * @param {Object|Array} object - The object or array to describe.
  * @returns {module:objectDescriptors~descriptor}
  */
     const describeObject = object => {
@@ -654,11 +686,13 @@
     var _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Trace an object's attribute and provide details about it.
+ * Trace a single property's value and produce the descriptorDetail describing it (type, nullability, whether it
+ * references a nested object/array, etc.) - the per-property building block used by
+ * {@link module:objectDescriptors.describeObject}.
  * @memberOf module:objectDescriptors
- * @param {*} value
- * @param {string|number} [key=0]
- * @param {number} [index=0]
+ * @param {*} value - The property's value to describe.
+ * @param {string|number} [key=0] - The property name (or array index) this value belongs to.
+ * @param {number} [index=0] - This detail's intended position within its parent descriptor's `details` array.
  * @returns {module:objectDescriptors~descriptorDetail}
  */
     const describeObjectDetail = (value, key = 0, index = 0) => {
@@ -699,13 +733,29 @@
     var _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Trace out the entire object including nested objects.
+ * Trace out the entire object including nested objects, producing a flat descriptorMap - see the
+ * {@link module:objectDescriptors} module description for what a descriptor represents and why it's flat. This is
+ * the main entry point into this module: start here to describe a real object/array before comparing, merging, or
+ * inspecting its structure with the other functions in this module.
+ * @example
+ * describeObjectMap({ name: 'example', tags: ['a', 'b'] })
+ * // [
+ * //   { index: 0, details: [...], length: 2, keys: ['name', 'tags'], references: [1], isArray: false, complete: true },
+ * //   { index: 1, details: [...], length: 2, keys: [0], references: [], isArray: true, complete: true }
+ * // ]
+ * // descriptorMap[0] describes the top-level object; its 'tags' property is a reference (references: [1]) to
+ * // descriptorMap[1], which separately describes that nested array. descriptorMap[1]'s own `length` (2) reflects
+ * // the array's actual length, but `keys` has only one entry (0) since both elements share the same type
+ * // ('string') and are described together by a single, representative descriptorDetail.
  * @memberOf module:objectDescriptors
- * @param {Object|Array} object
+ * @param {Object|Array} object - The real object or array to describe.
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000000000]
- * @param {number} [options.depthLimit=-1]
- * @param {boolean} [options.keepValues=false]
+ * @param {number} [options.mapLimit=1000000000] - Stop describing further nested references once the map reaches
+ * this many descriptors - a safety limit for extremely large or deeply-referenced structures.
+ * @param {number} [options.depthLimit=-1] - How many levels of nested objects/arrays to describe; `-1` means no
+ * limit, `0` describes only the top level, etc.
+ * @param {boolean} [options.keepValues=false] - By default, each detail's actual values are cleared once its
+ * descriptor is complete (to save memory) - set true to keep them.
  * @returns {module:objectDescriptors~descriptorMap}
  */
     const describeObjectMap = (object, {
@@ -786,11 +836,13 @@
     var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Find the index of the next module:objectDescriptors.descriptorDetail to build a resource for.
+ * Find the index (within `descriptor.details`) of the next referenced property - after `currentReference` - whose
+ * own nested object/array still needs its descriptor built. Used to walk through a descriptor's references one at
+ * a time while building out a descriptorMap.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor
- * @param {number} currentReference
- * @returns {number|undefined}
+ * @param {module:objectDescriptors~descriptor} descriptor - The descriptor whose references to search.
+ * @param {number} currentReference - The `details` index already processed - search continues after this one.
+ * @returns {number|undefined} The next detail index to process, or `undefined` if none remain.
  */
     const nextReference = (descriptor, currentReference) => descriptor.references.find(nextRef => {
       if (nextRef <= currentReference) {
@@ -817,11 +869,13 @@
     require('core-js/modules/esnext.iterator.some.js')
     require('core-js/stable')
     /**
- * Check if the two descriptors are the same.
+ * Check if two descriptors describe the exact same underlying values (not just compatible types, like
+ * {@link module:objectDescriptors.compareDescriptor} does) - used to detect genuine circular references, where a
+ * nested value's descriptor turns out to be identical to one of its own ancestors.
  * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor1
- * @param {module:objectDescriptors~descriptor} descriptor2
- * @returns {boolean}
+ * @param {module:objectDescriptors~descriptor} descriptor1 - The first descriptor to compare.
+ * @param {module:objectDescriptors~descriptor} descriptor2 - The second descriptor to compare.
+ * @returns {boolean} True if every detail's values match at the same position.
  */
     const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
     var _default = exports.default = sameDescriptor
@@ -953,7 +1007,7 @@
     /**
  * Create an instance of a basic queue.
  * @memberOf module:functionHelpers
- * @param {Array} initialQueue
+ * @param {Array} [initialQueue=[]] - Items to pre-populate the queue with, in order.
  * @returns {IsQueue}
  */
     const makeBasicQueue = (initialQueue = []) => {
@@ -1096,7 +1150,9 @@
     /**
  * Manage functions to run sequentially.
  * @memberOf module:functionHelpers
- * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {IsQueue|Array} [queue=null] - The queue to manage. Pass a plain array to have it converted into a
+ * {@link module:arrayHelpers.BasicQueue} automatically, or a custom queue implementing `IsQueue`; omit it (or pass
+ * `null`) to have one created for you.
  * @returns {module:functionHelpers~queueManagerHandle}
  */
     const queueManager = (queue = null) => {
@@ -1245,8 +1301,8 @@
  * @memberOf module:functionHelpers
  * @param {relevanceMap} map
  * @param {Object} [options={}]
- * @param {int} [options.mapLimit=1000]
- * @param {int} [options.relevancyRange=100]
+ * @param {number} [options.mapLimit=1000] - Only filter once the map exceeds this many entries.
+ * @param {number} [options.relevancyRange=100] - How many of the most-recent relevance values to keep.
  * @returns {relevanceMap}
  */
     const relevancyFilter = (map, {
@@ -1277,10 +1333,12 @@
     var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Output the value with label to the console and return the value to not interrupt the code.
+ * Output the value with label to the console and return the value to not interrupt the code - useful for
+ * inspecting a value mid-pipe/mid-chain without altering the result.
  * @memberOf module:functionHelpers
  * @param {string} label - Pass an identifying label of the value being output.
- * @param useClone - Determines if the logged data should be a clone of the original to preserve state.
+ * @param {boolean} [useClone=true] - Determines if the logged data should be a clone of the original to preserve
+ * its state at the time of logging (rather than a live reference that may show later mutations).
  * @returns {function(*=)}
  */
     const trace = (label, useClone = true) => value => {
@@ -1436,10 +1494,10 @@
     var _leastCommonMultiple = _interopRequireDefault(require('./leastCommonMultiple'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
- * Helper for calculating the multiplier that would make each number relative to each other.
+ * Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
+ * leastCommonMultiple.
  * @memberOf module:numberHelpers
- * @param {number} num1 - A number to compare
- * @param {number} num2 - Another number to be compared against
+ * @param {...number} numbers - Two or more numbers to find the lowest common denominator of.
  * @returns {number}
  */
     const lowestCommonDenominator = (...numbers) => numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
@@ -2349,7 +2407,7 @@
     /**
  * Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
     const camelCase = str => (0, _words.default)(str).reduce((camel, part) => camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase(), '')
@@ -2370,7 +2428,7 @@
     /**
  * Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-case.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
     const kabobCase = str => (0, _words.default)(str).reduce((kabob, part) => kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase(), '')
@@ -2388,8 +2446,8 @@
     /**
  * Format the given path so that it does not have trailing slashes and also correctly appends a path.
  * @memberOf module:stringHelpers
- * @param {string} root
- * @param {string} [append='']
+ * @param {string} root - The base path to start from.
+ * @param {string} [append=''] - A path to append to `root` - may itself use `./` or `../` segments.
  * @returns {string}
  */
     const makeFilepath = (root, append = '') => {
@@ -2440,9 +2498,9 @@
     /**
  * Compare two file paths and simplify them to a relative path.
  * @memberOf module:stringHelpers
- * @param {string} fromFile
- * @param {string} toFile
- * @return {string}
+ * @param {string} fromFile - The path of the file the resulting relative path will be used from.
+ * @param {string} toFile - The path of the file being referenced.
+ * @return {string} `toFile` expressed relative to `fromFile`.
  */
     const makeRelativePath = (fromFile, toFile) => {
       let relativePath = toFile
@@ -2482,7 +2540,7 @@
     /**
  * Take a string and escape the regex characters.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to escape, so it can be used literally inside a `RegExp`.
  * @returns {string}
  */
     const regexEscape = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -2504,7 +2562,7 @@
     /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
     const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')
@@ -2521,9 +2579,9 @@
     /**
  * Retrieve the string part after the search match.
  * @memberOf module:stringHelpers
- * @param {string} str
- * @param {string} search
- * @returns {string}
+ * @param {string} str - The string to search within.
+ * @param {string} search - The substring to search for.
+ * @returns {string} The portion of `str` after the first occurrence of `search`, or `''` if not found.
  */
     const strAfter = (str, search) => {
       const index = str.indexOf(search)
@@ -2542,9 +2600,9 @@
     /**
  * Retrieve the string part after the last search match.
  * @memberOf module:stringHelpers
- * @param {string} str
- * @param {string} search
- * @returns {string}
+ * @param {string} str - The string to search within.
+ * @param {string} search - The substring to search for.
+ * @returns {string} The portion of `str` after the last occurrence of `search`, or `''` if not found.
  */
     const strAfterLast = (str, search) => {
       const index = str.lastIndexOf(search)
@@ -2563,9 +2621,9 @@
     /**
  * Retrieve the string part before the search match.
  * @memberOf module:stringHelpers
- * @param {string} str
- * @param {string} search
- * @returns {string}
+ * @param {string} str - The string to search within.
+ * @param {string} search - The substring to search for.
+ * @returns {string} The portion of `str` before the first occurrence of `search`, or `''` if not found.
  */
     const strBefore = (str, search) => {
       const index = str.indexOf(search)
@@ -2582,11 +2640,11 @@
     exports.default = void 0
     require('core-js/stable')
     /**
- * Retrieve the string part after the last search match.
+ * Retrieve the string part before the last search match.
  * @memberOf module:stringHelpers
- * @param {string} str
- * @param {string} search
- * @returns {string}
+ * @param {string} str - The string to search within.
+ * @param {string} search - The substring to search for.
+ * @returns {string} The portion of `str` before the last occurrence of `search`, or `''` if not found.
  */
     const strBeforeLast = (str, search) => {
       const index = str.lastIndexOf(search)
@@ -2610,7 +2668,7 @@
     /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
     const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')
@@ -2627,7 +2685,7 @@
     /**
  * Given a string, make the first character uppercase and the rest lowercase.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
     const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
@@ -2642,10 +2700,11 @@
     exports.default = void 0
     require('core-js/stable')
     /**
- * Split a string into sets of numbers or letters.
+ * Split a string into sets of numbers or letters - the shared tokenizer behind camelCase/kabobCase/snakeCase/
+ * titleCase, so each can rebuild the string in its own casing style.
  * @memberOf module:stringHelpers
- * @param {string} str
- * @returns {array}
+ * @param {string} str - The string to split.
+ * @returns {Array.<string>}
  */
     const words = str => str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
     var _default = exports.default = words

@@ -4,9 +4,9 @@ import strAfter from './strAfter'
 /**
  * Compare two file paths and simplify them to a relative path.
  * @memberOf module:stringHelpers
- * @param {string} fromFile
- * @param {string} toFile
- * @return {string}
+ * @param {string} fromFile - The path of the file the resulting relative path will be used from.
+ * @param {string} toFile - The path of the file being referenced.
+ * @return {string} `toFile` expressed relative to `fromFile`.
  */
 export const makeRelativePath = (fromFile: string, toFile: string): string => {
   let relativePath = toFile

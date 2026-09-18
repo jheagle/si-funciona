@@ -5,7 +5,7 @@ import words from './words'
 /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
 const titleCase = (str: string): string => words(str).reduce(

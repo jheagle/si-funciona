@@ -10,6 +10,9 @@ require('core-js/stable')
  * @memberOf module:arrayHelpers
  */
 class BasicQueue {
+  /**
+   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   */
   constructor (innerList = []) {
     this.innerList = innerList
   }
