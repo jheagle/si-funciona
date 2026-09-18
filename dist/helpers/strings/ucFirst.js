@@ -8,7 +8,7 @@ require('core-js/stable')
 /**
  * Given a string, make the first character uppercase and the rest lowercase.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
 const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()

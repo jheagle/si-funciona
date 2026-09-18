@@ -27,8 +27,8 @@ type relevancyFilterOptions = {
  * @memberOf module:functionHelpers
  * @param {relevanceMap} map
  * @param {Object} [options={}]
- * @param {int} [options.mapLimit=1000]
- * @param {int} [options.relevancyRange=100]
+ * @param {number} [options.mapLimit=1000] - Only filter once the map exceeds this many entries.
+ * @param {number} [options.relevancyRange=100] - How many of the most-recent relevance values to keep.
  * @returns {relevanceMap}
  */
 declare const relevancyFilter: (map: relevanceMap, { mapLimit, relevancyRange }?: relevancyFilterOptions) => relevanceMap;

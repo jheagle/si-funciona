@@ -10,7 +10,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Create an instance of a basic queue.
  * @memberOf module:functionHelpers
- * @param {Array} initialQueue
+ * @param {Array} [initialQueue=[]] - Items to pre-populate the queue with, in order.
  * @returns {IsQueue}
  */
 const makeBasicQueue = (initialQueue = []) => {

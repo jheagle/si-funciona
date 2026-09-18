@@ -12,7 +12,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
  * @memberOf module:stringHelpers
- * @param {string} str
+ * @param {string} str - The string to convert.
  * @returns {string}
  */
 const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')

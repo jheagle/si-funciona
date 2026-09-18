@@ -8,8 +8,9 @@ export type queuedItem = {
 }
 
 /**
- * Define the format of a queue
- * @typdef {Object} IsQueue
+ * Define the format of a queue.
+ * @typedef {Object} IsQueue
+ * @memberOf module:arrayHelpers
  * @property {Array|*} innerList - Stores the data for the queue
  * @method dequeue - Pulls the first item from the queue
  * @method empty - Check if the queue is empty
@@ -33,6 +34,9 @@ export interface IsQueue<queuedItem> {
 class BasicQueue implements IsQueue<queuedItem> {
   private readonly innerList: queuedItem[] | any
 
+  /**
+   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   */
   constructor (innerList: queuedItem[] | any = []) {
     this.innerList = innerList
   }

@@ -40,7 +40,9 @@ export type queueManagerHandle = {
 /**
  * Manage functions to run sequentially.
  * @memberOf module:functionHelpers
- * @param {IsQueue} [queue=[]] - The iterable that can be used to store queued functions
+ * @param {IsQueue|Array} [queue=null] - The queue to manage. Pass a plain array to have it converted into a
+ * {@link module:arrayHelpers.BasicQueue} automatically, or a custom queue implementing `IsQueue`; omit it (or pass
+ * `null`) to have one created for you.
  * @returns {module:functionHelpers~queueManagerHandle}
  */
 declare const queueManager: (queue?: IsQueue<queuedItem>) => queueManagerHandle;

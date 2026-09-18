@@ -1,5 +1,14 @@
 /**
- * Create a format to standardize every object into a specific template.
+ * A "descriptor" is a flat, serializable snapshot of an object or array's shape: for each property, its type(s),
+ * whether it's nullable, and - if the property's own value is itself an object/array - a reference to that nested
+ * value's own descriptor elsewhere in the same list, rather than nesting descriptors inside descriptors. This flat,
+ * reference-based structure is what lets these utilities walk deeply nested and even circular object graphs (an
+ * object that contains itself, directly or indirectly) without infinite recursion, since a value that's already
+ * been described is simply pointed to again instead of re-described.
+ *
+ * Start with {@link module:objectDescriptors.describeObjectMap}, which takes any real object or array and produces
+ * this flat list of descriptors for you - the other functions here (comparing, merging, cloning descriptors) are
+ * building blocks used internally, or useful once you already have descriptors to work with directly.
  * @file
  * @author Joshua Heagle <joshuaheagle@gmail.com>
  * @version 1.0.0

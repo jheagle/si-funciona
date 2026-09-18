@@ -10,9 +10,11 @@ var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDeta
 var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
- * Trace an object and return the descriptor which defines the object's structure and attributes.
+ * Trace a single object or array (not its nested objects/arrays - see
+ * {@link module:objectDescriptors.describeObjectMap} for that) and return the descriptor which defines its own
+ * structure and attributes.
  * @memberOf module:objectDescriptors
- * @param {Object} object
+ * @param {Object|Array} object - The object or array to describe.
  * @returns {module:objectDescriptors~descriptor}
  */
 const describeObject = object => {
