@@ -8,3 +8,4 @@ import { IsQueue, queuedItem } from '../arrays/BasicQueue';
  */
 declare const makeBasicQueue: (initialQueue?: queuedItem[] | any) => IsQueue<any>;
 export default makeBasicQueue;
+//# sourceMappingURL=makeBasicQueue.d.ts.map

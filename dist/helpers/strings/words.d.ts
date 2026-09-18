@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const words: (str: string) => Array<string>;
 export default words;
+//# sourceMappingURL=words.d.ts.map

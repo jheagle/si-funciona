@@ -8,3 +8,4 @@ import { descriptorDetail } from './samples/descriptorDetail';
  */
 declare const cloneDescriptorDetail: (originalDetail: descriptorDetail) => descriptorDetail;
 export default cloneDescriptorDetail;
+//# sourceMappingURL=cloneDescriptorDetail.d.ts.map

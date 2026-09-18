@@ -23,7 +23,7 @@ declare const _default: {
     filterObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "at" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => boolean, thisArg?: any[] | {
@@ -39,7 +39,7 @@ declare const _default: {
     mapObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "at" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => any, thisArg?: any[] | {
@@ -78,7 +78,7 @@ declare const _default: {
     reduceObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (accumulator: any, currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "at" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (accumulator: any, currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => any, initialValue?: any[] | {
@@ -88,7 +88,7 @@ declare const _default: {
     setAndReturnValue: (item: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, key: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "at" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", value: any) => any;
+    }, key: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", value: any) => any;
     setValue: (key: number | string, value: any, item: any[] | {
         [k: string]: any;
         [k: number]: any;
@@ -98,3 +98,4 @@ declare const _default: {
     };
 };
 export default _default;
+//# sourceMappingURL=objects.d.ts.map

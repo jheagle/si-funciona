@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const greatestCommonDivisor: (num1: number, num2: number) => number;
 export default greatestCommonDivisor;
+//# sourceMappingURL=greatestCommonDivisor.d.ts.map

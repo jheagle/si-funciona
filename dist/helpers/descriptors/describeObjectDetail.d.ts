@@ -10,3 +10,4 @@ import { descriptorDetail } from './samples/descriptorDetail';
  */
 declare const describeObjectDetail: (value: any, key?: number | string, index?: number) => descriptorDetail;
 export default describeObjectDetail;
+//# sourceMappingURL=describeObjectDetail.d.ts.map

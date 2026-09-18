@@ -19,19 +19,14 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
  * @returns {Object}
  */
-const cloneObject = function (object) {
-  const _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
-  const _ref$mapLimit = _ref.mapLimit
-  const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-  const _ref$depthLimit = _ref.depthLimit
-  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  const _ref$relevancyRange = _ref.relevancyRange
-  const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
-  return (0, _mergeObjectsBase.default)({
-    mapLimit,
-    depthLimit,
-    relevancyRange,
-    useClone: true
-  })(object)
-}
+const cloneObject = (object, {
+  mapLimit = 100,
+  depthLimit = -1,
+  relevancyRange = 1000
+} = {}) => (0, _mergeObjectsBase.default)({
+  mapLimit,
+  depthLimit,
+  relevancyRange,
+  useClone: true
+})(object)
 var _default = exports.default = cloneObject

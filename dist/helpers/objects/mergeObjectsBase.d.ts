@@ -34,3 +34,4 @@ type mergeObjectsBaseOptions = {
  */
 declare const mergeObjectsBase: ({ mapLimit, depthLimit, relevancyRange, map, useClone, }?: mergeObjectsBaseOptions) => mergeObjectsCallback;
 export default mergeObjectsBase;
+//# sourceMappingURL=mergeObjectsBase.d.ts.map

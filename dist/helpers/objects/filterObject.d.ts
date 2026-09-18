@@ -25,3 +25,4 @@ type filterCallback = (currentProperty: any, currentIndex: keyof filterableItem,
  */
 declare const filterObject: (obj: filterableItem, fn: filterCallback, thisArg?: filterableItem) => filterableItem;
 export default filterObject;
+//# sourceMappingURL=filterObject.d.ts.map

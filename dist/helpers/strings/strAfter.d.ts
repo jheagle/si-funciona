@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const strAfter: (str: string, search: string) => string;
 export default strAfter;
+//# sourceMappingURL=strAfter.d.ts.map

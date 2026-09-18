@@ -18,3 +18,4 @@ type cloneObjectOptions = {
  */
 declare const cloneObject: (object: object, { mapLimit, depthLimit, relevancyRange }?: cloneObjectOptions) => object;
 export default cloneObject;
+//# sourceMappingURL=cloneObject.d.ts.map

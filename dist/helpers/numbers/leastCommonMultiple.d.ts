@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const leastCommonMultiple: (num1: number, num2: number) => number;
 export default leastCommonMultiple;
+//# sourceMappingURL=leastCommonMultiple.d.ts.map

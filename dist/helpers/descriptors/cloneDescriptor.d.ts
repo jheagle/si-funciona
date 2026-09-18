@@ -8,3 +8,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const cloneDescriptor: (originalMap: descriptor) => descriptor;
 export default cloneDescriptor;
+//# sourceMappingURL=cloneDescriptor.d.ts.map

@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const strBefore: (str: string, search: string) => string;
 export default strBefore;
+//# sourceMappingURL=strBefore.d.ts.map

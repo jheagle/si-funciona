@@ -22,8 +22,5 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
  * @returns {Object|Array}
  */
-const mapObject = function (obj, fn) {
-  const thisArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined
-  return Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
-}
+const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
 var _default = exports.default = mapObject

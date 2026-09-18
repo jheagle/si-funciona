@@ -10,3 +10,4 @@ type outputAndReturn = (value: any) => any;
  */
 declare const trace: (label: string, useClone?: boolean) => outputAndReturn;
 export default trace;
+//# sourceMappingURL=trace.d.ts.map

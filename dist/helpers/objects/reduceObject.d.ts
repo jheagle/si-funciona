@@ -29,3 +29,4 @@ type reduceCallback = (accumulator: any, currentProperty: any, currentIndex: key
  */
 declare const reduceObject: (obj: reduceableItem, fn: reduceCallback, initialValue?: reduceableItem) => any;
 export default reduceObject;
+//# sourceMappingURL=reduceObject.d.ts.map

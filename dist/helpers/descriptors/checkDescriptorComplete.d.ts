@@ -8,3 +8,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const checkDescriptorComplete: (descriptor: descriptor) => descriptor;
 export default checkDescriptorComplete;
+//# sourceMappingURL=checkDescriptorComplete.d.ts.map

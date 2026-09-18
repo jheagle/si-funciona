@@ -19,3 +19,4 @@ declare const _default: {
     simplestRatio: (...numbers: number[]) => number[];
 };
 export default _default;
+//# sourceMappingURL=numbers.d.ts.map

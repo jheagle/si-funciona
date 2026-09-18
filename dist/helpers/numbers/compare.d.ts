@@ -11,3 +11,4 @@ import 'core-js/stable';
  */
 declare const compare: (val1: number, val2: number) => number;
 export default compare;
+//# sourceMappingURL=compare.d.ts.map

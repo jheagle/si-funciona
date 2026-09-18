@@ -7,3 +7,4 @@
  */
 export declare const makeFilepath: (root: string, append?: string) => string;
 export default makeFilepath;
+//# sourceMappingURL=makeFilepath.d.ts.map

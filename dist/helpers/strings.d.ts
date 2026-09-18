@@ -23,3 +23,4 @@ declare const _default: {
     words: (str: string) => Array<string>;
 };
 export default _default;
+//# sourceMappingURL=strings.d.ts.map

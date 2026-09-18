@@ -9,3 +9,4 @@ import { descriptor } from './samples/descriptor';
  */
 declare const nextReference: (descriptor: descriptor, currentReference: number) => number | undefined;
 export default nextReference;
+//# sourceMappingURL=nextReference.d.ts.map

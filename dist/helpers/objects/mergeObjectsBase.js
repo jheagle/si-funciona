@@ -7,6 +7,7 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.map.js')
+require('core-js/modules/esnext.iterator.reduce.js')
 require('core-js/stable')
 var _isCloneable = _interopRequireDefault(require('./isCloneable'))
 var _reduceObject = _interopRequireDefault(require('./reduceObject'))
@@ -27,75 +28,65 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
-const mergeObjectsBase = function () {
-  const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-  const _ref$mapLimit = _ref.mapLimit
-  const mapLimit = _ref$mapLimit === void 0 ? 100 : _ref$mapLimit
-  const _ref$depthLimit = _ref.depthLimit
-  const depthLimit = _ref$depthLimit === void 0 ? -1 : _ref$depthLimit
-  const _ref$relevancyRange = _ref.relevancyRange
-  const relevancyRange = _ref$relevancyRange === void 0 ? 1000 : _ref$relevancyRange
-  const _ref$map = _ref.map
-  let map = _ref$map === void 0 ? [] : _ref$map
-  const _ref$useClone = _ref.useClone
-  const useClone = _ref$useClone === void 0 ? false : _ref$useClone
-  return function () {
-    for (var _len = arguments.length, objects = new Array(_len), _key = 0; _key < _len; _key++) {
-      objects[_key] = arguments[_key]
-    }
-    const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
-    if (objects.length < 1) {
-      return firstObject
-    }
-    if (depthLimit === 0) {
-      return firstObject
-    }
-    return objects.reduce((newObj, arg) => {
-      if (!arg) {
-        return newObj
-      }
-      map.push({
-        source: arg,
-        object: newObj,
-        relevance: map.length
-      })
-      map = (0, _relevancyFilter.default)(map, {
-        mapLimit,
-        relevancyRange
-      })
-      return (0, _reduceObject.default)(arg, (returnObj, value, key) => {
-        if ((0, _isCloneable.default)(value)) {
-          let objectValue = newObj[key]
-          const exists = map.find(existing => existing.source === value)
-          if (exists) {
-            exists.relevance = map.length + 1
-            return (0, _setValue.default)(key, exists.object, returnObj)
-          }
-          if (!(0, _isCloneable.default)(objectValue) || !objectValue) {
-            objectValue = useClone ? Array.isArray(value) ? [] : {} : value
-          }
-          if ((0, _isCloneable.default)(objectValue)) {
-            return (0, _setValue.default)(key, mergeObjectsBase({
-              mapLimit,
-              depthLimit: depthLimit - 1,
-              relevancyRange,
-              map,
-              useClone
-            })(objectValue, value), returnObj)
-          }
-          map.push({
-            source: value,
-            object: objectValue,
-            relevance: map.length
-          })
-          map = (0, _relevancyFilter.default)(map, {
-            mapLimit,
-            relevancyRange
-          })
-        }
-        return (0, _setValue.default)(key, value, returnObj)
-      }, newObj)
-    }, firstObject || {})
+const mergeObjectsBase = ({
+  mapLimit = 100,
+  depthLimit = -1,
+  relevancyRange = 1000,
+  map = [],
+  useClone = false
+} = {}) => (...objects) => {
+  const firstObject = useClone ? Array.isArray(objects[0]) ? [] : {} : objects.shift()
+  if (objects.length < 1) {
+    return firstObject
   }
+  if (depthLimit === 0) {
+    return firstObject
+  }
+  return objects.reduce((newObj, arg) => {
+    if (!arg) {
+      return newObj
+    }
+    map.push({
+      source: arg,
+      object: newObj,
+      relevance: map.length
+    })
+    map = (0, _relevancyFilter.default)(map, {
+      mapLimit,
+      relevancyRange
+    })
+    return (0, _reduceObject.default)(arg, (returnObj, value, key) => {
+      if ((0, _isCloneable.default)(value)) {
+        let objectValue = newObj[key]
+        const exists = map.find(existing => existing.source === value)
+        if (exists) {
+          exists.relevance = map.length + 1
+          return (0, _setValue.default)(key, exists.object, returnObj)
+        }
+        if (!(0, _isCloneable.default)(objectValue) || !objectValue) {
+          objectValue = useClone ? Array.isArray(value) ? [] : {} : value
+        }
+        if ((0, _isCloneable.default)(objectValue)) {
+          return (0, _setValue.default)(key, mergeObjectsBase({
+            mapLimit,
+            depthLimit: depthLimit - 1,
+            relevancyRange,
+            map,
+            useClone
+          })(objectValue, value), returnObj)
+        }
+        map.push({
+          source: value,
+          object: objectValue,
+          relevance: map.length
+        })
+        map = (0, _relevancyFilter.default)(map, {
+          mapLimit,
+          relevancyRange
+        })
+      }
+      return (0, _setValue.default)(key, value, returnObj)
+    }, newObj)
+  }, firstObject || {})
 }
 var _default = exports.default = mergeObjectsBase

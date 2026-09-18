@@ -61,8 +61,7 @@ const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * ()
  * @param {boolean} [reset=false]
  * @returns {Array.<Function>}
  */
-const onBodyLoad = function (callback) {
-  const reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+const onBodyLoad = (callback, reset = false) => {
   if (reset) {
     doReset()
   }

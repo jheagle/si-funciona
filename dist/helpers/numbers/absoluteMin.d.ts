@@ -8,3 +8,4 @@ import 'core-js/stable';
  */
 declare const absoluteMin: (num1: number, num2: number) => number;
 export default absoluteMin;
+//# sourceMappingURL=absoluteMin.d.ts.map

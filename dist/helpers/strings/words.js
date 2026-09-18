@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/modules/es.regexp.exec.js')
 require('core-js/stable')
 /**
  * Split a string into sets of numbers or letters.

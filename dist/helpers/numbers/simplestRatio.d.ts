@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const simplestRatio: (...numbers: number[]) => number[];
 export default simplestRatio;
+//# sourceMappingURL=simplestRatio.d.ts.map

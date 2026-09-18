@@ -11,3 +11,4 @@ export type describeableObject = Array<any> | {
  */
 declare const describeObject: (object: describeableObject) => descriptor;
 export default describeObject;
+//# sourceMappingURL=describeObject.d.ts.map

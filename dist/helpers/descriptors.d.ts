@@ -26,3 +26,4 @@ declare const _default: {
     sameDescriptor: (descriptor1: import("./descriptors/samples/descriptor").descriptor, descriptor2: import("./descriptors/samples/descriptor").descriptor) => boolean;
 };
 export default _default;
+//# sourceMappingURL=descriptors.d.ts.map

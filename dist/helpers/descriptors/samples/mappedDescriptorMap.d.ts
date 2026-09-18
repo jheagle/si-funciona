@@ -5,3 +5,4 @@ import { descriptorMap } from './descriptorMap';
  */
 declare const mappedDescriptorMap: descriptorMap;
 export default mappedDescriptorMap;
+//# sourceMappingURL=mappedDescriptorMap.d.ts.map

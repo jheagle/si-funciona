@@ -15,8 +15,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param {boolean} [includeInherited=false]
  * @returns {Array.<string|number>}
  */
-const objectKeys = function (object) {
-  const includeInherited = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false
+const objectKeys = (object, includeInherited = false) => {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
     return []
   }

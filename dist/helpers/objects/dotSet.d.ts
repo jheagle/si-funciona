@@ -10,3 +10,4 @@ import { dotNotateableItem, dotNotationString } from './dotNotate';
  */
 declare const dotSet: (arrayObject: dotNotateableItem, dotNotation: dotNotationString, value?: any) => dotNotateableItem;
 export default dotSet;
+//# sourceMappingURL=dotSet.d.ts.map

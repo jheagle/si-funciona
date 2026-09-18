@@ -27,3 +27,4 @@ declare const _default: {
     trace: (label: string, useClone?: boolean) => (value: any) => any;
 };
 export default _default;
+//# sourceMappingURL=functions.d.ts.map

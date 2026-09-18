@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const snakeCase: (str: string) => string;
 export default snakeCase;
+//# sourceMappingURL=snakeCase.d.ts.map

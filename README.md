@@ -446,11 +446,11 @@ Set a nested property value an object.
 **Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
 **Returns**: <code>Object</code> - The modified object  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| arrayObject | <code>Object</code> | The array or object to set the property on |
-| dotNotation | <code>string</code> | The path for the property |
-| value | <code>\*</code> | The default value to return if the property is not found |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| arrayObject | <code>Object</code> |  | The array or object to set the property on |
+| dotNotation | <code>string</code> |  | The path for the property |
+| value | <code>\*</code> | <code></code> | The default value to return if the property is not found |
 
 <a name="module_objectHelpers.dotNotate"></a>
 
@@ -688,10 +688,10 @@ Output the value with label to the console and return the value to not interrupt
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| label | <code>string</code> | Pass an identifying label of the value being output. |
-| useClone |  | Determines if the logged data should be a clone of the original to preserve state. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| label | <code>string</code> |  | Pass an identifying label of the value being output. |
+| useClone |  | <code>true</code> | Determines if the logged data should be a clone of the original to preserve state. |
 
 <a name="module_functionHelpers.relevancyFilter"></a>
 
@@ -836,9 +836,9 @@ Provide a timeout which returns a promise.
 
 **Kind**: static method of [<code>functionHelpers</code>](#module_functionHelpers)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| time | <code>number</code> | Delay in milliseconds |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| time | <code>number</code> | <code>0</code> | Delay in milliseconds |
 
 <a name="module_functionHelpers.curry"></a>
 

@@ -45,3 +45,4 @@ export type queueManagerHandle = {
  */
 declare const queueManager: (queue?: IsQueue<queuedItem>) => queueManagerHandle;
 export default queueManager;
+//# sourceMappingURL=queueManager.d.ts.map

@@ -19,3 +19,4 @@ type queueTimeoutHandle = (fn: Function, time: number, ...args: any) => Promise<
  */
 declare const queueTimeout: (queueManagerHandle?: queueManagerHandle) => queueTimeoutHandle;
 export default queueTimeout;
+//# sourceMappingURL=queueTimeout.d.ts.map

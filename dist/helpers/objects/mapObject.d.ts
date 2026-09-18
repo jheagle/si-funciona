@@ -24,3 +24,4 @@ type mapCallback = (currentProperty: any, currentIndex: keyof mappableItem, obje
  */
 declare const mapObject: (obj: mappableItem, fn: mapCallback, thisArg?: mappableItem) => mappableItem;
 export default mapObject;
+//# sourceMappingURL=mapObject.d.ts.map

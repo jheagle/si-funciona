@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const isObject: (object: any) => boolean;
 export default isObject;
+//# sourceMappingURL=isObject.d.ts.map

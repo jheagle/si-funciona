@@ -15,9 +15,5 @@ require('core-js/stable')
  * offset, 2 for range)
  * @returns {number}
  */
-const randomInteger = function (range) {
-  const offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0
-  const interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1
-  return (Math.floor(Math.random() * range) + offset) * interval
-}
+const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
 var _default = exports.default = randomInteger

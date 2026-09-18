@@ -11,3 +11,4 @@ declare const mergeObjects: (...objects: Array<Object>) => any[] | {
     [k: number]: any;
 };
 export default mergeObjects;
+//# sourceMappingURL=mergeObjects.d.ts.map

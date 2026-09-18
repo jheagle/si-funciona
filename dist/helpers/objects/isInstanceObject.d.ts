@@ -7,3 +7,4 @@ import 'core-js/stable';
  */
 declare const isInstanceObject: (object: Array<any> | Object) => boolean;
 export default isInstanceObject;
+//# sourceMappingURL=isInstanceObject.d.ts.map

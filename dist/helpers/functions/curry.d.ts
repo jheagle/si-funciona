@@ -9,3 +9,4 @@ import 'core-js/stable';
  */
 declare const curry: (fn: Function) => Function | any;
 export default curry;
+//# sourceMappingURL=curry.d.ts.map

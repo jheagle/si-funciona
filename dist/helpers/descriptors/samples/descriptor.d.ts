@@ -25,3 +25,4 @@ export type descriptor = {
  */
 declare const descriptorSample: descriptor;
 export default descriptorSample;
+//# sourceMappingURL=descriptor.d.ts.map

@@ -9,3 +9,4 @@ import { dotNotateableItem, dotNotationString } from './dotNotate';
  */
 declare const dotUnset: (arrayObject: dotNotateableItem, dotNotation: dotNotationString) => dotNotateableItem;
 export default dotUnset;
+//# sourceMappingURL=dotUnset.d.ts.map
