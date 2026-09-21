@@ -16,6 +16,7 @@ import dotUnset from './objects/dotUnset'
 import emptyObject from './objects/emptyObject'
 import filterObject from './objects/filterObject'
 import isCloneable from './objects/isCloneable'
+import isEqual from './objects/isEqual'
 import isInstanceObject from './objects/isInstanceObject'
 import isObject from './objects/isObject'
 import mapObject from './objects/mapObject'
@@ -37,6 +38,7 @@ export {
   emptyObject,
   filterObject,
   isCloneable,
+  isEqual,
   isInstanceObject,
   isObject,
   mapObject,
@@ -59,6 +61,7 @@ export default {
   emptyObject,
   filterObject,
   isCloneable,
+  isEqual,
   isInstanceObject,
   isObject,
   mapObject,

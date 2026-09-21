@@ -15,6 +15,7 @@ import dotUnset from './objects/dotUnset';
 import emptyObject from './objects/emptyObject';
 import filterObject from './objects/filterObject';
 import isCloneable from './objects/isCloneable';
+import isEqual from './objects/isEqual';
 import isInstanceObject from './objects/isInstanceObject';
 import isObject from './objects/isObject';
 import mapObject from './objects/mapObject';
@@ -26,7 +27,7 @@ import objectValues from './objects/objectValues';
 import reduceObject from './objects/reduceObject';
 import setAndReturnValue from './objects/setAndReturnValue';
 import setValue from './objects/setValue';
-export { cloneObject, dotGet, dotNotate, dotSet, dotUnset, emptyObject, filterObject, isCloneable, isInstanceObject, isObject, mapObject, mergeObjects, mergeObjectsBase, mergeObjectsMutable, objectKeys, objectValues, reduceObject, setAndReturnValue, setValue };
+export { cloneObject, dotGet, dotNotate, dotSet, dotUnset, emptyObject, filterObject, isCloneable, isEqual, isInstanceObject, isObject, mapObject, mergeObjects, mergeObjectsBase, mergeObjectsMutable, objectKeys, objectValues, reduceObject, setAndReturnValue, setValue };
 declare const _default: {
     cloneObject: (object: object, { mapLimit, depthLimit, relevancyRange }?: {
         mapLimit?: number;
@@ -54,6 +55,7 @@ declare const _default: {
         [k: number]: any;
     };
     isCloneable: (value: Array<any> | Object | any) => boolean;
+    isEqual: (first: any, second: any) => boolean;
     isInstanceObject: (object: Array<any> | Object) => boolean;
     isObject: (object: any) => boolean;
     mapObject: (obj: any[] | {
