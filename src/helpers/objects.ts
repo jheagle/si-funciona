@@ -28,6 +28,28 @@ import reduceObject from './objects/reduceObject'
 import setAndReturnValue from './objects/setAndReturnValue'
 import setValue from './objects/setValue'
 
+export {
+  cloneObject,
+  dotGet,
+  dotNotate,
+  dotSet,
+  dotUnset,
+  emptyObject,
+  filterObject,
+  isCloneable,
+  isInstanceObject,
+  isObject,
+  mapObject,
+  mergeObjects,
+  mergeObjectsBase,
+  mergeObjectsMutable,
+  objectKeys,
+  objectValues,
+  reduceObject,
+  setAndReturnValue,
+  setValue
+}
+
 export default {
   cloneObject,
   dotGet,

@@ -18,6 +18,18 @@ import randomInteger from './numbers/randomInteger'
 import randomNumber from './numbers/randomNumber'
 import simplestRatio from './numbers/simplestRatio'
 
+export {
+  absoluteMax,
+  absoluteMin,
+  compare,
+  greatestCommonDivisor,
+  leastCommonMultiple,
+  lowestCommonDenominator,
+  randomInteger,
+  randomNumber,
+  simplestRatio
+}
+
 export default {
   absoluteMax,
   absoluteMin,

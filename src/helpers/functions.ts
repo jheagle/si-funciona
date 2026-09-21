@@ -20,6 +20,20 @@ import queueTimeout from './functions/queueTimeout'
 import relevancyFilter from './functions/relevancyFilter'
 import trace from './functions/trace'
 
+export {
+  callWithParams,
+  curry,
+  delay,
+  makeBasicQueue,
+  onBodyLoad,
+  pipe,
+  preloadParams,
+  queueManager,
+  queueTimeout,
+  relevancyFilter,
+  trace
+}
+
 export default {
   callWithParams,
   curry,

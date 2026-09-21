@@ -3,7 +3,61 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
+Object.defineProperty(exports, 'absoluteMax', {
+  enumerable: true,
+  get: function () {
+    return _absoluteMax.default
+  }
+})
+Object.defineProperty(exports, 'absoluteMin', {
+  enumerable: true,
+  get: function () {
+    return _absoluteMin.default
+  }
+})
+Object.defineProperty(exports, 'compare', {
+  enumerable: true,
+  get: function () {
+    return _compare.default
+  }
+})
 exports.default = void 0
+Object.defineProperty(exports, 'greatestCommonDivisor', {
+  enumerable: true,
+  get: function () {
+    return _greatestCommonDivisor.default
+  }
+})
+Object.defineProperty(exports, 'leastCommonMultiple', {
+  enumerable: true,
+  get: function () {
+    return _leastCommonMultiple.default
+  }
+})
+Object.defineProperty(exports, 'lowestCommonDenominator', {
+  enumerable: true,
+  get: function () {
+    return _lowestCommonDenominator.default
+  }
+})
+Object.defineProperty(exports, 'randomInteger', {
+  enumerable: true,
+  get: function () {
+    return _randomInteger.default
+  }
+})
+Object.defineProperty(exports, 'randomNumber', {
+  enumerable: true,
+  get: function () {
+    return _randomNumber.default
+  }
+})
+Object.defineProperty(exports, 'simplestRatio', {
+  enumerable: true,
+  get: function () {
+    return _simplestRatio.default
+  }
+})
 require('core-js/stable')
 var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
 var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
@@ -23,7 +77,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @module numberHelpers
  * @memberOf module:siFunciona
  */
-var _default = exports.default = {
+const _default = exports.default = {
   absoluteMax: _absoluteMax.default,
   absoluteMin: _absoluteMin.default,
   compare: _compare.default,

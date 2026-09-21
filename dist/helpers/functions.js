@@ -3,7 +3,73 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
+Object.defineProperty(exports, 'callWithParams', {
+  enumerable: true,
+  get: function () {
+    return _callWithParams.default
+  }
+})
+Object.defineProperty(exports, 'curry', {
+  enumerable: true,
+  get: function () {
+    return _curry.default
+  }
+})
 exports.default = void 0
+Object.defineProperty(exports, 'delay', {
+  enumerable: true,
+  get: function () {
+    return _delay.default
+  }
+})
+Object.defineProperty(exports, 'makeBasicQueue', {
+  enumerable: true,
+  get: function () {
+    return _makeBasicQueue.default
+  }
+})
+Object.defineProperty(exports, 'onBodyLoad', {
+  enumerable: true,
+  get: function () {
+    return _onBodyLoad.default
+  }
+})
+Object.defineProperty(exports, 'pipe', {
+  enumerable: true,
+  get: function () {
+    return _pipe.default
+  }
+})
+Object.defineProperty(exports, 'preloadParams', {
+  enumerable: true,
+  get: function () {
+    return _preloadParams.default
+  }
+})
+Object.defineProperty(exports, 'queueManager', {
+  enumerable: true,
+  get: function () {
+    return _queueManager.default
+  }
+})
+Object.defineProperty(exports, 'queueTimeout', {
+  enumerable: true,
+  get: function () {
+    return _queueTimeout.default
+  }
+})
+Object.defineProperty(exports, 'relevancyFilter', {
+  enumerable: true,
+  get: function () {
+    return _relevancyFilter.default
+  }
+})
+Object.defineProperty(exports, 'trace', {
+  enumerable: true,
+  get: function () {
+    return _trace.default
+  }
+})
 require('core-js/stable')
 var _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
 var _curry = _interopRequireDefault(require('./functions/curry'))
@@ -25,7 +91,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @module functionHelpers
  * @memberOf module:siFunciona
  */
-var _default = exports.default = {
+const _default = exports.default = {
   callWithParams: _callWithParams.default,
   curry: _curry.default,
   delay: _delay.default,

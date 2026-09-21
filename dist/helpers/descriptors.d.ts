@@ -23,6 +23,19 @@
  * @memberOf module:siFunciona
  */
 import 'core-js/stable';
+import assignDescriptor from './descriptors/assignDescriptor';
+import assignDescriptorDetail from './descriptors/assignDescriptorDetail';
+import checkClearValues from './descriptors/checkClearValues';
+import checkDescriptorComplete from './descriptors/checkDescriptorComplete';
+import cloneDescriptor from './descriptors/cloneDescriptor';
+import cloneDescriptorDetail from './descriptors/cloneDescriptorDetail';
+import compareDescriptor from './descriptors/compareDescriptor';
+import describeObject from './descriptors/describeObject';
+import describeObjectMap from './descriptors/describeObjectMap';
+import describeObjectDetail from './descriptors/describeObjectDetail';
+import nextReference from './descriptors/nextReference';
+import sameDescriptor from './descriptors/sameDescriptor';
+export { assignDescriptor, assignDescriptorDetail, checkClearValues, checkDescriptorComplete, cloneDescriptor, cloneDescriptorDetail, compareDescriptor, describeObject, describeObjectMap, describeObjectDetail, nextReference, sameDescriptor };
 declare const _default: {
     assignDescriptor: (originalMap: import("./descriptors/samples/descriptor").descriptor, ...descriptors: Array<import("./descriptors/samples/descriptor").descriptor>) => import("./descriptors/samples/descriptor").descriptor;
     assignDescriptorDetail: (originalDetail: import("./descriptors/samples/descriptorDetail").descriptorDetail, ...details: Array<import("./descriptors/samples/descriptorDetail").descriptorDetail>) => import("./descriptors/samples/descriptorDetail").descriptorDetail;

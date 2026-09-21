@@ -3,7 +3,79 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
+Object.defineProperty(exports, 'assignDescriptor', {
+  enumerable: true,
+  get: function () {
+    return _assignDescriptor.default
+  }
+})
+Object.defineProperty(exports, 'assignDescriptorDetail', {
+  enumerable: true,
+  get: function () {
+    return _assignDescriptorDetail.default
+  }
+})
+Object.defineProperty(exports, 'checkClearValues', {
+  enumerable: true,
+  get: function () {
+    return _checkClearValues.default
+  }
+})
+Object.defineProperty(exports, 'checkDescriptorComplete', {
+  enumerable: true,
+  get: function () {
+    return _checkDescriptorComplete.default
+  }
+})
+Object.defineProperty(exports, 'cloneDescriptor', {
+  enumerable: true,
+  get: function () {
+    return _cloneDescriptor.default
+  }
+})
+Object.defineProperty(exports, 'cloneDescriptorDetail', {
+  enumerable: true,
+  get: function () {
+    return _cloneDescriptorDetail.default
+  }
+})
+Object.defineProperty(exports, 'compareDescriptor', {
+  enumerable: true,
+  get: function () {
+    return _compareDescriptor.default
+  }
+})
 exports.default = void 0
+Object.defineProperty(exports, 'describeObject', {
+  enumerable: true,
+  get: function () {
+    return _describeObject.default
+  }
+})
+Object.defineProperty(exports, 'describeObjectDetail', {
+  enumerable: true,
+  get: function () {
+    return _describeObjectDetail.default
+  }
+})
+Object.defineProperty(exports, 'describeObjectMap', {
+  enumerable: true,
+  get: function () {
+    return _describeObjectMap.default
+  }
+})
+Object.defineProperty(exports, 'nextReference', {
+  enumerable: true,
+  get: function () {
+    return _nextReference.default
+  }
+})
+Object.defineProperty(exports, 'sameDescriptor', {
+  enumerable: true,
+  get: function () {
+    return _sameDescriptor.default
+  }
+})
 require('core-js/stable')
 var _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
 var _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
@@ -42,7 +114,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @module objectDescriptors
  * @memberOf module:siFunciona
  */
-var _default = exports.default = {
+const _default = exports.default = {
   assignDescriptor: _assignDescriptor.default,
   assignDescriptorDetail: _assignDescriptorDetail.default,
   checkClearValues: _checkClearValues.default,

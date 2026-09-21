@@ -13,7 +13,7 @@
     "general",
     "typescript"
   ],
-  "version": "2.4.1",
+  "version": "2.5.0",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/jheagle/si-funciona/issues"
@@ -42,7 +42,7 @@
     "type": "git",
     "url": "git+https://github.com/jheagle/si-funciona.git"
   },
-  "main": "dist/main.min.js",
+  "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
     "dist",

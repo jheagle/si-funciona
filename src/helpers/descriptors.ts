@@ -37,6 +37,21 @@ import describeObjectDetail from './descriptors/describeObjectDetail'
 import nextReference from './descriptors/nextReference'
 import sameDescriptor from './descriptors/sameDescriptor'
 
+export {
+  assignDescriptor,
+  assignDescriptorDetail,
+  checkClearValues,
+  checkDescriptorComplete,
+  cloneDescriptor,
+  cloneDescriptorDetail,
+  compareDescriptor,
+  describeObject,
+  describeObjectMap,
+  describeObjectDetail,
+  nextReference,
+  sameDescriptor
+}
+
 export default {
   assignDescriptor,
   assignDescriptorDetail,

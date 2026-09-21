@@ -3,7 +3,121 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
+Object.defineProperty(exports, 'cloneObject', {
+  enumerable: true,
+  get: function () {
+    return _cloneObject.default
+  }
+})
 exports.default = void 0
+Object.defineProperty(exports, 'dotGet', {
+  enumerable: true,
+  get: function () {
+    return _dotGet.default
+  }
+})
+Object.defineProperty(exports, 'dotNotate', {
+  enumerable: true,
+  get: function () {
+    return _dotNotate.default
+  }
+})
+Object.defineProperty(exports, 'dotSet', {
+  enumerable: true,
+  get: function () {
+    return _dotSet.default
+  }
+})
+Object.defineProperty(exports, 'dotUnset', {
+  enumerable: true,
+  get: function () {
+    return _dotUnset.default
+  }
+})
+Object.defineProperty(exports, 'emptyObject', {
+  enumerable: true,
+  get: function () {
+    return _emptyObject.default
+  }
+})
+Object.defineProperty(exports, 'filterObject', {
+  enumerable: true,
+  get: function () {
+    return _filterObject.default
+  }
+})
+Object.defineProperty(exports, 'isCloneable', {
+  enumerable: true,
+  get: function () {
+    return _isCloneable.default
+  }
+})
+Object.defineProperty(exports, 'isInstanceObject', {
+  enumerable: true,
+  get: function () {
+    return _isInstanceObject.default
+  }
+})
+Object.defineProperty(exports, 'isObject', {
+  enumerable: true,
+  get: function () {
+    return _isObject.default
+  }
+})
+Object.defineProperty(exports, 'mapObject', {
+  enumerable: true,
+  get: function () {
+    return _mapObject.default
+  }
+})
+Object.defineProperty(exports, 'mergeObjects', {
+  enumerable: true,
+  get: function () {
+    return _mergeObjects.default
+  }
+})
+Object.defineProperty(exports, 'mergeObjectsBase', {
+  enumerable: true,
+  get: function () {
+    return _mergeObjectsBase.default
+  }
+})
+Object.defineProperty(exports, 'mergeObjectsMutable', {
+  enumerable: true,
+  get: function () {
+    return _mergeObjectsMutable.default
+  }
+})
+Object.defineProperty(exports, 'objectKeys', {
+  enumerable: true,
+  get: function () {
+    return _objectKeys.default
+  }
+})
+Object.defineProperty(exports, 'objectValues', {
+  enumerable: true,
+  get: function () {
+    return _objectValues.default
+  }
+})
+Object.defineProperty(exports, 'reduceObject', {
+  enumerable: true,
+  get: function () {
+    return _reduceObject.default
+  }
+})
+Object.defineProperty(exports, 'setAndReturnValue', {
+  enumerable: true,
+  get: function () {
+    return _setAndReturnValue.default
+  }
+})
+Object.defineProperty(exports, 'setValue', {
+  enumerable: true,
+  get: function () {
+    return _setValue.default
+  }
+})
 require('core-js/stable')
 var _cloneObject = _interopRequireDefault(require('./objects/cloneObject'))
 var _dotGet = _interopRequireDefault(require('./objects/dotGet'))
@@ -33,7 +147,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @module objectHelpers
  * @memberOf module:siFunciona
  */
-var _default = exports.default = {
+const _default = exports.default = {
   cloneObject: _cloneObject.default,
   dotGet: _dotGet.default,
   dotNotate: _dotNotate.default,

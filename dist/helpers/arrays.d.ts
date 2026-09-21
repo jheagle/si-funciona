@@ -8,7 +8,14 @@
  * @memberOf module:siFunciona
  */
 import 'core-js/stable';
+import addUniqueToArray from './arrays/addUniqueToArray';
 import BasicQueue from './arrays/BasicQueue';
+import buildArray from './arrays/buildArray';
+import buildArrayOfReferences from './arrays/buildArrayOfReferences';
+import compareArrays from './arrays/compareArrays';
+import mergeArrays from './arrays/mergeArrays';
+import uniqueArray from './arrays/uniqueArray';
+export { addUniqueToArray, BasicQueue, buildArray, buildArrayOfReferences, compareArrays, mergeArrays, uniqueArray };
 declare const _default: {
     addUniqueToArray: (item: any, array: Array<any>) => Array<any>;
     BasicQueue: typeof BasicQueue;
