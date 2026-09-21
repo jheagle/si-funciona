@@ -17,6 +17,16 @@ import compareArrays from './arrays/compareArrays'
 import mergeArrays from './arrays/mergeArrays'
 import uniqueArray from './arrays/uniqueArray'
 
+export {
+  addUniqueToArray,
+  BasicQueue,
+  buildArray,
+  buildArrayOfReferences,
+  compareArrays,
+  mergeArrays,
+  uniqueArray
+}
+
 export default {
   addUniqueToArray,
   BasicQueue,

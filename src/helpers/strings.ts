@@ -22,6 +22,22 @@ import titleCase from './strings/titleCase'
 import ucFirst from './strings/ucFirst'
 import words from './strings/words'
 
+export {
+  camelCase,
+  kabobCase,
+  makeFilepath,
+  makeRelativePath,
+  regexEscape,
+  snakeCase,
+  strAfter,
+  strAfterLast,
+  strBefore,
+  strBeforeLast,
+  titleCase,
+  ucFirst,
+  words
+}
+
 export default {
   camelCase,
   kabobCase,

@@ -3,7 +3,49 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
+Object.defineProperty(exports, 'BasicQueue', {
+  enumerable: true,
+  get: function () {
+    return _BasicQueue.default
+  }
+})
+Object.defineProperty(exports, 'addUniqueToArray', {
+  enumerable: true,
+  get: function () {
+    return _addUniqueToArray.default
+  }
+})
+Object.defineProperty(exports, 'buildArray', {
+  enumerable: true,
+  get: function () {
+    return _buildArray.default
+  }
+})
+Object.defineProperty(exports, 'buildArrayOfReferences', {
+  enumerable: true,
+  get: function () {
+    return _buildArrayOfReferences.default
+  }
+})
+Object.defineProperty(exports, 'compareArrays', {
+  enumerable: true,
+  get: function () {
+    return _compareArrays.default
+  }
+})
 exports.default = void 0
+Object.defineProperty(exports, 'mergeArrays', {
+  enumerable: true,
+  get: function () {
+    return _mergeArrays.default
+  }
+})
+Object.defineProperty(exports, 'uniqueArray', {
+  enumerable: true,
+  get: function () {
+    return _uniqueArray.default
+  }
+})
 require('core-js/stable')
 var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
 var _BasicQueue = _interopRequireDefault(require('./arrays/BasicQueue'))
@@ -22,7 +64,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @module arrayHelpers
  * @memberOf module:siFunciona
  */
-var _default = exports.default = {
+const _default = exports.default = {
   addUniqueToArray: _addUniqueToArray.default,
   BasicQueue: _BasicQueue.default,
   buildArray: _buildArray.default,
