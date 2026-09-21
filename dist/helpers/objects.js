@@ -52,6 +52,12 @@ Object.defineProperty(exports, 'isCloneable', {
     return _isCloneable.default
   }
 })
+Object.defineProperty(exports, 'isEqual', {
+  enumerable: true,
+  get: function () {
+    return _isEqual.default
+  }
+})
 Object.defineProperty(exports, 'isInstanceObject', {
   enumerable: true,
   get: function () {
@@ -127,6 +133,7 @@ var _dotUnset = _interopRequireDefault(require('./objects/dotUnset'))
 var _emptyObject = _interopRequireDefault(require('./objects/emptyObject'))
 var _filterObject = _interopRequireDefault(require('./objects/filterObject'))
 var _isCloneable = _interopRequireDefault(require('./objects/isCloneable'))
+var _isEqual = _interopRequireDefault(require('./objects/isEqual'))
 var _isInstanceObject = _interopRequireDefault(require('./objects/isInstanceObject'))
 var _isObject = _interopRequireDefault(require('./objects/isObject'))
 var _mapObject = _interopRequireDefault(require('./objects/mapObject'))
@@ -156,6 +163,7 @@ const _default = exports.default = {
   emptyObject: _emptyObject.default,
   filterObject: _filterObject.default,
   isCloneable: _isCloneable.default,
+  isEqual: _isEqual.default,
   isInstanceObject: _isInstanceObject.default,
   isObject: _isObject.default,
   mapObject: _mapObject.default,
