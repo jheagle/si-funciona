@@ -29,9 +29,6 @@
     "watch": "gulp watchFull",
     "watch:test": "gulp watchTest"
   },
-  "dependencies": {
-    "npm": "^12.0.2"
-  },
   "devDependencies": {
     "collect-your-stuff": "^1.2.7",
     "gulp": "^5.0.1",
