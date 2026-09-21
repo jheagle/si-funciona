@@ -35,7 +35,7 @@
   "devDependencies": {
     "collect-your-stuff": "^1.2.7",
     "gulp": "^5.0.1",
-    "js-build-tools": "^4.1.1",
+    "js-build-tools": "^5.0.0",
     "jsdoc": "^4.0.5",
     "standard": "^17.1.2",
     "test-filesystem": "^1.5.0"
