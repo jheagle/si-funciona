@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Helper for returning the absolute max value
  * @memberOf module:numberHelpers
@@ -13,4 +12,4 @@ require('core-js/stable')
  * @returns {number}
  */
 const absoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
-var _default = exports.default = absoluteMax
+const _default = exports.default = absoluteMax

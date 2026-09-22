@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Create a single random integer within provide range. And with optional offset,

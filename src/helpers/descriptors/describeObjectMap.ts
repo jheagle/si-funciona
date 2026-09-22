@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import assignDescriptor from './assignDescriptor'
 import checkClearValues from './checkClearValues'
 import checkDescriptorComplete from './checkDescriptorComplete'

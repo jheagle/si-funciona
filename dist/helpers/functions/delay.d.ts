@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 /**
  * Provide a way to cancel a request or attach a resolve event.

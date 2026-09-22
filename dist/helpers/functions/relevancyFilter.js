@@ -7,7 +7,6 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.filter.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/stable')
 /**
  * Remove elements out of relevance range and update the max relevance.
  * @memberOf module:functionHelpers
@@ -31,4 +30,4 @@ const relevancyFilter = (map, {
     return reference
   })
 }
-var _default = exports.default = relevancyFilter
+const _default = exports.default = relevancyFilter

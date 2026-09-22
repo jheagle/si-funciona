@@ -4,10 +4,9 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('./isObject'))
-var _strAfter = _interopRequireDefault(require('../strings/strAfter'))
-var _strBefore = _interopRequireDefault(require('../strings/strBefore'))
+const _isObject = _interopRequireDefault(require('./isObject'))
+const _strAfter = _interopRequireDefault(require('../strings/strAfter'))
+const _strBefore = _interopRequireDefault(require('../strings/strBefore'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Set a nested property value an object.
@@ -18,7 +17,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {Object} The modified object
  */
 const dotSet = (arrayObject, dotNotation, value = null) => {
-  var _a
+  let _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -51,4 +50,4 @@ const dotSet = (arrayObject, dotNotation, value = null) => {
   arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
   return arrayObject
 }
-var _default = exports.default = dotSet
+const _default = exports.default = dotSet

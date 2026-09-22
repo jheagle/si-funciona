@@ -8,11 +8,10 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _isCloneable = _interopRequireDefault(require('./isCloneable'))
-var _reduceObject = _interopRequireDefault(require('./reduceObject'))
-var _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter'))
-var _setValue = _interopRequireDefault(require('./setValue'))
+const _isCloneable = _interopRequireDefault(require('./isCloneable'))
+const _reduceObject = _interopRequireDefault(require('./reduceObject'))
+const _relevancyFilter = _interopRequireDefault(require('../functions/relevancyFilter'))
+const _setValue = _interopRequireDefault(require('./setValue'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
@@ -89,4 +88,4 @@ const mergeObjectsBase = ({
     }, newObj)
   }, firstObject || {})
 }
-var _default = exports.default = mergeObjectsBase
+const _default = exports.default = mergeObjectsBase

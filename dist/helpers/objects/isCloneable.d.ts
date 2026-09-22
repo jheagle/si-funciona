@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Determine if the value is a reference instance
  * @memberOf module:objectHelpers

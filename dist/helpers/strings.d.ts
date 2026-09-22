@@ -6,7 +6,6 @@
  * @module stringHelpers
  * @memberOf module:siFunciona
  */
-import 'core-js/stable';
 import camelCase from './strings/camelCase';
 import kabobCase from './strings/kabobCase';
 import makeFilepath from './strings/makeFilepath';

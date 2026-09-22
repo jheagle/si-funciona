@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-var _descriptorDetail = _interopRequireDefault(require('./descriptorDetail'))
+const _descriptorDetail = _interopRequireDefault(require('./descriptorDetail'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * @type {module:objectDescriptors~descriptor}
@@ -19,4 +19,4 @@ const descriptorSample = {
   isArray: false,
   complete: true
 }
-var _default = exports.default = descriptorSample
+const _default = exports.default = descriptorSample

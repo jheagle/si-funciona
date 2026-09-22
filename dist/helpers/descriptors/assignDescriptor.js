@@ -11,11 +11,10 @@ require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.for-each.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
-var _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
-var _compareArrays = _interopRequireDefault(require('../arrays/compareArrays'))
-var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
+const _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
+const _cloneDescriptor = _interopRequireDefault(require('./cloneDescriptor'))
+const _compareArrays = _interopRequireDefault(require('../arrays/compareArrays'))
+const _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
@@ -55,4 +54,4 @@ const assignDescriptor = (originalMap, ...descriptors) => descriptors.reduce((as
   assignedDescriptor.complete = !assignedDescriptor.references.length || assignedDescriptor.complete || descriptor.complete
   return assignedDescriptor
 }, (0, _cloneDescriptor.default)(originalMap))
-var _default = exports.default = assignDescriptor
+const _default = exports.default = assignDescriptor

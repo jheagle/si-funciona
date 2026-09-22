@@ -4,10 +4,9 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('./isObject'))
-var _strAfter = _interopRequireDefault(require('../strings/strAfter'))
-var _strBefore = _interopRequireDefault(require('../strings/strBefore'))
+const _isObject = _interopRequireDefault(require('./isObject'))
+const _strAfter = _interopRequireDefault(require('../strings/strAfter'))
+const _strBefore = _interopRequireDefault(require('../strings/strBefore'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Get a nested property value from an object.
@@ -18,7 +17,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {*} The value of the property
  */
 const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
-  var _a
+  let _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -57,4 +56,4 @@ const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
   }
   return dotGet(next, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
 }
-var _default = exports.default = dotGet
+const _default = exports.default = dotGet

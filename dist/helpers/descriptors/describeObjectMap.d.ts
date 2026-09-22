@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { describeableObject } from './describeObject';
 import { descriptorMap } from './samples/descriptorMap';
 type describeObjectMapOptions = {

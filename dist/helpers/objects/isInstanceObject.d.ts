@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Check if the current object has inherited properties.
  * @memberOf module:objectHelpers

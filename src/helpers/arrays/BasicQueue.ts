@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 export type callableLater = { fn?: Function, args?: Array<any> }
 

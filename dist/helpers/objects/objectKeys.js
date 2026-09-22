@@ -4,8 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('./isObject'))
+const _isObject = _interopRequireDefault(require('./isObject'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
@@ -37,4 +36,4 @@ const objectKeys = (object, includeInherited = false) => {
   }
   return keys
 }
-var _default = exports.default = objectKeys
+const _default = exports.default = objectKeys

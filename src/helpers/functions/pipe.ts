@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Take one or more function with a single parameter and return value.

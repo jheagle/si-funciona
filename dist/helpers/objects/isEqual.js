@@ -40,7 +40,6 @@ require('core-js/modules/esnext.set.union.js')
 require('core-js/modules/esnext.weak-map.delete-all.js')
 require('core-js/modules/esnext.weak-set.add-all.js')
 require('core-js/modules/esnext.weak-set.delete-all.js')
-require('core-js/stable')
 const sameValueZero = (first, second) => first === second || first !== first && second !== second
 const compare = (first, second, seen) => {
   if (sameValueZero(first, second)) {

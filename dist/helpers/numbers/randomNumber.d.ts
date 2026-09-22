@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Create a single random number within provided range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.

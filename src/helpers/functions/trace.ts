@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import cloneObject from '../objects/cloneObject'
 

@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import emptyObject from '../objects/emptyObject'
 import isCloneable from '../objects/isCloneable'
 import isInstanceObject from '../objects/isInstanceObject'

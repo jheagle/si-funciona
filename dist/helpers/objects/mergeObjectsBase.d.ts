@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { relevanceMap } from '../functions/relevancyFilter';
 type mergeableItem = Array<any> | {
     [k: number | string]: any;

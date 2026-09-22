@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Given a string, make the first character uppercase and the rest lowercase.

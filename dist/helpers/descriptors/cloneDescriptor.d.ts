@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.

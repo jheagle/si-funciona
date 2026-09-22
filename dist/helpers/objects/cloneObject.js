@@ -4,8 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
+const _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
@@ -29,4 +28,4 @@ const cloneObject = (object, {
   relevancyRange,
   useClone: true
 })(object)
-var _default = exports.default = cloneObject
+const _default = exports.default = cloneObject

@@ -46,7 +46,6 @@ Object.defineProperty(exports, 'uniqueArray', {
     return _uniqueArray.default
   }
 })
-require('core-js/stable')
 var _addUniqueToArray = _interopRequireDefault(require('./arrays/addUniqueToArray'))
 var _BasicQueue = _interopRequireDefault(require('./arrays/BasicQueue'))
 var _buildArray = _interopRequireDefault(require('./arrays/buildArray'))

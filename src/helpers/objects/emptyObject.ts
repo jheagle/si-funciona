@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import isObject from './isObject'
 import objectKeys from './objectKeys'
 

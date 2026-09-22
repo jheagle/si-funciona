@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
@@ -20,4 +19,4 @@ const buildArrayOfReferences = (item, length) => {
   }
   return arr
 }
-var _default = exports.default = buildArrayOfReferences
+const _default = exports.default = buildArrayOfReferences

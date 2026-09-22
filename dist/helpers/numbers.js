@@ -58,7 +58,6 @@ Object.defineProperty(exports, 'simplestRatio', {
     return _simplestRatio.default
   }
 })
-require('core-js/stable')
 var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
 var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
 var _compare = _interopRequireDefault(require('./numbers/compare'))

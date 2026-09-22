@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import assignDescriptorDetail from './assignDescriptorDetail'
 import describeObjectDetail from './describeObjectDetail'
 import objectKeys from '../objects/objectKeys'

@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
@@ -16,4 +15,4 @@ require('core-js/stable')
  * @returns {number}
  */
 const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-var _default = exports.default = compare
+const _default = exports.default = compare

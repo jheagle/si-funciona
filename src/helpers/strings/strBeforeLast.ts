@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Retrieve the string part before the last search match.

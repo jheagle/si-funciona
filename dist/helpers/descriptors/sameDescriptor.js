@@ -8,7 +8,6 @@ require('core-js/modules/es.array.includes.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.some.js')
-require('core-js/stable')
 /**
  * Check if two descriptors describe the exact same underlying values (not just compatible types, like
  * {@link module:objectDescriptors.compareDescriptor} does) - used to detect genuine circular references, where a
@@ -19,4 +18,4 @@ require('core-js/stable')
  * @returns {boolean} True if every detail's values match at the same position.
  */
 const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
-var _default = exports.default = sameDescriptor
+const _default = exports.default = sameDescriptor

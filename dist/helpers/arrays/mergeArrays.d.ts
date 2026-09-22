@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Take multiple arrays and then filter all these into one unique array.
  * @memberOf module:arrayHelpers

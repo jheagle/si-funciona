@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type mappableItem = Array<any> | {
     [k: number | string]: any;
 };

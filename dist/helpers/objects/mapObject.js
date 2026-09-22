@@ -7,10 +7,9 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
-var _objectKeys = _interopRequireDefault(require('./objectKeys'))
-var _setValue = _interopRequireDefault(require('./setValue'))
+const _callWithParams = _interopRequireDefault(require('../functions/callWithParams'))
+const _objectKeys = _interopRequireDefault(require('./objectKeys'))
+const _setValue = _interopRequireDefault(require('./setValue'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
@@ -23,4 +22,4 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {Object|Array}
  */
 const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
-var _default = exports.default = mapObject
+const _default = exports.default = mapObject

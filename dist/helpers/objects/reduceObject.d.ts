@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type reduceableItem = Array<any> | {
     [k: number | string]: any;
 };

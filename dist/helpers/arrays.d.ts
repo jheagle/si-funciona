@@ -7,7 +7,6 @@
  * @module arrayHelpers
  * @memberOf module:siFunciona
  */
-import 'core-js/stable';
 import addUniqueToArray from './arrays/addUniqueToArray';
 import BasicQueue from './arrays/BasicQueue';
 import buildArray from './arrays/buildArray';

@@ -22,7 +22,6 @@
  * @module objectDescriptors
  * @memberOf module:siFunciona
  */
-import 'core-js/stable';
 import assignDescriptor from './descriptors/assignDescriptor';
 import assignDescriptorDetail from './descriptors/assignDescriptorDetail';
 import checkClearValues from './descriptors/checkClearValues';

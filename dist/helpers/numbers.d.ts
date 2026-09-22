@@ -6,7 +6,6 @@
  * @module numberHelpers
  * @memberOf module:siFunciona
  */
-import 'core-js/stable';
 import absoluteMax from './numbers/absoluteMax';
 import absoluteMin from './numbers/absoluteMin';
 import compare from './numbers/compare';

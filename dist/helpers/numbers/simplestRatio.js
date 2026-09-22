@@ -7,8 +7,7 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _greatestCommonDivisor = _interopRequireDefault(require('./greatestCommonDivisor'))
+const _greatestCommonDivisor = _interopRequireDefault(require('./greatestCommonDivisor'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Reduce several numbers to their simplest form / ratio
@@ -26,4 +25,4 @@ const simplestRatio = (...numbers) => {
   // Simplify the numbers, handle zero
   return numbers.map(num => commonDivisor === 0 ? 0 : num / commonDivisor)
 }
-var _default = exports.default = simplestRatio
+const _default = exports.default = simplestRatio

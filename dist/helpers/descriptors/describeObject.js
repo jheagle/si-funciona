@@ -4,10 +4,9 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
-var _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
-var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+const _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
+const _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
+const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Trace a single object or array (not its nested objects/arrays - see
@@ -50,4 +49,4 @@ const describeObject = object => {
   descriptor.complete = !descriptor.references.length
   return descriptor
 }
-var _default = exports.default = describeObject
+const _default = exports.default = describeObject

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Store the comparison result for an element that may exist in either of compared arrays.
  * - value stores the element value from the arrays being compared

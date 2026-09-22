@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-case.
  * @memberOf module:stringHelpers

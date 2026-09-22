@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Return the highest number that can be divided into both numbers.
  * @memberOf module:numberHelpers

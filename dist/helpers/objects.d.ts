@@ -6,7 +6,6 @@
  * @module objectHelpers
  * @memberOf module:siFunciona
  */
-import 'core-js/stable';
 import cloneObject from './objects/cloneObject';
 import dotGet from './objects/dotGet';
 import dotNotate from './objects/dotNotate';

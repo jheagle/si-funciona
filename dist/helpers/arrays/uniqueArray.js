@@ -6,7 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.filter.js')
-require('core-js/stable')
 /**
  * Remove duplicate values from an array. uniqueArray
  * @memberOf module:arrayHelpers
@@ -14,4 +13,4 @@ require('core-js/stable')
  * @returns {Array}
  */
 const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
-var _default = exports.default = uniqueArray
+const _default = exports.default = uniqueArray

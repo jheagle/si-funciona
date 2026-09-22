@@ -12,4 +12,4 @@ exports.regexEscape = exports.default = void 0
  */
 const regexEscape = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 exports.regexEscape = regexEscape
-var _default = exports.default = regexEscape
+const _default = exports.default = regexEscape

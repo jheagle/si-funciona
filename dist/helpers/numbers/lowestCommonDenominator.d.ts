@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
  * leastCommonMultiple.

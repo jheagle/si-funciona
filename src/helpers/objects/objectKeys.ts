@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import isObject from './isObject'
 
 type keyableItem = Array<any> | {

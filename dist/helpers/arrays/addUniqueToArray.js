@@ -5,7 +5,6 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 require('core-js/modules/es.array.includes.js')
-require('core-js/stable')
 /**
  * Having an array and a potential new array element, check if the element is in the array, if not append to array.
  * @memberOf module:arrayHelpers
@@ -14,4 +13,4 @@ require('core-js/stable')
  * @returns {Array}
  */
 const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
-var _default = exports.default = addUniqueToArray
+const _default = exports.default = addUniqueToArray

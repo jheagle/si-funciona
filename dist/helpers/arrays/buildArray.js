@@ -4,8 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
+const _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
@@ -23,4 +22,4 @@ const buildArray = (item, length) => {
   }
   return arr
 }
-var _default = exports.default = buildArray
+const _default = exports.default = buildArray

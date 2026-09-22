@@ -4,8 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
+const _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
@@ -15,4 +14,4 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {*}
  */
 const mergeObjectsMutable = (0, _mergeObjectsBase.default)()
-var _default = exports.default = mergeObjectsMutable
+const _default = exports.default = mergeObjectsMutable

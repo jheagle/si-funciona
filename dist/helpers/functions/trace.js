@@ -4,9 +4,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 require('regenerator-runtime/runtime')
-var _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
+const _cloneObject = _interopRequireDefault(require('../objects/cloneObject'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Output the value with label to the console and return the value to not interrupt the code - useful for
@@ -22,4 +21,4 @@ const trace = (label, useClone = true) => value => {
   console.info(`${label}: `, useClone ? (0, _cloneObject.default)(value) : value)
   return value
 }
-var _default = exports.default = trace
+const _default = exports.default = trace

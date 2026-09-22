@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import objectKeys from '../objects/objectKeys'
 import { descriptorDetail } from './samples/descriptorDetail'
 

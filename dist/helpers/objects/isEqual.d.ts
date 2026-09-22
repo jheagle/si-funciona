@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Check whether two values are equal by value, however they are stored: two separately made arrays or objects with the
  * same contents are equal, while two references only need to be the same when the value is a function.

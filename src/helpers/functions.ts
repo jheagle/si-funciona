@@ -7,7 +7,6 @@
  * @memberOf module:siFunciona
  */
 
-import 'core-js/stable'
 import callWithParams from './functions/callWithParams'
 import curry from './functions/curry'
 import delay from './functions/delay'

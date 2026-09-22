@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import cloneDescriptorDetail from './cloneDescriptorDetail'
 import uniqueArray from '../arrays/uniqueArray'
 import { descriptorDetail } from './samples/descriptorDetail'

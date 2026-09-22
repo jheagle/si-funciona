@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * An object having an integer valued property named 'relevance'.
  * @typedef {Object} relevanceObject

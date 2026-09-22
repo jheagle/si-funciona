@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import isObject from './isObject'
 import strAfter from '../strings/strAfter'
 import strBefore from '../strings/strBefore'

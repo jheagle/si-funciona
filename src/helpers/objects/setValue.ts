@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 type settableItem = Array<any> | {
   [k: number | string]: any

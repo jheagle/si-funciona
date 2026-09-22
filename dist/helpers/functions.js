@@ -70,7 +70,6 @@ Object.defineProperty(exports, 'trace', {
     return _trace.default
   }
 })
-require('core-js/stable')
 var _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
 var _curry = _interopRequireDefault(require('./functions/curry'))
 var _delay = _interopRequireDefault(require('./functions/delay'))

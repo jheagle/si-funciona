@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Prepare functions to be called once the body is available.
  * @memberOf module:functionHelpers

@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import ucFirst from './ucFirst'
 import words from './words'
 

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type keyableItem = Array<any> | {
     [k: number | string]: any;
 };

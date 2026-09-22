@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type cloneObjectOptions = {
     mapLimit?: number;
     depthLimit?: number;

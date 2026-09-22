@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { dotNotateableItem, dotNotationString } from './dotNotate';
 /**
  * Get a nested property value from an object.

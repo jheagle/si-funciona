@@ -6,8 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
-require('core-js/stable')
-var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Find the index (within `descriptor.details`) of the next referenced property - after `currentReference` - whose
@@ -28,4 +27,4 @@ const nextReference = (descriptor, currentReference) => descriptor.references.fi
   }
   return !!(0, _objectKeys.default)(val).length
 })
-var _default = exports.default = nextReference
+const _default = exports.default = nextReference

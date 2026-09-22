@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Compare two numbers and return:
