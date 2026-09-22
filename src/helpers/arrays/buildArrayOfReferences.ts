@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.

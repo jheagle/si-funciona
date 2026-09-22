@@ -1,4 +1,3 @@
-import 'core-js/stable';
 export type dotNotateableItem = Array<any> | {
     [k: string]: any;
 };

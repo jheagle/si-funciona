@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Check if two descriptors describe the exact same underlying values (not just compatible types, like

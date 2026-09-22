@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger

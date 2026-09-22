@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type filterableItem = Array<any> | {
     [k: number | string]: any;
 };

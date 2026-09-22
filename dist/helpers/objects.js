@@ -124,7 +124,6 @@ Object.defineProperty(exports, 'setValue', {
     return _setValue.default
   }
 })
-require('core-js/stable')
 var _cloneObject = _interopRequireDefault(require('./objects/cloneObject'))
 var _dotGet = _interopRequireDefault(require('./objects/dotGet'))
 var _dotNotate = _interopRequireDefault(require('./objects/dotNotate'))

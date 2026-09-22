@@ -6,8 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _leastCommonMultiple = _interopRequireDefault(require('./leastCommonMultiple'))
+const _leastCommonMultiple = _interopRequireDefault(require('./leastCommonMultiple'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
@@ -17,4 +16,4 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {number}
  */
 const lowestCommonDenominator = (...numbers) => numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
-var _default = exports.default = lowestCommonDenominator
+const _default = exports.default = lowestCommonDenominator

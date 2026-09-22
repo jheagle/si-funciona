@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import isObject from '../objects/isObject'
 import mergeArrays from './mergeArrays'
 import objectKeys from '../objects/objectKeys'

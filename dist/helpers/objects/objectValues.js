@@ -6,8 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/stable')
-var _objectKeys = _interopRequireDefault(require('./objectKeys'))
+const _objectKeys = _interopRequireDefault(require('./objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
@@ -18,4 +17,4 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns {Array}
  */
 const objectValues = (object, includeInherited = false) => (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
-var _default = exports.default = objectValues
+const _default = exports.default = objectValues

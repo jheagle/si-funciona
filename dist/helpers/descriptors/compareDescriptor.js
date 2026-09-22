@@ -9,7 +9,6 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.some.js')
-require('core-js/stable')
 /**
  * Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger
  * one and their types line up - used to detect when a newly-described value actually matches a descriptor already
@@ -30,4 +29,4 @@ const compareDescriptor = (descriptor1, descriptor2) => {
   const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
   return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
 }
-var _default = exports.default = compareDescriptor
+const _default = exports.default = compareDescriptor

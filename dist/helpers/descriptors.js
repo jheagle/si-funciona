@@ -76,7 +76,6 @@ Object.defineProperty(exports, 'sameDescriptor', {
     return _sameDescriptor.default
   }
 })
-require('core-js/stable')
 var _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
 var _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
 var _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues'))

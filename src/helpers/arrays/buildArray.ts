@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import cloneObject from '../objects/cloneObject'
 
 /**

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Once a descriptor is complete (all its references have been resolved), its details' actual `value` arrays are no

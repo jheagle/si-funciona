@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptorDetail } from './samples/descriptorDetail';
 /**
  * Trace a single property's value and produce the descriptorDetail describing it (type, nullability, whether it

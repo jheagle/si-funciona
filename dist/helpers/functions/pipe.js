@@ -6,7 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
 /**
  * Take one or more function with a single parameter and return value.
  * Pass a parameter and the value will be transformed by each function then returned.
@@ -15,4 +14,4 @@ require('core-js/stable')
  * @returns {*}
  */
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
-var _default = exports.default = pipe
+const _default = exports.default = pipe

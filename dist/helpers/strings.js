@@ -82,7 +82,6 @@ Object.defineProperty(exports, 'words', {
     return _words.default
   }
 })
-require('core-js/stable')
 var _camelCase = _interopRequireDefault(require('./strings/camelCase'))
 var _kabobCase = _interopRequireDefault(require('./strings/kabobCase'))
 var _makeFilepath = _interopRequireDefault(require('./strings/makeFilepath'))

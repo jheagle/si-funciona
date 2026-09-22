@@ -4,14 +4,15 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
-var _queueManager = _interopRequireDefault(require('./queueManager'))
+const _queueManager = _interopRequireDefault(require('./queueManager'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
-var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+const __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt (value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value)
-    })
+    return value instanceof P
+      ? value
+      : new P(function (resolve) {
+        resolve(value)
+      })
   }
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled (value) {
@@ -71,4 +72,4 @@ const onBodyLoad = (callback, reset = false) => {
   }
   return queue
 }
-var _default = exports.default = onBodyLoad
+const _default = exports.default = onBodyLoad

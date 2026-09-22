@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Helper for calculating the multiplier that would make each number relative to each other.
  * @memberOf module:numberHelpers

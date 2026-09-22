@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * The return function which takes the missing parameter in order to call the preloaded function.
  * @typedef {Function} module:functionHelpers~callWithMissing

@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import cloneDescriptorDetail from './cloneDescriptorDetail'
 import { descriptor } from './samples/descriptor'
 

@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Create a single random integer within provide range. And with optional offset,
  * The distance between the result numbers can be adjusted with interval.
@@ -16,4 +15,4 @@ require('core-js/stable')
  * @returns {number}
  */
 const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
-var _default = exports.default = randomInteger
+const _default = exports.default = randomInteger

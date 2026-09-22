@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 const sameValueZero = (first: any, second: any): boolean => first === second || (first !== first && second !== second)
 

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Reduce several numbers to their simplest form / ratio
  * @memberOf module:numberHelpers

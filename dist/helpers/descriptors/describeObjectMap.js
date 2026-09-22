@@ -7,14 +7,13 @@ exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.find.js')
 require('core-js/modules/esnext.iterator.for-each.js')
-require('core-js/stable')
-var _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
-var _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
-var _checkDescriptorComplete = _interopRequireDefault(require('./checkDescriptorComplete'))
-var _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
-var _describeObject = _interopRequireDefault(require('./describeObject'))
-var _nextReference = _interopRequireDefault(require('./nextReference'))
-var _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
+const _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
+const _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
+const _checkDescriptorComplete = _interopRequireDefault(require('./checkDescriptorComplete'))
+const _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
+const _describeObject = _interopRequireDefault(require('./describeObject'))
+const _nextReference = _interopRequireDefault(require('./nextReference'))
+const _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Trace out the entire object including nested objects, producing a flat descriptorMap - see the
@@ -56,7 +55,7 @@ const describeObjectMap = (object, {
     if (currentDetail) {
       const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
       vals.forEach(val => {
-        var _a, _b
+        let _a, _b
         const tempDescriptor = (0, _describeObject.default)(val)
         const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
         if (existingDescriptorIndex >= 0) {
@@ -105,4 +104,4 @@ const describeObjectMap = (object, {
   }
   return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
 }
-var _default = exports.default = describeObjectMap
+const _default = exports.default = describeObjectMap

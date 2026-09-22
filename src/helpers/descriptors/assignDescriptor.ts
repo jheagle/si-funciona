@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import assignDescriptorDetail from './assignDescriptorDetail'
 import cloneDescriptor from './cloneDescriptor'
 import compareArrays, { compareArrayResult, compareArrayResultMap } from '../arrays/compareArrays'

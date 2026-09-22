@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Split a string into sets of numbers or letters - the shared tokenizer behind camelCase/kabobCase/snakeCase/

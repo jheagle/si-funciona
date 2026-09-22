@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import objectKeys from './objectKeys'
 
 type arrayObjectItem = Array<any> | {

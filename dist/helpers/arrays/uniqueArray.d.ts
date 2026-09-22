@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Remove duplicate values from an array. uniqueArray
  * @memberOf module:arrayHelpers

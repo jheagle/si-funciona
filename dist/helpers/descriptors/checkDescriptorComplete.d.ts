@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Check if every property this descriptor references (i.e. every nested object/array it points to) has actually

@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import { descriptor } from './samples/descriptor'
 import { descriptorDetail } from './samples/descriptorDetail'
 

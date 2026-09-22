@@ -1,4 +1,3 @@
-import 'core-js/stable'
 
 /**
  * Helper for returning the absolute min value

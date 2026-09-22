@@ -8,10 +8,9 @@ require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.every.js')
 require('core-js/modules/esnext.iterator.map.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('../objects/isObject'))
-var _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
-var _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
+const _isObject = _interopRequireDefault(require('../objects/isObject'))
+const _mergeArrays = _interopRequireDefault(require('./mergeArrays'))
+const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Compare two Arrays and return the Object where the value for each property is as follows:
@@ -90,8 +89,8 @@ const compareArrays = (...arrays) => (0, _mergeArrays.default)(...arrays).reduce
   const arrayResults = keys.map(array => array.length ? 1 : -1)
   return [...results, {
     value: attr,
-    keys: keys,
+    keys,
     result: arrayResults.every(result => result === 1) ? arrayResults.map(result => 0) : arrayResults
   }]
 }, [])
-var _default = exports.default = compareArrays
+const _default = exports.default = compareArrays

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 /**
  * Find the index (within `descriptor.details`) of the next referenced property - after `currentReference` - whose

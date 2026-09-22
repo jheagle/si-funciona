@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
  * @memberOf module:stringHelpers

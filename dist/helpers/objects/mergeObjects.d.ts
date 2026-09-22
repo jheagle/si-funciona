@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
  * @memberOf module:objectHelpers

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptorDetail } from './samples/descriptorDetail';
 /**
  * Assign properties from other details onto an existing detail, widening it (e.g. combining `type`/`value` arrays,

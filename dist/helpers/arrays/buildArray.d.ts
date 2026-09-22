@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.

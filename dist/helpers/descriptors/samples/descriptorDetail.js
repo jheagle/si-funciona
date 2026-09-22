@@ -21,4 +21,4 @@ const descriptorDetailSample = {
   arrayReference: null,
   objectReference: null
 }
-var _default = exports.default = descriptorDetailSample
+const _default = exports.default = descriptorDetailSample

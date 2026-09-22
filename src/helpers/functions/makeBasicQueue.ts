@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import BasicQueue, { IsQueue, queuedItem } from '../arrays/BasicQueue'
 
 /**

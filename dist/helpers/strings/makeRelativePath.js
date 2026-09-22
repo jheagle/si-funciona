@@ -4,8 +4,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.makeRelativePath = exports.default = void 0
-var _strBefore = _interopRequireDefault(require('./strBefore'))
-var _strAfter = _interopRequireDefault(require('./strAfter'))
+const _strBefore = _interopRequireDefault(require('./strBefore'))
+const _strAfter = _interopRequireDefault(require('./strAfter'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Compare two file paths and simplify them to a relative path.
@@ -40,4 +40,4 @@ const makeRelativePath = (fromFile, toFile) => {
   return relativePrefix + relativePath
 }
 exports.makeRelativePath = makeRelativePath
-var _default = exports.default = makeRelativePath
+const _default = exports.default = makeRelativePath

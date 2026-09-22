@@ -6,8 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.map.js')
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('./isObject'))
+const _isObject = _interopRequireDefault(require('./isObject'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
@@ -77,4 +76,4 @@ const performDotNotate = (arrayObject, didRetain, prepend = '', results = {}) =>
  * @returns {DotNotatedObject} The dot-notated object
  */
 const dotNotate = (arrayObject, retainObjects = []) => performDotNotate(arrayObject, handleRetainObjects(retainObjects))
-var _default = exports.default = dotNotate
+const _default = exports.default = dotNotate

@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import callWithParams from '../functions/callWithParams'
 import objectKeys from './objectKeys'
 

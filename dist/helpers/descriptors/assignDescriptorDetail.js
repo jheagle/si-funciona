@@ -6,9 +6,8 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.reduce.js')
-require('core-js/stable')
-var _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
-var _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
+const _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
+const _uniqueArray = _interopRequireDefault(require('../arrays/uniqueArray'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Assign properties from other details onto an existing detail, widening it (e.g. combining `type`/`value` arrays,
@@ -34,4 +33,4 @@ const assignDescriptorDetail = (originalDetail, ...details) => details.reduce((e
   existingDetail.objectReference = typeof existingDetail.objectReference === 'undefined' ? null : existingDetail.objectReference
   return existingDetail
 }, (0, _cloneDescriptorDetail.default)(originalDetail))
-var _default = exports.default = assignDescriptorDetail
+const _default = exports.default = assignDescriptorDetail

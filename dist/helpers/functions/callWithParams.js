@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
  * @memberOf module:functionHelpers
@@ -14,4 +13,4 @@ require('core-js/stable')
  * @returns {*}
  */
 const callWithParams = (fn, params = [], minimum = 2) => fn(...params.slice(0, fn.length || minimum))
-var _default = exports.default = callWithParams
+const _default = exports.default = callWithParams

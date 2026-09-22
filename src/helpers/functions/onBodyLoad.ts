@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import queueManager from './queueManager'
 
 const queue: Array<Function> = []

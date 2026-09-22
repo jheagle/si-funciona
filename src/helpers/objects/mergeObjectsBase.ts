@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import isCloneable from './isCloneable'
 import reduceObject from './reduceObject'
 import relevancyFilter, { relevanceMap, relevanceObject } from '../functions/relevancyFilter'

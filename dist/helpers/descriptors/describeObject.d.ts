@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptor } from './samples/descriptor';
 export type describeableObject = Array<any> | {
     [k: number | string]: any;

@@ -1,4 +1,3 @@
-import 'core-js/stable';
 type arrayObjectItem = Array<any> | {
     [k: number | string]: any;
 };

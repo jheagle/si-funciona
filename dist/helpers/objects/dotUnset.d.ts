@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { dotNotateableItem, dotNotationString } from './dotNotate';
 /**
  * Unset a nested property value an object.

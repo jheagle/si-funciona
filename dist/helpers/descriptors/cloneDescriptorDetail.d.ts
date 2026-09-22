@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import { descriptorDetail } from './samples/descriptorDetail';
 /**
  * Get a new copy of an existing descriptor detail so that the original will not be mutated.

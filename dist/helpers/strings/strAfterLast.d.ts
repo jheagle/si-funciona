@@ -1,4 +1,3 @@
-import 'core-js/stable';
 /**
  * Retrieve the string part after the last search match.
  * @memberOf module:stringHelpers

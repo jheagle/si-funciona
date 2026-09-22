@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Set a value on an item, then return the item.
  * NOTE: Argument order designed for usage with pipe
@@ -19,4 +18,4 @@ const setValue = (key, value, item) => {
   item[key] = value
   return item
 }
-var _default = exports.default = setValue
+const _default = exports.default = setValue

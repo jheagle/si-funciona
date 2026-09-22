@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 require('regenerator-runtime/runtime')
 /**
  * Provide a timeout which returns a promise.
@@ -26,7 +25,7 @@ const delay = (time = 0) => {
         }
       }
     }),
-    cancel: cancel
+    cancel
   }
 }
-var _default = exports.default = delay
+const _default = exports.default = delay

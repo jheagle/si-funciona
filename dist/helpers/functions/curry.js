@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
@@ -14,4 +13,4 @@ require('core-js/stable')
  * @returns {Function|*}
  */
 const curry = fn => (...args) => args.length >= fn.length ? fn(...args) : (...a) => curry(fn)(...[...args, ...a])
-var _default = exports.default = curry
+const _default = exports.default = curry

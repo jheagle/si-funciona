@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-require('core-js/stable')
 /**
  * Class BasicQueue is a functional example of a queue to be used with queueManager.
  * @memberOf module:arrayHelpers
@@ -59,4 +58,4 @@ class BasicQueue {
     return this.innerList.length
   }
 }
-var _default = exports.default = BasicQueue
+const _default = exports.default = BasicQueue

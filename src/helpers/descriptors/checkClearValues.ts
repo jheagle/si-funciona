@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import setValue from '../objects/setValue'
 import { descriptor } from './samples/descriptor'
 import { descriptorDetail } from './samples/descriptorDetail'

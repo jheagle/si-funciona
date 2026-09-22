@@ -5,9 +5,8 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 require('core-js/modules/es.array.includes.js')
-require('core-js/stable')
-var _isObject = _interopRequireDefault(require('./isObject'))
-var _objectKeys = _interopRequireDefault(require('./objectKeys'))
+const _isObject = _interopRequireDefault(require('./isObject'))
+const _objectKeys = _interopRequireDefault(require('./objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Check if the current object has inherited properties.
@@ -24,4 +23,4 @@ const isInstanceObject = object => {
   }
   return object.constructor.name !== 'Array' && (0, _objectKeys.default)(object, true).length > (0, _objectKeys.default)(object).length
 }
-var _default = exports.default = isInstanceObject
+const _default = exports.default = isInstanceObject
