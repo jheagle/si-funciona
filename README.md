@@ -249,6 +249,7 @@ Simplify working with object by providing array-like parsing. Also, provides clo
         * [.mapObject(obj, fn, [thisArg])](#module_objectHelpers.mapObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.isObject(object)](#module_objectHelpers.isObject) ⇒ <code>boolean</code>
         * [.isInstanceObject(object)](#module_objectHelpers.isInstanceObject) ⇒ <code>boolean</code>
+        * [.isEqual(first, second)](#module_objectHelpers.isEqual) ⇒ <code>boolean</code>
         * [.isCloneable(value)](#module_objectHelpers.isCloneable) ⇒ <code>boolean</code>
         * [.filterObject(obj, fn, [thisArg])](#module_objectHelpers.filterObject) ⇒ <code>Object</code> \| <code>Array</code>
         * [.emptyObject(item)](#module_objectHelpers.emptyObject) ⇒ <code>boolean</code>
@@ -408,6 +409,26 @@ Check if the current object has inherited properties.
 | Param | Type |
 | --- | --- |
 | object | <code>Object</code> \| <code>Array</code> | 
+
+<a name="module_objectHelpers.isEqual"></a>
+
+### objectHelpers.isEqual(first, second) ⇒ <code>boolean</code>
+Check whether two values are equal by value, however they are stored: two separately made arrays or objects with the
+same contents are equal, while two references only need to be the same when the value is a function.
+- Primitives are equal when they are the same value (and NaN equals NaN)
+- Arrays are equal when they have the same elements in the same order
+- Objects are equal when they have the same prototype (the same kind of object) and the same own properties with
+equal values, the order of the properties does not matter
+- Dates, regular expressions, Maps and Sets are compared by what they hold
+- Circular references are handled: a pair of objects which is already being compared is taken to be equal
+
+**Kind**: static method of [<code>objectHelpers</code>](#module_objectHelpers)  
+**Returns**: <code>boolean</code> - True when the values are equal.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| first | <code>\*</code> | The first value. |
+| second | <code>\*</code> | The second value. |
 
 <a name="module_objectHelpers.isCloneable"></a>
 
