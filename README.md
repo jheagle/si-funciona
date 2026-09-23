@@ -598,31 +598,40 @@ Reduce several numbers to their simplest form / ratio
 <a name="module_numberHelpers.randomNumber"></a>
 
 ### numberHelpers.randomNumber(range, [offset], [interval]) ⇒ <code>number</code>
-Create a single random number within provided range. And with optional offset,
-The distance between the result numbers can be adjusted with interval.
+Create a single random number from offset up to (but never including) offset + range. With optional offset,
+the distance between the result numbers can be adjusted with interval. Matches randomInteger, which gives the
+whole numbers of the same span.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| range | <code>number</code> |  | Choose the breadth of the random number (0-100 would be 100 for range) |
-| [offset] | <code>number</code> | <code>0</code> | Choose the starting number (1-10 would be 1 for offset, 9 for range) |
-| [interval] | <code>number</code> | <code>1</code> | Choose the distance between numbers (~5, ~10, ~15 would be 5 for interval, 1 for offset, 2 for range) |
+| range | <code>number</code> |  | Choose the breadth of the random number (0 up to, but not including, 100 would be 100 for range) |
+| [offset] | <code>number</code> | <code>0</code> | Choose the starting number (1 up to, but not including, 10 would be 1 for offset, 9 for range) |
+| [interval] | <code>number</code> | <code>1</code> | Choose the multiplier applied to the result (~5, ~10, ~15 would be 5 for interval, 1 for offset, 2 for range) |
 
 <a name="module_numberHelpers.randomInteger"></a>
 
 ### numberHelpers.randomInteger(range, [offset], [interval]) ⇒ <code>number</code>
-Create a single random integer within provide range. And with optional offset,
-The distance between the result numbers can be adjusted with interval.
+Create a single random integer from a set of `range` possible values, starting at the optional offset.
+With no offset the result is 0 to range - 1 (so range is the number of possible values, the same as an array length
+when choosing an index). The distance between the result numbers can be adjusted with interval.
 
 **Kind**: static method of [<code>numberHelpers</code>](#module_numberHelpers)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| range | <code>number</code> |  | Choose the breadth of the random number (0-100 would be 100 for range) |
-| [offset] | <code>number</code> | <code>0</code> | Choose the starting number (1-10 would be 1 for offset, 9 for range) |
-| [interval] | <code>number</code> | <code>1</code> | Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for offset, 2 for range) |
+| range | <code>number</code> |  | The number of possible values (0-99 would be 100 for range) |
+| [offset] | <code>number</code> | <code>0</code> | Choose the starting number (1-10 would be 1 for offset, 10 for range) |
+| [interval] | <code>number</code> | <code>1</code> | Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for offset, 3 for range) |
 
+**Example**  
+```js
+randomInteger(1) // always 0 (one possible value)
+randomInteger(2) // 0 or 1
+randomInteger(3, 1, 5) // 5, 10 or 15
+items[randomInteger(items.length)] // a random valid index
+```
 <a name="module_numberHelpers.lowestCommonDenominator"></a>
 
 ### numberHelpers.lowestCommonDenominator(...numbers) ⇒ <code>number</code>
