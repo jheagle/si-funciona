@@ -60,7 +60,16 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
   const makeQueuedRunnable = (resolve: Function, reject: Function, fn: Function | queuedItem, ...args: any): queuedRunnable => {
     const generator = (function * (): Generator<callableLater> {
       const item: callableLater = yield
-      return typeof item.fn === 'function' ? resolve(item.fn(...item.args)) : reject(item)
+      if (typeof item.fn !== 'function') {
+        return reject(item)
+      }
+      try {
+        return resolve(item.fn(...item.args))
+      } catch (error) {
+        // A function which throws rejects its own promise (as one which returns a rejected promise does), instead of
+        // throwing out of whichever function happened to finish just before it and starting the next item.
+        return reject(error)
+      }
     })()
     // Prepare the generator to be used on the subsequent call
     generator.next()
@@ -79,6 +88,18 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
     runNextItem()
     return result
   }
+
+  /**
+   * When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
+   * error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
+   * @param {*} error
+   * @throws {*} The same error
+   */
+  const postFailedRun = (error: any): never => {
+    isRunning = false
+    runNextItem()
+    throw error
+  }
   /**
    * When ready, runs the next queued runnable generator.
    * @returns {IteratorYieldResult|null}
@@ -94,7 +115,7 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
         new Promise((resolve, reject) => {
           toRun = makeQueuedRunnable(resolve, reject, toRun)
           runNextItem()
-        }).then(postRun)
+        }).then(postRun, postFailedRun)
       }
       if ('success' in toRun) {
         // Some run responses return an object with 'success' property.
@@ -128,7 +149,7 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
       runNextItem()
     }
   )
-    .then(postRun)
+    .then(postRun, postFailedRun)
   if (Array.isArray(queue)) {
     const queueArray = queue
     queue = makeBasicQueue()

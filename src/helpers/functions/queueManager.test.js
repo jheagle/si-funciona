@@ -35,4 +35,42 @@ describe('queueManager', () => {
         return complete
       })
   })
+  test('carries on with the rest of the queue when a function throws, and still rejects for the one who queued it', async () => {
+    const ran = []
+    const manager = queueManager()
+    manager.start()
+    const first = manager.push(() => ran.push('first'))
+    const failing = manager.push(() => {
+      ran.push('failing')
+      throw new Error('boom')
+    })
+    const last = manager.push(() => ran.push('last'))
+    await expect(failing).rejects.toThrow('boom')
+    await first
+    await last
+    expect(ran).toEqual(['first', 'failing', 'last'])
+  })
+
+  test('carries on when a function returns a promise which rejects', async () => {
+    const ran = []
+    const manager = queueManager()
+    manager.start()
+    const failing = manager.push(() => Promise.reject(new Error('later')))
+    const after = manager.push(() => ran.push('after'))
+    await expect(failing).rejects.toThrow('later')
+    await after
+    expect(ran).toEqual(['after'])
+  })
+
+  test('keeps going through several failures in a row', async () => {
+    const manager = queueManager()
+    manager.start()
+    const results = await Promise.allSettled([
+      manager.push(() => { throw new Error('one') }),
+      manager.push(() => { throw new Error('two') }),
+      manager.push(() => 'fine')
+    ])
+    expect(results.map(result => result.status)).toEqual(['rejected', 'rejected', 'fulfilled'])
+    expect(results[2].value).toBe('fine')
+  })
 })
