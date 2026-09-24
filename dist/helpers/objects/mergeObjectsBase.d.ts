@@ -20,17 +20,20 @@ type mergeObjectsBaseOptions = {
 /**
  * Perform a deep merge of objects. This will return a function that will combine all objects and sub-objects.
  * Objects having the same attributes will overwrite from last object to first.
- * NOTE: Use the mapLimit and relevancyRange to resolve "too much recursion" when the object is large and is known to
- * have circular references. A high mapLimit may lead to heavy memory usage and slow performance.
+ * Every call of the returned function keeps its own record of the objects it has already visited (so circular
+ * references are followed only once, and an object which is referenced in several places is merged once), and nothing
+ * is remembered between calls: the results of separate calls never share state or go stale.
  * @memberOf module:objectHelpers
  * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100] - Size of temporary reference array used in memory before assessing relevancy.
+ * @param {number} [options.mapLimit=100] - Deprecated and ignored: the record of visited objects is now scoped to a
+ * single call, so it does not need trimming.
  * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
- * @param {number} [options.relevancyRange=1000] - Total reference map length subtract this range, any relevancy less than that amount at time of evaluation will be removed.
- * @param {Iterable|array} [options.map=[]] - A predetermined list of references gathered (to be passed to itself during recursion).
+ * @param {number} [options.relevancyRange=1000] - Deprecated and ignored: see mapLimit.
+ * @param {Iterable|array} [options.map=[]] - A predetermined list of references (source and the object it should
+ * resolve to) which every call starts from. It is only read, never added to.
  * @param {boolean} [options.useClone=false]
  * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
  */
-declare const mergeObjectsBase: ({ mapLimit, depthLimit, relevancyRange, map, useClone, }?: mergeObjectsBaseOptions) => mergeObjectsCallback;
+declare const mergeObjectsBase: ({ depthLimit, map, useClone, }?: mergeObjectsBaseOptions) => mergeObjectsCallback;
 export default mergeObjectsBase;
 //# sourceMappingURL=mergeObjectsBase.d.ts.map
