@@ -23,4 +23,15 @@ describe('queueTimeout', () => {
       timeoutManager(function4, 50, 'four').then(result => expect(test4).toHaveBeenCalled() || result)
     ]).then(result => expect(testArray).toEqual(result) || result)
   })
+  test('a timed function which throws does not stop the later ones from running', async () => {
+    const ran = []
+    const timeoutManager = queueTimeout()
+    const failing = timeoutManager(() => {
+      throw new Error('boom')
+    }, 10)
+    const after = timeoutManager(() => ran.push('after'), 10)
+    await expect(failing).rejects.toThrow('boom')
+    await after
+    expect(ran).toEqual(['after'])
+  })
 })

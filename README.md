@@ -721,6 +721,7 @@ Manage how functions are called with these utilities.
     * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
         * [~makeQueuedRunnable(resolve, reject, fn, ...args)](#module_functionHelpers.queueManager..makeQueuedRunnable) ⇒ <code>queuedRunnable</code>
         * [~postRun(result)](#module_functionHelpers.queueManager..postRun) ⇒ <code>\*</code>
+        * [~postFailedRun(error)](#module_functionHelpers.queueManager..postFailedRun)
         * [~runNextItem()](#module_functionHelpers.queueManager..runNextItem) ⇒ <code>IteratorYieldResult</code> \| <code>null</code>
         * [~pushAnother(fn, ...args)](#module_functionHelpers.queueManager..pushAnother) ⇒
     * [.preloadParams(fn, params, [unassignedParam])](#module_functionHelpers.preloadParams) ⇒ <code>module:functionHelpers~callWithMissing</code>
@@ -784,6 +785,7 @@ Manage functions to run sequentially.
 * [.queueManager([queue])](#module_functionHelpers.queueManager) ⇒ <code>module:functionHelpers~queueManagerHandle</code>
     * [~makeQueuedRunnable(resolve, reject, fn, ...args)](#module_functionHelpers.queueManager..makeQueuedRunnable) ⇒ <code>queuedRunnable</code>
     * [~postRun(result)](#module_functionHelpers.queueManager..postRun) ⇒ <code>\*</code>
+    * [~postFailedRun(error)](#module_functionHelpers.queueManager..postFailedRun)
     * [~runNextItem()](#module_functionHelpers.queueManager..runNextItem) ⇒ <code>IteratorYieldResult</code> \| <code>null</code>
     * [~pushAnother(fn, ...args)](#module_functionHelpers.queueManager..pushAnother) ⇒
 
@@ -811,6 +813,22 @@ After an item is run, THEN run this function to reset isRunning
 | Param | Type |
 | --- | --- |
 | result | <code>\*</code> | 
+
+<a name="module_functionHelpers.queueManager..postFailedRun"></a>
+
+#### queueManager~postFailedRun(error)
+When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
+error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
+
+**Kind**: inner method of [<code>queueManager</code>](#module_functionHelpers.queueManager)  
+**Throws**:
+
+- <code>\*</code> The same error
+
+
+| Param | Type |
+| --- | --- |
+| error | <code>\*</code> | 
 
 <a name="module_functionHelpers.queueManager..runNextItem"></a>
 
