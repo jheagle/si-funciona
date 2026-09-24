@@ -74,7 +74,7 @@ declare const _default: {
         [k: string]: any;
         [k: number]: any;
     };
-    mergeObjectsBase: ({ mapLimit, depthLimit, relevancyRange, map, useClone, }?: {
+    mergeObjectsBase: ({ depthLimit, map, useClone, }?: {
         mapLimit?: number;
         depthLimit?: number;
         relevancyRange?: number;
