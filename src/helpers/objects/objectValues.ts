@@ -7,10 +7,8 @@ type arrayObjectItem = Array<any> | {
 /**
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @param {boolean} [includeInherited=false]
- * @returns {Array}
+ * @param object
+ * @param includeInherited
  */
 const objectValues = (object: arrayObjectItem, includeInherited: boolean = false): Array<any> => objectKeys(object, includeInherited).map((key: keyof arrayObjectItem): any => object[key])
 

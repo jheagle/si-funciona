@@ -3,9 +3,7 @@ import objectKeys from './objectKeys'
 
 /**
  * Check if the current object has inherited properties.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @returns {boolean}
+ * @param object
  */
 const isInstanceObject = (object: Array<any> | Object): boolean => {
   if (typeof object !== 'function' && !isObject(object)) {

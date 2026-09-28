@@ -1,12 +1,5 @@
 import 'regenerator-runtime/runtime'
 
-/**
- * Provide a way to cancel a request or attach a resolve event.
- * @typedef {Object} module:functionHelpers~delayHandler
- * @memberOf module:functionHelpers
- * @property {Promise} resolver
- * @property {Function} cancel
- */
 type delayHandler = {
   resolver: Promise<any>,
   cancel: () => void,
@@ -14,9 +7,7 @@ type delayHandler = {
 
 /**
  * Provide a timeout which returns a promise.
- * @memberOf module:functionHelpers
- * @param {number} time - Delay in milliseconds
- * @returns {module:functionHelpers~delayHandler}
+ * @param time - Delay in milliseconds
  */
 const delay = (time: number = 0): delayHandler => {
   let cancel = (): void => undefined

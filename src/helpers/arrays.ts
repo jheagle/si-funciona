@@ -1,11 +1,6 @@
 /**
  * Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
  * use with functionHelpers' queueManager/queueTimeout.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module arrayHelpers
- * @memberOf module:siFunciona
  */
 
 import addUniqueToArray from './arrays/addUniqueToArray'

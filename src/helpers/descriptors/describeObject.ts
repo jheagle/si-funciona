@@ -12,9 +12,7 @@ export type describeableObject = Array<any> | {
  * Trace a single object or array (not its nested objects/arrays - see
  * {@link module:objectDescriptors.describeObjectMap} for that) and return the descriptor which defines its own
  * structure and attributes.
- * @memberOf module:objectDescriptors
- * @param {Object|Array} object - The object or array to describe.
- * @returns {module:objectDescriptors~descriptor}
+ * @param object - The object or array to describe.
  */
 const describeObject = (object: describeableObject): descriptor => {
   const descriptor: descriptor = {

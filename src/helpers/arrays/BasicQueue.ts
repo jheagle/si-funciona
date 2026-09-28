@@ -6,18 +6,6 @@ export type queuedItem = {
   generator: Generator
 }
 
-/**
- * Define the format of a queue.
- * @typedef {Object} IsQueue
- * @memberOf module:arrayHelpers
- * @property {Array|*} innerList - Stores the data for the queue
- * @method dequeue - Pulls the first item from the queue
- * @method empty - Check if the queue is empty
- * @method enqueue - Adds and item to the end of the queue
- * @method peek - Get the next queue item but does not remove it
- * @method size - Get the size of the queue
- */
-
 export interface IsQueue<queuedItem> {
   dequeue: () => queuedItem | null,
   empty: () => boolean,
@@ -28,13 +16,12 @@ export interface IsQueue<queuedItem> {
 
 /**
  * Class BasicQueue is a functional example of a queue to be used with queueManager.
- * @memberOf module:arrayHelpers
  */
 class BasicQueue implements IsQueue<queuedItem> {
   private readonly innerList: queuedItem[] | any
 
   /**
-   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   * @param innerList - Items to pre-populate the queue with, in order.
    */
   constructor (innerList: queuedItem[] | any = []) {
     this.innerList = innerList
@@ -42,7 +29,6 @@ class BasicQueue implements IsQueue<queuedItem> {
 
   /**
    * Remove and return the next item in the queue
-   * @returns {queuedItem|*}
    */
   dequeue (): queuedItem | any {
     return this.innerList.shift()
@@ -50,7 +36,6 @@ class BasicQueue implements IsQueue<queuedItem> {
 
   /**
    * Check if the queue is empty
-   * @returns {boolean}
    */
   empty (): boolean {
     return !this.size()
@@ -58,8 +43,7 @@ class BasicQueue implements IsQueue<queuedItem> {
 
   /**
    * Add an item to the end of the queue
-   * @param {queuedItem|*} data
-   * @returns {BasicQueue}
+   * @param data
    */
   enqueue (data: queuedItem | any): IsQueue<queuedItem> {
     this.innerList.push(data)
@@ -68,7 +52,6 @@ class BasicQueue implements IsQueue<queuedItem> {
 
   /**
    * Retrieve the next item from the queue
-   * @returns {queuedItem|*}
    */
   peek (): queuedItem | any {
     return this.empty() ? null : this.innerList[0]
@@ -76,7 +59,6 @@ class BasicQueue implements IsQueue<queuedItem> {
 
   /**
    * Get the quantity of items in the queue
-   * @returns {number}
    */
   size (): number {
     return this.innerList.length

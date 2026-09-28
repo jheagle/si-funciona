@@ -5,11 +5,10 @@ import { dotNotateableItem, dotNotationString } from './dotNotate'
 
 /**
  * Get a nested property value from an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to get the property from
- * @param {string} dotNotation - The path to the property
- * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
- * @returns {*} The value of the property
+ * @param arrayObject - The array or object to get the property from
+ * @param dotNotation - The path to the property
+ * @param defaultValue - The default value to return if the property is not found
+ * @returns The value of the property
  */
 const dotGet = (arrayObject: dotNotateableItem, dotNotation: dotNotationString, defaultValue: string | null = null): any => {
   let key: string = strBefore(dotNotation, '.')

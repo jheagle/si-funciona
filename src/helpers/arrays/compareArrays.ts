@@ -2,37 +2,6 @@ import isObject from '../objects/isObject'
 import mergeArrays from './mergeArrays'
 import objectKeys from '../objects/objectKeys'
 
-/**
- * Store the comparison result for an element that may exist in either of compared arrays.
- * - value stores the element value from the arrays being compared
- * - results has the comparison results where first index (0) is result for first compared array
- *   and the second index (1) will be the result for the second compared array
- * @example
- * // example of input and resulting output
- *
- * const arr1 = ['match1', 'firstMismatch1', 'match2', 'firstMismatch2', 'badMatch1']
- * const arr2 = ['match1', 'match2', 'secondMismatch1', 'badMatch1', 'badMatch1']
- *
- * // Taking the first element in both, then the value: 'match1' exists in both arrays
- * // compareArrayResult will be { value: 'match1', result: [0, 0] }
- * // First index of 0 indicates this value in the first array exists in the second array
- * // Second index of 0 indicates this value in the second array exists in the first array
- *
- * // Taking the second element in the first array, then the value: 'firstMismatch1' exists in only the first array
- * // compareArrayResult will be { value: 'firstMismatch1', result: [1, -1] }
- * // First index of 1 indicates this value in the first array might need to be added to the second array
- * // Second index of -1 indicates this value only exists in the first array
- *
- * // Taking the third element in the second array, then the value: 'secondMismatch1' exists in only the second array
- * // compareArrayResult will be { value: 'secondMismatch1', result: [-1, 1] }
- * // First index of -1 indicates this value only exists in the second array
- * // Second index of 1 indicates this value in the second array might need to be added to the first array
- * @typedef {Object.<string, string|Array.<number>>} module:arrayHelpers~compareArrayResult
- * @memberOf module:arrayHelpers
- * @property {string} value - The element value being compared
- * @property {Array.<Array.<string|number>>} keys - Keys in arrays associated with this value
- * @property {Array.<number>} result - The results in the order of the compared arrays
- */
 export type compareArrayResult = {
   value: string,
   keys: Array<Array<number | string>>,
@@ -94,9 +63,7 @@ export type compareArrayResultMap = Array<compareArrayResult>
  *   }
  * ]
  *
- * @memberOf module:arrayHelpers
- * @param {...Array} arrays - The arrays to compare
- * @returns {Array.<module:arrayHelpers~compareArrayResult>}
+ * @param arrays - The arrays to compare
  */
 const compareArrays = (...arrays: Array<Array<any>>): compareArrayResultMap => mergeArrays(...arrays)
   .reduce(
