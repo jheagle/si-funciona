@@ -9,10 +9,8 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @param {boolean} [includeInherited=false]
- * @returns {Array.<string|number>}
+ * @param object
+ * @param includeInherited
  */
 const objectKeys = (object, includeInherited = false) => {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {

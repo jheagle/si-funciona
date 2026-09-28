@@ -1,10 +1,5 @@
 /**
  * Manage how strings are manipulated with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module stringHelpers
- * @memberOf module:siFunciona
  */
 import camelCase from './strings/camelCase';
 import kabobCase from './strings/kabobCase';

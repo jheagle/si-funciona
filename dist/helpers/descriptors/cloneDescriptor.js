@@ -10,9 +10,8 @@ const _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptor
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} originalMap - The descriptor to copy.
- * @returns {module:objectDescriptors~descriptor} A new, independent copy.
+ * @param originalMap - The descriptor to copy.
+ * @returns A new, independent copy.
  */
 const cloneDescriptor = originalMap => {
   const copyMap = {}

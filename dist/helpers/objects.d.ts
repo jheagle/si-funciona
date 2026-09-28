@@ -1,10 +1,5 @@
 /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module objectHelpers
- * @memberOf module:siFunciona
  */
 import cloneObject from './objects/cloneObject';
 import dotGet from './objects/dotGet';
@@ -43,7 +38,7 @@ declare const _default: {
     filterObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => boolean, thisArg?: any[] | {
@@ -60,7 +55,7 @@ declare const _default: {
     mapObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => any, thisArg?: any[] | {
@@ -99,7 +94,7 @@ declare const _default: {
     reduceObject: (obj: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, fn: (accumulator: any, currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
+    }, fn: (accumulator: any, currentProperty: any, currentIndex: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", object: any[] | {
         [k: string]: any;
         [k: number]: any;
     }) => any, initialValue?: any[] | {
@@ -109,7 +104,7 @@ declare const _default: {
     setAndReturnValue: (item: any[] | {
         [k: string]: any;
         [k: number]: any;
-    }, key: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", value: any) => any;
+    }, key: number | "length" | "toString" | "concat" | "indexOf" | "lastIndexOf" | "slice" | "includes" | "toLocaleString" | "join" | "every" | "some" | "forEach" | "map" | "filter" | "reduce" | "reduceRight" | "find" | "findIndex" | "entries" | "keys" | "values" | "flatMap" | "flat" | "pop" | "push" | "reverse" | "shift" | "sort" | "splice" | "unshift" | "fill" | "copyWithin", value: any) => any;
     setValue: (key: number | string, value: any, item: any[] | {
         [k: string]: any;
         [k: number]: any;

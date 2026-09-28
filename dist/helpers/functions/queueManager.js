@@ -11,22 +11,19 @@ const _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage functions to run sequentially.
- * @memberOf module:functionHelpers
- * @param {IsQueue|Array} [queue=null] - The queue to manage. Pass a plain array to have it converted into a
+ * @param queue - The queue to manage. Pass a plain array to have it converted into a
  * {@link module:arrayHelpers.BasicQueue} automatically, or a custom queue implementing `IsQueue`; omit it (or pass
  * `null`) to have one created for you.
- * @returns {module:functionHelpers~queueManagerHandle}
  */
 const queueManager = (queue = null) => {
   let isRunning = false
   let isPaused = true
   /**
    * Convert a function to a queueable object.
-   * @param {Promise.resolve} resolve
-   * @param {Promise.reject} reject
-   * @param {Function} fn
-   * @param {...*} args
-   * @returns {queuedRunnable}
+   * @param resolve
+   * @param reject
+   * @param fn
+   * @param args
    */
   const makeQueuedRunnable = (resolve, reject, fn, ...args) => {
     const generator = (function * () {
@@ -54,8 +51,7 @@ const queueManager = (queue = null) => {
   }
   /**
    * After an item is run, THEN run this function to reset isRunning
-   * @param {*} result
-   * @returns {*}
+   * @param result
    */
   const postRun = result => {
     isRunning = false
@@ -65,7 +61,7 @@ const queueManager = (queue = null) => {
   /**
    * When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
    * error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
-   * @param {*} error
+   * @param error
    * @throws {*} The same error
    */
   const postFailedRun = error => {
@@ -75,7 +71,6 @@ const queueManager = (queue = null) => {
   }
   /**
    * When ready, runs the next queued runnable generator.
-   * @returns {IteratorYieldResult|null}
    */
   const runNextItem = () => {
     if (!isPaused && !queue.empty() && !isRunning) {
@@ -112,8 +107,8 @@ const queueManager = (queue = null) => {
   }
   /**
    * Add a function into the queue to be run when ready.
-   * @param {Function} fn - The function to run when ready
-   * @param {...*} args - Optional arguments to apply when the function is ready to be run
+   * @param fn - The function to run when ready
+   * @param args - Optional arguments to apply when the function is ready to be run
    * @returns Promise
    */
   const pushAnother = (fn, ...args) => new Promise((resolve, reject) => {

@@ -8,10 +8,8 @@ const _mergeObjectsBase = _interopRequireDefault(require('./mergeObjectsBase'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
- * @memberOf module:objectHelpers
  * @see {@link module:objectHelpers~mergeObjectsCallback}
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
+ * @param objects - Provide a list of objects which will be merged starting from the end up into the first
  */
 const mergeObjects = (0, _mergeObjectsBase.default)({
   useClone: true

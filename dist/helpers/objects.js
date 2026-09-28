@@ -147,11 +147,6 @@ var _setValue = _interopRequireDefault(require('./objects/setValue'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module objectHelpers
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   cloneObject: _cloneObject.default,

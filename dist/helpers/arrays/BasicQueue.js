@@ -6,11 +6,10 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 /**
  * Class BasicQueue is a functional example of a queue to be used with queueManager.
- * @memberOf module:arrayHelpers
  */
 class BasicQueue {
   /**
-   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   * @param innerList - Items to pre-populate the queue with, in order.
    */
   constructor (innerList = []) {
     this.innerList = innerList
@@ -18,7 +17,6 @@ class BasicQueue {
 
   /**
    * Remove and return the next item in the queue
-   * @returns {queuedItem|*}
    */
   dequeue () {
     return this.innerList.shift()
@@ -26,7 +24,6 @@ class BasicQueue {
 
   /**
    * Check if the queue is empty
-   * @returns {boolean}
    */
   empty () {
     return !this.size()
@@ -34,8 +31,7 @@ class BasicQueue {
 
   /**
    * Add an item to the end of the queue
-   * @param {queuedItem|*} data
-   * @returns {BasicQueue}
+   * @param data
    */
   enqueue (data) {
     this.innerList.push(data)
@@ -44,7 +40,6 @@ class BasicQueue {
 
   /**
    * Retrieve the next item from the queue
-   * @returns {queuedItem|*}
    */
   peek () {
     return this.empty() ? null : this.innerList[0]
@@ -52,7 +47,6 @@ class BasicQueue {
 
   /**
    * Get the quantity of items in the queue
-   * @returns {number}
    */
   size () {
     return this.innerList.length

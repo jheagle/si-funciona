@@ -1,8 +1,6 @@
 /**
  * Take a string and escape the regex characters.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to escape, so it can be used literally inside a `RegExp`.
- * @returns {string}
+ * @param str - The string to escape, so it can be used literally inside a `RegExp`.
  */
 export declare const regexEscape: (str: string) => string;
 export default regexEscape;

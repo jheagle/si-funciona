@@ -8,9 +8,7 @@ const _BasicQueue = _interopRequireDefault(require('../arrays/BasicQueue'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Create an instance of a basic queue.
- * @memberOf module:functionHelpers
- * @param {Array} [initialQueue=[]] - Items to pre-populate the queue with, in order.
- * @returns {IsQueue}
+ * @param initialQueue - Items to pre-populate the queue with, in order.
  */
 const makeBasicQueue = (initialQueue = []) => {
   return new _BasicQueue.default(initialQueue)

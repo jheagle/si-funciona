@@ -14,11 +14,9 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
  * always use the standard filter() function when it is known that the object is actually an array.
- * @memberOf module:objectHelpers
- * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~filterCallback|Function} fn - The function to be processed for each filtered property
- * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
- * @returns {Object|Array}
+ * @param obj - The Object (or Array) to be filtered
+ * @param fn - The function to be processed for each filtered property
+ * @param thisArg - Optional. Value to use as this when executing callback.
  */
 const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
   ? obj.filter(fn, thisArg)

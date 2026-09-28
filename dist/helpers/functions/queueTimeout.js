@@ -10,9 +10,7 @@ const _queueManager = _interopRequireDefault(require('./queueManager'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage functions to run sequentially with delays.
- * @memberOf module:functionHelpers
- * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
- * @returns {module:functionHelpers~queueTimeoutHandle}
+ * @param queueManagerHandle
  */
 const queueTimeout = (queueManagerHandle = null) => {
   const manager = queueManagerHandle || (0, _queueManager.default)()

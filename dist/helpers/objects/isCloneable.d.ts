@@ -1,8 +1,6 @@
 /**
  * Determine if the value is a reference instance
- * @memberOf module:objectHelpers
- * @param {Array|Object|*} value
- * @returns {boolean}
+ * @param value
  */
 declare const isCloneable: (value: Array<any> | Object | any) => boolean;
 export default isCloneable;

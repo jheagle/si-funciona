@@ -1,8 +1,6 @@
 /**
  * Reduce several numbers to their simplest form / ratio
- * @memberOf module:numberHelpers
- * @param {...number} numbers - Array of numbers to simplify
- * @returns {Array.<number>}
+ * @param numbers - Array of numbers to simplify
  */
 declare const simplestRatio: (...numbers: number[]) => number[];
 export default simplestRatio;

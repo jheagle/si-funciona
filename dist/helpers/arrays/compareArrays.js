@@ -65,9 +65,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  *   }
  * ]
  *
- * @memberOf module:arrayHelpers
- * @param {...Array} arrays - The arrays to compare
- * @returns {Array.<module:arrayHelpers~compareArrayResult>}
+ * @param arrays - The arrays to compare
  */
 const compareArrays = (...arrays) => (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
   const attrType = typeof attr

@@ -91,10 +91,9 @@ const compare = (first, second, seen) => {
  * equal values, the order of the properties does not matter
  * - Dates, regular expressions, Maps and Sets are compared by what they hold
  * - Circular references are handled: a pair of objects which is already being compared is taken to be equal
- * @memberOf module:objectHelpers
- * @param {*} first - The first value.
- * @param {*} second - The second value.
- * @returns {boolean} True when the values are equal.
+ * @param first - The first value.
+ * @param second - The second value.
+ * @returns True when the values are equal.
  */
 const isEqual = (first, second) => compare(first, second, new WeakMap())
 const _default = exports.default = isEqual

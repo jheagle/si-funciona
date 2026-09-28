@@ -10,14 +10,12 @@ const _strBefore = _interopRequireDefault(require('../strings/strBefore'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Get a nested property value from an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to get the property from
- * @param {string} dotNotation - The path to the property
- * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
- * @returns {*} The value of the property
+ * @param arrayObject - The array or object to get the property from
+ * @param dotNotation - The path to the property
+ * @param defaultValue - The default value to return if the property is not found
+ * @returns The value of the property
  */
 const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
-  let _a
   let key = (0, _strBefore.default)(dotNotation, '.')
   const lastKey = !key
   if (lastKey) {
@@ -43,7 +41,7 @@ const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
   }
   if (lastKey) {
     // @ts-ignore
-    return (_a = arrayObject[dotNotation]) !== null && _a !== void 0 ? _a : defaultValue
+    return arrayObject[dotNotation] ?? defaultValue
   }
   // @ts-ignore
   if (typeof arrayObject[key] === 'undefined') {

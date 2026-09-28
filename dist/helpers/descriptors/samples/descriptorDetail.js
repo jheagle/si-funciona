@@ -4,10 +4,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = void 0
-/**
- * @type {module:objectDescriptors~descriptorDetail}
- * @memberOf module:objectDescriptors
- */
 const descriptorDetailSample = {
   index: 0,
   key: 'keyName',

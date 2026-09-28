@@ -6,41 +6,12 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 const _queueManager = _interopRequireDefault(require('./queueManager'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
-const __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt (value) {
-    return value instanceof P
-      ? value
-      : new P(function (resolve) {
-        resolve(value)
-      })
-  }
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled (value) {
-      try {
-        step(generator.next(value))
-      } catch (e) {
-        reject(e)
-      }
-    }
-    function rejected (value) {
-      try {
-        step(generator.throw(value))
-      } catch (e) {
-        reject(e)
-      }
-    }
-    function step (result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected)
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next())
-  })
-}
 const queue = []
 const manager = (0, _queueManager.default)()
 manager.start()
 let observer = null
 const doReset = () => observer = null
-const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * () {
+const initializeObserver = async () => {
   observer = new MutationObserver(() => {
     if (document.body) {
       while (queue.length) {
@@ -54,13 +25,11 @@ const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * ()
     childList: true
   })
   return observer
-})
+}
 /**
  * Prepare functions to be called once the body is available.
- * @memberOf module:functionHelpers
- * @param {Function} callback
- * @param {boolean} [reset=false]
- * @returns {Array.<Function>}
+ * @param callback
+ * @param reset
  */
 const onBodyLoad = (callback, reset = false) => {
   if (reset) {

@@ -11,9 +11,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
  * leastCommonMultiple.
- * @memberOf module:numberHelpers
- * @param {...number} numbers - Two or more numbers to find the lowest common denominator of.
- * @returns {number}
+ * @param numbers - Two or more numbers to find the lowest common denominator of.
  */
 const lowestCommonDenominator = (...numbers) => numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
 const _default = exports.default = lowestCommonDenominator

@@ -11,10 +11,8 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @param {boolean} [includeInherited=false]
- * @returns {Array}
+ * @param object
+ * @param includeInherited
  */
 const objectValues = (object, includeInherited = false) => (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
 const _default = exports.default = objectValues

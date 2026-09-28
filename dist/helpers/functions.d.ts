@@ -1,10 +1,5 @@
 /**
  * Manage how functions are called with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module functionHelpers
- * @memberOf module:siFunciona
  */
 import callWithParams from './functions/callWithParams';
 import curry from './functions/curry';

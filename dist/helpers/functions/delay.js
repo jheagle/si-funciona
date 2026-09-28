@@ -7,9 +7,7 @@ exports.default = void 0
 require('regenerator-runtime/runtime')
 /**
  * Provide a timeout which returns a promise.
- * @memberOf module:functionHelpers
- * @param {number} time - Delay in milliseconds
- * @returns {module:functionHelpers~delayHandler}
+ * @param time - Delay in milliseconds
  */
 const delay = (time = 0) => {
   let cancel = () => undefined

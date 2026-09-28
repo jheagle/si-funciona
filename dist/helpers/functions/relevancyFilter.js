@@ -9,12 +9,10 @@ require('core-js/modules/esnext.iterator.filter.js')
 require('core-js/modules/esnext.iterator.map.js')
 /**
  * Remove elements out of relevance range and update the max relevance.
- * @memberOf module:functionHelpers
- * @param {relevanceMap} map
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000] - Only filter once the map exceeds this many entries.
- * @param {number} [options.relevancyRange=100] - How many of the most-recent relevance values to keep.
- * @returns {relevanceMap}
+ * @param map
+ * @param options
+ * @param options.mapLimit - Only filter once the map exceeds this many entries.
+ * @param options.relevancyRange - How many of the most-recent relevance values to keep.
  */
 const relevancyFilter = (map, {
   mapLimit = 1000,

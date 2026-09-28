@@ -1,8 +1,6 @@
 /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
 declare const snakeCase: (str: string) => string;
 export default snakeCase;
