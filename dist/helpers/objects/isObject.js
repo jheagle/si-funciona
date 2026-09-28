@@ -6,9 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = void 0
 /**
  * Check if the provided thing is an object / array.
- * @memberOf module:objectHelpers
- * @param {*} object
- * @returns {boolean}
+ * @param object
  */
 const isObject = object => typeof object === 'object' && object !== null
 const _default = exports.default = isObject

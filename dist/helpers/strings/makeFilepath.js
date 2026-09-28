@@ -8,10 +8,8 @@ const _strBeforeLast = _interopRequireDefault(require('./strBeforeLast'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Format the given path so that it does not have trailing slashes and also correctly appends a path.
- * @memberOf module:stringHelpers
- * @param {string} root - The base path to start from.
- * @param {string} [append=''] - A path to append to `root` - may itself use `./` or `../` segments.
- * @returns {string}
+ * @param root - The base path to start from.
+ * @param append - A path to append to `root` - may itself use `./` or `../` segments.
  */
 const makeFilepath = (root, append = '') => {
   if (root.startsWith('./')) {

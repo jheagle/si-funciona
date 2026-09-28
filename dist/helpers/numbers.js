@@ -70,11 +70,6 @@ var _simplestRatio = _interopRequireDefault(require('./numbers/simplestRatio'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Some number comparators and random number generators.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module numberHelpers
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   absoluteMax: _absoluteMax.default,

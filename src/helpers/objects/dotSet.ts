@@ -5,11 +5,10 @@ import { dotNotateableItem, dotNotationString } from './dotNotate'
 
 /**
  * Set a nested property value an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to set the property on
- * @param {string} dotNotation - The path for the property
- * @param {*} value - The default value to return if the property is not found
- * @returns {Object} The modified object
+ * @param arrayObject - The array or object to set the property on
+ * @param dotNotation - The path for the property
+ * @param value - The default value to return if the property is not found
+ * @returns The modified object
  */
 const dotSet = (arrayObject: dotNotateableItem, dotNotation: dotNotationString, value: any = null): dotNotateableItem => {
   let key: string = strBefore(dotNotation, '.')

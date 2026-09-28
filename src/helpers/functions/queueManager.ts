@@ -2,36 +2,13 @@ import 'regenerator-runtime/runtime'
 import { callableLater, IsQueue, queuedItem } from '../arrays/BasicQueue'
 import makeBasicQueue from './makeBasicQueue'
 
-/**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Object} module:functionHelpers~queueedRunnable
- * @memberOf module:functionHelpers
- * @property {Object.<fn|args, Function|Array.<*>>} item - Stores the function and the arguments to apply to it when called
- * @property {Generator} generator - The generator instance which can be used to yield function results
- */
 export type queuedRunnable = {
   item: { fn: Function | queuedItem, args: any[] },
   generator: Generator
 }
 
-/**
- * The pushed function is added to the queue to be called when ready.
- * @typedef {Function} module:functionHelpers~queueManagerPush
- * @memberOf module:functionHelpers
- * @param {Function} fn - A function to enqueue
- * @param  {...*} args - Arguments to be passed to the function once it is ready
- * @returns {Promise}
- */
 export type queuePush = (fn: Function, ...args: any) => Promise<any>
 
-/**
- * Each time queue handle is called the passed function is added to the queue to be called when ready.
- * @typedef {Object} module:functionHelpers~queueManagerHandle
- * @memberOf module:functionHelpers
- * @property {Function} start - Callable property that will disable paused state and run the next queue
- * @property  {Function} pause - Callable property that will switch state to paused
- * @property {module:functionHelpers~queueManagerPush} push - Callable property that takes a function to add to the queue
- */
 export type queueManagerHandle = {
   start: () => void
   pause: () => void
@@ -40,22 +17,19 @@ export type queueManagerHandle = {
 
 /**
  * Manage functions to run sequentially.
- * @memberOf module:functionHelpers
- * @param {IsQueue|Array} [queue=null] - The queue to manage. Pass a plain array to have it converted into a
+ * @param queue - The queue to manage. Pass a plain array to have it converted into a
  * {@link module:arrayHelpers.BasicQueue} automatically, or a custom queue implementing `IsQueue`; omit it (or pass
  * `null`) to have one created for you.
- * @returns {module:functionHelpers~queueManagerHandle}
  */
 const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => {
   let isRunning = false
   let isPaused = true
   /**
    * Convert a function to a queueable object.
-   * @param {Promise.resolve} resolve
-   * @param {Promise.reject} reject
-   * @param {Function} fn
-   * @param {...*} args
-   * @returns {queuedRunnable}
+   * @param resolve
+   * @param reject
+   * @param fn
+   * @param args
    */
   const makeQueuedRunnable = (resolve: Function, reject: Function, fn: Function | queuedItem, ...args: any): queuedRunnable => {
     const generator = (function * (): Generator<callableLater> {
@@ -80,8 +54,7 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
   }
   /**
    * After an item is run, THEN run this function to reset isRunning
-   * @param {*} result
-   * @returns {*}
+   * @param result
    */
   const postRun = (result: any): any => {
     isRunning = false
@@ -92,7 +65,7 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
   /**
    * When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
    * error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
-   * @param {*} error
+   * @param error
    * @throws {*} The same error
    */
   const postFailedRun = (error: any): never => {
@@ -102,7 +75,6 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
   }
   /**
    * When ready, runs the next queued runnable generator.
-   * @returns {IteratorYieldResult|null}
    */
   const runNextItem = (): any | null => {
     if (!isPaused && !queue.empty() && !isRunning) {
@@ -139,8 +111,8 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
   }
   /**
    * Add a function into the queue to be run when ready.
-   * @param {Function} fn - The function to run when ready
-   * @param {...*} args - Optional arguments to apply when the function is ready to be run
+   * @param fn - The function to run when ready
+   * @param args - Optional arguments to apply when the function is ready to be run
    * @returns Promise
    */
   const pushAnother = (fn: Function, ...args: any): Promise<any> => new Promise(

@@ -7,11 +7,9 @@ exports.default = void 0
 /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
- * @memberOf module:functionHelpers
- * @param {Function} fn - The function to be called
- * @param {Array} params - The parameters to preload
- * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
- * @returns {module:functionHelpers~callWithMissing}
+ * @param fn - The function to be called
+ * @param params - The parameters to preload
+ * @param unassignedParam - Position of missing parameter (zero indexed)
  */
 const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
   params.splice(unassignedParam, 0, missing)

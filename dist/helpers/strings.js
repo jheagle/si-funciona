@@ -98,11 +98,6 @@ var _words = _interopRequireDefault(require('./strings/words'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage how strings are manipulated with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module stringHelpers
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   camelCase: _camelCase.default,

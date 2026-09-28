@@ -25,10 +25,8 @@ const initializeObserver = async () => {
 
 /**
  * Prepare functions to be called once the body is available.
- * @memberOf module:functionHelpers
- * @param {Function} callback
- * @param {boolean} [reset=false]
- * @returns {Array.<Function>}
+ * @param callback
+ * @param reset
  */
 const onBodyLoad = (callback: Function, reset: boolean = false): Array<Function> => {
   if (reset) {

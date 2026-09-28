@@ -30,16 +30,14 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * Every call of the returned function keeps its own record of the objects it has already visited (so circular
  * references are followed only once, and an object which is referenced in several places is merged once), and nothing
  * is remembered between calls: the results of separate calls never share state or go stale.
- * @memberOf module:objectHelpers
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100] - Deprecated and ignored: the record of visited objects is now scoped to a
+ * @param options
+ * @param options.mapLimit - Deprecated and ignored: the record of visited objects is now scoped to a
  * single call, so it does not need trimming.
- * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
- * @param {number} [options.relevancyRange=1000] - Deprecated and ignored: see mapLimit.
- * @param {Iterable|array} [options.map=[]] - A predetermined list of references (source and the object it should
+ * @param options.depthLimit - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
+ * @param options.relevancyRange - Deprecated and ignored: see mapLimit.
+ * @param options.map] - A predetermined list of references (source and the object it should
  * resolve to) which every call starts from. It is only read, never added to.
- * @param {boolean} [options.useClone=false]
- * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
+ * @param options.useClone
  */
 const mergeObjectsBase = ({
   depthLimit = -1,

@@ -3,9 +3,7 @@ import words from './words'
 
 /**
  * Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
 const camelCase = (str: string): string => words(str).reduce(
   (camel: string, part: string): string => camel ? camel.concat(ucFirst(part)) : part.toLowerCase(),

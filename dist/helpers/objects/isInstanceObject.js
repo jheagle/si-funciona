@@ -10,9 +10,7 @@ const _objectKeys = _interopRequireDefault(require('./objectKeys'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Check if the current object has inherited properties.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @returns {boolean}
+ * @param object
  */
 const isInstanceObject = object => {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {

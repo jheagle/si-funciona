@@ -107,11 +107,6 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * anywhere you need to check that two objects genuinely match without caring whether they're literally the same
  * instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
  * discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module objectDescriptors
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   assignDescriptor: _assignDescriptor.default,

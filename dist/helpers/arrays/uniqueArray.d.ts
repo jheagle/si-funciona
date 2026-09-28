@@ -1,8 +1,6 @@
 /**
  * Remove duplicate values from an array. uniqueArray
- * @memberOf module:arrayHelpers
- * @param {Array} array - The array to make unique
- * @returns {Array}
+ * @param array - The array to make unique
  */
 declare const uniqueArray: (array: Array<any>) => Array<any>;
 export default uniqueArray;

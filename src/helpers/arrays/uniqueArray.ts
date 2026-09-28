@@ -1,9 +1,7 @@
 
 /**
  * Remove duplicate values from an array. uniqueArray
- * @memberOf module:arrayHelpers
- * @param {Array} array - The array to make unique
- * @returns {Array}
+ * @param array - The array to make unique
  */
 const uniqueArray = (array: Array<any>): Array<any> => array.filter((item: any, index: number) => array.indexOf(item) === index)
 

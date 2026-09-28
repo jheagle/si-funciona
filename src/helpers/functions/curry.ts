@@ -3,9 +3,7 @@
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
- * @memberOf module:functionHelpers
- * @param {Function} fn - Receives a function to be curried
- * @returns {Function|*}
+ * @param fn - Receives a function to be curried
  */
 const curry = (fn: Function): Function | any => (...args: any): any => args.length >= fn.length
   ? fn(...args)

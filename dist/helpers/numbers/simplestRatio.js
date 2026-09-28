@@ -11,9 +11,7 @@ const _greatestCommonDivisor = _interopRequireDefault(require('./greatestCommonD
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Reduce several numbers to their simplest form / ratio
- * @memberOf module:numberHelpers
- * @param {...number} numbers - Array of numbers to simplify
- * @returns {Array.<number>}
+ * @param numbers - Array of numbers to simplify
  */
 const simplestRatio = (...numbers) => {
   if (numbers.length === 0) {

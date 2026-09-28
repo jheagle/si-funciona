@@ -11,9 +11,8 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Check if every property this descriptor references (i.e. every nested object/array it points to) has actually
  * had its own descriptor built yet, and set the descriptor's `complete` flag to true if so.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor - The descriptor to check.
- * @returns {module:objectDescriptors~descriptor} The same descriptor, with `complete` updated.
+ * @param descriptor - The descriptor to check.
+ * @returns The same descriptor, with `complete` updated.
  */
 const checkDescriptorComplete = descriptor => (0, _setValue.default)('complete', descriptor.references.every(refId => [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(ref => typeof ref === 'number')), descriptor)
 const _default = exports.default = checkDescriptorComplete

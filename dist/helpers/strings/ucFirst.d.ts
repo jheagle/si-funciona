@@ -1,8 +1,6 @@
 /**
  * Given a string, make the first character uppercase and the rest lowercase.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
 declare const ucFirst: (str: string) => string;
 export default ucFirst;

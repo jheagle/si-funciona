@@ -2,10 +2,8 @@ import mergeObjectsBase from './mergeObjectsBase'
 
 /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
- * @memberOf module:objectHelpers
  * @see {@link module:objectHelpers~mergeObjectsCallback}
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
+ * @param objects - Provide a list of objects which will be merged starting from the end up into the first
  */
 const mergeObjects = mergeObjectsBase({ useClone: true })
 

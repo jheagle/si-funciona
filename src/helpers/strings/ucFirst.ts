@@ -1,9 +1,7 @@
 
 /**
  * Given a string, make the first character uppercase and the rest lowercase.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
 const ucFirst = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 

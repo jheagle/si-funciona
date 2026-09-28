@@ -57,11 +57,6 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
 /**
  * Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
  * use with functionHelpers' queueManager/queueTimeout.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module arrayHelpers
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   addUniqueToArray: _addUniqueToArray.default,

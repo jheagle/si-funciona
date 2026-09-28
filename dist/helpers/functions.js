@@ -84,11 +84,6 @@ var _trace = _interopRequireDefault(require('./functions/trace'))
 function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
 /**
  * Manage how functions are called with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module functionHelpers
- * @memberOf module:siFunciona
  */
 const _default = exports.default = {
   callWithParams: _callWithParams.default,

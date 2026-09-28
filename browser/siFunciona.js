@@ -59,11 +59,6 @@
     /**
  * Utilities for building, merging, deduplicating and comparing arrays, plus a basic FIFO queue (BasicQueue) for
  * use with functionHelpers' queueManager/queueTimeout.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module arrayHelpers
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       addUniqueToArray: _addUniqueToArray.default,
@@ -84,11 +79,10 @@
     exports.default = void 0
     /**
  * Class BasicQueue is a functional example of a queue to be used with queueManager.
- * @memberOf module:arrayHelpers
  */
     class BasicQueue {
       /**
-   * @param {Array} [innerList=[]] - Items to pre-populate the queue with, in order.
+   * @param innerList - Items to pre-populate the queue with, in order.
    */
       constructor (innerList = []) {
         this.innerList = innerList
@@ -96,7 +90,6 @@
 
       /**
    * Remove and return the next item in the queue
-   * @returns {queuedItem|*}
    */
       dequeue () {
         return this.innerList.shift()
@@ -104,7 +97,6 @@
 
       /**
    * Check if the queue is empty
-   * @returns {boolean}
    */
       empty () {
         return !this.size()
@@ -112,8 +104,7 @@
 
       /**
    * Add an item to the end of the queue
-   * @param {queuedItem|*} data
-   * @returns {BasicQueue}
+   * @param data
    */
       enqueue (data) {
         this.innerList.push(data)
@@ -122,7 +113,6 @@
 
       /**
    * Retrieve the next item from the queue
-   * @returns {queuedItem|*}
    */
       peek () {
         return this.empty() ? null : this.innerList[0]
@@ -130,7 +120,6 @@
 
       /**
    * Get the quantity of items in the queue
-   * @returns {number}
    */
       size () {
         return this.innerList.length
@@ -148,10 +137,8 @@
     require('core-js/modules/es.array.includes.js')
     /**
  * Having an array and a potential new array element, check if the element is in the array, if not append to array.
- * @memberOf module:arrayHelpers
- * @param {*} item - An potential array element, possibly a DomItem
- * @param {Array} array - An array where an element may be appended.
- * @returns {Array}
+ * @param item - An potential array element, possibly a DomItem
+ * @param array - An array where an element may be appended.
  */
     const addUniqueToArray = (item, array) => !array.includes(item) ? array.concat([item]) : array
     const _default = exports.default = addUniqueToArray
@@ -168,10 +155,8 @@
     /**
  * Leverage buildArrayBase to generate an array filled with a copy of the provided item.
  * The length defines how long the array should be.
- * @memberOf module:arrayHelpers
- * @param {*} item - The item to be used for each array element
- * @param {number} length - The desired length of the array
- * @returns {Array.<*>}
+ * @param item - The item to be used for each array element
+ * @param length - The desired length of the array
  */
     const buildArray = (item, length) => {
       const arr = []
@@ -193,10 +178,8 @@
     /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
- * @memberOf module:arrayHelpers
- * @param {*} item - The item to be used for each array element
- * @param {number} length - The desired length of the array
- * @returns {Array.<*>}
+ * @param item - The item to be used for each array element
+ * @param length - The desired length of the array
  */
     const buildArrayOfReferences = (item, length) => {
       const arr = []
@@ -275,9 +258,7 @@
  *   }
  * ]
  *
- * @memberOf module:arrayHelpers
- * @param {...Array} arrays - The arrays to compare
- * @returns {Array.<module:arrayHelpers~compareArrayResult>}
+ * @param arrays - The arrays to compare
  */
     const compareArrays = (...arrays) => (0, _mergeArrays.default)(...arrays).reduce((results, attr) => {
       const attrType = typeof attr
@@ -321,9 +302,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Take multiple arrays and then filter all these into one unique array.
- * @memberOf module:arrayHelpers
- * @param {...Array} arrays - Provide multiple arrays to create one unique array
- * @returns {Array}
+ * @param arrays - Provide multiple arrays to create one unique array
  */
     const mergeArrays = (...arrays) => arrays.map(_uniqueArray.default).reduce((merged, arr) => [...merged, ...arr.filter(attr => !merged.includes(attr))], [])
     const _default = exports.default = mergeArrays
@@ -339,9 +318,7 @@
     require('core-js/modules/esnext.iterator.filter.js')
     /**
  * Remove duplicate values from an array. uniqueArray
- * @memberOf module:arrayHelpers
- * @param {Array} array - The array to make unique
- * @returns {Array}
+ * @param array - The array to make unique
  */
     const uniqueArray = array => array.filter((item, index) => array.indexOf(item) === index)
     const _default = exports.default = uniqueArray
@@ -456,11 +433,6 @@
  * anywhere you need to check that two objects genuinely match without caring whether they're literally the same
  * instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
  * discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module objectDescriptors
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       assignDescriptor: _assignDescriptor.default,
@@ -500,11 +472,10 @@
  * Apply one or more descriptors to an existing descriptor so that they represent a merged version of the descriptors.
  * Used to widen a descriptor as more differently-shaped objects are described into it (e.g. array elements of
  * different types), rather than replacing it outright.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} originalMap - The base descriptor to merge onto (not mutated - a
+ * @param originalMap - The base descriptor to merge onto (not mutated - a
  * clone is merged and returned).
- * @param  {...module:objectDescriptors~descriptor} descriptors - One or more further descriptors to merge in.
- * @returns {module:objectDescriptors~descriptor} A new descriptor representing the merge of all of the above.
+ * @param  descriptors - One or more further descriptors to merge in.
+ * @returns A new descriptor representing the merge of all of the above.
  */
     const assignDescriptor = (originalMap, ...descriptors) => descriptors.reduce((assignedDescriptor, descriptor) => {
       const detailsDiff = (0, _compareArrays.default)(assignedDescriptor.keys, descriptor.keys)
@@ -552,11 +523,10 @@
  * Assign properties from other details onto an existing detail, widening it (e.g. combining `type`/`value` arrays,
  * OR-ing boolean flags like `nullable`/`optional`) rather than overwriting it - the per-property counterpart to
  * {@link module:objectDescriptors.assignDescriptor}.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptorDetail} originalDetail - The base detail to merge onto (not mutated -
+ * @param originalDetail - The base detail to merge onto (not mutated -
  * a clone is merged and returned).
- * @param  {...module:objectDescriptors~descriptorDetail} details - One or more further details to merge in.
- * @returns {module:objectDescriptors~descriptorDetail} A new detail representing the merge of all of the above.
+ * @param  details - One or more further details to merge in.
+ * @returns A new detail representing the merge of all of the above.
  */
     const assignDescriptorDetail = (originalDetail, ...details) => details.reduce((existingDetail, newDetail) => {
       existingDetail.type = (0, _uniqueArray.default)([...existingDetail.type, ...newDetail.type])
@@ -588,10 +558,9 @@
     /**
  * Once a descriptor is complete (all its references have been resolved), its details' actual `value` arrays are no
  * longer needed to build the descriptor further - clear them to save memory, unless `keepValues` says otherwise.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor - The descriptor to check.
- * @param {boolean} [keepValues=false] - Set true to keep the values even once the descriptor is complete.
- * @returns {module:objectDescriptors~descriptor} The same descriptor, with `details[].value` cleared if applicable.
+ * @param descriptor - The descriptor to check.
+ * @param keepValues - Set true to keep the values even once the descriptor is complete.
+ * @returns The same descriptor, with `details[].value` cleared if applicable.
  */
     const checkClearValues = (descriptor, keepValues = false) => (0, _setValue.default)('details', descriptor.complete && !keepValues ? descriptor.details.map(detail => (0, _setValue.default)('value', [], detail)) : descriptor.details, descriptor)
     const _default = exports.default = checkClearValues
@@ -610,9 +579,8 @@
     /**
  * Check if every property this descriptor references (i.e. every nested object/array it points to) has actually
  * had its own descriptor built yet, and set the descriptor's `complete` flag to true if so.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor - The descriptor to check.
- * @returns {module:objectDescriptors~descriptor} The same descriptor, with `complete` updated.
+ * @param descriptor - The descriptor to check.
+ * @returns The same descriptor, with `complete` updated.
  */
     const checkDescriptorComplete = descriptor => (0, _setValue.default)('complete', descriptor.references.every(refId => [descriptor.details[refId].arrayReference, descriptor.details[refId].objectReference].some(ref => typeof ref === 'number')), descriptor)
     const _default = exports.default = checkDescriptorComplete
@@ -630,9 +598,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Make a copy of an object descriptor so that the original will not be mutated.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} originalMap - The descriptor to copy.
- * @returns {module:objectDescriptors~descriptor} A new, independent copy.
+ * @param originalMap - The descriptor to copy.
+ * @returns A new, independent copy.
  */
     const cloneDescriptor = originalMap => {
       const copyMap = {}
@@ -668,9 +635,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Get a new copy of an existing descriptor detail so that the original will not be mutated.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptorDetail} originalDetail - The detail to copy.
- * @returns {module:objectDescriptors~descriptorDetail} A new, independent copy.
+ * @param originalDetail - The detail to copy.
+ * @returns A new, independent copy.
  */
     const cloneDescriptorDetail = originalDetail => {
       const copyDetail = {};
@@ -698,10 +664,9 @@
  * Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger
  * one and their types line up - used to detect when a newly-described value actually matches a descriptor already
  * in the map, so it can be pointed at instead of creating a duplicate.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor1 - The first descriptor to compare.
- * @param {module:objectDescriptors~descriptor} descriptor2 - The second descriptor to compare.
- * @returns {boolean} True if the descriptors describe a compatible shape.
+ * @param descriptor1 - The first descriptor to compare.
+ * @param descriptor2 - The second descriptor to compare.
+ * @returns True if the descriptors describe a compatible shape.
  */
     const compareDescriptor = (descriptor1, descriptor2) => {
       if (descriptor1.isArray !== descriptor2.isArray) {
@@ -731,9 +696,7 @@
  * Trace a single object or array (not its nested objects/arrays - see
  * {@link module:objectDescriptors.describeObjectMap} for that) and return the descriptor which defines its own
  * structure and attributes.
- * @memberOf module:objectDescriptors
- * @param {Object|Array} object - The object or array to describe.
- * @returns {module:objectDescriptors~descriptor}
+ * @param object - The object or array to describe.
  */
     const describeObject = object => {
       const descriptor = {
@@ -785,11 +748,9 @@
  * Trace a single property's value and produce the descriptorDetail describing it (type, nullability, whether it
  * references a nested object/array, etc.) - the per-property building block used by
  * {@link module:objectDescriptors.describeObject}.
- * @memberOf module:objectDescriptors
- * @param {*} value - The property's value to describe.
- * @param {string|number} [key=0] - The property name (or array index) this value belongs to.
- * @param {number} [index=0] - This detail's intended position within its parent descriptor's `details` array.
- * @returns {module:objectDescriptors~descriptorDetail}
+ * @param value - The property's value to describe.
+ * @param key - The property name (or array index) this value belongs to.
+ * @param index - This detail's intended position within its parent descriptor's `details` array.
  */
     const describeObjectDetail = (value, key = 0, index = 0) => {
       const type = typeof value
@@ -842,16 +803,14 @@
  * // descriptorMap[1], which separately describes that nested array. descriptorMap[1]'s own `length` (2) reflects
  * // the array's actual length, but `keys` has only one entry (0) since both elements share the same type
  * // ('string') and are described together by a single, representative descriptorDetail.
- * @memberOf module:objectDescriptors
- * @param {Object|Array} object - The real object or array to describe.
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000000000] - Stop describing further nested references once the map reaches
+ * @param object - The real object or array to describe.
+ * @param options
+ * @param options.mapLimit - Stop describing further nested references once the map reaches
  * this many descriptors - a safety limit for extremely large or deeply-referenced structures.
- * @param {number} [options.depthLimit=-1] - How many levels of nested objects/arrays to describe; `-1` means no
+ * @param options.depthLimit - How many levels of nested objects/arrays to describe; `-1` means no
  * limit, `0` describes only the top level, etc.
- * @param {boolean} [options.keepValues=false] - By default, each detail's actual values are cleared once its
+ * @param options.keepValues - By default, each detail's actual values are cleared once its
  * descriptor is complete (to save memory) - set true to keep them.
- * @returns {module:objectDescriptors~descriptorMap}
  */
     const describeObjectMap = (object, {
       mapLimit = 1000000000,
@@ -867,7 +826,6 @@
         if (currentDetail) {
           const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
           vals.forEach(val => {
-            let _a, _b
             const tempDescriptor = (0, _describeObject.default)(val)
             const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
             if (existingDescriptorIndex >= 0) {
@@ -884,10 +842,10 @@
               return descriptorMap
             }
             if (tempDescriptor.isArray) {
-              index = (_a = currentDetail.arrayReference) !== null && _a !== void 0 ? _a : index
+              index = currentDetail.arrayReference ?? index
               descriptor.details[currentDetail.index].arrayReference = index
             } else {
-              index = (_b = currentDetail.objectReference) !== null && _b !== void 0 ? _b : index
+              index = currentDetail.objectReference ?? index
               descriptor.details[currentDetail.index].objectReference = index
             }
             tempDescriptor.index = index
@@ -933,10 +891,9 @@
  * Find the index (within `descriptor.details`) of the next referenced property - after `currentReference` - whose
  * own nested object/array still needs its descriptor built. Used to walk through a descriptor's references one at
  * a time while building out a descriptorMap.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor - The descriptor whose references to search.
- * @param {number} currentReference - The `details` index already processed - search continues after this one.
- * @returns {number|undefined} The next detail index to process, or `undefined` if none remain.
+ * @param descriptor - The descriptor whose references to search.
+ * @param currentReference - The `details` index already processed - search continues after this one.
+ * @returns The next detail index to process, or `undefined` if none remain.
  */
     const nextReference = (descriptor, currentReference) => descriptor.references.find(nextRef => {
       if (nextRef <= currentReference) {
@@ -965,10 +922,9 @@
  * Check if two descriptors describe the exact same underlying values (not just compatible types, like
  * {@link module:objectDescriptors.compareDescriptor} does) - used to detect genuine circular references, where a
  * nested value's descriptor turns out to be identical to one of its own ancestors.
- * @memberOf module:objectDescriptors
- * @param {module:objectDescriptors~descriptor} descriptor1 - The first descriptor to compare.
- * @param {module:objectDescriptors~descriptor} descriptor2 - The second descriptor to compare.
- * @returns {boolean} True if every detail's values match at the same position.
+ * @param descriptor1 - The first descriptor to compare.
+ * @param descriptor2 - The second descriptor to compare.
+ * @returns True if every detail's values match at the same position.
  */
     const sameDescriptor = (descriptor1, descriptor2) => descriptor1.details.every((detail, index) => detail.value.some(dVal => descriptor2.details[index].value.includes(dVal)))
     const _default = exports.default = sameDescriptor
@@ -1060,11 +1016,6 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Manage how functions are called with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module functionHelpers
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       callWithParams: _callWithParams.default,
@@ -1089,11 +1040,9 @@
     exports.default = void 0
     /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
- * @memberOf module:functionHelpers
- * @param {Function} fn - The function to be called
- * @param {Array} params - Array of possible function parameters
- * @param {number} [minimum=2] - Minimum number of parameters to use in the function
- * @returns {*}
+ * @param fn - The function to be called
+ * @param params - Array of possible function parameters
+ * @param minimum - Minimum number of parameters to use in the function
  */
     const callWithParams = (fn, params = [], minimum = 2) => fn(...params.slice(0, fn.length || minimum))
     const _default = exports.default = callWithParams
@@ -1109,9 +1058,7 @@
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.
  * fn is the name of the function being curried.
- * @memberOf module:functionHelpers
- * @param {Function} fn - Receives a function to be curried
- * @returns {Function|*}
+ * @param fn - Receives a function to be curried
  */
     const curry = fn => (...args) => args.length >= fn.length ? fn(...args) : (...a) => curry(fn)(...[...args, ...a])
     const _default = exports.default = curry
@@ -1126,9 +1073,7 @@
     require('regenerator-runtime/runtime')
     /**
  * Provide a timeout which returns a promise.
- * @memberOf module:functionHelpers
- * @param {number} time - Delay in milliseconds
- * @returns {module:functionHelpers~delayHandler}
+ * @param time - Delay in milliseconds
  */
     const delay = (time = 0) => {
       let cancel = () => undefined
@@ -1160,9 +1105,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Create an instance of a basic queue.
- * @memberOf module:functionHelpers
- * @param {Array} [initialQueue=[]] - Items to pre-populate the queue with, in order.
- * @returns {IsQueue}
+ * @param initialQueue - Items to pre-populate the queue with, in order.
  */
     const makeBasicQueue = (initialQueue = []) => {
       return new _BasicQueue.default(initialQueue)
@@ -1178,41 +1121,12 @@
     exports.default = void 0
     const _queueManager = _interopRequireDefault(require('./queueManager'))
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
-    const __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
-      function adopt (value) {
-        return value instanceof P
-          ? value
-          : new P(function (resolve) {
-            resolve(value)
-          })
-      }
-      return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled (value) {
-          try {
-            step(generator.next(value))
-          } catch (e) {
-            reject(e)
-          }
-        }
-        function rejected (value) {
-          try {
-            step(generator.throw(value))
-          } catch (e) {
-            reject(e)
-          }
-        }
-        function step (result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected)
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next())
-      })
-    }
     const queue = []
     const manager = (0, _queueManager.default)()
     manager.start()
     let observer = null
     const doReset = () => observer = null
-    const initializeObserver = () => __awaiter(void 0, void 0, void 0, function * () {
+    const initializeObserver = async () => {
       observer = new MutationObserver(() => {
         if (document.body) {
           while (queue.length) {
@@ -1226,13 +1140,11 @@
         childList: true
       })
       return observer
-    })
+    }
     /**
  * Prepare functions to be called once the body is available.
- * @memberOf module:functionHelpers
- * @param {Function} callback
- * @param {boolean} [reset=false]
- * @returns {Array.<Function>}
+ * @param callback
+ * @param reset
  */
     const onBodyLoad = (callback, reset = false) => {
       if (reset) {
@@ -1258,9 +1170,7 @@
     /**
  * Take one or more function with a single parameter and return value.
  * Pass a parameter and the value will be transformed by each function then returned.
- * @memberOf module:functionHelpers
- * @param {...Function} fns - Takes a series of functions having the same parameter
- * @returns {*}
+ * @param fns - Takes a series of functions having the same parameter
  */
     const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
     const _default = exports.default = pipe
@@ -1275,11 +1185,9 @@
     /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
- * @memberOf module:functionHelpers
- * @param {Function} fn - The function to be called
- * @param {Array} params - The parameters to preload
- * @param {number} [unassignedParam=0] - Position of missing parameter (zero indexed)
- * @returns {module:functionHelpers~callWithMissing}
+ * @param fn - The function to be called
+ * @param params - The parameters to preload
+ * @param unassignedParam - Position of missing parameter (zero indexed)
  */
     const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
       params.splice(unassignedParam, 0, missing)
@@ -1301,22 +1209,19 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Manage functions to run sequentially.
- * @memberOf module:functionHelpers
- * @param {IsQueue|Array} [queue=null] - The queue to manage. Pass a plain array to have it converted into a
+ * @param queue - The queue to manage. Pass a plain array to have it converted into a
  * {@link module:arrayHelpers.BasicQueue} automatically, or a custom queue implementing `IsQueue`; omit it (or pass
  * `null`) to have one created for you.
- * @returns {module:functionHelpers~queueManagerHandle}
  */
     const queueManager = (queue = null) => {
       let isRunning = false
       let isPaused = true
       /**
    * Convert a function to a queueable object.
-   * @param {Promise.resolve} resolve
-   * @param {Promise.reject} reject
-   * @param {Function} fn
-   * @param {...*} args
-   * @returns {queuedRunnable}
+   * @param resolve
+   * @param reject
+   * @param fn
+   * @param args
    */
       const makeQueuedRunnable = (resolve, reject, fn, ...args) => {
         const generator = (function * () {
@@ -1344,8 +1249,7 @@
       }
       /**
    * After an item is run, THEN run this function to reset isRunning
-   * @param {*} result
-   * @returns {*}
+   * @param result
    */
       const postRun = result => {
         isRunning = false
@@ -1355,7 +1259,7 @@
       /**
    * When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
    * error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
-   * @param {*} error
+   * @param error
    * @throws {*} The same error
    */
       const postFailedRun = error => {
@@ -1365,7 +1269,6 @@
       }
       /**
    * When ready, runs the next queued runnable generator.
-   * @returns {IteratorYieldResult|null}
    */
       const runNextItem = () => {
         if (!isPaused && !queue.empty() && !isRunning) {
@@ -1402,8 +1305,8 @@
       }
       /**
    * Add a function into the queue to be run when ready.
-   * @param {Function} fn - The function to run when ready
-   * @param {...*} args - Optional arguments to apply when the function is ready to be run
+   * @param fn - The function to run when ready
+   * @param args - Optional arguments to apply when the function is ready to be run
    * @returns Promise
    */
       const pushAnother = (fn, ...args) => new Promise((resolve, reject) => {
@@ -1445,9 +1348,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Manage functions to run sequentially with delays.
- * @memberOf module:functionHelpers
- * @param {module:functionHelpers~queueManagerHandle} [queueManagerHandle=null]
- * @returns {module:functionHelpers~queueTimeoutHandle}
+ * @param queueManagerHandle
  */
     const queueTimeout = (queueManagerHandle = null) => {
       const manager = queueManagerHandle || (0, _queueManager.default)()
@@ -1468,12 +1369,10 @@
     require('core-js/modules/esnext.iterator.map.js')
     /**
  * Remove elements out of relevance range and update the max relevance.
- * @memberOf module:functionHelpers
- * @param {relevanceMap} map
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=1000] - Only filter once the map exceeds this many entries.
- * @param {number} [options.relevancyRange=100] - How many of the most-recent relevance values to keep.
- * @returns {relevanceMap}
+ * @param map
+ * @param options
+ * @param options.mapLimit - Only filter once the map exceeds this many entries.
+ * @param options.relevancyRange - How many of the most-recent relevance values to keep.
  */
     const relevancyFilter = (map, {
       mapLimit = 1000,
@@ -1504,11 +1403,9 @@
     /**
  * Output the value with label to the console and return the value to not interrupt the code - useful for
  * inspecting a value mid-pipe/mid-chain without altering the result.
- * @memberOf module:functionHelpers
- * @param {string} label - Pass an identifying label of the value being output.
- * @param {boolean} [useClone=true] - Determines if the logged data should be a clone of the original to preserve
+ * @param label - Pass an identifying label of the value being output.
+ * @param useClone - Determines if the logged data should be a clone of the original to preserve
  * its state at the time of logging (rather than a live reference that may show later mutations).
- * @returns {function(*=)}
  */
     const trace = (label, useClone = true) => value => {
       // noinspection JSForgottenDebugStatementInspection
@@ -1590,11 +1487,6 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Some number comparators and random number generators.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module numberHelpers
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       absoluteMax: _absoluteMax.default,
@@ -1617,10 +1509,8 @@
     exports.default = void 0
     /**
  * Helper for returning the absolute max value
- * @memberOf module:numberHelpers
- * @param {number} num1 - A number to compare
- * @param {number} num2 - Another number to be compared against
- * @returns {number}
+ * @param num1 - A number to compare
+ * @param num2 - Another number to be compared against
  */
     const absoluteMax = (num1, num2) => Math.abs(num1) > Math.abs(num2) ? num1 : num2
     const _default = exports.default = absoluteMax
@@ -1634,10 +1524,8 @@
     exports.default = void 0
     /**
  * Helper for returning the absolute min value
- * @memberOf module:numberHelpers
- * @param {number} num1 - A number to compare
- * @param {number} num2 - Another number to be compared against
- * @returns {number}
+ * @param num1 - A number to compare
+ * @param num2 - Another number to be compared against
  */
     const absoluteMin = (num1, num2) => Math.abs(num1) < Math.abs(num2) ? num1 : num2
     const _default = exports.default = absoluteMin
@@ -1654,10 +1542,8 @@
  * -1 to indicate val1 is less than val2
  * 0 to indicate both values are the equal
  * 1 to indicate val1 is greater than val2
- * @memberOf module:numberHelpers
- * @param {number} val1 - The first number to compare
- * @param {number} val2 - The second number to compare
- * @returns {number}
+ * @param val1 - The first number to compare
+ * @param val2 - The second number to compare
  */
     const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
     const _default = exports.default = compare
@@ -1671,10 +1557,8 @@
     exports.default = void 0
     /**
  * Return the highest number that can be divided into both numbers.
- * @memberOf module:numberHelpers
- * @param {number} num1 - First number to assess
- * @param {number} num2 - Second number to compare for common divisor
- * @returns {number}
+ * @param num1 - First number to assess
+ * @param num2 - Second number to compare for common divisor
  */
     const greatestCommonDivisor = (num1, num2) => num2 === 0 ? num1 : greatestCommonDivisor(num2, num1 % num2)
     const _default = exports.default = greatestCommonDivisor
@@ -1690,10 +1574,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Helper for calculating the multiplier that would make each number relative to each other.
- * @memberOf module:numberHelpers
- * @param {number} num1 - A number to compare
- * @param {number} num2 - Another number to be compared against
- * @returns {number}
+ * @param num1 - A number to compare
+ * @param num2 - Another number to be compared against
  */
     const leastCommonMultiple = (num1, num2) => num1 === 0 || num2 === 0 ? 0 : num1 * num2 / (0, _greatestCommonDivisor.default)(num1, num2)
     const _default = exports.default = leastCommonMultiple
@@ -1712,9 +1594,7 @@
     /**
  * Find the smallest number that all the given numbers divide into evenly, by reducing them pairwise with
  * leastCommonMultiple.
- * @memberOf module:numberHelpers
- * @param {...number} numbers - Two or more numbers to find the lowest common denominator of.
- * @returns {number}
+ * @param numbers - Two or more numbers to find the lowest common denominator of.
  */
     const lowestCommonDenominator = (...numbers) => numbers.reduce((num1, num2) => (0, _leastCommonMultiple.default)(num1, num2), 1)
     const _default = exports.default = lowestCommonDenominator
@@ -1735,12 +1615,10 @@
  * randomInteger(2) // 0 or 1
  * randomInteger(3, 1, 5) // 5, 10 or 15
  * items[randomInteger(items.length)] // a random valid index
- * @memberOf module:numberHelpers
- * @param {number} range - The number of possible values (0-99 would be 100 for range)
- * @param {number} [offset=0] - Choose the starting number (1-10 would be 1 for offset, 10 for range)
- * @param {number} [interval=1] - Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for
+ * @param range - The number of possible values (0-99 would be 100 for range)
+ * @param offset - Choose the starting number (1-10 would be 1 for offset, 10 for range)
+ * @param interval - Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for
  * offset, 3 for range)
- * @returns {number}
  */
     const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
     const _default = exports.default = randomInteger
@@ -1756,12 +1634,10 @@
  * Create a single random number from offset up to (but never including) offset + range. With optional offset,
  * the distance between the result numbers can be adjusted with interval. Matches randomInteger, which gives the
  * whole numbers of the same span.
- * @memberOf module:numberHelpers
- * @param {number} range - Choose the breadth of the random number (0 up to, but not including, 100 would be 100 for range)
- * @param {number} [offset=0] - Choose the starting number (1 up to, but not including, 10 would be 1 for offset, 9 for range)
- * @param {number} [interval=1] - Choose the multiplier applied to the result (~5, ~10, ~15 would be 5 for interval,
+ * @param range - Choose the breadth of the random number (0 up to, but not including, 100 would be 100 for range)
+ * @param offset - Choose the starting number (1 up to, but not including, 10 would be 1 for offset, 9 for range)
+ * @param interval - Choose the multiplier applied to the result (~5, ~10, ~15 would be 5 for interval,
  * 1 for offset, 2 for range)
- * @returns {number}
  */
     const randomNumber = (range, offset = 0, interval = 1) => (Math.random() * range + offset) * interval
     const _default = exports.default = randomNumber
@@ -1780,9 +1656,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Reduce several numbers to their simplest form / ratio
- * @memberOf module:numberHelpers
- * @param {...number} numbers - Array of numbers to simplify
- * @returns {Array.<number>}
+ * @param numbers - Array of numbers to simplify
  */
     const simplestRatio = (...numbers) => {
       if (numbers.length === 0) {
@@ -1946,11 +1820,6 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Simplify working with object by providing array-like parsing. Also, provides cloning and merging along with accessors that always have a return value for optimal nesting.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module objectHelpers
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       cloneObject: _cloneObject.default,
@@ -1986,13 +1855,11 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Clone objects for manipulation without data corruption, returns a copy of the provided object.
- * @memberOf module:objectHelpers
- * @param {Object} object - The original object that is being cloned
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100] - Deprecated and ignored (circular references are handled without trimming).
- * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
- * @param {number} [options.relevancyRange=1000] - Deprecated and ignored: see mapLimit.
- * @returns {Object}
+ * @param object - The original object that is being cloned
+ * @param options
+ * @param options.mapLimit - Deprecated and ignored (circular references are handled without trimming).
+ * @param options.depthLimit - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
+ * @param options.relevancyRange - Deprecated and ignored: see mapLimit.
  */
     const cloneObject = (object, {
       mapLimit = 100,
@@ -2019,14 +1886,12 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Get a nested property value from an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to get the property from
- * @param {string} dotNotation - The path to the property
- * @param {string|null} [defaultValue=null] - The default value to return if the property is not found
- * @returns {*} The value of the property
+ * @param arrayObject - The array or object to get the property from
+ * @param dotNotation - The path to the property
+ * @param defaultValue - The default value to return if the property is not found
+ * @returns The value of the property
  */
     const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
-      let _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -2052,7 +1917,7 @@
       }
       if (lastKey) {
         // @ts-ignore
-        return (_a = arrayObject[dotNotation]) !== null && _a !== void 0 ? _a : defaultValue
+        return arrayObject[dotNotation] ?? defaultValue
       }
       // @ts-ignore
       if (typeof arrayObject[key] === 'undefined') {
@@ -2081,15 +1946,13 @@
     /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
  * @inner
- * @memberOf module:objectHelpers
- * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
- * @returns {Function} The dot-notated array
+ * @param retainObjects - An array of keys to retain as objects
+ * @returns The dot-notated array
  */
     const handleRetainObjects = (retainObjects = []) => {
       if (!retainObjects.length) {
         /**
      * Bypass the test function if there are no retainObjects.
-     * @returns {false}
      */
         return (currentKey, value, results) => false
       }
@@ -2097,10 +1960,9 @@
       const retainRegex = new RegExp(`(${retainObjects.join('|')})$`)
       /**
    * Test if a key should be retained as an object.
-   * @param {string} currentKey - The key to test
-   * @param {*} value - The value of the key
-   * @param {Object} results - The results object to add to
-   * @returns {boolean}
+   * @param currentKey - The key to test
+   * @param value - The value of the key
+   * @param results - The results object to add to
    */
       return (currentKey, value, results) => {
         if (!currentKey.match(retainRegex)) {
@@ -2114,12 +1976,11 @@
     /**
  * The underlying logic function for converting arrays to dot-notation.
  * @inner
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to dot-notate
- * @param {Function} didRetain - The test function to see if a key should be retained
- * @param {DotNotationString} [prepend=''] - The path for the property being processed
- * @param {DotNotatedObject} [results={}] - The final array to return
- * @returns {DotNotatedObject} The dot-notated object
+ * @param arrayObject - The array or object to dot-notate
+ * @param didRetain - The test function to see if a key should be retained
+ * @param prepend - The path for the property being processed
+ * @param results - The final array to return
+ * @returns The dot-notated object
  */
     const performDotNotate = (arrayObject, didRetain, prepend = '', results = {}) => {
       // @ts-ignore
@@ -2140,10 +2001,9 @@
     }
     /**
  * Convert an array or object to a single dimensional associative array with dot notation.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to dot-notate
- * @param {Array.<DotNotationString>} [retainObjects=[]] - An array of keys to retain as objects
- * @returns {DotNotatedObject} The dot-notated object
+ * @param arrayObject - The array or object to dot-notate
+ * @param retainObjects - An array of keys to retain as objects
+ * @returns The dot-notated object
  */
     const dotNotate = (arrayObject, retainObjects = []) => performDotNotate(arrayObject, handleRetainObjects(retainObjects))
     const _default = exports.default = dotNotate
@@ -2161,14 +2021,12 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Set a nested property value an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to set the property on
- * @param {string} dotNotation - The path for the property
- * @param {*} value - The default value to return if the property is not found
- * @returns {Object} The modified object
+ * @param arrayObject - The array or object to set the property on
+ * @param dotNotation - The path for the property
+ * @param value - The default value to return if the property is not found
+ * @returns The modified object
  */
     const dotSet = (arrayObject, dotNotation, value = null) => {
-      let _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -2196,7 +2054,7 @@
         return arrayObject
       }
       // @ts-ignore
-      const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+      const next = arrayObject[key] ?? []
       // @ts-ignore
       arrayObject[key] = dotSet(next, (0, _strAfter.default)(dotNotation, '.'), value)
       return arrayObject
@@ -2216,13 +2074,11 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Unset a nested property value an object.
- * @memberOf module:objectHelpers
- * @param {Object} arrayObject - The array or object to set the property on
- * @param {string} dotNotation - The path for the property
- * @returns {Object} The modified object
+ * @param arrayObject - The array or object to set the property on
+ * @param dotNotation - The path for the property
+ * @returns The modified object
  */
     const dotUnset = (arrayObject, dotNotation) => {
-      let _a
       let key = (0, _strBefore.default)(dotNotation, '.')
       const lastKey = !key
       if (lastKey) {
@@ -2250,7 +2106,7 @@
         return arrayObject
       }
       // @ts-ignore
-      const next = (_a = arrayObject[key]) !== null && _a !== void 0 ? _a : []
+      const next = arrayObject[key] ?? []
       // @ts-ignore
       arrayObject[key] = dotUnset(next, (0, _strAfter.default)(dotNotation, '.'))
       return arrayObject
@@ -2269,9 +2125,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Helper function for testing if the item is an Object or Array that does not have any properties
- * @memberOf module:objectHelpers
- * @param {Object|Array} item - Object or Array to test
- * @returns {boolean}
+ * @param item - Object or Array to test
  */
     const emptyObject = item => (typeof item === 'function' || (0, _isObject.default)(item)) && !(0, _objectKeys.default)(item).length
     const _default = exports.default = emptyObject
@@ -2293,11 +2147,9 @@
  * This function is intended to replicate behaviour of the Array.filter() function but for Objects.
  * If an array is passed in instead then it will perform standard filter(). It is recommended to
  * always use the standard filter() function when it is known that the object is actually an array.
- * @memberOf module:objectHelpers
- * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~filterCallback|Function} fn - The function to be processed for each filtered property
- * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
- * @returns {Object|Array}
+ * @param obj - The Object (or Array) to be filtered
+ * @param fn - The function to be processed for each filtered property
+ * @param thisArg - Optional. Value to use as this when executing callback.
  */
     const filterObject = (obj, fn, thisArg = undefined) => Array.isArray(obj)
       ? obj.filter(fn, thisArg)
@@ -2322,9 +2174,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Determine if the value is a reference instance
- * @memberOf module:objectHelpers
- * @param {Array|Object|*} value
- * @returns {boolean}
+ * @param value
  */
     const isCloneable = value => typeof value === 'object' && value !== null && !(0, _isInstanceObject.default)(value)
     const _default = exports.default = isCloneable
@@ -2423,10 +2273,9 @@
  * equal values, the order of the properties does not matter
  * - Dates, regular expressions, Maps and Sets are compared by what they hold
  * - Circular references are handled: a pair of objects which is already being compared is taken to be equal
- * @memberOf module:objectHelpers
- * @param {*} first - The first value.
- * @param {*} second - The second value.
- * @returns {boolean} True when the values are equal.
+ * @param first - The first value.
+ * @param second - The second value.
+ * @returns True when the values are equal.
  */
     const isEqual = (first, second) => compare(first, second, new WeakMap())
     const _default = exports.default = isEqual
@@ -2444,9 +2293,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Check if the current object has inherited properties.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @returns {boolean}
+ * @param object
  */
     const isInstanceObject = object => {
       if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
@@ -2468,9 +2315,7 @@
     exports.default = void 0
     /**
  * Check if the provided thing is an object / array.
- * @memberOf module:objectHelpers
- * @param {*} object
- * @returns {boolean}
+ * @param object
  */
     const isObject = object => typeof object === 'object' && object !== null
     const _default = exports.default = isObject
@@ -2493,11 +2338,9 @@
  * This function is intended to replicate behaviour of the Array.map() function but for Objects.
  * If an array is passed in instead then it will perform standard map(). It is recommended to
  * always use the standard map() function when it is known that the object is actually an array.
- * @memberOf module:objectHelpers
- * @param {Object|Array} obj - The Object (or Array) to be mapped
- * @param {module:objectHelpers~mapCallback|Function} fn - The function to be processed for each mapped property
- * @param {Object|Array} [thisArg] - Optional. Value to use as this when executing callback.
- * @returns {Object|Array}
+ * @param obj - The Object (or Array) to be mapped
+ * @param fn - The function to be processed for each mapped property
+ * @param thisArg - Optional. Value to use as this when executing callback.
  */
     const mapObject = (obj, fn, thisArg = undefined) => Array.isArray(obj) ? obj.map(fn, thisArg) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _setValue.default)(curr, (0, _callWithParams.default)(fn.bind(thisArg), [obj[curr], curr, obj], 2), newObj), {})
     const _default = exports.default = mapObject
@@ -2513,10 +2356,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by value.
- * @memberOf module:objectHelpers
  * @see {@link module:objectHelpers~mergeObjectsCallback}
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
+ * @param objects - Provide a list of objects which will be merged starting from the end up into the first
  */
     const mergeObjects = (0, _mergeObjectsBase.default)({
       useClone: true
@@ -2556,16 +2397,14 @@
  * Every call of the returned function keeps its own record of the objects it has already visited (so circular
  * references are followed only once, and an object which is referenced in several places is merged once), and nothing
  * is remembered between calls: the results of separate calls never share state or go stale.
- * @memberOf module:objectHelpers
- * @param {Object} [options={}]
- * @param {number} [options.mapLimit=100] - Deprecated and ignored: the record of visited objects is now scoped to a
+ * @param options
+ * @param options.mapLimit - Deprecated and ignored: the record of visited objects is now scoped to a
  * single call, so it does not need trimming.
- * @param {number} [options.depthLimit=-1] - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
- * @param {number} [options.relevancyRange=1000] - Deprecated and ignored: see mapLimit.
- * @param {Iterable|array} [options.map=[]] - A predetermined list of references (source and the object it should
+ * @param options.depthLimit - Control how many nested levels deep will be used, -1 = no limit, >-1 = nth level limited.
+ * @param options.relevancyRange - Deprecated and ignored: see mapLimit.
+ * @param options.map] - A predetermined list of references (source and the object it should
  * resolve to) which every call starts from. It is only read, never added to.
- * @param {boolean} [options.useClone=false]
- * @returns {module:objectHelpers~mergeObjectsCallback|mergeObjectsCallback}
+ * @param options.useClone
  */
     const mergeObjectsBase = ({
       depthLimit = -1,
@@ -2625,10 +2464,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Uses mergeObjectsBase deep merge objects and arrays, merge by reference.
- * @memberOf module:objectHelpers
  * @see {@link module:objectHelpers~mergeObjectsCallback}
- * @param {...Object} objects - Provide a list of objects which will be merged starting from the end up into the first
- * @returns {*}
+ * @param objects - Provide a list of objects which will be merged starting from the end up into the first
  */
     const mergeObjectsMutable = (0, _mergeObjectsBase.default)()
     const _default = exports.default = mergeObjectsMutable
@@ -2645,10 +2482,8 @@
     /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @param {boolean} [includeInherited=false]
- * @returns {Array.<string|number>}
+ * @param object
+ * @param includeInherited
  */
     const objectKeys = (object, includeInherited = false) => {
       if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
@@ -2688,10 +2523,8 @@
     /**
  * Get an array of values from any object or array. Will return empty array when invalid or there are no values.
  * Optional flag will include the inherited values from prototype chain when set.
- * @memberOf module:objectHelpers
- * @param {Object|Array} object
- * @param {boolean} [includeInherited=false]
- * @returns {Array}
+ * @param object
+ * @param includeInherited
  */
     const objectValues = (object, includeInherited = false) => (0, _objectKeys.default)(object, includeInherited).map(key => object[key])
     const _default = exports.default = objectValues
@@ -2712,13 +2545,11 @@
  * This function is intended to replicate behaviour of the Array.reduce() function but for Objects.
  * If an array is passed in instead then it will perform standard reduce(). It is recommended to
  * always use the standard reduce() function when it is known that the object is actually an array.
- * @memberOf module:objectHelpers
- * @param {Object|Array} obj - The Object (or Array) to be filtered
- * @param {module:objectHelpers~reduceCallback|Function|reduceCallback} fn - The function to be processed for each filtered property
- * @param {Object|Array} [initialValue] - Optional. Value to use as the first argument to the first call of the
+ * @param obj - The Object (or Array) to be filtered
+ * @param fn - The function to be processed for each filtered property
+ * @param initialValue - Optional. Value to use as the first argument to the first call of the
  * callback. If no initial value is supplied, the first element in the array will be used. Calling reduce on an empty
  * array without an initial value is an error.
- * @returns {*}
  */
     const reduceObject = (obj, fn, initialValue = obj[(0, _objectKeys.default)(obj)[0]] || obj[0]) => Array.isArray(obj) ? obj.reduce(fn, initialValue) : (0, _objectKeys.default)(obj, true).reduce((newObj, curr) => (0, _callWithParams.default)(fn, [newObj, obj[curr], curr, obj], 2), initialValue)
     const _default = exports.default = reduceObject
@@ -2732,11 +2563,9 @@
     exports.default = void 0
     /**
  * Set a value on an item, then return the value
- * @memberOf module:objectHelpers
- * @param {Object|Array} item - An object or array to be updated
- * @param {string|number} key - The key on the item which will have its value set
- * @param {*} value - Any value to be applied to the key
- * @returns {*}
+ * @param item - An object or array to be updated
+ * @param key - The key on the item which will have its value set
+ * @param value - Any value to be applied to the key
  */
     const setAndReturnValue = (item, key, value) => {
       item[key] = value
@@ -2754,11 +2583,9 @@
     /**
  * Set a value on an item, then return the item.
  * NOTE: Argument order designed for usage with pipe
- * @memberOf module:objectHelpers
- * @param {string|number} key - The key on the item which will have its value set
- * @param {*} value - Any value to be applied to the key
- * @param {Object|Array} item - An object or array to be updated
- * @returns {Object|Array}
+ * @param key - The key on the item which will have its value set
+ * @param value - Any value to be applied to the key
+ * @param item - An object or array to be updated
  */
     const setValue = (key, value, item) => {
       // @ts-ignore
@@ -2868,11 +2695,6 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Manage how strings are manipulated with these utilities.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module stringHelpers
- * @memberOf module:siFunciona
  */
     const _default = exports.default = {
       camelCase: _camelCase.default,
@@ -2904,9 +2726,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Given a string in kebab-case, snake_case or 'Sentence case', convert to camelCase.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
     const camelCase = str => (0, _words.default)(str).reduce((camel, part) => camel ? camel.concat((0, _ucFirst.default)(part)) : part.toLowerCase(), '')
     const _default = exports.default = camelCase
@@ -2924,9 +2744,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-case.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
     const kabobCase = str => (0, _words.default)(str).reduce((kabob, part) => kabob ? kabob.concat('-' + part.toLowerCase()) : part.toLowerCase(), '')
     const _default = exports.default = kabobCase
@@ -2942,10 +2760,8 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Format the given path so that it does not have trailing slashes and also correctly appends a path.
- * @memberOf module:stringHelpers
- * @param {string} root - The base path to start from.
- * @param {string} [append=''] - A path to append to `root` - may itself use `./` or `../` segments.
- * @returns {string}
+ * @param root - The base path to start from.
+ * @param append - A path to append to `root` - may itself use `./` or `../` segments.
  */
     const makeFilepath = (root, append = '') => {
       if (root.startsWith('./')) {
@@ -2994,10 +2810,9 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Compare two file paths and simplify them to a relative path.
- * @memberOf module:stringHelpers
- * @param {string} fromFile - The path of the file the resulting relative path will be used from.
- * @param {string} toFile - The path of the file being referenced.
- * @return {string} `toFile` expressed relative to `fromFile`.
+ * @param fromFile - The path of the file the resulting relative path will be used from.
+ * @param toFile - The path of the file being referenced.
+ * @returns `toFile` expressed relative to `fromFile`.
  */
     const makeRelativePath = (fromFile, toFile) => {
       let relativePath = toFile
@@ -3036,9 +2851,7 @@
     exports.regexEscape = exports.default = void 0
     /**
  * Take a string and escape the regex characters.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to escape, so it can be used literally inside a `RegExp`.
- * @returns {string}
+ * @param str - The string to escape, so it can be used literally inside a `RegExp`.
  */
     const regexEscape = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     exports.regexEscape = regexEscape
@@ -3057,9 +2870,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Given a string in kebab-case, camelCase or 'Sentence case', convert to snake_case.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
     const snakeCase = str => (0, _words.default)(str).reduce((snake, part) => snake ? snake.concat('_' + part.toLowerCase()) : part.toLowerCase(), '')
     const _default = exports.default = snakeCase
@@ -3073,10 +2884,9 @@
     exports.default = void 0
     /**
  * Retrieve the string part after the search match.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to search within.
- * @param {string} search - The substring to search for.
- * @returns {string} The portion of `str` after the first occurrence of `search`, or `''` if not found.
+ * @param str - The string to search within.
+ * @param search - The substring to search for.
+ * @returns The portion of `str` after the first occurrence of `search`, or `''` if not found.
  */
     const strAfter = (str, search) => {
       const index = str.indexOf(search)
@@ -3093,10 +2903,9 @@
     exports.default = void 0
     /**
  * Retrieve the string part after the last search match.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to search within.
- * @param {string} search - The substring to search for.
- * @returns {string} The portion of `str` after the last occurrence of `search`, or `''` if not found.
+ * @param str - The string to search within.
+ * @param search - The substring to search for.
+ * @returns The portion of `str` after the last occurrence of `search`, or `''` if not found.
  */
     const strAfterLast = (str, search) => {
       const index = str.lastIndexOf(search)
@@ -3113,10 +2922,9 @@
     exports.default = void 0
     /**
  * Retrieve the string part before the search match.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to search within.
- * @param {string} search - The substring to search for.
- * @returns {string} The portion of `str` before the first occurrence of `search`, or `''` if not found.
+ * @param str - The string to search within.
+ * @param search - The substring to search for.
+ * @returns The portion of `str` before the first occurrence of `search`, or `''` if not found.
  */
     const strBefore = (str, search) => {
       const index = str.indexOf(search)
@@ -3133,10 +2941,9 @@
     exports.default = void 0
     /**
  * Retrieve the string part before the last search match.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to search within.
- * @param {string} search - The substring to search for.
- * @returns {string} The portion of `str` before the last occurrence of `search`, or `''` if not found.
+ * @param str - The string to search within.
+ * @param search - The substring to search for.
+ * @returns The portion of `str` before the last occurrence of `search`, or `''` if not found.
  */
     const strBeforeLast = (str, search) => {
       const index = str.lastIndexOf(search)
@@ -3158,9 +2965,7 @@
     function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
     /**
  * Given a string in kebab-case, snake_case, camelCase or 'Sentence case', convert to 'Title Case'.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
     const titleCase = str => (0, _words.default)(str).reduce((title, part) => title ? title.concat(' ' + (0, _ucFirst.default)(part)) : (0, _ucFirst.default)(part), '')
     const _default = exports.default = titleCase
@@ -3174,9 +2979,7 @@
     exports.default = void 0
     /**
  * Given a string, make the first character uppercase and the rest lowercase.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to convert.
- * @returns {string}
+ * @param str - The string to convert.
  */
     const ucFirst = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
     const _default = exports.default = ucFirst
@@ -3191,9 +2994,7 @@
     /**
  * Split a string into sets of numbers or letters - the shared tokenizer behind camelCase/kabobCase/snakeCase/
  * titleCase, so each can rebuild the string in its own casing style.
- * @memberOf module:stringHelpers
- * @param {string} str - The string to split.
- * @returns {Array.<string>}
+ * @param str - The string to split.
  */
     const words = str => str.match(/\d+|[A-Z]?[a-z]+|[A-Za-z]+/g)
     const _default = exports.default = words
@@ -3284,10 +3085,6 @@
     function _interopRequireWildcard (e, t) { if (typeof WeakMap === 'function') var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; let o; let i; const f = { __proto__: null, default: e }; if (e === null || typeof e !== 'object' && typeof e !== 'function') return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f) } for (const t in e) t !== 'default' && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f })(e, t) }
     /**
  * All the siFunciona system functions for stringing together functions and simplifying logic.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module siFunciona
  */
 
     // Every function is available by name (import { curry } from 'si-funciona', require('si-funciona').curry) ...
