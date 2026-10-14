@@ -30,9 +30,9 @@
     "watch:test": "gulp watchTest"
   },
   "devDependencies": {
-    "collect-your-stuff": "^2.2.0",
+    "collect-your-stuff": "^2.2.1",
     "gulp": "^5.0.1",
-    "js-build-tools": "^6.0.0",
+    "js-build-tools": "^6.1.0",
     "jsdoc": "^4.0.5",
     "standard": "^17.1.2",
     "test-filesystem": "^2.0.0"
