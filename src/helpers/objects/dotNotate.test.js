@@ -22,10 +22,14 @@ describe('dotNotate', () => {
     })
   })
 
+  test('keeps an empty object/array as its own leaf, rather than silently dropping its key', () => {
+    expect(dotNotate({ a: {}, b: [], c: 'd' })).toEqual({ a: {}, b: [], c: 'd' })
+  })
+
   test('describes a circular object', () => {
     const result = dotNotate(circularObject, ['parent', 'body', 'head'])
     const resultKeys = Object.keys(result)
-    expect(resultKeys.length).toBe(16)
+    expect(resultKeys.length).toBe(20)
     expect(resultKeys).toEqual([
       'name',
       'parent',
@@ -35,14 +39,18 @@ describe('dotNotate', () => {
       'children.0.parent',
       'children.0.children.0.name',
       'children.0.children.0.parent',
+      'children.0.children.0.children',
       'children.0.children.1.name',
       'children.0.children.1.parent',
+      'children.0.children.1.children',
       'children.1.name',
       'children.1.parent',
       'children.1.children.0.name',
       'children.1.children.0.parent',
+      'children.1.children.0.children',
       'children.1.children.1.name',
-      'children.1.children.1.parent'
+      'children.1.children.1.parent',
+      'children.1.children.1.children'
     ])
   })
 
