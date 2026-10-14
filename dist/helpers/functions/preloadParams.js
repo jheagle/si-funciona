@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Provide an array of parameters to be used with a function, allow the function to be called later
  * with the missing parameter.
@@ -12,7 +12,7 @@ exports.default = void 0
  * @param unassignedParam - Position of missing parameter (zero indexed)
  */
 const preloadParams = (fn, params = [], unassignedParam = 0) => missing => {
-  params.splice(unassignedParam, 0, missing)
-  return fn(...params)
-}
-const _default = exports.default = preloadParams
+  params.splice(unassignedParam, 0, missing);
+  return fn(...params);
+};
+var _default = exports.default = preloadParams;

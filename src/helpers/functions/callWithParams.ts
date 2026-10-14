@@ -1,4 +1,3 @@
-
 /**
  * Given a function, call with the correct number of parameters from an array of possible parameters.
  * @param fn - The function to be called

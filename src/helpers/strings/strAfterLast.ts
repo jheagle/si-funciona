@@ -1,4 +1,3 @@
-
 /**
  * Retrieve the string part after the last search match.
  * @param str - The string to search within.

@@ -2,7 +2,7 @@ import callWithParams from '../functions/callWithParams'
 import objectKeys from './objectKeys'
 
 type filterableItem = Array<any> | {
-  [k: number | string] : any
+  [k: number | string]: any
 }
 
 type filterCallback = (currentProperty: any, currentIndex: keyof filterableItem, object: filterableItem) => boolean

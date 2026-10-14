@@ -1,4 +1,3 @@
-
 export type relevanceObject = {
   source: Array<any> | Object,
   object: Array<any> | Object,

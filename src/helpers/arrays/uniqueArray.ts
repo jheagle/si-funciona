@@ -1,4 +1,3 @@
-
 /**
  * Remove duplicate values from an array. uniqueArray
  * @param array - The array to make unique

@@ -1,4 +1,3 @@
-
 /**
  * Check if the provided thing is an object / array.
  * @param object

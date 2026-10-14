@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Set a value on an item, then return the item.
  * NOTE: Argument order designed for usage with pipe
@@ -13,7 +13,7 @@ exports.default = void 0
  */
 const setValue = (key, value, item) => {
   // @ts-ignore
-  item[key] = value
-  return item
-}
-const _default = exports.default = setValue
+  item[key] = value;
+  return item;
+};
+var _default = exports.default = setValue;

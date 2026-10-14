@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Retrieve the string part before the search match.
  * @param str - The string to search within.
@@ -11,7 +11,7 @@ exports.default = void 0
  * @returns The portion of `str` before the first occurrence of `search`, or `''` if not found.
  */
 const strBefore = (str, search) => {
-  const index = str.indexOf(search)
-  return index === -1 ? '' : str.slice(0, index)
-}
-const _default = exports.default = strBefore
+  const index = str.indexOf(search);
+  return index === -1 ? '' : str.slice(0, index);
+};
+var _default = exports.default = strBefore;

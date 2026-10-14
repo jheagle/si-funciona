@@ -1,13 +1,13 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-const _assignDescriptorDetail = _interopRequireDefault(require('./assignDescriptorDetail'))
-const _describeObjectDetail = _interopRequireDefault(require('./describeObjectDetail'))
-const _objectKeys = _interopRequireDefault(require('../objects/objectKeys'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+var _assignDescriptorDetail = _interopRequireDefault(require("./assignDescriptorDetail"));
+var _describeObjectDetail = _interopRequireDefault(require("./describeObjectDetail"));
+var _objectKeys = _interopRequireDefault(require("../objects/objectKeys"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Trace a single object or array (not its nested objects/arrays - see
  * {@link module:objectDescriptors.describeObjectMap} for that) and return the descriptor which defines its own
@@ -23,28 +23,28 @@ const describeObject = object => {
     references: [],
     isArray: false,
     complete: false
-  }
-  const keys = (0, _objectKeys.default)(object)
+  };
+  const keys = (0, _objectKeys.default)(object);
   for (let i = 0; i < keys.length; ++i) {
-    const key = keys[i]
+    const key = keys[i];
     // @ts-ignore
-    const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++)
+    const newDetail = (0, _describeObjectDetail.default)(object[key], key, descriptor.length++);
     if (typeof key === 'number' && descriptor.details.length) {
-      descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail)
-      descriptor.keys = [0]
+      descriptor.details[0] = (0, _assignDescriptorDetail.default)(descriptor.details[0], newDetail);
+      descriptor.keys = [0];
       if (newDetail.isReference) {
-        descriptor.references = [0]
+        descriptor.references = [0];
       }
-      continue
+      continue;
     }
-    descriptor.details.push(newDetail)
-    descriptor.keys.push(newDetail.key)
+    descriptor.details.push(newDetail);
+    descriptor.keys.push(newDetail.key);
     if (newDetail.isReference) {
-      descriptor.references.push(newDetail.index)
+      descriptor.references.push(newDetail.index);
     }
   }
-  descriptor.isArray = Array.isArray(object)
-  descriptor.complete = !descriptor.references.length
-  return descriptor
-}
-const _default = exports.default = describeObject
+  descriptor.isArray = Array.isArray(object);
+  descriptor.complete = !descriptor.references.length;
+  return descriptor;
+};
+var _default = exports.default = describeObject;

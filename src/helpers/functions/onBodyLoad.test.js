@@ -7,9 +7,9 @@ describe('onBodyLoad', () => {
   test('will use callback once the document body is ready', done => {
     expect.assertions(2)
     const someObject = {
-      'head': null,
-      'body': null,
-      'string': 'hello'
+      head: null,
+      body: null,
+      string: 'hello'
     }
     onBodyLoad(
       () => {
@@ -28,9 +28,9 @@ describe('onBodyLoad', () => {
   test('can be called with different callbacks which will all be called', done => {
     expect.assertions(2)
     const someObject = {
-      'head': null,
-      'body': null,
-      'string': 'hello'
+      head: null,
+      body: null,
+      string: 'hello'
     }
     onBodyLoad(
       () => someObject.head = document.head

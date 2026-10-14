@@ -48,8 +48,8 @@ const queueManager = (queue: IsQueue<queuedItem> = null): queueManagerHandle => 
     // Prepare the generator to be used on the subsequent call
     generator.next()
     return {
-      item: { fn: fn, args: args },
-      generator: generator
+      item: { fn, args },
+      generator
     }
   }
   /**

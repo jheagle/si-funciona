@@ -1,11 +1,11 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-const _descriptorDetail = _interopRequireDefault(require('./descriptorDetail'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+var _descriptorDetail = _interopRequireDefault(require("./descriptorDetail"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const descriptorSample = {
   index: 0,
   details: [_descriptorDetail.default],
@@ -14,5 +14,5 @@ const descriptorSample = {
   references: [],
   isArray: false,
   complete: true
-}
-const _default = exports.default = descriptorSample
+};
+var _default = exports.default = descriptorSample;

@@ -1,3 +1,4 @@
+import emptyObject from './emptyObject'
 import isObject from './isObject'
 
 export type dotNotateableItem = Array<any> | {
@@ -54,7 +55,7 @@ const handleRetainObjects = (retainObjects: Array<dotNotationString> = []): reta
  */
 const performDotNotate = (arrayObject: dotNotateableItem, didRetain: Function, prepend: dotNotationString = '', results: dotNotatedObject = {}): dotNotatedObject => {
   // @ts-ignore
-  for (let key in arrayObject) {
+  for (const key in arrayObject) {
     // @ts-ignore
     const value: any = arrayObject[key]
     const currentKey = `${prepend}${key}`
@@ -63,7 +64,7 @@ const performDotNotate = (arrayObject: dotNotateableItem, didRetain: Function, p
     }
     // An empty object/array has no keys to flatten into - recursing into one would silently drop currentKey
     // from the result entirely, rather than keeping it as the empty value it actually is. Treat it as a leaf.
-    if (isObject(value) && Object.keys(value).length) {
+    if (isObject(value) && !emptyObject(value)) {
       performDotNotate(value, didRetain, `${currentKey}.`, results)
       continue
     }

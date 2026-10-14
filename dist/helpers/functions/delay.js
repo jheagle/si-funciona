@@ -1,29 +1,29 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('regenerator-runtime/runtime')
+});
+exports.default = void 0;
+require("regenerator-runtime/runtime");
 /**
  * Provide a timeout which returns a promise.
  * @param time - Delay in milliseconds
  */
 const delay = (time = 0) => {
-  let cancel = () => undefined
+  let cancel = () => undefined;
   return {
     resolver: new Promise((resolve, reject) => {
       if (isNaN(time)) {
-        reject(new Error(`Invalid delay: ${time}`))
+        reject(new Error(`Invalid delay: ${time}`));
       } else {
-        const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`)
+        const timeoutId = setTimeout(resolve, time, `Delayed for: ${time}`);
         cancel = () => {
-          clearTimeout(timeoutId)
-          reject(new Error(`Cancelled delay: ${time}`))
-        }
+          clearTimeout(timeoutId);
+          reject(new Error(`Cancelled delay: ${time}`));
+        };
       }
     }),
     cancel
-  }
-}
-const _default = exports.default = delay
+  };
+};
+var _default = exports.default = delay;

@@ -1,4 +1,3 @@
-
 const sameValueZero = (first: any, second: any): boolean => first === second || (first !== first && second !== second)
 
 const compare = (first: any, second: any, seen: WeakMap<object, WeakSet<object>>): boolean => {

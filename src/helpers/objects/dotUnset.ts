@@ -16,7 +16,7 @@ const dotUnset = (arrayObject: dotNotateableItem, dotNotation: dotNotationString
     key = dotNotation
   }
   if (key === '*') {
-    for (let wildKey in arrayObject) {
+    for (const wildKey in arrayObject) {
       if (lastKey) {
         // @ts-ignore
         delete arrayObject[wildKey]

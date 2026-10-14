@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Create a single random integer from a set of `range` possible values, starting at the optional offset.
  * With no offset the result is 0 to range - 1 (so range is the number of possible values, the same as an array length
@@ -18,5 +18,5 @@ exports.default = void 0
  * @param interval - Choose the distance between numbers (5, 10, 15 would be 5 for interval, 1 for
  * offset, 3 for range)
  */
-const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval
-const _default = exports.default = randomInteger
+const randomInteger = (range, offset = 0, interval = 1) => (Math.floor(Math.random() * range) + offset) * interval;
+var _default = exports.default = randomInteger;

@@ -1,20 +1,20 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.find.js')
-require('core-js/modules/esnext.iterator.for-each.js')
-const _assignDescriptor = _interopRequireDefault(require('./assignDescriptor'))
-const _checkClearValues = _interopRequireDefault(require('./checkClearValues'))
-const _checkDescriptorComplete = _interopRequireDefault(require('./checkDescriptorComplete'))
-const _compareDescriptor = _interopRequireDefault(require('./compareDescriptor'))
-const _describeObject = _interopRequireDefault(require('./describeObject'))
-const _nextReference = _interopRequireDefault(require('./nextReference'))
-const _sameDescriptor = _interopRequireDefault(require('./sameDescriptor'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.find.js");
+require("core-js/modules/esnext.iterator.for-each.js");
+var _assignDescriptor = _interopRequireDefault(require("./assignDescriptor"));
+var _checkClearValues = _interopRequireDefault(require("./checkClearValues"));
+var _checkDescriptorComplete = _interopRequireDefault(require("./checkDescriptorComplete"));
+var _compareDescriptor = _interopRequireDefault(require("./compareDescriptor"));
+var _describeObject = _interopRequireDefault(require("./describeObject"));
+var _nextReference = _interopRequireDefault(require("./nextReference"));
+var _sameDescriptor = _interopRequireDefault(require("./sameDescriptor"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Trace out the entire object including nested objects, producing a flat descriptorMap - see the
  * {@link module:objectDescriptors} module description for what a descriptor represents and why it's flat. This is
@@ -44,61 +44,61 @@ const describeObjectMap = (object, {
   depthLimit = -1,
   keepValues = false
 } = {}) => {
-  const descriptorMap = [(0, _describeObject.default)(object)]
-  descriptorMap[0].index = 0
+  const descriptorMap = [(0, _describeObject.default)(object)];
+  descriptorMap[0].index = 0;
   const describeReferences = (descriptor, currentDetail, limit = -1, returnCallback = returnMap => returnMap) => {
-    let index = descriptorMap.length
-    const nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined
-    const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null
+    let index = descriptorMap.length;
+    const nextRef = currentDetail ? (0, _nextReference.default)(descriptor, currentDetail.index) : undefined;
+    const nextDetail = typeof nextRef !== 'undefined' ? descriptor.details[nextRef] : null;
     if (currentDetail) {
-      const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]]
+      const vals = descriptor.isArray ? currentDetail.value : [currentDetail.value[currentDetail.value.length - 1]];
       vals.forEach(val => {
-        const tempDescriptor = (0, _describeObject.default)(val)
-        const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor))
+        const tempDescriptor = (0, _describeObject.default)(val);
+        const existingDescriptorIndex = descriptorMap.findIndex(existingDescriptor => (0, _compareDescriptor.default)(tempDescriptor, existingDescriptor));
         if (existingDescriptorIndex >= 0) {
-          index = existingDescriptorIndex
+          index = existingDescriptorIndex;
           if (tempDescriptor.length && (0, _sameDescriptor.default)(tempDescriptor, descriptorMap[existingDescriptorIndex])) {
-            currentDetail.circular = true
-            descriptor.details[currentDetail.index] = currentDetail
+            currentDetail.circular = true;
+            descriptor.details[currentDetail.index] = currentDetail;
           }
         }
         if (index >= mapLimit) {
-          return descriptorMap
+          return descriptorMap;
         }
         if (limit === 0) {
-          return descriptorMap
+          return descriptorMap;
         }
         if (tempDescriptor.isArray) {
-          index = currentDetail.arrayReference ?? index
-          descriptor.details[currentDetail.index].arrayReference = index
+          index = currentDetail.arrayReference ?? index;
+          descriptor.details[currentDetail.index].arrayReference = index;
         } else {
-          index = currentDetail.objectReference ?? index
-          descriptor.details[currentDetail.index].objectReference = index
+          index = currentDetail.objectReference ?? index;
+          descriptor.details[currentDetail.index].objectReference = index;
         }
-        tempDescriptor.index = index
+        tempDescriptor.index = index;
         if (existingDescriptorIndex < 0) {
-          descriptorMap[index] = descriptorMap[index] ? (0, _assignDescriptor.default)(descriptorMap[index], tempDescriptor) : tempDescriptor
+          descriptorMap[index] = descriptorMap[index] ? (0, _assignDescriptor.default)(descriptorMap[index], tempDescriptor) : tempDescriptor;
         }
-        descriptorMap[descriptor.index] = (0, _assignDescriptor.default)(descriptorMap[descriptor.index], descriptor)
-        currentDetail = descriptorMap[descriptor.index].details.find(detail => detail.key === currentDetail.key)
+        descriptorMap[descriptor.index] = (0, _assignDescriptor.default)(descriptorMap[descriptor.index], descriptor);
+        currentDetail = descriptorMap[descriptor.index].details.find(detail => detail.key === currentDetail.key);
         if (!currentDetail.circular) {
-          const newReference = (0, _nextReference.default)(tempDescriptor, -1)
-          const newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null
-          return describeReferences(tempDescriptor, newDetail, --limit, returnMap => describeReferences(descriptor, nextDetail, --limit))
+          const newReference = (0, _nextReference.default)(tempDescriptor, -1);
+          const newDetail = typeof newReference !== 'undefined' ? tempDescriptor.details[newReference] : null;
+          return describeReferences(tempDescriptor, newDetail, --limit, returnMap => describeReferences(descriptor, nextDetail, --limit));
         }
-      })
+      });
     }
-    descriptorMap[descriptor.index] = (0, _assignDescriptor.default)(descriptorMap[descriptor.index], (0, _checkDescriptorComplete.default)(descriptor))
-    descriptorMap[descriptor.index] = (0, _checkClearValues.default)(descriptorMap[descriptor.index], keepValues)
-    return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap)
-  }
-  const descriptor = descriptorMap[0]
-  const currentReference = (0, _nextReference.default)(descriptor, -1)
+    descriptorMap[descriptor.index] = (0, _assignDescriptor.default)(descriptorMap[descriptor.index], (0, _checkDescriptorComplete.default)(descriptor));
+    descriptorMap[descriptor.index] = (0, _checkClearValues.default)(descriptorMap[descriptor.index], keepValues);
+    return nextDetail ? describeReferences(descriptor, nextDetail, --limit) : returnCallback(descriptorMap);
+  };
+  const descriptor = descriptorMap[0];
+  const currentReference = (0, _nextReference.default)(descriptor, -1);
   if (typeof currentReference === 'undefined') {
-    descriptorMap[0] = (0, _assignDescriptor.default)(descriptorMap[0], (0, _checkDescriptorComplete.default)(descriptor))
-    descriptorMap[0] = (0, _checkClearValues.default)(descriptorMap[0], keepValues)
-    return descriptorMap
+    descriptorMap[0] = (0, _assignDescriptor.default)(descriptorMap[0], (0, _checkDescriptorComplete.default)(descriptor));
+    descriptorMap[0] = (0, _checkClearValues.default)(descriptorMap[0], keepValues);
+    return descriptorMap;
   }
-  return describeReferences(descriptor, descriptor.details[currentReference], depthLimit)
-}
-const _default = exports.default = describeObjectMap
+  return describeReferences(descriptor, descriptor.details[currentReference], depthLimit);
+};
+var _default = exports.default = describeObjectMap;

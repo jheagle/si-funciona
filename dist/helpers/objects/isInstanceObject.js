@@ -1,24 +1,24 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/es.array.includes.js')
-const _isObject = _interopRequireDefault(require('./isObject'))
-const _objectKeys = _interopRequireDefault(require('./objectKeys'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+require("core-js/modules/es.array.includes.js");
+var _isObject = _interopRequireDefault(require("./isObject"));
+var _objectKeys = _interopRequireDefault(require("./objectKeys"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Check if the current object has inherited properties.
  * @param object
  */
 const isInstanceObject = object => {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
-    return false
+    return false;
   }
   if (!['Array', 'Function', 'Object'].includes(object.constructor.name)) {
-    return true
+    return true;
   }
-  return object.constructor.name !== 'Array' && (0, _objectKeys.default)(object, true).length > (0, _objectKeys.default)(object).length
-}
-const _default = exports.default = isInstanceObject
+  return object.constructor.name !== 'Array' && (0, _objectKeys.default)(object, true).length > (0, _objectKeys.default)(object).length;
+};
+var _default = exports.default = isInstanceObject;

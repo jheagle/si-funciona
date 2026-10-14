@@ -1,12 +1,12 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.filter.js')
-require('core-js/modules/esnext.iterator.map.js')
+});
+exports.default = void 0;
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.filter.js");
+require("core-js/modules/esnext.iterator.map.js");
 /**
  * Remove elements out of relevance range and update the max relevance.
  * @param map
@@ -19,13 +19,13 @@ const relevancyFilter = (map, {
   relevancyRange = 100
 } = {}) => {
   if (map.length <= mapLimit) {
-    return map
+    return map;
   }
-  const minRelevance = map.length - relevancyRange
-  const filtered = map.filter(reference => reference.relevance >= minRelevance)
+  const minRelevance = map.length - relevancyRange;
+  const filtered = map.filter(reference => reference.relevance >= minRelevance);
   return filtered.map(reference => {
-    reference.relevance = reference.relevance > filtered.length ? filtered.length : reference.relevance
-    return reference
-  })
-}
-const _default = exports.default = relevancyFilter
+    reference.relevance = reference.relevance > filtered.length ? filtered.length : reference.relevance;
+    return reference;
+  });
+};
+var _default = exports.default = relevancyFilter;

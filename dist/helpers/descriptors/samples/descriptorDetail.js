@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 const descriptorDetailSample = {
   index: 0,
   key: 'keyName',
@@ -16,5 +16,5 @@ const descriptorDetailSample = {
   isInstance: false,
   arrayReference: null,
   objectReference: null
-}
-const _default = exports.default = descriptorDetailSample
+};
+var _default = exports.default = descriptorDetailSample;

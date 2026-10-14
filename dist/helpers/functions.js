@@ -1,91 +1,91 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-Object.defineProperty(exports, 'callWithParams', {
+});
+Object.defineProperty(exports, "callWithParams", {
   enumerable: true,
   get: function () {
-    return _callWithParams.default
+    return _callWithParams.default;
   }
-})
-Object.defineProperty(exports, 'curry', {
+});
+Object.defineProperty(exports, "curry", {
   enumerable: true,
   get: function () {
-    return _curry.default
+    return _curry.default;
   }
-})
-exports.default = void 0
-Object.defineProperty(exports, 'delay', {
+});
+exports.default = void 0;
+Object.defineProperty(exports, "delay", {
   enumerable: true,
   get: function () {
-    return _delay.default
+    return _delay.default;
   }
-})
-Object.defineProperty(exports, 'makeBasicQueue', {
+});
+Object.defineProperty(exports, "makeBasicQueue", {
   enumerable: true,
   get: function () {
-    return _makeBasicQueue.default
+    return _makeBasicQueue.default;
   }
-})
-Object.defineProperty(exports, 'onBodyLoad', {
+});
+Object.defineProperty(exports, "onBodyLoad", {
   enumerable: true,
   get: function () {
-    return _onBodyLoad.default
+    return _onBodyLoad.default;
   }
-})
-Object.defineProperty(exports, 'pipe', {
+});
+Object.defineProperty(exports, "pipe", {
   enumerable: true,
   get: function () {
-    return _pipe.default
+    return _pipe.default;
   }
-})
-Object.defineProperty(exports, 'preloadParams', {
+});
+Object.defineProperty(exports, "preloadParams", {
   enumerable: true,
   get: function () {
-    return _preloadParams.default
+    return _preloadParams.default;
   }
-})
-Object.defineProperty(exports, 'queueManager', {
+});
+Object.defineProperty(exports, "queueManager", {
   enumerable: true,
   get: function () {
-    return _queueManager.default
+    return _queueManager.default;
   }
-})
-Object.defineProperty(exports, 'queueTimeout', {
+});
+Object.defineProperty(exports, "queueTimeout", {
   enumerable: true,
   get: function () {
-    return _queueTimeout.default
+    return _queueTimeout.default;
   }
-})
-Object.defineProperty(exports, 'relevancyFilter', {
+});
+Object.defineProperty(exports, "relevancyFilter", {
   enumerable: true,
   get: function () {
-    return _relevancyFilter.default
+    return _relevancyFilter.default;
   }
-})
-Object.defineProperty(exports, 'trace', {
+});
+Object.defineProperty(exports, "trace", {
   enumerable: true,
   get: function () {
-    return _trace.default
+    return _trace.default;
   }
-})
-var _callWithParams = _interopRequireDefault(require('./functions/callWithParams'))
-var _curry = _interopRequireDefault(require('./functions/curry'))
-var _delay = _interopRequireDefault(require('./functions/delay'))
-var _makeBasicQueue = _interopRequireDefault(require('./functions/makeBasicQueue'))
-var _onBodyLoad = _interopRequireDefault(require('./functions/onBodyLoad'))
-var _pipe = _interopRequireDefault(require('./functions/pipe'))
-var _preloadParams = _interopRequireDefault(require('./functions/preloadParams'))
-var _queueManager = _interopRequireDefault(require('./functions/queueManager'))
-var _queueTimeout = _interopRequireDefault(require('./functions/queueTimeout'))
-var _relevancyFilter = _interopRequireDefault(require('./functions/relevancyFilter'))
-var _trace = _interopRequireDefault(require('./functions/trace'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+var _callWithParams = _interopRequireDefault(require("./functions/callWithParams"));
+var _curry = _interopRequireDefault(require("./functions/curry"));
+var _delay = _interopRequireDefault(require("./functions/delay"));
+var _makeBasicQueue = _interopRequireDefault(require("./functions/makeBasicQueue"));
+var _onBodyLoad = _interopRequireDefault(require("./functions/onBodyLoad"));
+var _pipe = _interopRequireDefault(require("./functions/pipe"));
+var _preloadParams = _interopRequireDefault(require("./functions/preloadParams"));
+var _queueManager = _interopRequireDefault(require("./functions/queueManager"));
+var _queueTimeout = _interopRequireDefault(require("./functions/queueTimeout"));
+var _relevancyFilter = _interopRequireDefault(require("./functions/relevancyFilter"));
+var _trace = _interopRequireDefault(require("./functions/trace"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Manage how functions are called with these utilities.
  */
-const _default = exports.default = {
+var _default = exports.default = {
   callWithParams: _callWithParams.default,
   curry: _curry.default,
   delay: _delay.default,
@@ -97,4 +97,4 @@ const _default = exports.default = {
   queueTimeout: _queueTimeout.default,
   relevancyFilter: _relevancyFilter.default,
   trace: _trace.default
-}
+};
