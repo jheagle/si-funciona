@@ -2,7 +2,7 @@ import callWithParams from '../functions/callWithParams'
 import objectKeys from './objectKeys'
 
 type reduceableItem = Array<any> | {
-  [k: number | string] : any
+  [k: number | string]: any
 }
 
 type reduceCallback = (accumulator: any, currentProperty: any, currentIndex: keyof reduceableItem, object: reduceableItem) => any

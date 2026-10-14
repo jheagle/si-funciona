@@ -1,4 +1,3 @@
-
 type settableItem = Array<any> | {
   [k: number | string]: any
 }

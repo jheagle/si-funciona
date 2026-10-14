@@ -1,4 +1,3 @@
-
 /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2

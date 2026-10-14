@@ -1,7 +1,7 @@
 import isObject from './isObject'
 
 type keyableItem = Array<any> | {
-  [k: number | string] : any
+  [k: number | string]: any
 }
 
 /**

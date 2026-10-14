@@ -25,7 +25,7 @@ const delay = (time: number = 0): delayHandler => {
         }
       }
     ),
-    cancel: cancel
+    cancel
   }
 }
 

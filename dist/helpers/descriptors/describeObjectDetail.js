@@ -1,13 +1,13 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-const _emptyObject = _interopRequireDefault(require('../objects/emptyObject'))
-const _isCloneable = _interopRequireDefault(require('../objects/isCloneable'))
-const _isInstanceObject = _interopRequireDefault(require('../objects/isInstanceObject'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+var _emptyObject = _interopRequireDefault(require("../objects/emptyObject"));
+var _isCloneable = _interopRequireDefault(require("../objects/isCloneable"));
+var _isInstanceObject = _interopRequireDefault(require("../objects/isInstanceObject"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Trace a single property's value and produce the descriptorDetail describing it (type, nullability, whether it
  * references a nested object/array, etc.) - the per-property building block used by
@@ -17,7 +17,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @param index - This detail's intended position within its parent descriptor's `details` array.
  */
 const describeObjectDetail = (value, key = 0, index = 0) => {
-  const type = typeof value
+  const type = typeof value;
   return {
     index,
     key,
@@ -30,6 +30,6 @@ const describeObjectDetail = (value, key = 0, index = 0) => {
     isInstance: (0, _isInstanceObject.default)(value),
     arrayReference: null,
     objectReference: null
-  }
-}
-const _default = exports.default = describeObjectDetail
+  };
+};
+var _default = exports.default = describeObjectDetail;

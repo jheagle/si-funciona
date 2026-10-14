@@ -1,77 +1,77 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-Object.defineProperty(exports, 'absoluteMax', {
+});
+Object.defineProperty(exports, "absoluteMax", {
   enumerable: true,
   get: function () {
-    return _absoluteMax.default
+    return _absoluteMax.default;
   }
-})
-Object.defineProperty(exports, 'absoluteMin', {
+});
+Object.defineProperty(exports, "absoluteMin", {
   enumerable: true,
   get: function () {
-    return _absoluteMin.default
+    return _absoluteMin.default;
   }
-})
-Object.defineProperty(exports, 'compare', {
+});
+Object.defineProperty(exports, "compare", {
   enumerable: true,
   get: function () {
-    return _compare.default
+    return _compare.default;
   }
-})
-exports.default = void 0
-Object.defineProperty(exports, 'greatestCommonDivisor', {
+});
+exports.default = void 0;
+Object.defineProperty(exports, "greatestCommonDivisor", {
   enumerable: true,
   get: function () {
-    return _greatestCommonDivisor.default
+    return _greatestCommonDivisor.default;
   }
-})
-Object.defineProperty(exports, 'leastCommonMultiple', {
+});
+Object.defineProperty(exports, "leastCommonMultiple", {
   enumerable: true,
   get: function () {
-    return _leastCommonMultiple.default
+    return _leastCommonMultiple.default;
   }
-})
-Object.defineProperty(exports, 'lowestCommonDenominator', {
+});
+Object.defineProperty(exports, "lowestCommonDenominator", {
   enumerable: true,
   get: function () {
-    return _lowestCommonDenominator.default
+    return _lowestCommonDenominator.default;
   }
-})
-Object.defineProperty(exports, 'randomInteger', {
+});
+Object.defineProperty(exports, "randomInteger", {
   enumerable: true,
   get: function () {
-    return _randomInteger.default
+    return _randomInteger.default;
   }
-})
-Object.defineProperty(exports, 'randomNumber', {
+});
+Object.defineProperty(exports, "randomNumber", {
   enumerable: true,
   get: function () {
-    return _randomNumber.default
+    return _randomNumber.default;
   }
-})
-Object.defineProperty(exports, 'simplestRatio', {
+});
+Object.defineProperty(exports, "simplestRatio", {
   enumerable: true,
   get: function () {
-    return _simplestRatio.default
+    return _simplestRatio.default;
   }
-})
-var _absoluteMax = _interopRequireDefault(require('./numbers/absoluteMax'))
-var _absoluteMin = _interopRequireDefault(require('./numbers/absoluteMin'))
-var _compare = _interopRequireDefault(require('./numbers/compare'))
-var _greatestCommonDivisor = _interopRequireDefault(require('./numbers/greatestCommonDivisor'))
-var _leastCommonMultiple = _interopRequireDefault(require('./numbers/leastCommonMultiple'))
-var _lowestCommonDenominator = _interopRequireDefault(require('./numbers/lowestCommonDenominator'))
-var _randomInteger = _interopRequireDefault(require('./numbers/randomInteger'))
-var _randomNumber = _interopRequireDefault(require('./numbers/randomNumber'))
-var _simplestRatio = _interopRequireDefault(require('./numbers/simplestRatio'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+var _absoluteMax = _interopRequireDefault(require("./numbers/absoluteMax"));
+var _absoluteMin = _interopRequireDefault(require("./numbers/absoluteMin"));
+var _compare = _interopRequireDefault(require("./numbers/compare"));
+var _greatestCommonDivisor = _interopRequireDefault(require("./numbers/greatestCommonDivisor"));
+var _leastCommonMultiple = _interopRequireDefault(require("./numbers/leastCommonMultiple"));
+var _lowestCommonDenominator = _interopRequireDefault(require("./numbers/lowestCommonDenominator"));
+var _randomInteger = _interopRequireDefault(require("./numbers/randomInteger"));
+var _randomNumber = _interopRequireDefault(require("./numbers/randomNumber"));
+var _simplestRatio = _interopRequireDefault(require("./numbers/simplestRatio"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Some number comparators and random number generators.
  */
-const _default = exports.default = {
+var _default = exports.default = {
   absoluteMax: _absoluteMax.default,
   absoluteMin: _absoluteMin.default,
   compare: _compare.default,
@@ -81,4 +81,4 @@ const _default = exports.default = {
   randomInteger: _randomInteger.default,
   randomNumber: _randomNumber.default,
   simplestRatio: _simplestRatio.default
-}
+};

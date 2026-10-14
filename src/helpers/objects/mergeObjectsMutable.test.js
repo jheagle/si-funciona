@@ -33,7 +33,7 @@ test('add large reference onto attribute of first object, with circular referenc
       body: children[0],
       head: children[1],
       parentItem: {},
-      children: children
+      children
     }
   }
   const result = mergeObjectsMutable(children[1], newAttributes)

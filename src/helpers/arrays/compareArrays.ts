@@ -89,7 +89,7 @@ const compareArrays = (...arrays: Array<Array<any>>): compareArrayResultMap => m
       const arrayResults: (1 | -1)[] = keys.map((array: Array<any>): 1 | -1 => array.length ? 1 : -1)
       return [...results, {
         value: attr,
-        keys: keys,
+        keys,
         result: arrayResults.every((result: 1 | -1): boolean => result === 1) ? arrayResults.map((result: 1 | -1): 0 => 0) : arrayResults
       }]
     },

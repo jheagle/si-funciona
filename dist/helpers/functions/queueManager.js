@@ -1,14 +1,14 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.for-each.js')
-require('regenerator-runtime/runtime')
-const _makeBasicQueue = _interopRequireDefault(require('./makeBasicQueue'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.for-each.js");
+require("regenerator-runtime/runtime");
+var _makeBasicQueue = _interopRequireDefault(require("./makeBasicQueue"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Manage functions to run sequentially.
  * @param queue - The queue to manage. Pass a plain array to have it converted into a
@@ -16,8 +16,8 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * `null`) to have one created for you.
  */
 const queueManager = (queue = null) => {
-  let isRunning = false
-  let isPaused = true
+  let isRunning = false;
+  let isPaused = true;
   /**
    * Convert a function to a queueable object.
    * @param resolve
@@ -26,38 +26,38 @@ const queueManager = (queue = null) => {
    * @param args
    */
   const makeQueuedRunnable = (resolve, reject, fn, ...args) => {
-    const generator = (function * () {
-      const item = yield
+    const generator = function* () {
+      const item = yield;
       if (typeof item.fn !== 'function') {
-        return reject(item)
+        return reject(item);
       }
       try {
-        return resolve(item.fn(...item.args))
+        return resolve(item.fn(...item.args));
       } catch (error) {
         // A function which throws rejects its own promise (as one which returns a rejected promise does), instead of
         // throwing out of whichever function happened to finish just before it and starting the next item.
-        return reject(error)
+        return reject(error);
       }
-    }())
+    }();
     // Prepare the generator to be used on the subsequent call
-    generator.next()
+    generator.next();
     return {
       item: {
         fn,
         args
       },
       generator
-    }
-  }
+    };
+  };
   /**
    * After an item is run, THEN run this function to reset isRunning
    * @param result
    */
   const postRun = result => {
-    isRunning = false
-    runNextItem()
-    return result
-  }
+    isRunning = false;
+    runNextItem();
+    return result;
+  };
   /**
    * When a queued function throws (or returns a promise which rejects), carry on with the rest of the queue and pass the
    * error on to whoever queued it - otherwise the queue would stay marked as running and never start another function.
@@ -65,46 +65,46 @@ const queueManager = (queue = null) => {
    * @throws {*} The same error
    */
   const postFailedRun = error => {
-    isRunning = false
-    runNextItem()
-    throw error
-  }
+    isRunning = false;
+    runNextItem();
+    throw error;
+  };
   /**
    * When ready, runs the next queued runnable generator.
    */
   const runNextItem = () => {
     if (!isPaused && !queue.empty() && !isRunning) {
-      isRunning = true
-      let toRun = queue.dequeue()
+      isRunning = true;
+      let toRun = queue.dequeue();
       if (typeof toRun === 'undefined' || toRun === null) {
-        return null
+        return null;
       }
       if (typeof toRun === 'function') {
         new Promise((resolve, reject) => {
-          toRun = makeQueuedRunnable(resolve, reject, toRun)
-          runNextItem()
-        }).then(postRun, postFailedRun)
+          toRun = makeQueuedRunnable(resolve, reject, toRun);
+          runNextItem();
+        }).then(postRun, postFailedRun);
       }
       if ('success' in toRun) {
         // Some run responses return an object with 'success' property.
-        console.info(toRun.success)
-        return null
+        console.info(toRun.success);
+        return null;
       }
       if (!toRun.generator || 'error' in toRun) {
         // Some run responses return an object with an 'error' property
-        let errorMessage = 'Verify queued function implements "done()" state.'
+        let errorMessage = 'Verify queued function implements "done()" state.';
         if ('error' in toRun && toRun.error) {
-          errorMessage = `[${toRun.error}]: ${errorMessage}`
+          errorMessage = `[${toRun.error}]: ${errorMessage}`;
         }
-        throw new Error(errorMessage)
+        throw new Error(errorMessage);
       }
       if (toRun.generator && toRun.item) {
         // Ensure the returned result has both the generator and the item to be valid
-        return toRun.generator.next(toRun.item)
+        return toRun.generator.next(toRun.item);
       }
     }
-    return null
-  }
+    return null;
+  };
   /**
    * Add a function into the queue to be run when ready.
    * @param fn - The function to run when ready
@@ -112,27 +112,27 @@ const queueManager = (queue = null) => {
    * @returns Promise
    */
   const pushAnother = (fn, ...args) => new Promise((resolve, reject) => {
-    queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args))
-    runNextItem()
-  }).then(postRun, postFailedRun)
+    queue.enqueue(makeQueuedRunnable(resolve, reject, fn, ...args));
+    runNextItem();
+  }).then(postRun, postFailedRun);
   if (Array.isArray(queue)) {
-    const queueArray = queue
-    queue = (0, _makeBasicQueue.default)()
-    queueArray.forEach(queued => pushAnother(queued))
+    const queueArray = queue;
+    queue = (0, _makeBasicQueue.default)();
+    queueArray.forEach(queued => pushAnother(queued));
   }
   if (queue === null) {
-    queue = (0, _makeBasicQueue.default)()
+    queue = (0, _makeBasicQueue.default)();
   }
-  runNextItem()
+  runNextItem();
   return {
     start: () => {
-      isPaused = false
-      runNextItem()
+      isPaused = false;
+      runNextItem();
     },
     pause: () => {
-      isPaused = true
+      isPaused = true;
     },
     push: pushAnother
-  }
-}
-const _default = exports.default = queueManager
+  };
+};
+var _default = exports.default = queueManager;

@@ -1,11 +1,11 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-const _isObject = _interopRequireDefault(require('./isObject'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+var _isObject = _interopRequireDefault(require("./isObject"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Get an array of keys from any object or array. Will return empty array when invalid or there are no keys.
  * Optional flag will include the inherited keys from prototype chain when set.
@@ -14,24 +14,24 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  */
 const objectKeys = (object, includeInherited = false) => {
   if (typeof object !== 'function' && !(0, _isObject.default)(object)) {
-    return []
+    return [];
   }
   if (includeInherited) {
-    const propNames = Object.getOwnPropertyNames(object)
+    const propNames = Object.getOwnPropertyNames(object);
     if (propNames.length) {
-      return propNames
+      return propNames;
     }
   }
-  const keys = []
+  const keys = [];
   for (const key in object) {
     if (includeInherited || Object.prototype.hasOwnProperty.call(object, key)) {
       if (Array.isArray(object)) {
-        keys.push(parseInt(key))
-        continue
+        keys.push(parseInt(key));
+        continue;
       }
-      keys.push(key)
+      keys.push(key);
     }
   }
-  return keys
-}
-const _default = exports.default = objectKeys
+  return keys;
+};
+var _default = exports.default = objectKeys;

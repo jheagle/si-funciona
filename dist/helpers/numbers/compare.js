@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Compare two numbers and return:
  * -1 to indicate val1 is less than val2
@@ -12,5 +12,5 @@ exports.default = void 0
  * @param val1 - The first number to compare
  * @param val2 - The second number to compare
  */
-const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1
-const _default = exports.default = compare
+const compare = (val1, val2) => val1 === val2 ? 0 : val1 > val2 ? 1 : -1;
+var _default = exports.default = compare;

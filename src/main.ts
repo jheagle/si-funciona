@@ -25,7 +25,7 @@ const siFunciona = Object.assign(
   functionHelpers,
   numberHelpers,
   objectHelpers,
-  stringHelpers,
+  stringHelpers
 )
 
 export default siFunciona

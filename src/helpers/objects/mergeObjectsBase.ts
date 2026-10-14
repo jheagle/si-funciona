@@ -3,8 +3,8 @@ import reduceObject from './reduceObject'
 import { relevanceMap } from '../functions/relevancyFilter'
 import setValue from './setValue'
 
-type mergeableItem =  Array<any> | {
-  [k: number | string] : any
+type mergeableItem = Array<any> | {
+  [k: number | string]: any
 }
 
 type mergeObjectsCallback = (...objects: Array<Object>) => mergeableItem

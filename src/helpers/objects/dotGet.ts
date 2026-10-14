@@ -18,7 +18,7 @@ const dotGet = (arrayObject: dotNotateableItem, dotNotation: dotNotationString, 
   }
   if (key === '*') {
     const result: Array<any> = []
-    for (let wildKey in arrayObject) {
+    for (const wildKey in arrayObject) {
       // @ts-ignore
       const wildValue: any = arrayObject[wildKey]
       if (lastKey) {

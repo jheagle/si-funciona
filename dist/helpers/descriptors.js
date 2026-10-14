@@ -1,94 +1,94 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-Object.defineProperty(exports, 'assignDescriptor', {
+});
+Object.defineProperty(exports, "assignDescriptor", {
   enumerable: true,
   get: function () {
-    return _assignDescriptor.default
+    return _assignDescriptor.default;
   }
-})
-Object.defineProperty(exports, 'assignDescriptorDetail', {
+});
+Object.defineProperty(exports, "assignDescriptorDetail", {
   enumerable: true,
   get: function () {
-    return _assignDescriptorDetail.default
+    return _assignDescriptorDetail.default;
   }
-})
-Object.defineProperty(exports, 'checkClearValues', {
+});
+Object.defineProperty(exports, "checkClearValues", {
   enumerable: true,
   get: function () {
-    return _checkClearValues.default
+    return _checkClearValues.default;
   }
-})
-Object.defineProperty(exports, 'checkDescriptorComplete', {
+});
+Object.defineProperty(exports, "checkDescriptorComplete", {
   enumerable: true,
   get: function () {
-    return _checkDescriptorComplete.default
+    return _checkDescriptorComplete.default;
   }
-})
-Object.defineProperty(exports, 'cloneDescriptor', {
+});
+Object.defineProperty(exports, "cloneDescriptor", {
   enumerable: true,
   get: function () {
-    return _cloneDescriptor.default
+    return _cloneDescriptor.default;
   }
-})
-Object.defineProperty(exports, 'cloneDescriptorDetail', {
+});
+Object.defineProperty(exports, "cloneDescriptorDetail", {
   enumerable: true,
   get: function () {
-    return _cloneDescriptorDetail.default
+    return _cloneDescriptorDetail.default;
   }
-})
-Object.defineProperty(exports, 'compareDescriptor', {
+});
+Object.defineProperty(exports, "compareDescriptor", {
   enumerable: true,
   get: function () {
-    return _compareDescriptor.default
+    return _compareDescriptor.default;
   }
-})
-exports.default = void 0
-Object.defineProperty(exports, 'describeObject', {
+});
+exports.default = void 0;
+Object.defineProperty(exports, "describeObject", {
   enumerable: true,
   get: function () {
-    return _describeObject.default
+    return _describeObject.default;
   }
-})
-Object.defineProperty(exports, 'describeObjectDetail', {
+});
+Object.defineProperty(exports, "describeObjectDetail", {
   enumerable: true,
   get: function () {
-    return _describeObjectDetail.default
+    return _describeObjectDetail.default;
   }
-})
-Object.defineProperty(exports, 'describeObjectMap', {
+});
+Object.defineProperty(exports, "describeObjectMap", {
   enumerable: true,
   get: function () {
-    return _describeObjectMap.default
+    return _describeObjectMap.default;
   }
-})
-Object.defineProperty(exports, 'nextReference', {
+});
+Object.defineProperty(exports, "nextReference", {
   enumerable: true,
   get: function () {
-    return _nextReference.default
+    return _nextReference.default;
   }
-})
-Object.defineProperty(exports, 'sameDescriptor', {
+});
+Object.defineProperty(exports, "sameDescriptor", {
   enumerable: true,
   get: function () {
-    return _sameDescriptor.default
+    return _sameDescriptor.default;
   }
-})
-var _assignDescriptor = _interopRequireDefault(require('./descriptors/assignDescriptor'))
-var _assignDescriptorDetail = _interopRequireDefault(require('./descriptors/assignDescriptorDetail'))
-var _checkClearValues = _interopRequireDefault(require('./descriptors/checkClearValues'))
-var _checkDescriptorComplete = _interopRequireDefault(require('./descriptors/checkDescriptorComplete'))
-var _cloneDescriptor = _interopRequireDefault(require('./descriptors/cloneDescriptor'))
-var _cloneDescriptorDetail = _interopRequireDefault(require('./descriptors/cloneDescriptorDetail'))
-var _compareDescriptor = _interopRequireDefault(require('./descriptors/compareDescriptor'))
-var _describeObject = _interopRequireDefault(require('./descriptors/describeObject'))
-var _describeObjectMap = _interopRequireDefault(require('./descriptors/describeObjectMap'))
-var _describeObjectDetail = _interopRequireDefault(require('./descriptors/describeObjectDetail'))
-var _nextReference = _interopRequireDefault(require('./descriptors/nextReference'))
-var _sameDescriptor = _interopRequireDefault(require('./descriptors/sameDescriptor'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+var _assignDescriptor = _interopRequireDefault(require("./descriptors/assignDescriptor"));
+var _assignDescriptorDetail = _interopRequireDefault(require("./descriptors/assignDescriptorDetail"));
+var _checkClearValues = _interopRequireDefault(require("./descriptors/checkClearValues"));
+var _checkDescriptorComplete = _interopRequireDefault(require("./descriptors/checkDescriptorComplete"));
+var _cloneDescriptor = _interopRequireDefault(require("./descriptors/cloneDescriptor"));
+var _cloneDescriptorDetail = _interopRequireDefault(require("./descriptors/cloneDescriptorDetail"));
+var _compareDescriptor = _interopRequireDefault(require("./descriptors/compareDescriptor"));
+var _describeObject = _interopRequireDefault(require("./descriptors/describeObject"));
+var _describeObjectMap = _interopRequireDefault(require("./descriptors/describeObjectMap"));
+var _describeObjectDetail = _interopRequireDefault(require("./descriptors/describeObjectDetail"));
+var _nextReference = _interopRequireDefault(require("./descriptors/nextReference"));
+var _sameDescriptor = _interopRequireDefault(require("./descriptors/sameDescriptor"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * A "descriptor" is a flat, serializable snapshot of an object or array's shape: for each property, its type(s),
  * whether it's nullable, and - if the property's own value is itself an object/array - a reference to that nested
@@ -108,7 +108,7 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * instance. A descriptor also doubles as a flat, structured summary of an object's shape, which can be handy for
  * discussion or assessment purposes (e.g. describing what an object looks like without dumping the whole thing).
  */
-const _default = exports.default = {
+var _default = exports.default = {
   assignDescriptor: _assignDescriptor.default,
   assignDescriptorDetail: _assignDescriptorDetail.default,
   checkClearValues: _checkClearValues.default,
@@ -121,4 +121,4 @@ const _default = exports.default = {
   describeObjectDetail: _describeObjectDetail.default,
   nextReference: _nextReference.default,
   sameDescriptor: _sameDescriptor.default
-}
+};

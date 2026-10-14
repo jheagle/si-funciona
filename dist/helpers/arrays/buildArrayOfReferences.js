@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * Leverage buildArrayBase to generate an array filled with references to the provided item.
  * The length defines how long the array should be.
@@ -11,10 +11,10 @@ exports.default = void 0
  * @param length - The desired length of the array
  */
 const buildArrayOfReferences = (item, length) => {
-  const arr = []
+  const arr = [];
   while (arr.length < length) {
-    arr.push(item)
+    arr.push(item);
   }
-  return arr
-}
-const _default = exports.default = buildArrayOfReferences
+  return arr;
+};
+var _default = exports.default = buildArrayOfReferences;

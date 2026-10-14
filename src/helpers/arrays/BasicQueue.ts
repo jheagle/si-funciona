@@ -1,4 +1,3 @@
-
 export type callableLater = { fn?: Function, args?: Array<any> }
 
 export type queuedItem = {

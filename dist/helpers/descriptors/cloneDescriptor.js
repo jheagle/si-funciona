@@ -1,34 +1,34 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.map.js')
-const _cloneDescriptorDetail = _interopRequireDefault(require('./cloneDescriptorDetail'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.map.js");
+var _cloneDescriptorDetail = _interopRequireDefault(require("./cloneDescriptorDetail"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Make a copy of an object descriptor so that the original will not be mutated.
  * @param originalMap - The descriptor to copy.
  * @returns A new, independent copy.
  */
 const cloneDescriptor = originalMap => {
-  const copyMap = {}
+  const copyMap = {};
   // @ts-ignore
-  copyMap.index = originalMap.index || 0
+  copyMap['index'] = originalMap.index || 0;
   // @ts-ignore
-  copyMap.details = originalMap.details.map(_cloneDescriptorDetail.default)
+  copyMap['details'] = originalMap.details.map(_cloneDescriptorDetail.default);
   // @ts-ignore
-  copyMap.length = originalMap.length
+  copyMap['length'] = originalMap.length;
   // @ts-ignore
-  copyMap.keys = originalMap.keys.map(key => key)
+  copyMap['keys'] = originalMap.keys.map(key => key);
   // @ts-ignore
-  copyMap.references = originalMap.references.map(reference => reference)
+  copyMap['references'] = originalMap.references.map(reference => reference);
   // @ts-ignore
-  copyMap.isArray = originalMap.isArray
+  copyMap['isArray'] = originalMap.isArray;
   // @ts-ignore
-  copyMap.complete = originalMap.complete
-  return copyMap
-}
-const _default = exports.default = cloneDescriptor
+  copyMap['complete'] = originalMap.complete;
+  return copyMap;
+};
+var _default = exports.default = cloneDescriptor;

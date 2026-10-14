@@ -1,4 +1,3 @@
-
 /**
  * Create a single random number from offset up to (but never including) offset + range. With optional offset,
  * the distance between the result numbers can be adjusted with interval. Matches randomInteger, which gives the

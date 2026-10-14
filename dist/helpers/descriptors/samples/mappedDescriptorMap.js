@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
+});
+exports.default = void 0;
 /**
  * A worked example descriptorMap, produced by describing a `descriptor` value itself (i.e. describing the shape of
  * a descriptor) - useful as a realistic fixture showing what a multi-entry descriptorMap with actual references
@@ -281,5 +281,5 @@ const mappedDescriptorMap = [{
   references: [],
   isArray: true,
   complete: true
-}]
-const _default = exports.default = mappedDescriptorMap
+}];
+var _default = exports.default = mappedDescriptorMap;

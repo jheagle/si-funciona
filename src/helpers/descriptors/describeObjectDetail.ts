@@ -14,8 +14,8 @@ import { descriptorDetail } from './samples/descriptorDetail'
 const describeObjectDetail = (value: any, key: number | string = 0, index: number = 0): descriptorDetail => {
   const type: string = (typeof value)
   return {
-    index: index,
-    key: key,
+    index,
+    key,
     type: [type],
     value: [value],
     nullable: value === null,

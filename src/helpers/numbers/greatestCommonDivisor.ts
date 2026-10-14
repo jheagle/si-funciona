@@ -1,4 +1,3 @@
-
 /**
  * Return the highest number that can be divided into both numbers.
  * @param num1 - First number to assess

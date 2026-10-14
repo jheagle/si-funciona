@@ -3,7 +3,7 @@ import objectKeys from './objectKeys'
 import setValue from './setValue'
 
 type mappableItem = Array<any> | {
-  [k: number | string] : any
+  [k: number | string]: any
 }
 
 type mapCallback = (currentProperty: any, currentIndex: keyof mappableItem, object: mappableItem) => any

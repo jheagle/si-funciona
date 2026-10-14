@@ -5,15 +5,15 @@ import greatestCommonDivisor from './greatestCommonDivisor'
  * @param numbers - Array of numbers to simplify
  */
 const simplestRatio = (...numbers: number[]): number[] => {
-    if (numbers.length === 0) {
-        return []
-    }
-    let commonDivisor = numbers.reduce((num1: number, num2: number): number => greatestCommonDivisor(num1, num2), 0)
-    // Set to positive so that when we divide the numbers they retain their +/-
-    commonDivisor = Math.abs(commonDivisor)
+  if (numbers.length === 0) {
+    return []
+  }
+  let commonDivisor = numbers.reduce((num1: number, num2: number): number => greatestCommonDivisor(num1, num2), 0)
+  // Set to positive so that when we divide the numbers they retain their +/-
+  commonDivisor = Math.abs(commonDivisor)
 
-    // Simplify the numbers, handle zero
-    return numbers.map((num) => commonDivisor === 0 ? 0 : num / commonDivisor)
+  // Simplify the numbers, handle zero
+  return numbers.map((num) => commonDivisor === 0 ? 0 : num / commonDivisor)
 }
 
 export default simplestRatio

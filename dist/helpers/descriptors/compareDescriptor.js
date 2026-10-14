@@ -1,14 +1,14 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-require('core-js/modules/es.array.includes.js')
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.every.js')
-require('core-js/modules/esnext.iterator.find.js')
-require('core-js/modules/esnext.iterator.some.js')
+});
+exports.default = void 0;
+require("core-js/modules/es.array.includes.js");
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.every.js");
+require("core-js/modules/esnext.iterator.find.js");
+require("core-js/modules/esnext.iterator.some.js");
 /**
  * Check if two descriptors are the same or similar, in that the smaller one's keys are all present in the larger
  * one and their types line up - used to detect when a newly-described value actually matches a descriptor already
@@ -19,13 +19,13 @@ require('core-js/modules/esnext.iterator.some.js')
  */
 const compareDescriptor = (descriptor1, descriptor2) => {
   if (descriptor1.isArray !== descriptor2.isArray) {
-    return false
+    return false;
   }
   if (descriptor1.length === 0 || descriptor2.length === 0) {
-    return descriptor1.length === descriptor2.length
+    return descriptor1.length === descriptor2.length;
   }
-  const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2
-  const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1
-  return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false
-}
-const _default = exports.default = compareDescriptor
+  const smallerDescriptor = descriptor1.length <= descriptor2.length ? descriptor1 : descriptor2;
+  const largerDescriptor = descriptor2.length >= descriptor1.length ? descriptor2 : descriptor1;
+  return smallerDescriptor.keys.every(key => largerDescriptor.keys.includes(key)) ? smallerDescriptor.details.every(detail => detail.type.some(type => largerDescriptor.details.find(foundDetail => foundDetail.key === detail.key).type.includes(type))) : false;
+};
+var _default = exports.default = compareDescriptor;

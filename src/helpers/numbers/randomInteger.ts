@@ -1,4 +1,3 @@
-
 /**
  * Create a single random integer from a set of `range` possible values, starting at the optional offset.
  * With no offset the result is 0 to range - 1 (so range is the number of possible values, the same as an array length

@@ -1,4 +1,3 @@
-
 /**
  * Return a curried version of the passed function.
  * The returned function expects the same number of arguments minus the ones provided.

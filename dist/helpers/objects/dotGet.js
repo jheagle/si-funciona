@@ -1,13 +1,13 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.default = void 0
-const _isObject = _interopRequireDefault(require('./isObject'))
-const _strAfter = _interopRequireDefault(require('../strings/strAfter'))
-const _strBefore = _interopRequireDefault(require('../strings/strBefore'))
-function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: e } }
+});
+exports.default = void 0;
+var _isObject = _interopRequireDefault(require("./isObject"));
+var _strAfter = _interopRequireDefault(require("../strings/strAfter"));
+var _strBefore = _interopRequireDefault(require("../strings/strBefore"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Get a nested property value from an object.
  * @param arrayObject - The array or object to get the property from
@@ -16,42 +16,42 @@ function _interopRequireDefault (e) { return e && e.__esModule ? e : { default: 
  * @returns The value of the property
  */
 const dotGet = (arrayObject, dotNotation, defaultValue = null) => {
-  let key = (0, _strBefore.default)(dotNotation, '.')
-  const lastKey = !key
+  let key = (0, _strBefore.default)(dotNotation, '.');
+  const lastKey = !key;
   if (lastKey) {
-    key = dotNotation
+    key = dotNotation;
   }
   if (key === '*') {
-    const result = []
+    const result = [];
     for (const wildKey in arrayObject) {
       // @ts-ignore
-      const wildValue = arrayObject[wildKey]
+      const wildValue = arrayObject[wildKey];
       if (lastKey) {
         // @ts-ignore
-        result[wildKey] = wildValue
-        continue
+        result[wildKey] = wildValue;
+        continue;
       }
       if (!(0, _isObject.default)(wildValue)) {
-        continue
+        continue;
       }
       // @ts-ignore
-      result[wildKey] = dotGet(wildValue, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
+      result[wildKey] = dotGet(wildValue, (0, _strAfter.default)(dotNotation, '.'), defaultValue);
     }
-    return result
+    return result;
   }
   if (lastKey) {
     // @ts-ignore
-    return arrayObject[dotNotation] ?? defaultValue
+    return arrayObject[dotNotation] ?? defaultValue;
   }
   // @ts-ignore
   if (typeof arrayObject[key] === 'undefined') {
-    return defaultValue
+    return defaultValue;
   }
   // @ts-ignore
-  const next = arrayObject[key]
+  const next = arrayObject[key];
   if (!(0, _isObject.default)(next)) {
-    return defaultValue
+    return defaultValue;
   }
-  return dotGet(next, (0, _strAfter.default)(dotNotation, '.'), defaultValue)
-}
-const _default = exports.default = dotGet
+  return dotGet(next, (0, _strAfter.default)(dotNotation, '.'), defaultValue);
+};
+var _default = exports.default = dotGet;

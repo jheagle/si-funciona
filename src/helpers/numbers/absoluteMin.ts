@@ -1,4 +1,3 @@
-
 /**
  * Helper for returning the absolute min value
  * @param num1 - A number to compare
