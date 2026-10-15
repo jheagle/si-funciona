@@ -2,6 +2,12 @@
   "browser": {
     "name": "siFunciona"
   },
+  "copyFiles": [
+    {
+      "from": "browser/*.js",
+      "to": "../joshuaheagle.local/projects/si-funciona/browser"
+    }
+  ],
   "docs": {
     "enabled": true,
     "from": "src/helpers",
