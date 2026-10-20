@@ -8,6 +8,9 @@
       "to": "../joshuaheagle.local/projects/si-funciona/browser"
     }
   ],
+  "dist": {
+    "main": "dist/browser"
+  },
   "docs": {
     "enabled": true,
     "from": "src/helpers",
