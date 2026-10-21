@@ -10,7 +10,9 @@ const queue = [];
 const manager = (0, _queueManager.default)();
 manager.start();
 let observer = null;
-const doReset = () => observer = null;
+const doReset = () => {
+  observer = null;
+};
 const initializeObserver = async () => {
   observer = new MutationObserver(() => {
     if (document.body) {

@@ -4,7 +4,7 @@ const queue: Array<Function> = []
 const manager = queueManager()
 manager.start()
 let observer: MutationObserver | null = null
-const doReset = (): void => observer = null
+const doReset = (): void => { observer = null }
 const initializeObserver = async () => {
   observer = new MutationObserver(
     () => {

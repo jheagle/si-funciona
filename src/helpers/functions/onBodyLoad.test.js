@@ -33,10 +33,10 @@ describe('onBodyLoad', () => {
       string: 'hello'
     }
     onBodyLoad(
-      () => someObject.head = document.head
+      () => { someObject.head = document.head }
     )
     onBodyLoad(
-      () => someObject.body = document.body
+      () => { someObject.body = document.body }
     )
     onBodyLoad(
       () => {
