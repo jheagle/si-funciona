@@ -1,5 +1,6 @@
 import emptyObject from './emptyObject'
 import isObject from './isObject'
+import regexEscape from '../strings/regexEscape'
 
 export type dotNotateableItem = Array<any> | {
   [k: string]: any
@@ -26,7 +27,8 @@ const handleRetainObjects = (retainObjects: Array<dotNotationString> = []): reta
      */
     return (currentKey: string, value: any, results: object): boolean => false
   }
-  retainObjects = retainObjects.map(key => key.replace('\.', '\\.'))
+  // Escape the keys, or their dots (and any other special character) would act as regex wildcards
+  retainObjects = retainObjects.map(regexEscape)
   const retainRegex = new RegExp(`(${retainObjects.join('|')})$`)
   /**
    * Test if a key should be retained as an object.

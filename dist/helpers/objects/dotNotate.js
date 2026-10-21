@@ -8,6 +8,7 @@ require("core-js/modules/esnext.iterator.constructor.js");
 require("core-js/modules/esnext.iterator.map.js");
 var _emptyObject = _interopRequireDefault(require("./emptyObject"));
 var _isObject = _interopRequireDefault(require("./isObject"));
+var _regexEscape = _interopRequireDefault(require("../strings/regexEscape"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Convert an array of keys into a regex, return a function to test if incoming keys match.
@@ -22,7 +23,8 @@ const handleRetainObjects = (retainObjects = []) => {
      */
     return (currentKey, value, results) => false;
   }
-  retainObjects = retainObjects.map(key => key.replace('\.', '\\.'));
+  // Escape the keys, or their dots (and any other special character) would act as regex wildcards
+  retainObjects = retainObjects.map(_regexEscape.default);
   const retainRegex = new RegExp(`(${retainObjects.join('|')})$`);
   /**
    * Test if a key should be retained as an object.

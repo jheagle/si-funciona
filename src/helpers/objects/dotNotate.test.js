@@ -66,4 +66,18 @@ describe('dotNotate', () => {
       item: 45
     })
   })
+
+  test('keeps the keys listed in retainObjects as objects', () => {
+    expect(dotNotate({ a: { b: { c: 1 } }, d: { e: 2 } }, ['a.b'])).toEqual({
+      'a.b': { c: 1 },
+      'd.e': 2
+    })
+  })
+
+  test('treats every dot in a retained key literally, not as a regex wildcard', () => {
+    expect(dotNotate({ a: { bXc: { d: 1 }, b: { c: { d: 2 } } } }, ['a.b.c'])).toEqual({
+      'a.bXc.d': 1,
+      'a.b.c': { d: 2 }
+    })
+  })
 })
