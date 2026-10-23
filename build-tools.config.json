@@ -15,7 +15,9 @@
     "enabled": true,
     "from": "src/helpers",
     "index": "MAIN.md",
-    "to": "../joshuaheagle.local/projects/si-funciona/docs"
+    "to": "../joshuaheagle.local/projects/si-funciona/docs",
+    "inBuild": false,
+    "gitRevision": "main"
   },
   "typescript": {
     "config": "tsconfig.json",
