@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "gulp build",
+    "prepublishOnly": "npm run build",
     "dev": "gulp",
     "docs": "gulp docs",
     "publish:bundle": "gulp copyFiles",
