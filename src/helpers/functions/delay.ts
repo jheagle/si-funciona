@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime'
-
 type delayHandler = {
   resolver: Promise<any>,
   cancel: () => void,
