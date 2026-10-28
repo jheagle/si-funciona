@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime'
 import delay from './delay'
 import queueManager, { queueManagerHandle } from './queueManager'
 

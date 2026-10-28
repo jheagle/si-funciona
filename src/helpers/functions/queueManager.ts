@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime'
 import { callableLater, IsQueue, queuedItem } from '../arrays/BasicQueue'
 import makeBasicQueue from './makeBasicQueue'
 

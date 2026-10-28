@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime'
 import cloneObject from '../objects/cloneObject'
 
 type outputAndReturn = (value: any) => any
