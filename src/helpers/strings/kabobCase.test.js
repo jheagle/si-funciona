@@ -10,4 +10,8 @@ describe('kabobCase', () => {
   test('will convert Title Case to kabob-case', () => {
     expect(kabobCase('Background Color')).toBe('background-color')
   })
+
+  test('splits an acronym from the word after it (parseJSONResponse)', () => {
+    expect(kabobCase('parseJSONResponse')).toBe('parse-json-response')
+  })
 })

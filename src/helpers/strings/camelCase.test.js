@@ -10,4 +10,8 @@ describe('camelCase', () => {
   test('will convert Title Case to camelCase', () => {
     expect(camelCase('Background Color')).toBe('backgroundColor')
   })
+
+  test('splits an acronym from the word after it (parseJSONResponse)', () => {
+    expect(camelCase('parseJSONResponse')).toBe('parseJsonResponse')
+  })
 })
