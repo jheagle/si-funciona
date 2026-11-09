@@ -17,4 +17,22 @@ describe('words', () => {
     expect(results[10]).toBe('brown')
     expect(results[11]).toBe('DOG')
   })
+
+  test.each([
+    ['parseJSONResponse', ['parse', 'JSON', 'Response']],
+    ['XMLHttpRequest', ['XML', 'Http', 'Request']],
+    ['getHTTPSUrl', ['get', 'HTTPS', 'Url']],
+    ['IOError', ['IO', 'Error']],
+    ['userID', ['user', 'ID']],
+    ['iPhoneApp', ['i', 'Phone', 'App']],
+    ['version2Beta', ['version', '2', 'Beta']],
+    ['ABC', ['ABC']],
+    ['my-API_key now', ['my', 'API', 'key', 'now']]
+  ])('an acronym is a word of its own, also straight before the next word: %s', (input, expected) => {
+    expect(words(input)).toEqual(expected)
+  })
+
+  test('a plural acronym is ambiguous, as in lodash and change-case: MyAPIs is My / AP / Is', () => {
+    expect(words('MyAPIs')).toEqual(['My', 'AP', 'Is'])
+  })
 })
