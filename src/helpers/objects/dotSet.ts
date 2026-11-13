@@ -37,10 +37,12 @@ const dotSet = (arrayObject: dotNotateableItem, dotNotation: dotNotationString, 
     arrayObject[dotNotation] = value
     return arrayObject
   }
+  const rest: string = strAfter(dotNotation, '.')
+  // A missing parent becomes an array only when the next key is an index (a.0), otherwise a plain object (a.b)
   // @ts-ignore
-  const next: any = arrayObject[key] ?? []
+  const next: any = arrayObject[key] ?? (/^\d+$/.test(strBefore(rest, '.') || rest) ? [] : {})
   // @ts-ignore
-  arrayObject[key] = dotSet(next, strAfter(dotNotation, '.'), value)
+  arrayObject[key] = dotSet(next, rest, value)
   return arrayObject
 }
 

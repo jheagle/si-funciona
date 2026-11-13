@@ -23,6 +23,24 @@ describe('dotSet', () => {
     expect(deepReferenceObject.object1.array2[0]).toBe(setValue)
   })
 
+  test('creates a missing parent as a plain object for a named key', () => {
+    const result = dotSet({}, 'group.setting', 'value')
+    expect(Array.isArray(result.group)).toBe(false)
+    expect(result).toEqual({ group: { setting: 'value' } })
+    expect(JSON.stringify(result)).toEqual('{"group":{"setting":"value"}}')
+  })
+
+  test('creates missing parents several levels deep as plain objects', () => {
+    expect(dotSet({}, 'a.b.c', 1)).toEqual({ a: { b: { c: 1 } } })
+  })
+
+  test('creates a missing parent as an array for an index key', () => {
+    const result = dotSet({}, 'list.0', 'first')
+    expect(Array.isArray(result.list)).toBe(true)
+    expect(result).toEqual({ list: ['first'] })
+    expect(dotSet({}, 'list.0.name', 'x')).toEqual({ list: [{ name: 'x' }] })
+  })
+
   test('use wildcard to get all results', () => {
     const setValue = 'test'
     dotSet(circularObject, 'children.*.name', setValue)
