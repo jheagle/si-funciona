@@ -1,6 +1,6 @@
 import isCloneable from './isCloneable'
 import reduceObject from './reduceObject'
-import { relevanceMap } from '../functions/relevancyFilter'
+import type { relevanceMap } from './relevanceMap'
 import setValue from './setValue'
 
 type mergeableItem = Array<any> | {

@@ -1,10 +1,7 @@
-export type relevanceObject = {
-  source: Array<any> | Object,
-  object: Array<any> | Object,
-  relevance: number,
-}
+import type { relevanceMap } from '../objects/relevanceMap'
 
-export type relevanceMap = Array<relevanceObject>
+// Kept here too, so imports of these types from this file keep working until it is removed
+export type { relevanceMap, relevanceObject } from '../objects/relevanceMap'
 
 type relevancyFilterOptions = {
   mapLimit?: number,
@@ -17,6 +14,8 @@ type relevancyFilterOptions = {
  * @param options
  * @param options.mapLimit - Only filter once the map exceeds this many entries.
  * @param options.relevancyRange - How many of the most-recent relevance values to keep.
+ * @deprecated Nothing uses it any more (cloneObject and mergeObjectsBase ignore relevancyRange). It will be removed in
+ * the next major version.
  */
 const relevancyFilter = (map: relevanceMap, { mapLimit = 1000, relevancyRange = 100 }: relevancyFilterOptions = {}): relevanceMap => {
   if (map.length <= mapLimit) {

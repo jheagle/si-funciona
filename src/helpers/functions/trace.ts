@@ -8,6 +8,8 @@ type outputAndReturn = (value: any) => any
  * @param label - Pass an identifying label of the value being output.
  * @param useClone - Determines if the logged data should be a clone of the original to preserve
  * its state at the time of logging (rather than a live reference that may show later mutations).
+ * @deprecated It will be removed in the next major version: use a plain tap instead, e.g.
+ * `value => { console.info(label, value); return value }`.
  */
 const trace = (label: string, useClone: boolean = true): outputAndReturn => (value: any): any => {
   // noinspection JSForgottenDebugStatementInspection
