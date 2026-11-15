@@ -3,6 +3,7 @@
  */
 
 import camelCase from './strings/camelCase'
+import htmlEscape from './strings/htmlEscape'
 import kabobCase from './strings/kabobCase'
 import makeFilepath from './strings/makeFilepath'
 import makeRelativePath from './strings/makeRelativePath'
@@ -18,6 +19,7 @@ import words from './strings/words'
 
 export {
   camelCase,
+  htmlEscape,
   kabobCase,
   makeFilepath,
   makeRelativePath,
@@ -34,6 +36,7 @@ export {
 
 export default {
   camelCase,
+  htmlEscape,
   kabobCase,
   makeFilepath,
   makeRelativePath,

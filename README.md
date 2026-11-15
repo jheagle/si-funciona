@@ -71,6 +71,7 @@ Manage how strings are manipulated with these utilities.
     * [.makeRelativePath(fromFile, toFile)](#module_stringHelpers.makeRelativePath) ⇒ <code>string</code>
     * [.makeFilepath(root, [append])](#module_stringHelpers.makeFilepath) ⇒ <code>string</code>
     * [.kabobCase(str)](#module_stringHelpers.kabobCase) ⇒ <code>string</code>
+    * [.htmlEscape(str)](#module_stringHelpers.htmlEscape) ⇒ <code>string</code>
     * [.camelCase(str)](#module_stringHelpers.camelCase) ⇒ <code>string</code>
 
 <a name="module_stringHelpers.words"></a>
@@ -216,6 +217,19 @@ Given a string in snake_case, camelCase or 'Sentence case', convert to kabob-cas
 | Param | Type | Description |
 | --- | --- | --- |
 | str | <code>string</code> | The string to convert. |
+
+<a name="module_stringHelpers.htmlEscape"></a>
+
+### stringHelpers.htmlEscape(str) ⇒ <code>string</code>
+Escape the characters that HTML gives a meaning to (`&`, `<`, `>`, `"` and `'`), so text from somewhere you don't
+control (a user's name, say) shows as itself when put into `innerHTML` or an attribute value, instead of becoming
+markup or script.
+
+**Kind**: static method of [<code>stringHelpers</code>](#module_stringHelpers)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>string</code> | The text to escape. |
 
 <a name="module_stringHelpers.camelCase"></a>
 
