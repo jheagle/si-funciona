@@ -1,5 +1,7 @@
 # [Sí, funciona](https://www.npmjs.com/package/si-funciona)
 
+[![tests](https://github.com/jheagle/si-funciona/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jheagle/si-funciona/actions/workflows/tests.yml)
+
 ## Funciones de utilidad para uso general. [General usage utility functions.]
 
 ## Modules
